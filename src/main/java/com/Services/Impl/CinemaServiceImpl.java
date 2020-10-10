@@ -10,9 +10,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.Entity.Cinema;
-import com.Entity.Movie;
 import com.Repository.CinemaRepository;
-
 import com.Services.CinemaService;
 
 @Service

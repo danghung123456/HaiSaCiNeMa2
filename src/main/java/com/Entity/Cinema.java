@@ -53,4 +53,5 @@ import javax.persistence.Table;
 		public Cinema() {
 			
 		}
+
 }
