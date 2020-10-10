@@ -1,0 +1,19 @@
+package com.Constant;
+
+public interface Constant {
+    String ERR = "error";
+    String NOT_FOUND = "DATA NOT FOUND!";
+    String INTERAL_SERVER_ERROR = "Internal Server Error. Please Contact Your Author!";
+    String BAD_REQUEST = "Bad request -  Request Param wrong or is required";
+    String UNEXPECTED_ERR  = "An error occurr";
+
+    interface Exception{
+        String URI = "Exception_uri";
+        String STATUS_CODE = "Status_code";
+        String MESSAGE = "Exception_Message";
+    }
+    interface Method {
+        String GET = "GET";
+        String POST = "POST";
+    }
+}
