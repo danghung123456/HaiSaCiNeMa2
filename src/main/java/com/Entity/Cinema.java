@@ -39,7 +39,7 @@ public class Cinema  {
 
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
-	@Column(name = "cinemaId", unique = true, nullable = false)
+	@Column(name = "cinemaid", unique = true, nullable = false)
 	public Integer getCinemaId() {
 		return this.cinemaId;
 	}

@@ -9,7 +9,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
-import com.Entity.Cinema;
+
 import com.Entity.Room;
 
 @Repository
@@ -18,7 +18,7 @@ public interface RoomRepository extends JpaRepository<Room, Integer> {
 	@Query("FROM Room")
 	Page<Room> findAll(Pageable pageable);
 	
-	@Query("FROM Room r WHERE r.roomID= :id")
+	@Query("FROM Room r WHERE r.roomId= :id")
 	Optional<Room> findById(Integer id);
 	
 	@Query(value = "SELECT * FROM Room WHERE r.roomName LIKE %?% ", nativeQuery = true)

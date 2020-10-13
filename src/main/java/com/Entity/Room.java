@@ -43,7 +43,7 @@ public class Room  {
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
 
-	@Column(name = "roomID", unique = true, nullable = false)
+	@Column(name = "roomId", unique = true, nullable = false)
 	public Integer getRoomId() {
 		return this.roomId;
 	}
