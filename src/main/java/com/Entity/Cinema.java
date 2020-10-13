@@ -9,6 +9,8 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+
 import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
@@ -75,7 +77,7 @@ public class Cinema  {
 		this.rooms = rooms;
 	}
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "cinema")
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "cinemaId")
 	public Set<Employee> getEmployees() {
 		return this.employees;
 	}

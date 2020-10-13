@@ -1,5 +1,6 @@
 package com.Entity;
 // default package
+
 // Generated Oct 11, 2020, 8:25:38 PM by Hibernate Tools 5.1.10.Final
 
 import java.io.Serializable;
@@ -9,7 +10,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
-import static javax.persistence.GenerationType.IDENTITY;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -19,7 +20,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "GenreMovie")
-public class GenreMovie  {
+public class GenreMovie {
 
 	private Integer genreId;
 	private String name;
@@ -34,8 +35,7 @@ public class GenreMovie  {
 	}
 
 	@Id
-	@GeneratedValue(strategy = IDENTITY)
-
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "genreId", unique = true, nullable = false)
 	public Integer getGenreId() {
 		return this.genreId;
@@ -46,7 +46,7 @@ public class GenreMovie  {
 	}
 
 	@Column(name = "name")
-	public Serializable getName() {
+	public String getName() {
 		return this.name;
 	}
 
