@@ -15,11 +15,11 @@ import com.Entity.Room;
 @Repository
 public interface RoomRepository extends JpaRepository<Room, Integer> {
 
-	@Query("FROM Room")
-	Page<Room> findAll(Pageable pageable);
-	
-	@Query("FROM Room r WHERE r.roomID= :id")
-	Optional<Room> findById(Integer id);
+//	@Query("FROM Room")
+//	Page<Room> findAll(Pageable pageable);
+//	
+//	@Query("FROM Room r WHERE r.roomID= :id")
+//	Optional<Room> findById(Integer id);
 	
 	@Query(value = "SELECT * FROM Room WHERE r.roomName LIKE %?% ", nativeQuery = true)
 	List<Room> findByName(String name);
