@@ -40,7 +40,7 @@ public class Seat  {
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
 
-	@Column(name = "seatId", unique = true, nullable = false)
+	@Column(name = "seatid", unique = true, nullable = false)
 	public Integer getSeatId() {
 		return this.seatId;
 	}
@@ -50,7 +50,7 @@ public class Seat  {
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "roomId")
+	@JoinColumn(name = "roomid")
 	public Room getRoom() {
 		return this.room;
 	}
@@ -59,7 +59,7 @@ public class Seat  {
 		this.room = room;
 	}
 
-	@Column(name = "seatName")
+	@Column(name = "seatname")
 	public Serializable getSeatName() {
 		return this.seatName;
 	}

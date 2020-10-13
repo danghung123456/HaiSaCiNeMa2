@@ -38,7 +38,7 @@ public class FoodBillDetail {
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
 
-	@Column(name = "foodBillDetail", unique = true, nullable = false)
+	@Column(name = "foodbilldetail", unique = true, nullable = false)
 	public Integer getFoodBillDetail() {
 		return this.foodBillDetail;
 	}
@@ -48,7 +48,7 @@ public class FoodBillDetail {
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "foodId")
+	@JoinColumn(name = "foodid")
 	public Food getFood() {
 		return this.food;
 	}
@@ -58,7 +58,7 @@ public class FoodBillDetail {
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "ticketId")
+	@JoinColumn(name = "ticketid")
 	public Ticket getTicket() {
 		return this.ticket;
 	}

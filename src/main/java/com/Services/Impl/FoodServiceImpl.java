@@ -55,7 +55,7 @@ public class FoodServiceImpl implements FoodService {
 
 	@Override
 	public List<Food> findByName(String name) {
-		return repository.findByName(name);
+		return repository.findByFoodName(name);
 	}
 
 	@Override

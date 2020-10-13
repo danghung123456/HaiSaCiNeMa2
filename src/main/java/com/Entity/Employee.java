@@ -64,7 +64,7 @@ public class Employee  {
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
 
-	@Column(name = "employeeId", unique = true, nullable = false)
+	@Column(name = "employeeid", unique = true, nullable = false)
 	public Integer getEmployeeId() {
 		return this.employeeId;
 	}
@@ -146,7 +146,7 @@ public class Employee  {
 		this.birthday = birthday;
 	}
 
-	@Column(name = "idCard")
+	@Column(name = "idcard")
 	public String getIdCard() {
 		return this.idCard;
 	}

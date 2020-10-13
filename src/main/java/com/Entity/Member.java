@@ -2,7 +2,6 @@ package com.Entity;
 // default package
 // Generated Oct 11, 2020, 8:25:38 PM by Hibernate Tools 5.1.10.Final
 
-import java.io.Serializable;
 import java.sql.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -52,7 +51,7 @@ public class Member  {
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
 
-	@Column(name = "memberId", unique = true, nullable = false)
+	@Column(name = "memberid", unique = true, nullable = false)
 	public Integer getMemberId() {
 		return this.memberId;
 	}
@@ -61,8 +60,8 @@ public class Member  {
 		this.memberId = memberId;
 	}
 
-	@Column(name = "memberName")
-	public Serializable getMemberName() {
+	@Column(name = "membername")
+	public String getMemberName() {
 		return this.memberName;
 	}
 
@@ -98,7 +97,7 @@ public class Member  {
 	}
 
 	@Column(name = "address")
-	public Serializable getAddress() {
+	public String getAddress() {
 		return this.address;
 	}
 
@@ -107,7 +106,7 @@ public class Member  {
 	}
 
 	@Column(name = "birthday")
-	public Serializable getBirthday() {
+	public Date getBirthday() {
 		return this.birthday;
 	}
 
@@ -115,7 +114,7 @@ public class Member  {
 		this.birthday = birthday;
 	}
 
-	@Column(name = "idCard")
+	@Column(name = "idcard")
 	public Integer getIdCard() {
 		return this.idCard;
 	}
@@ -124,7 +123,7 @@ public class Member  {
 		this.idCard = idCard;
 	}
 
-	@Column(name = "totalMoney", precision = 53, scale = 0)
+	@Column(name = "totalmoney", precision = 53, scale = 0)
 	public Double getTotalMoney() {
 		return this.totalMoney;
 	}
