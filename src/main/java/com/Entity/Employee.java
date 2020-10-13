@@ -25,7 +25,7 @@ import javax.persistence.Table;
 public class Employee  {
 
 	private Integer employeeId;
-	private Cinema cinema;
+	private Cinema cinemaId;
 	private String name;
 	private String password;
 	private int role;
@@ -46,9 +46,9 @@ public class Employee  {
 		this.role = role;
 	}
 
-	public Employee(Cinema cinema, String name, String password, int role, String email, String phone,
+	public Employee(Cinema cinemaid, String name, String password, int role, String email, String phone,
 			String address, Date birthday, String idCard, Integer status, Set<Showtimes> showtimeses) {
-		this.cinema = cinema;
+		this.cinemaId = cinemaid;	
 		this.name = name;
 		this.password = password;
 		this.role = role;
@@ -64,7 +64,7 @@ public class Employee  {
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
 
-	@Column(name = "employeeId", unique = true, nullable = false)
+	@Column(name = "employeeid", unique = true, nullable = false)
 	public Integer getEmployeeId() {
 		return this.employeeId;
 	}
@@ -75,12 +75,12 @@ public class Employee  {
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "cinemaId")
-	public Cinema getCinema() {
-		return this.cinema;
+	public Cinema getCinemaId() {
+		return this.cinemaId;
 	}
 
-	public void setCinema(Cinema cinema) {
-		this.cinema = cinema;
+	public void setCinemaId(Cinema cinemaId) {
+		this.cinemaId = cinemaId;
 	}
 
 	@Column(name = "name", nullable = false)

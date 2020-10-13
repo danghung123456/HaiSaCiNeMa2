@@ -39,8 +39,7 @@ public class Food  {
 
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
-
-	@Column(name = "foodId", unique = true, nullable = false)
+	@Column(name = "foodid", unique = true, nullable = false)
 	public Integer getFoodId() {
 		return this.foodId;
 	}
