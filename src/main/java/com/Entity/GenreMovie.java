@@ -1,20 +1,20 @@
 package com.Entity;
-<<<<<<< HEAD
-// default package
 
-=======
 import java.io.Serializable;
 >>>>>>> Fix
 import java.util.HashSet;
 import java.util.Set;
 
+=======
+
+import java.io.Serializable;
+import java.util.List;
+>>>>>>> a
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -30,18 +30,17 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 @Table(name = "GenreMovie")
 //@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class,property = "genreId")
 public class GenreMovie {
-=======
-@Table(name = "genremovie")
-public class GenreMovie{
->>>>>>> Fix
 
+	@Id
+	@GeneratedValue(strategy = IDENTITY)
+	@Column(name = "genreid", unique = true, nullable = false)
 	private Integer genreId;
-	private String name;
-//	@JsonIgnore
-	private Set<MovieGenreDetail> movieGenreDetails = new HashSet<MovieGenreDetail>(0);
 
-	public GenreMovie() {
-	}
+	@Column(name = "name")
+	private String name;
+
+	@OneToMany(mappedBy = "movie")
+	private List<MovieGenreDetail> movieGenreDetail;
 
 	public GenreMovie(String name, Set<MovieGenreDetail> movieGenreDetails) {
 		this.name = name;
@@ -49,15 +48,10 @@ public class GenreMovie{
 	}
 
 	@Id
-<<<<<<< HEAD
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "genreId", unique = true, nullable = false)
-=======
 	@GeneratedValue(strategy = IDENTITY)
 	@Column(name = "genreid", unique = true, nullable = false)
->>>>>>> Fix
 	public Integer getGenreId() {
-		return this.genreId;
+		return genreId;
 	}
 
 	public void setGenreId(Integer genreId) {
@@ -68,19 +62,17 @@ public class GenreMovie{
 	public String getName() {
 		return this.name;
 	}
-
+	
 	public void setName(String name) {
 		this.name = name;
 	}
 
-	@OneToMany(fetch = FetchType.LAZY)
-	@JoinColumn(name="genreid")
-	public Set<MovieGenreDetail> getMovieGenreDetails() {
-		return this.movieGenreDetails;
+	public List<MovieGenreDetail> getMovieGenreDetail() {
+		return movieGenreDetail;
 	}
 
-	public void setMovieGenreDetails(Set<MovieGenreDetail> movieGenreDetails) {
-		this.movieGenreDetails = movieGenreDetails;
+	public void setMovieGenreDetail(List<MovieGenreDetail> movieGenreDetail) {
+		this.movieGenreDetail = movieGenreDetail;
 	}
 
 }
