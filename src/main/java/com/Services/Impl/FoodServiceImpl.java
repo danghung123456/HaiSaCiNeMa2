@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 package com.Services.Impl;
 
 import java.util.ArrayList;
@@ -67,7 +67,7 @@ public class FoodServiceImpl implements FoodService {
 	
 	
 }
-=======
+
 //package com.Services.Impl;
 //
 //import java.util.ArrayList;
@@ -136,4 +136,4 @@ public class FoodServiceImpl implements FoodService {
 //	
 //	
 //}
->>>>>>> 6d6c8bc42570335d28a4f29b6d1dbf5bb431bb14
+

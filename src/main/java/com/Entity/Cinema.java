@@ -10,8 +10,6 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-
 import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
@@ -45,16 +43,8 @@ public class Cinema  {
 		super();
 	}
 
-<<<<<<< HEAD
 	public Integer getCinemaid() {
 		return cinemaid;
-=======
-	@Id
-	@GeneratedValue(strategy = IDENTITY)
-	@Column(name = "cinemaid", unique = true, nullable = false)
-	public Integer getCinemaId() {
-		return this.cinemaId;
->>>>>>> 6d6c8bc42570335d28a4f29b6d1dbf5bb431bb14
 	}
 
 	public void setCinemaid(Integer cinemaid) {
@@ -85,14 +75,8 @@ public class Cinema  {
 		this.room = room;
 	}
 
-<<<<<<< HEAD
 	public List<Employee> getEmployee() {
 		return employee;
-=======
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "cinemaId")
-	public Set<Employee> getEmployees() {
-		return this.employees;
->>>>>>> 6d6c8bc42570335d28a4f29b6d1dbf5bb431bb14
 	}
 
 	public void setEmployee(List<Employee> employee) {

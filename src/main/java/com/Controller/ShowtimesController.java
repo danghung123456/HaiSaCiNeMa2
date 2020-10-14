@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -29,13 +30,19 @@ public class ShowtimesController {
 	private ShowtimesService showtimesService;
 
 	@GetMapping("/index")
-	public  ResponseEntiy<List<Showtimes>> index(Integer page) {
-		List<Showtimes> list;
-		int pageSize = 8;
-		if (page == null) {
-			list = showtimesService.getAll(Pageable.unpaged()).getContent();
+	public  ResponseEntiy<Page<Showtimes>> index(Integer status, Integer page) {
+		Page<Showtimes> list;
+		int pageSize = 5;
+		int st;
+		if (status == null) {
+			st = 1;
 		} else {
-			list = showtimesService.getAll(PageRequest.of(page, pageSize)).getContent();
+			st = status;
+		}
+		if (page == null) {
+			list = showtimesService.findShowtimesByStatus(st, Pageable.unpaged());
+		} else {
+			list = showtimesService.findShowtimesByStatus(st, PageRequest.of(page, pageSize));
 		}
 		return  ResponseEntiy.body(list);
 	}

@@ -15,16 +15,14 @@ import com.Entity.Showtimes;
 @Repository
 public interface ShomtimesRepository extends JpaRepository<Showtimes, Integer> {
 
-	@Query("FROM Showtimes s WHERE s.status = 1")
-	Page<Showtimes> findAllShowtimes(Pageable pageable);
+	@Query("FROM Showtimes s WHERE s.status = :status")
+	Page<Showtimes> findShowtimesByStatus(Integer status ,Pageable pageable);
 
 	@Query("FROM  Showtimes s WHERE s.showtimeId = :id AND s.status = 1")
 	Optional<Showtimes> findByShowtimesId(Integer id);
 
 
-<<<<<<< HEAD
-=======
+
 	@Query(value = "SELECT * FROM Showtimes s WHERE s.movieName LIKE %?% AND m.status = 1", nativeQuery = true)
 	List<Showtimes> findByName(String name);
->>>>>>> 6d6c8bc42570335d28a4f29b6d1dbf5bb431bb14
 }

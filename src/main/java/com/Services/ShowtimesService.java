@@ -7,6 +7,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import com.Entity.Movie;
 import com.Entity.Showtimes;
 
 
@@ -26,4 +27,6 @@ public interface ShowtimesService {
 //    public List<Cinema> findByName(String name);
 
     public Showtimes save(Showtimes showtimes);
+    
+    public Page<Showtimes> findShowtimesByStatus(Integer status, Pageable pageable);
 }

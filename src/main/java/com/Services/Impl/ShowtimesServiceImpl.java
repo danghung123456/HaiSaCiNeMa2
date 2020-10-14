@@ -55,4 +55,10 @@ public class ShowtimesServiceImpl implements ShowtimesService {
 		return repository.saveAndFlush(showtimes);
 	}
 
+	@Override
+	public Page<Showtimes> findShowtimesByStatus(Integer status, Pageable pageable) {
+		
+		return repository.findShowtimesByStatus(status, pageable);
+	}
+
 }

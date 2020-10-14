@@ -36,7 +36,6 @@ public class Food  {
 	@Column(name = "status")
 	Integer status;
 
-<<<<<<< HEAD
 	@OneToMany(mappedBy = "food")
 	List<FoodBillDetail> foodBillDetail;
 
@@ -44,11 +43,6 @@ public class Food  {
 		super();
 	}
 
-=======
-	@Id
-	@GeneratedValue(strategy = IDENTITY)
-	@Column(name = "foodid", unique = true, nullable = false)
->>>>>>> 6d6c8bc42570335d28a4f29b6d1dbf5bb431bb14
 	public Integer getFoodId() {
 		return foodId;
 	}

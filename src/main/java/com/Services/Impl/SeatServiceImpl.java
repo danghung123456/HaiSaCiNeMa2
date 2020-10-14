@@ -38,13 +38,13 @@ public class SeatServiceImpl implements SeatService {
 	@Override
 	public List<Seat> findByName(String name) {
 		// TODO Auto-generated method stub
-		return repository.findByName(name);
+		return repository.findBySeatName(name);
 	}
 
 	@Override
 	public Optional<Seat> findById(Integer id) {
 		// TODO Auto-generated method stub
-		return repository.findById(id);
+		return repository.findBySeatId(id);
 	}
 
 }

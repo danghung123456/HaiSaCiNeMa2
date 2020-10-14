@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 package com.Repository;
 
 import java.util.List;
@@ -26,7 +26,7 @@ public interface RoomRepository extends JpaRepository<Room, Integer> {
 	List<Room> findByRoomName(String name);
 	
 }
-=======
+
 //package com.Repository;
 //
 //import java.util.List;
@@ -62,4 +62,4 @@ public interface RoomRepository extends JpaRepository<Room, Integer> {
 //	List<Room> findByNames(String name);
 //	
 //}
->>>>>>> 6d6c8bc42570335d28a4f29b6d1dbf5bb431bb14
+

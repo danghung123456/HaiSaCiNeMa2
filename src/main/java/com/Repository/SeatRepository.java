@@ -13,12 +13,12 @@ import com.Entity.Seat;
 
 @Repository
 public interface SeatRepository extends JpaRepository<Seat, Integer> {
-	@Query("from Seat")
-	Page<Seat> findAll(Pageable pageable);
+//	@Query("from Seat")
+//	Page<Seat> findAll(Pageable pageable);
 
-	@Query("from Seat s where s.seatId =  ")
-	Optional<Seat> findById(Integer id);
+	@Query("from Seat s where s.seatId = :id ")
+	Optional<Seat> findBySeatId(Integer id);
 
 	@Query(value = "select * from Seat s where s.name = :name", nativeQuery = true)
-	List<Seat> findByName(String name);
+	List<Seat> findBySeatName(String name);
 }
