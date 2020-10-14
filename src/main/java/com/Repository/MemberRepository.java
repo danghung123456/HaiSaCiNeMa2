@@ -12,9 +12,9 @@ import com.Entity.Member;
 @Repository
 public interface MemberRepository extends JpaRepository<Member, Integer> {
 	
-	@Query("FROM  Member m WHERE m.memberId = :id")
-	Optional<Member> findById(Integer id);
-
+//	@Query("FROM  Member m WHERE m.memberId = :id")
+//	Optional<Member> findById(Integer id);
+//
 	@Query(value = "SELECT * FROM Member m WHERE m.memberName LIKE %?%", nativeQuery = true)
-	List<Member> findByName(String name);
+	List<Member> findByMemberName(String name);
 }

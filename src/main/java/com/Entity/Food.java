@@ -39,6 +39,10 @@ public class Food  {
 
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
+<<<<<<< HEAD
+=======
+
+>>>>>>> Fix
 	@Column(name = "foodid", unique = true, nullable = false)
 	public Integer getFoodId() {
 		return this.foodId;

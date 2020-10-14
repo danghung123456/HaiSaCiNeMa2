@@ -43,7 +43,7 @@ public class MovieServiceImpl implements MovieService {
     }
 
     public List<Movie> findByName(String name){
-        return repository.findByName(name);
+        return repository.findByMovieName(name);
     }
 
     public Movie save(Movie movie){

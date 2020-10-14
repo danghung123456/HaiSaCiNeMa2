@@ -146,7 +146,7 @@ public class Employee  {
 		this.birthday = birthday;
 	}
 
-	@Column(name = "idCard")
+	@Column(name = "idcard")
 	public String getIdCard() {
 		return this.idCard;
 	}
