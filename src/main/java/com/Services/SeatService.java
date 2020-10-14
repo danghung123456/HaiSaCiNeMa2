@@ -11,13 +11,13 @@ import com.Entity.Seat;
 
 @Service
 public interface SeatService {
-//	Page<Seat> findAll(Pageable pageable);
-//
-//	List<Seat> findAll();
-//
-//	Seat save(Seat seat);
-//
-//	List<Seat> findByName(String name);
-//
-//	Optional<Seat> findById(Integer id);
+	Page<Seat> findAll(Pageable pageable);
+
+	List<Seat> findAll();
+
+	Seat save(Seat seat);
+
+	List<Seat> findByName(String name);
+
+	Optional<Seat> findById(Integer id);
 }
