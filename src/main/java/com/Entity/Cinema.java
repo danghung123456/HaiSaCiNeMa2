@@ -1,9 +1,10 @@
 package com.Entity;
 // default package
-// Generated Oct 11, 2020, 8:25:38 PM by Hibernate Tools 5.1.10.Final
+// Generated Oct 13, 2020, 8:28:21 PM by Hibernate Tools 5.1.10.Final
 
 import java.io.Serializable;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -20,68 +21,66 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "cinema")
 public class Cinema  {
-
-	private Integer cinemaId;
-	private String name;
-	private String address;
-	private Set<Room> rooms = new HashSet<Room>(0);
-	private Set<Employee> employees = new HashSet<Employee>(0);
-
-	public Cinema() {
-	}
-
-	public Cinema(String name, String address, Set<Room> rooms, Set<Employee> employees) {
-		this.name = name;
-		this.address = address;
-		this.rooms = rooms;
-		this.employees = employees;
-	}
-
+	
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
 	@Column(name = "cinemaid", unique = true, nullable = false)
-	public Integer getCinemaId() {
-		return this.cinemaId;
-	}
-
-	public void setCinemaId(Integer cinemaId) {
-		this.cinemaId = cinemaId;
-	}
+	Integer cinemaid;
 
 	@Column(name = "name")
-	public Serializable getName() {
-		return this.name;
+	String name;
+
+	@Column(name = "address")
+	String  address;
+	
+	@OneToMany(mappedBy = "cinema")
+	List<Room> room;
+
+	@OneToMany(mappedBy = "cinema")
+	List<Employee> employee;
+
+	public Cinema() {
+		super();
+	}
+
+	public Integer getCinemaid() {
+		return cinemaid;
+	}
+
+	public void setCinemaid(Integer cinemaid) {
+		this.cinemaid = cinemaid;
+	}
+
+	public String getName() {
+		return name;
 	}
 
 	public void setName(String name) {
 		this.name = name;
 	}
 
-	@Column(name = "address")
-	public Serializable getAddress() {
-		return this.address;
+	public String getAddress() {
+		return address;
 	}
 
 	public void setAddress(String address) {
 		this.address = address;
 	}
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "cinema")
-	public Set<Room> getRooms() {
-		return this.rooms;
+	public List<Room> getRoom() {
+		return room;
 	}
 
-	public void setRooms(Set<Room> rooms) {
-		this.rooms = rooms;
+	public void setRoom(List<Room> room) {
+		this.room = room;
 	}
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "cinema")
-	public Set<Employee> getEmployees() {
-		return this.employees;
+	public List<Employee> getEmployee() {
+		return employee;
 	}
 
-	public void setEmployees(Set<Employee> employees) {
-		this.employees = employees;
+	public void setEmployee(List<Employee> employee) {
+		this.employee = employee;
 	}
 
 }
