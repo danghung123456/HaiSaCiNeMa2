@@ -41,7 +41,7 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	public List<Member> findByName(String name) {
-		return memberrepository.findByName(name);
+		return memberrepository.findByMemberName(name);
 	}
 
 	public Member save(Member member){

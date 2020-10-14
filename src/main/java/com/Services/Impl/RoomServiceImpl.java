@@ -55,7 +55,7 @@ public class RoomServiceImpl implements RoomService {
 
 	@Override
 	public List<Room> findByName(String name) {
-		return repository.findByName(name);
+		return repository.findByRoomName(name);
 	}
 
 	@Override

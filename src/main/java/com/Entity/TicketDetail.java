@@ -36,7 +36,7 @@ public class TicketDetail  {
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
 
-	@Column(name = "ticketDetailId", unique = true, nullable = false)
+	@Column(name = "ticketdetailid", unique = true, nullable = false)
 	public Integer getTicketDetailId() {
 		return this.ticketDetailId;
 	}
@@ -46,7 +46,7 @@ public class TicketDetail  {
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "seatId")
+	@JoinColumn(name = "seatid")
 	public Seat getSeat() {
 		return this.seat;
 	}
@@ -56,7 +56,7 @@ public class TicketDetail  {
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "ticketId")
+	@JoinColumn(name = "ticketid")
 	public Ticket getTicket() {
 		return this.ticket;
 	}
@@ -65,7 +65,7 @@ public class TicketDetail  {
 		this.ticket = ticket;
 	}
 
-	@Column(name = "seatStatus")
+	@Column(name = "seatstatus")
 	public Boolean getSeatStatus() {
 		return this.seatStatus;
 	}

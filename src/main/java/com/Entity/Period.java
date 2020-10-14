@@ -41,7 +41,7 @@ public class Period  {
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
 
-	@Column(name = "periodId", unique = true, nullable = false)
+	@Column(name = "periodid", unique = true, nullable = false)
 	public Integer getPeriodId() {
 		return this.periodId;
 	}
@@ -50,7 +50,7 @@ public class Period  {
 		this.periodId = periodId;
 	}
 
-	@Column(name = "startTime")
+	@Column(name = "starttime")
 	public Serializable getStartTime() {
 		return this.startTime;
 	}
@@ -59,7 +59,7 @@ public class Period  {
 		this.startTime = startTime;
 	}
 
-	@Column(name = "statusDay")
+	@Column(name = "statusday")
 	public Integer getStatusDay() {
 		return this.statusDay;
 	}

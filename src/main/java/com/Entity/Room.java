@@ -43,7 +43,7 @@ public class Room  {
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
 
-	@Column(name = "roomID", unique = true, nullable = false)
+	@Column(name = "roomid", unique = true, nullable = false)
 	public Integer getRoomId() {
 		return this.roomId;
 	}
@@ -53,7 +53,7 @@ public class Room  {
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "cinemaId")
+	@JoinColumn(name = "cinemaid")
 	public Cinema getCinema() {
 		return this.cinema;
 	}
@@ -62,7 +62,7 @@ public class Room  {
 		this.cinema = cinema;
 	}
 
-	@Column(name = "roomName")
+	@Column(name = "roomname")
 	public Integer getRoomName() {
 		return this.roomName;
 	}
@@ -71,7 +71,7 @@ public class Room  {
 		this.roomName = roomName;
 	}
 
-	@Column(name = "seatAmount")
+	@Column(name = "seatamount")
 	public Integer getSeatAmount() {
 		return this.seatAmount;
 	}

@@ -57,7 +57,7 @@ public class Showtimes  {
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
 
-	@Column(name = "showtimeId", unique = true, nullable = false)
+	@Column(name = "showtimeid", unique = true, nullable = false)
 	public Integer getShowtimeId() {
 		return this.showtimeId;
 	}
@@ -67,7 +67,7 @@ public class Showtimes  {
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "employeeId")
+	@JoinColumn(name = "employeeid")
 	public Employee getEmployee() {
 		return this.employee;
 	}
@@ -77,7 +77,7 @@ public class Showtimes  {
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "movieId", nullable = false)
+	@JoinColumn(name = "movieid", nullable = false)
 	public Movie getMovie() {
 		return this.movie;
 	}
@@ -87,7 +87,7 @@ public class Showtimes  {
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "periodId")
+	@JoinColumn(name = "periodid")
 	public Period getPeriod() {
 		return this.period;
 	}
@@ -97,7 +97,7 @@ public class Showtimes  {
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "roomId", nullable = false)
+	@JoinColumn(name = "roomid", nullable = false)
 	public Room getRoom() {
 		return this.room;
 	}
@@ -115,7 +115,7 @@ public class Showtimes  {
 		this.date = date;
 	}
 
-	@Column(name = "cinemaId")
+	@Column(name = "cinemaid")
 	public Integer getCinemaId() {
 		return this.cinemaId;
 	}

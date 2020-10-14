@@ -33,7 +33,7 @@ public class Feedback  {
 
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
-	@Column(name = "ResponseId", unique = true, nullable = false)
+	@Column(name = "Responseid", unique = true, nullable = false)
 	public Integer getResponseId() {
 		return this.responseId;
 	}
@@ -42,7 +42,7 @@ public class Feedback  {
 		this.responseId = responseId;
 	}
 
-	@Column(name = "Email")
+	@Column(name = "email")
 	public String getEmail() {
 		return this.email;
 	}
@@ -51,7 +51,7 @@ public class Feedback  {
 		this.email = email;
 	}
 
-	@Column(name = "Phone")
+	@Column(name = "phone")
 	public String getPhone() {
 		return this.phone;
 	}
@@ -60,7 +60,7 @@ public class Feedback  {
 		this.phone = phone;
 	}
 
-	@Column(name = "Content")
+	@Column(name = "content")
 	public Serializable getContent() {
 		return this.content;
 	}

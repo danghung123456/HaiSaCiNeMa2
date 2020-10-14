@@ -54,7 +54,7 @@ public class Movie  {
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
 
-	@Column(name = "movieId", unique = true, nullable = false)
+	@Column(name = "movieid", unique = true, nullable = false)
 	public Integer getMovieId() {
 		return this.movieId;
 	}
@@ -63,7 +63,7 @@ public class Movie  {
 		this.movieId = movieId;
 	}
 
-	@Column(name = "movieName")
+	@Column(name = "moviename")
 	public Serializable getMovieName() {
 		return this.movieName;
 	}
@@ -117,7 +117,7 @@ public class Movie  {
 		this.director = director;
 	}
 
-	@Column(name = "ageLimit")
+	@Column(name = "agelimit")
 	public Integer getAgeLimit() {
 		return this.ageLimit;
 	}

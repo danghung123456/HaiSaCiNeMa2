@@ -59,7 +59,7 @@ public class Ticket  {
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
 
-	@Column(name = "ticketId", unique = true, nullable = false)
+	@Column(name = "ticketid", unique = true, nullable = false)
 	public Integer getTicketId() {
 		return this.ticketId;
 	}
@@ -69,7 +69,7 @@ public class Ticket  {
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "memberId")
+	@JoinColumn(name = "memberid")
 	public Member getMember() {
 		return this.member;
 	}
@@ -79,7 +79,7 @@ public class Ticket  {
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "showTimeId")
+	@JoinColumn(name = "showTimeid")
 	public Showtimes getShowtimes() {
 		return this.showtimes;
 	}
@@ -88,7 +88,7 @@ public class Ticket  {
 		this.showtimes = showtimes;
 	}
 
-	@Column(name = "periodId")
+	@Column(name = "periodid")
 	public Integer getPeriodId() {
 		return this.periodId;
 	}
@@ -97,7 +97,7 @@ public class Ticket  {
 		this.periodId = periodId;
 	}
 
-	@Column(name = "roomId")
+	@Column(name = "roomid")
 	public Integer getRoomId() {
 		return this.roomId;
 	}
@@ -106,7 +106,7 @@ public class Ticket  {
 		this.roomId = roomId;
 	}
 
-	@Column(name = "cinemaId")
+	@Column(name = "cinemaid")
 	public Integer getCinemaId() {
 		return this.cinemaId;
 	}
@@ -115,7 +115,7 @@ public class Ticket  {
 		this.cinemaId = cinemaId;
 	}
 
-	@Column(name = "ticketQuantity")
+	@Column(name = "ticketquantity")
 	public Integer getTicketQuantity() {
 		return this.ticketQuantity;
 	}
@@ -124,7 +124,7 @@ public class Ticket  {
 		this.ticketQuantity = ticketQuantity;
 	}
 
-	@Column(name = "ticketPriceAmount", precision = 53, scale = 0)
+	@Column(name = "ticketpriceamount", precision = 53, scale = 0)
 	public Double getTicketPriceAmount() {
 		return this.ticketPriceAmount;
 	}
@@ -133,7 +133,7 @@ public class Ticket  {
 		this.ticketPriceAmount = ticketPriceAmount;
 	}
 
-	@Column(name = "ticketCodeId")
+	@Column(name = "ticketcodeid")
 	public Integer getTicketCodeId() {
 		return this.ticketCodeId;
 	}
