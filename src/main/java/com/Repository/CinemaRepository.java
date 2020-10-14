@@ -22,5 +22,5 @@ public interface CinemaRepository extends JpaRepository<Cinema, Integer> {
 //	Optional<Cinema> findById(Integer id);
 //	
 	@Query(value = "SELECT * FROM Cinema c WHERE c.name LIKE %?% ", nativeQuery = true)
-	List<Cinema> findByName(String name);
+	List<Cinema> findByNames(String name);
 }

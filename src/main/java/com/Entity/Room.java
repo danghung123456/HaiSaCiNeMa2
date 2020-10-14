@@ -47,6 +47,10 @@ public class Room {
 	@OneToMany(mappedBy = "room")
 	List<Seat> seat;
 
+<<<<<<< HEAD
+=======
+	@Column(name = "roomId", unique = true, nullable = false)
+>>>>>>> 6d6c8bc42570335d28a4f29b6d1dbf5bb431bb14
 	public Integer getRoomId() {
 		return roomId;
 	}

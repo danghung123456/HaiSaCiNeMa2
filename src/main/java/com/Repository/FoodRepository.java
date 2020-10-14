@@ -15,9 +15,17 @@ import com.Entity.Food;
 public interface FoodRepository extends JpaRepository<Food, Integer> {
 
 	@Query("FROM Food f WHERE f.status = 1")
+<<<<<<< HEAD
 	Page<Food> findAllFood(Pageable pageable);
 	@Query("FROM Food f WHERE f.foodId = :id AND f.status = 1")
 	Optional<Food> findByFoodId(Integer id);
+=======
+	Page<Food> findAll(Pageable pageable);
+	
+	@Query("FROM Food f WHERE f.foodId = :id AND f.status = 1")
+	Optional<Food> findById(Integer id);
+	
+>>>>>>> 6d6c8bc42570335d28a4f29b6d1dbf5bb431bb14
 	@Query(value = "SELECT * FROM Food f WHERE f.name LIKE %?% AND f.status = 1",nativeQuery = true)
 	List<Food> findByFoodName(String name);
 	

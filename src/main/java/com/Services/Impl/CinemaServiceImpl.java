@@ -53,7 +53,7 @@ public class CinemaServiceImpl implements CinemaService {
 	@Override
 	public List<Cinema> findByName(String name) {
 		
-		return repository.findByName(name);
+		return repository.findByNames(name);
 	}
 
 	@Override

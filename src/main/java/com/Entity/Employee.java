@@ -32,8 +32,23 @@ public class Employee  {
 	@Column(name = "employeeid", unique = true, nullable = false)
 	Integer employeeid;
 
+<<<<<<< HEAD
 	@Column(name = "name")
 	String name;
+=======
+	private Integer employeeId;
+	private Cinema cinemaId;
+	private String name;
+	private String password;
+	private int role;
+	private String email;
+	private String phone;
+	private String address;
+	private Date birthday;
+	private String idCard;
+	private Integer status;
+	private Set<Showtimes> showtimeses = new HashSet<Showtimes>(0);
+>>>>>>> 6d6c8bc42570335d28a4f29b6d1dbf5bb431bb14
 
 	@Column(name = "password")
 	String password;
@@ -41,8 +56,25 @@ public class Employee  {
 	@Column(name = "role")
 	int role;
 
+<<<<<<< HEAD
 	@Column(name = "email")
 	String email;
+=======
+	public Employee(Cinema cinemaid, String name, String password, int role, String email, String phone,
+			String address, Date birthday, String idCard, Integer status, Set<Showtimes> showtimeses) {
+		this.cinemaId = cinemaid;	
+		this.name = name;
+		this.password = password;
+		this.role = role;
+		this.email = email;
+		this.phone = phone;
+		this.address = address;
+		this.birthday = birthday;
+		this.idCard = idCard;
+		this.status = status;
+		this.showtimeses = showtimeses;
+	}
+>>>>>>> 6d6c8bc42570335d28a4f29b6d1dbf5bb431bb14
 
 	@Column(name = "phone")
 	String  phone;
@@ -71,20 +103,33 @@ public class Employee  {
 		super();
 	}
 
+<<<<<<< HEAD
 	public Integer getEmployeeid() {
 		return employeeid;
+=======
+	@Column(name = "employeeid", unique = true, nullable = false)
+	public Integer getEmployeeId() {
+		return this.employeeId;
+>>>>>>> 6d6c8bc42570335d28a4f29b6d1dbf5bb431bb14
 	}
 
 	public void setEmployeeid(Integer employeeid) {
 		this.employeeid = employeeid;
 	}
 
+<<<<<<< HEAD
 	public Cinema getCinema() {
 		return cinema;
+=======
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "cinemaId")
+	public Cinema getCinemaId() {
+		return this.cinemaId;
+>>>>>>> 6d6c8bc42570335d28a4f29b6d1dbf5bb431bb14
 	}
 
-	public void setCinema(Cinema cinema) {
-		this.cinema = cinema;
+	public void setCinemaId(Cinema cinemaId) {
+		this.cinemaId = cinemaId;
 	}
 
 	public String getName() {

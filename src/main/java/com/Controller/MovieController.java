@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,13 +28,21 @@ public class MovieController {
 	private MovieService movieService;
 
 	@GetMapping("/index")
-	public  ResponseEntiy<List<Movie>> index(Integer page) {
-		List<Movie> list;
+	public  ResponseEntiy<Page<Movie>> index(Integer status ,Integer page) {
+		Page<Movie> list;
+		//1 trang có 5 phim
 		int pageSize = 5;
-		if (page == null) {
-			list = movieService.getAll(Pageable.unpaged()).getContent();
+		//Tìm danh sách phim theo status(status: 0: ngừng chiếu, 1: đang chiếu, 2: sắp chiếu)
+		int st;
+		if (status == null) {
+			st = 1;
 		} else {
-			list = movieService.getAll(PageRequest.of(page, pageSize)).getContent();
+			st = status;
+		}
+		if (page == null) {
+			list = movieService.findMovieByStatus(st, Pageable.unpaged());
+		} else {
+			list = movieService.findMovieByStatus(st, PageRequest.of(page, pageSize));
 		}
 		return  ResponseEntiy.body(list);
 	}
