@@ -43,10 +43,13 @@ public class MovieServiceImpl implements MovieService {
     }
 
     public List<Movie> findByName(String name){
-        return repository.findByName(name);
+        return repository.findByMovieName(name);
     }
 
     public Movie save(Movie movie){
         return repository.saveAndFlush(movie);
     }
+    public Page<Movie> findMovieByStatus(Integer status, Pageable pageable) {
+		return repository.findMovieByStatus(status, pageable);
+	}
 }

@@ -15,6 +15,7 @@ import com.Entity.Seat;
 public interface SeatRepository extends JpaRepository<Seat, Integer> {
 //	@Query("from Seat")
 //	Page<Seat> findAll(Pageable pageable);
+<<<<<<< HEAD
 //
 //	@Query("from Seat s where s.seatId =  ")
 //	Optional<Seat> findById(Integer id);
@@ -23,3 +24,12 @@ public interface SeatRepository extends JpaRepository<Seat, Integer> {
 //	List<Seat> findByName(String name);
 //}
 }
+=======
+
+	@Query("from Seat s where s.seatId = :id ")
+	Optional<Seat> findBySeatId(Integer id);
+
+	@Query(value = "select * from Seat s where s.name = :name", nativeQuery = true)
+	List<Seat> findBySeatName(String name);
+}
+>>>>>>> ductai

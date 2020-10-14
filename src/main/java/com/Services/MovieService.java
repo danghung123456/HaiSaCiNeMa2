@@ -10,17 +10,19 @@ import java.util.Optional;
 @Service
 public interface MovieService {
 
-    public Page<Movie> getAll(Pageable pageable);
+	 public Page<Movie> getAll(Pageable pageable);
 
-    public void deleteAll();
+	    public Movie add(Movie movie);
+	    
+	    public Movie save(Movie movie);
+	    
+	    public void deleteAll();
 
-    public Movie add(Movie movie);
-
-    public List<Movie> addAll(List<Movie> list);
-    
-    public Optional<Movie> findById(Integer id);
-    
-    public List<Movie> findByName(String name);
-
-    public Movie save(Movie movie);
+	    public List<Movie> addAll(List<Movie> list);
+	    
+	    public Page<Movie> findMovieByStatus(Integer status, Pageable pageable);
+	    
+	    public Optional<Movie> findById(Integer id);
+	    
+	    public List<Movie> findByName(String name);
 }

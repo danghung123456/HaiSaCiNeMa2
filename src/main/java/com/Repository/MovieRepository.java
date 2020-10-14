@@ -13,12 +13,12 @@ import com.Entity.Movie;
 
 @Repository
 public interface MovieRepository extends JpaRepository<Movie, Integer> {
-	@Query("FROM Movie m WHERE m.status = 1")
-	Page<Movie> findAll(Pageable pageable);
+	@Query("FROM Movie m WHERE m.status = :status")
+	Page<Movie> findMovieByStatus(Integer status ,Pageable pageable);
 
-	@Query("FROM  Movie m WHERE m.movieId = :id AND m.status = 1")
-	Optional<Movie> findById(Integer id);
+	@Query("FROM  Movie m WHERE m.movieId = :id")
+	Optional<Movie> findByMovieId(Integer id);
 
-	@Query(value = "SELECT * FROM Movie m WHERE m.movieName LIKE %?% AND m.status = 1", nativeQuery = true)
-	List<Movie> findByName(String name);
+	@Query(value = "SELECT m FROM Movie m WHERE m.movieName LIKE %:name%")
+	List<Movie> findByMovieName(String name);
 }

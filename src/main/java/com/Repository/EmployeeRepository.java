@@ -11,9 +11,9 @@ import com.Entity.Employee;
 @Repository
 public interface EmployeeRepository extends JpaRepository<Employee, Integer> {
 	
-	@Query("FROM  Employee m WHERE m.employeeId = :id")
-	Optional<Employee> findById(Integer id);
-
+//	@Query("FROM  Employee m WHERE m.employeeId = :id")
+//	Optional<Employee> findById(Integer id);
+//
 	@Query(value = "SELECT * FROM Employee e WHERE e.employeeName LIKE %?% AND e.status = 1", nativeQuery = true)
 	List<Employee> findByName(String name);
 }
