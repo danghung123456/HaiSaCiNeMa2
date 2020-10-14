@@ -71,7 +71,7 @@ public class GenreController {
 			Optional<GenreMovie> checkGenre = genreService.findById(genreDTO.getGenreId());
 			if (checkGenre.isPresent()) {
 				GenreMovie genre = genreDTO.convertToGenreEntity();
-				return ResponseEntiy.body(genre);
+				return ResponseEntiy.body(genreService.save(genre));
 			} else {
 				return ResponseEntiy.body(Constant.NOT_FOUND);
 			}

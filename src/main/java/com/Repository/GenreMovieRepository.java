@@ -12,8 +12,8 @@ import org.springframework.data.repository.query.Param;
 import com.Entity.GenreMovie;
 
 public interface GenreMovieRepository extends JpaRepository<GenreMovie, Integer> {
-	@Query("from GenreMovie")
-	Page<GenreMovie> findAll(Pageable pageable);
+//	@Query("from GenreMovie")
+//	Page<GenreMovie> findAll(Pageable pageable);
 
 	@Query("from GenreMovie g where g.genreId = :id")
 	Optional<GenreMovie> findById(Integer id);
