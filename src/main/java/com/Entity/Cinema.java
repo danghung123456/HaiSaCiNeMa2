@@ -2,14 +2,13 @@ package com.Entity;
 // default package
 // Generated Oct 13, 2020, 8:28:21 PM by Hibernate Tools 5.1.10.Final
 
-import java.io.Serializable;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+
 import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
@@ -75,6 +74,7 @@ public class Cinema  {
 		this.room = room;
 	}
 
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "cinemaId")
 	public List<Employee> getEmployee() {
 		return employee;
 	}
