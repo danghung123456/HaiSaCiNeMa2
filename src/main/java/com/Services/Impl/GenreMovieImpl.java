@@ -45,6 +45,12 @@ public class GenreMovieImpl implements GenreMovieService {
 		return repository.save(genre);
 	}
 
+	@Override
+	public Page<GenreMovie> getAll(Pageable pageable) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 //	@Override
 //	public Page<GenreMovie> getAll(Pageable pageable) {
 //		// TODO Auto-generated method stub
