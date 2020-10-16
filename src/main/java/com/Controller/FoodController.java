@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,6 +19,7 @@ import com.Constant.*;
 import com.DTO.FoodDTO;
 import com.DTO.Base.ResponseEntiy;
 import com.Entity.Food;
+import com.Entity.Movie;
 import com.Services.FoodService;
 
 
@@ -29,13 +31,21 @@ public class FoodController {
 	private FoodService foodService;
 	
 	@GetMapping("/index")
-	public  ResponseEntiy<List<Food>> index(Integer page) {
-		List<Food> list;
+	public  ResponseEntiy<Page<Food>> index(Integer status ,Integer page) {
+		Page<Food> list;
+		//1 trang có 5 food
 		int pageSize = 5;
-		if (page == null) {
-			list = foodService.getAll(Pageable.unpaged()).getContent();
+		//Tìm danh sách food theo status(status: 0: khong con, 1: đang co)
+		int st;
+		if (status == null) {
+			st = 1;
 		} else {
-			list = foodService.getAll(PageRequest.of(page, pageSize)).getContent();
+			st = status;
+		}
+		if (page == null) {
+			list = foodService.findFoodByStatus(st, Pageable.unpaged());
+		} else {
+			list = foodService.findFoodByStatus(st, PageRequest.of(page, pageSize));
 		}
 		return  ResponseEntiy.body(list);
 	}
@@ -46,6 +56,7 @@ public class FoodController {
 			return ResponseEntiy.body(Constant.BAD_REQUEST);
 		}else {
 			foodDTO.setFoodId(null);
+//			foodDTO.setStatus(1);
 			Food food = foodDTO.convertToFood();
 			return ResponseEntiy.body(foodService.add(food));
 		}
