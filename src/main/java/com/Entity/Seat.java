@@ -32,16 +32,17 @@ public class Seat  {
 	Integer seatId;
 
 	@ManyToOne
-	@JsonIgnore
 	@JoinColumn(name = "roomid")
 	Room room;
 
 	@Column(name = "seatname")
 	String seatName;
 	
+	@JsonIgnore
 	@OneToMany(mappedBy = "seat")
 	List<SeatStatus> seatStatus;
 
+	@JsonIgnore
 	@OneToMany(mappedBy = "seat")
 	List<TicketDetail> ticketDetail;
 

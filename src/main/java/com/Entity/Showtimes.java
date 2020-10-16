@@ -33,22 +33,18 @@ public class Showtimes {
 	Integer showtimeId;
 
 	@ManyToOne
-	@JsonIgnore
 	@JoinColumn(name = "employeeid")
 	Employee employee;
 
 	@ManyToOne
-	@JsonIgnore
 	@JoinColumn(name = "movieid")
 	Movie movie;
 
 	@ManyToOne
-	@JsonIgnore
 	@JoinColumn(name = "periodid")
 	Period period;
 
 	@ManyToOne
-	@JsonIgnore
 	@JoinColumn(name = "roomid")
 	Room room;
 
@@ -58,6 +54,7 @@ public class Showtimes {
 	@Column(name = "status")
 	Integer status;
 
+	@JsonIgnore
 	@OneToMany(mappedBy = "showtimes")
 	List<SeatStatus> seatStatus;
 

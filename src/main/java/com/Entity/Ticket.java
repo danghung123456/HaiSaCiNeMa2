@@ -31,7 +31,6 @@ public class Ticket {
 	Integer ticketId;
 
 	@ManyToOne
-	@JsonIgnore
 	@JoinColumn(name = "memberid")
 	Member member;
 	
@@ -47,9 +46,11 @@ public class Ticket {
 	@Column(name = "total")
 	Float total;
 
+	@JsonIgnore
 	@OneToMany(mappedBy = "ticket")
 	List<TicketDetail> ticketDetail;
 	
+	@JsonIgnore
 	@OneToMany(mappedBy = "ticket")
 	List<FoodBillDetail> foodBillDetail;
 

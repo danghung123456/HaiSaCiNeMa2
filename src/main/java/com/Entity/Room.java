@@ -31,7 +31,6 @@ public class Room {
 	Integer roomId;
 	
 	@ManyToOne
-	@JsonIgnore
 	@JoinColumn(name = "cinemaId")
 	Cinema cinema;
 
@@ -41,9 +40,11 @@ public class Room {
 	@Column(name = "seatamount")
 	Integer seatAmount;
 
+	@JsonIgnore
 	@OneToMany(mappedBy = "room")
 	List<Showtimes> showtimes;
 
+	@JsonIgnore
 	@OneToMany(mappedBy = "room")
 	List<Seat> seat;
 

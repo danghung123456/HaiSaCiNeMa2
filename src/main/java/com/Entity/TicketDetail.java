@@ -27,12 +27,10 @@ public class TicketDetail {
 	Integer ticketDetailId;
 	
 	@ManyToOne
-	@JsonIgnore
 	@JoinColumn(name = "seatid")
 	Seat seat;
 
 	@ManyToOne
-	@JsonIgnore
 	@JoinColumn(name = "ticketid")
 	Ticket ticket;
 
