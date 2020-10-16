@@ -34,7 +34,8 @@ public class Period {
 
 	@Column(name = "price")
 	Float price;
-
+	
+	
 	@OneToMany(mappedBy = "period")
 	List<Showtimes> showtimes;
 

@@ -13,7 +13,7 @@ import com.Entity.Cinema;
 
 @Service
 public interface CinemaService {
-	 public Page<Cinema> getAll(Pageable pageable);
+	 	public Page<Cinema> getAll(Pageable pageable);
 
 	    public void deleteAll();
 

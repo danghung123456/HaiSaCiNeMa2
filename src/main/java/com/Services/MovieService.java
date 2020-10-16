@@ -10,7 +10,7 @@ import java.util.Optional;
 @Service
 public interface MovieService {
 
-	 public Page<Movie> getAll(Pageable pageable);
+	 	public Page<Movie> getAll(Pageable pageable);
 
 	    public Movie add(Movie movie);
 	    
@@ -25,4 +25,6 @@ public interface MovieService {
 	    public Optional<Movie> findById(Integer id);
 	    
 	    public List<Movie> findByName(String name);
+	    
+	   
 }

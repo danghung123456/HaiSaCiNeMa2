@@ -8,6 +8,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.Entity.Food;
+import com.Entity.Movie;
 
 @Service
 public interface FoodService {
@@ -25,5 +26,7 @@ public interface FoodService {
     public List<Food> findByName(String name);
 
     public Food save(Food food);
+    
+    public Page<Food> findFoodByStatus(Integer status, Pageable pageable);
 	
 }
