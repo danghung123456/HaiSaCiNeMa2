@@ -41,7 +41,6 @@ public class GenreController {
 //			list = genreService.getAll(PageRequest.of(page, pageSize)).getContent();
 //
 //		}
-////		response en ti y :v 
 //		return ResponseEntiy.body(list);
 //	}
 	@GetMapping("/index")
