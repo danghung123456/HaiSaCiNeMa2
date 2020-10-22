@@ -1,6 +1,8 @@
 package com.DTO;
 
 import java.sql.Date;
+
+import com.Entity.Cinema;
 import com.Entity.Employee;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -40,9 +42,13 @@ public class EmployeeDTO {
     public Employee convertToEmployee() {
         ObjectMapper mapper = new ObjectMapper();
         Employee employee = mapper.convertValue(this, Employee.class);
-//        if(isNull(status)){
-//            employee.setStatus(1);
-//        }
+        if(isNull(status)){
+            employee.setStatus(1);
+        }
+        Cinema cinema = new Cinema();
+        cinema.setCinemaId(this.getCinemaId());
+        employee.setCinema(cinema);
+        
         return employee;
     }
 	public Integer getEmployeeId() {

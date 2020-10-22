@@ -10,6 +10,7 @@ public class FoodDTO {
 	private String name;
 	private Double price;
 	private Integer status;
+	
 	public Integer getFoodId() {
 		return foodId;
 	}

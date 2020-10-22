@@ -27,7 +27,7 @@ public class Cinema  {
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
 	@Column(name = "cinemaid", unique = true, nullable = false)
-	Integer cinemaid;
+	Integer cinemaId;
 
 	@Column(name = "name")
 	String name;
@@ -47,12 +47,12 @@ public class Cinema  {
 		super();
 	}
 
-	public Integer getCinemaid() {
-		return cinemaid;
+	public Integer getCinemaId() {
+		return cinemaId;
 	}
 
-	public void setCinemaid(Integer cinemaid) {
-		this.cinemaid = cinemaid;
+	public void setCinemaId(Integer cinemaId) {
+		this.cinemaId = cinemaId;
 	}
 
 	public String getName() {
