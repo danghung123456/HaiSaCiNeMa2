@@ -75,7 +75,6 @@ public class CinemaController {
             Optional<Cinema> checkCinema = cinemaService.findById(cinemaDTO.getCinemaId());
             if (checkCinema.isPresent()) {
             	Cinema cinema = cinemaDTO.convertToCinema();
-//            	movie.setStatus(0);
                 return ResponseEntiy.body(cinemaService.save(cinema));
             } else {
                 return ResponseEntiy.body(Constant.NOT_FOUND);

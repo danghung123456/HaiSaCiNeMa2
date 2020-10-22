@@ -1,7 +1,5 @@
 package com.DTO;
 
-
-
 import com.Entity.Period;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -10,9 +8,7 @@ public class PeriodDTO {
 	private String startTime;
 	private Integer statusDay;
 	private float price;
-	
-	
-	
+
 	@Override
 	public String toString() {
 		return "PeriodDTO [periodId=" + periodId + ", startTime=" + startTime + ", statusDay=" + statusDay + ", price="
@@ -52,27 +48,25 @@ public class PeriodDTO {
 	}
 
 	public boolean isNull(boolean includeId) {
-        boolean res = isNull(startTime) || isNull(statusDay) ;
-        return includeId ? res || isNull(periodId) : res;
-    }
+		boolean res = isNull(startTime) || isNull(statusDay);
+		return includeId ? res || isNull(periodId) : res;
+	}
 
-    private boolean isNull(String input) {
-        return input == null || input.trim().length() == 0;
-    }
+	private boolean isNull(String input) {
+		return input == null || input.trim().length() == 0;
+	}
 
-    private boolean isNull(Integer input) {
-        return input == null;
-    }
-	
-    public Period convertToPeriod() {
-        ObjectMapper mapper = new ObjectMapper();
-        Period period = mapper.convertValue(this, Period.class);
-//        if(isNull(status)){
-//            movie.setStatus(1);
-//        }
-        return period;
-    }
-    public PeriodDTO() {
-    	
-    }
+	private boolean isNull(Integer input) {
+		return input == null;
+	}
+
+	public Period convertToPeriod() {
+		ObjectMapper mapper = new ObjectMapper();
+		Period period = mapper.convertValue(this, Period.class);
+		return period;
+	}
+
+	public PeriodDTO() {
+
+	}
 }

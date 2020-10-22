@@ -3,12 +3,10 @@ package com.DTO;
 import com.Entity.GenreMovie;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-public class GenreDTO  {
-
+public class GenreMovieDTO {
 
 	private Integer genreId;
 	private String name;
-
 
 	public void setGenreId(Integer genreId) {
 		this.genreId = genreId;
@@ -27,17 +25,17 @@ public class GenreDTO  {
 	}
 
 	public boolean isNull(boolean includeId) {
-        boolean res = isNull(name);
-        return includeId ? res || isNull(genreId) : res;
-    }
+		boolean res = isNull(name);
+		return includeId ? res || isNull(genreId) : res;
+	}
 
-    private boolean isNull(String input) {
-        return input == null || input.trim().length() == 0;
-    }
+	private boolean isNull(String input) {
+		return input == null || input.trim().length() == 0;
+	}
 
-    private boolean isNull(Integer input) {
-        return input == null;
-    }
+	private boolean isNull(Integer input) {
+		return input == null;
+	}
 
 	public GenreMovie convertToGenreEntity() {
 		ObjectMapper mapper = new ObjectMapper();
