@@ -21,8 +21,6 @@ public interface ShomtimesRepository extends JpaRepository<Showtimes, Integer> {
 	@Query("FROM  Showtimes s WHERE s.showtimeId = :id AND s.status = 1")
 	Optional<Showtimes> findByShowtimesId(Integer id);
 
-
-
 	@Query(value = "SELECT * FROM Showtimes s WHERE s.movieName LIKE %?% AND m.status = 1", nativeQuery = true)
 	List<Showtimes> findByName(String name);
 }

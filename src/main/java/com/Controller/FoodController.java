@@ -1,8 +1,6 @@
 package com.Controller;
 
-import java.util.List;
 import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -13,13 +11,10 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-
 import com.Constant.*;
 import com.DTO.FoodDTO;
 import com.DTO.Base.ResponseEntiy;
 import com.Entity.Food;
-import com.Entity.Movie;
 import com.Services.FoodService;
 
 

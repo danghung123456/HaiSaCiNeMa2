@@ -1,7 +1,6 @@
 package com.DTO;
 
 import com.Entity.Cinema;
-import com.Entity.Movie;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class CinemaDTO {

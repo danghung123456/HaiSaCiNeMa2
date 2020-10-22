@@ -4,14 +4,9 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-
 import com.Constant.Constant;
-import com.DTO.EmployeeDTO;
 import com.DTO.GenreDTO;
 import com.DTO.Base.ResponseEntiy;
-
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -19,8 +14,6 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import com.Entity.Employee;
 import com.Entity.GenreMovie;
 import com.Services.GenreMovieService;
 
@@ -31,19 +24,6 @@ public class GenreController {
 	@Autowired
 	private GenreMovieService genreService;
 
-//	@GetMapping("/index")
-//	public ResponseEntiy<List<GenreMovie>> index(Integer page) {
-//		List<GenreMovie> list;
-//		int pageSize = 5;
-//		if (page == null) {
-//			list = genreService.getAll(Pageable.unpaged()).getContent();
-//		} else {
-//			list = genreService.getAll(PageRequest.of(page, pageSize)).getContent();
-//
-//		}
-////		response en ti y :v 
-//		return ResponseEntiy.body(list);
-//	}
 	@GetMapping("/index")
 	public List<GenreMovie> index() {
 		return genreService.findAll();
@@ -58,7 +38,6 @@ public class GenreController {
 			GenreMovie genre = genreDTO.convertToGenreEntity();
 			return ResponseEntiy.body(genreService.save(genre));
 		}
-//		
 
 	}
 
