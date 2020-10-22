@@ -10,6 +10,7 @@ public class RoomDTO {
 	private Integer roomName;
 	private Integer seatAmount;
 	private Integer cinemaId;
+	
 	public Integer getRoomID() {
 		return roomID;
 	}
