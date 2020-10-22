@@ -28,10 +28,12 @@ public class FoodBillDetail {
 	Integer foodBillDetail;
 
 	@ManyToOne
+	@JsonIgnore
 	@JoinColumn(name = "foodid")
 	Food food;
 
 	@ManyToOne
+	@JsonIgnore
 	@JoinColumn(name = "ticketid")
 	Ticket ticket;
 
