@@ -10,6 +10,7 @@ import com.Entity.Showtimes;
 
 @Service
 public interface ShowtimesService {
+	
 	public Page<Showtimes> getAll(Pageable pageable);
 
 	public void deleteAll();

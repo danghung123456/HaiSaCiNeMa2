@@ -23,9 +23,8 @@ public class FoodServiceImpl implements FoodService {
 	FoodRepository repository;
 	
 	@Override
-	public Page<Food> getAll(Pageable pageable) {
-		
-		return repository.findAll(pageable);
+	public List<Food> getAll() {
+		return repository.findAll();
 	}
 
 	@Override

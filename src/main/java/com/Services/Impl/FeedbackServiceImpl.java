@@ -20,9 +20,8 @@ public class FeedbackServiceImpl implements FeedbackService {
 	FeedbackRepository repository;
 
 	@Override
-	public Page<Feedback> getAll(Pageable pageable) {
-		
-		return repository.findAll(pageable);
+	public List<Feedback> getAll() {
+		return repository.findAll();
 	}
 
 	@Override

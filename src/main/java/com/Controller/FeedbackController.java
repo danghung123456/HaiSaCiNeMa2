@@ -24,16 +24,9 @@ public class FeedbackController {
 	@Autowired
 	private FeedbackService feedbackService;
 	
-	@GetMapping("/index")
-	public  ResponseEntiy<List<Feedback>> index(Integer page) {
-		List<Feedback> list;
-		int pageSize = 10;
-		if (page == null) {
-			list = feedbackService.getAll(Pageable.unpaged()).getContent();
-		} else {
-			list = feedbackService.getAll(PageRequest.of(page, pageSize)).getContent();
-		}
-		return  ResponseEntiy.body(list);
+	@GetMapping
+	public  List<Feedback> index() {
+		return feedbackService.getAll();
 	}
 
 	@PostMapping(value = "/add")

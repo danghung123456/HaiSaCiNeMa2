@@ -20,9 +20,8 @@ public class CinemaServiceImpl implements CinemaService {
 	
 
 	@Override
-	public Page<Cinema> getAll(Pageable pageable) {
-		
-		return repository.findAll(pageable);
+	public List<Cinema> getAll() {
+		return repository.findAll();
 	}
 
 	@Override

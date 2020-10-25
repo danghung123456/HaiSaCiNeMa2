@@ -14,7 +14,8 @@ import com.Entity.Feedback;
 
 @Service
 public interface FeedbackService {
-	public Page<Feedback> getAll(Pageable pageable);
+	
+	public List<Feedback> getAll();
 
     public Feedback add(Feedback feedback);
     

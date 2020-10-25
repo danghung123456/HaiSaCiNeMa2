@@ -1,5 +1,6 @@
 package com.Controller;
 
+import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -25,24 +26,9 @@ public class FoodController {
 	@Autowired
 	private FoodService foodService;
 	
-	@GetMapping("/index")
-	public  ResponseEntiy<Page<Food>> index(Integer status ,Integer page) {
-		Page<Food> list;
-		//1 trang có 5 food
-		int pageSize = 5;
-		//Tìm danh sách food theo status(status: 0: khong con, 1: đang co)
-		int st;
-		if (status == null) {
-			st = 1;
-		} else {
-			st = status;
-		}
-		if (page == null) {
-			list = foodService.findFoodByStatus(st, Pageable.unpaged());
-		} else {
-			list = foodService.findFoodByStatus(st, PageRequest.of(page, pageSize));
-		}
-		return  ResponseEntiy.body(list);
+	@GetMapping
+	public  List<Food> index() {
+		return foodService.getAll();
 	}
 	
 	@PostMapping("/add")

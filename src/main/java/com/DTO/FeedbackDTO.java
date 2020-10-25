@@ -1,6 +1,5 @@
 package com.DTO;
 
-
 import com.Entity.Feedback;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -9,75 +8,65 @@ public class FeedbackDTO {
 	private String email;
 	private String phone;
 	private String content;
+
 	@Override
 	public String toString() {
 		return "FeedbackDTO [responseId=" + responseId + ", email=" + email + ", phone=" + phone + ", content="
 				+ content + "]";
 	}
-	
-	
+
 	public Integer getResponseId() {
 		return responseId;
 	}
-
 
 	public void setResponseId(Integer responseId) {
 		this.responseId = responseId;
 	}
 
-
 	public String getEmail() {
 		return email;
 	}
-
 
 	public void setEmail(String email) {
 		this.email = email;
 	}
 
-
 	public String getPhone() {
 		return phone;
 	}
-
 
 	public void setPhone(String phone) {
 		this.phone = phone;
 	}
 
-
 	public String getContent() {
 		return content;
 	}
-
 
 	public void setContent(String content) {
 		this.content = content;
 	}
 
-
 	public boolean isNull(boolean includeId) {
-        boolean res = isNull(email) || isNull(phone) || isNull(content) ;
-        return includeId ? res || isNull(responseId) : res;
-    }
+		boolean res = isNull(email) || isNull(phone) || isNull(content);
+		return includeId ? res || isNull(responseId) : res;
+	}
 
-    private boolean isNull(String input) {
-        return input == null || input.trim().length() == 0;
-    }
+	private boolean isNull(String input) {
+		return input == null || input.trim().length() == 0;
+	}
 
-    private boolean isNull(Integer input) {
-        return input == null;
-    }
-	
-    public Feedback convertToFeedback() {
-        ObjectMapper mapper = new ObjectMapper();
-        Feedback feedback = mapper.convertValue(this, Feedback.class);
-//        if(isNull(status)){
-//            movie.setStatus(1);
-//        }
-        return feedback;
-    }
-    public FeedbackDTO() {
-    	
-    }
+	private boolean isNull(Integer input) {
+		return input == null;
+	}
+
+	public Feedback convertToFeedback() {
+		ObjectMapper mapper = new ObjectMapper();
+		Feedback feedback = mapper.convertValue(this, Feedback.class);
+		return feedback;
+	}
+
+	public FeedbackDTO() {
+
+	}
 }

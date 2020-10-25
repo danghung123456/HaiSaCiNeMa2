@@ -27,7 +27,7 @@ public class ShowtimesController {
 	@Autowired
 	private ShowtimesService showtimesService;
 
-	@GetMapping("/index")
+	@GetMapping
 	public  ResponseEntiy<Page<Showtimes>> index(Integer status, Integer page) {
 		Page<Showtimes> list;
 		int pageSize = 5;

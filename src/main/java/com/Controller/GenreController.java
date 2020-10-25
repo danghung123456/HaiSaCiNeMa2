@@ -5,7 +5,8 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import com.Constant.Constant;
-import com.DTO.GenreDTO;
+import com.DTO.EmployeeDTO;
+import com.DTO.GenreMovieDTO;
 import com.DTO.Base.ResponseEntiy;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,13 +25,13 @@ public class GenreController {
 	@Autowired
 	private GenreMovieService genreService;
 
-	@GetMapping("/index")
+	@GetMapping
 	public List<GenreMovie> index() {
 		return genreService.findAll();
 	}
 
 	@PostMapping("/add")
-	public ResponseEntiy<Object> addGenreMovie(@RequestBody GenreDTO genreDTO) {
+	public ResponseEntiy<Object> addGenreMovie(@RequestBody GenreMovieDTO genreDTO) {
 		if (genreDTO.isNull(false)) {
 			return ResponseEntiy.body(Constant.BAD_REQUEST);
 		} else {
@@ -38,11 +39,10 @@ public class GenreController {
 			GenreMovie genre = genreDTO.convertToGenreEntity();
 			return ResponseEntiy.body(genreService.save(genre));
 		}
-
 	}
 
 	@PutMapping("/update")
-	public ResponseEntiy<Object> updateGenreMovie(@RequestBody GenreDTO genreDTO) {
+	public ResponseEntiy<Object> updateGenreMovie(@RequestBody GenreMovieDTO genreDTO) {
 		if (genreDTO.isNull(true)) {
 			return ResponseEntiy.body(Constant.BAD_REQUEST);
 		} else {
@@ -59,7 +59,7 @@ public class GenreController {
 	}
 
 	@DeleteMapping(value = "/delete")
-	public ResponseEntiy<Object> deleteEmployee(@RequestBody GenreDTO genreDTO) {
+	public ResponseEntiy<Object> deleteEmployee(@RequestBody GenreMovieDTO genreDTO) {
 		if (genreDTO.getGenreId() == null) {
 			return ResponseEntiy.body(Constant.BAD_REQUEST);
 		} else {

@@ -26,7 +26,7 @@ public class PeriodController {
 	@Autowired
 	PeriodService periodService;
 	
-	@GetMapping("/index")
+	@GetMapping
 	public List<Period> index() {
 		return periodService.findAll();
 

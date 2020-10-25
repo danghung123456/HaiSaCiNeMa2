@@ -10,7 +10,7 @@ import com.Entity.Food;
 @Service
 public interface FoodService {
 
-	public Page<Food> getAll(Pageable pageable);
+	public List<Food> getAll();
 
 	public void deleteAll();
 
