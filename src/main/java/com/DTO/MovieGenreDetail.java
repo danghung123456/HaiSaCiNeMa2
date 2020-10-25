@@ -7,11 +7,24 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 public class MovieGenreDetail {
 
 	private Integer movieGenreDetailId;
+	private Integer genreMovieId;
+	private Integer movieId;
 	private GenreMovie genreMovie;
 	private Movie movie;
 
+	public MovieGenreDetail() {
+		super();
+	}
+
+	public MovieGenreDetail(Integer movieGenreDetailId, Integer genreMovieId, Integer movieId) {
+		super();
+		this.movieGenreDetailId = movieGenreDetailId;
+		this.genreMovieId = genreMovieId;
+		this.movieId = movieId;
+	}
+
 	public boolean isNull(boolean includeId) {
-		boolean res = isNull(genreMovie.getGenreId()) || isNull(movie.getMovieId());
+		boolean res = isNull(genreMovieId) || isNull(movieId);
 		return includeId ? res || isNull(movieGenreDetailId) : res;
 	}
 
@@ -24,21 +37,16 @@ public class MovieGenreDetail {
 	}
 
 	public MovieGenreDetail convertToGenreEntity() {
+		Movie movie = new Movie();
+		movie.setMovieId(this.getMovieId());
+		this.setMovie(movie);
+		GenreMovie genreMovie = new GenreMovie();
+		genreMovie.setGenreId(this.getGenreMovieId());
+		this.setGenreMovie(genreMovie);
 		ObjectMapper mapper = new ObjectMapper();
 		MovieGenreDetail movieGenreDetail = mapper.convertValue(this, MovieGenreDetail.class);
 		return movieGenreDetail;
 
-	}
-
-	public MovieGenreDetail() {
-		super();
-	}
-
-	public MovieGenreDetail(Integer movieGenreDetailId, GenreMovie genreMovie, Movie movie) {
-		super();
-		this.movieGenreDetailId = movieGenreDetailId;
-		this.genreMovie = genreMovie;
-		this.movie = movie;
 	}
 
 	public Integer getMovieGenreDetailId() {
@@ -63,6 +71,22 @@ public class MovieGenreDetail {
 
 	public void setMovie(Movie movie) {
 		this.movie = movie;
+	}
+
+	public Integer getGenreMovieId() {
+		return genreMovieId;
+	}
+
+	public void setGenreMovieId(Integer genreMovieId) {
+		this.genreMovieId = genreMovieId;
+	}
+
+	public Integer getMovieId() {
+		return movieId;
+	}
+
+	public void setMovieId(Integer movieId) {
+		this.movieId = movieId;
 	}
 
 	@Override

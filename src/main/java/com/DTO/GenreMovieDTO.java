@@ -8,20 +8,14 @@ public class GenreMovieDTO {
 	private Integer genreId;
 	private String name;
 
-	public void setGenreId(Integer genreId) {
+	public GenreMovieDTO() {
+		super();
+	}
+
+	public GenreMovieDTO(Integer genreId, String name) {
+		super();
 		this.genreId = genreId;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
 		this.name = name;
-	}
-
-	public Integer getGenreId() {
-		return genreId;
 	}
 
 	public boolean isNull(boolean includeId) {
@@ -42,6 +36,22 @@ public class GenreMovieDTO {
 		GenreMovie genre = mapper.convertValue(this, GenreMovie.class);
 		return genre;
 
+	}
+
+	public void setGenreId(Integer genreId) {
+		this.genreId = genreId;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public Integer getGenreId() {
+		return genreId;
 	}
 
 }

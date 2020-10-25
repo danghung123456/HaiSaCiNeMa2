@@ -7,7 +7,19 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 public class SeatDTO {
 	private Integer seatId;
 	private String seatName;
+	private Integer roomId;
 	private Room room;
+
+	public SeatDTO() {
+		super();
+	}
+
+	public SeatDTO(Integer seatId, String seatName, Integer roomId) {
+		super();
+		this.seatId = seatId;
+		this.seatName = seatName;
+		this.roomId = roomId;
+	}
 
 	private boolean isNull(String input) {
 		return input == null || input.trim().length() == 0;
@@ -23,20 +35,12 @@ public class SeatDTO {
 	}
 
 	public Seat convertToRoom() {
+		Room room = new Room();
+		room.setRoomId(this.getRoomId());
+		this.setRoom(room);
 		ObjectMapper mapper = new ObjectMapper();
 		Seat seat = mapper.convertValue(this, Seat.class);
 		return seat;
-	}
-
-	public SeatDTO() {
-		super();
-	}
-
-	public SeatDTO(Integer seatId, String seatName, Room room) {
-		super();
-		this.seatId = seatId;
-		this.seatName = seatName;
-		this.room = room;
 	}
 
 	public Integer getSeatId() {
@@ -61,6 +65,14 @@ public class SeatDTO {
 
 	public void setRoom(Room room) {
 		this.room = room;
+	}
+
+	public Integer getRoomId() {
+		return roomId;
+	}
+
+	public void setRoomId(Integer roomId) {
+		this.roomId = roomId;
 	}
 
 	@Override

@@ -1,5 +1,6 @@
 package com.Entity;
 // default package
+
 // Generated Oct 13, 2020, 8:28:21 PM by Hibernate Tools 5.1.10.Final
 
 import java.util.HashSet;
@@ -34,10 +35,10 @@ public class Ticket {
 	@JsonIgnore
 	@JoinColumn(name = "memberid")
 	Member member;
-	
+
 	@Column(name = "ticketquantity")
 	Integer ticketQuantity;
-	
+
 	@Column(name = "ticketpriceamount")
 	Float ticketPriceAmount;
 
@@ -49,14 +50,19 @@ public class Ticket {
 
 	@OneToMany(mappedBy = "ticket")
 	List<TicketDetail> ticketDetail;
-	
+
 	@OneToMany(mappedBy = "ticket")
 	List<FoodBillDetail> foodBillDetail;
 
+	@ManyToOne
+	@JsonIgnore
+	@JoinColumn(name = "showtimeid")
+	Showtimes showtimes;
+
 	public Ticket() {
-		
+
 	}
-	
+
 	public Integer getTicketId() {
 		return ticketId;
 	}
@@ -120,7 +126,13 @@ public class Ticket {
 	public void setFoodBillDetail(List<FoodBillDetail> foodBillDetail) {
 		this.foodBillDetail = foodBillDetail;
 	}
-	
-	
+
+	public Showtimes getShowtimes() {
+		return showtimes;
+	}
+
+	public void setShowtimes(Showtimes showtimes) {
+		this.showtimes = showtimes;
+	}
 
 }

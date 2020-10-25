@@ -14,18 +14,18 @@ import com.Services.MemberService;
 @Service
 public class MemberServiceImpl implements MemberService {
 	@Autowired
-	MemberRepository memberrepository;
+	MemberRepository repository;
 
 	public List<Member> findAll() {
-		return memberrepository.findAll();
+		return repository.findAll();
 	}
 
 	public void deleteAll() {
-		memberrepository.deleteAll();
+		repository.deleteAll();
 	}
 
 	public Member add(Member member) {
-		return memberrepository.save(member);
+		return repository.save(member);
 	}
 
 	public List<Member> addAll(List<Member> list) {
@@ -37,15 +37,15 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	public Optional<Member> findById(Integer id) {
-		return memberrepository.findById(id);
+		return repository.findById(id);
 	}
 
 	public List<Member> findByName(String name) {
-		return memberrepository.findByMemberName(name);
+		return repository.findByMemberName(name);
 	}
 
 	public Member save(Member member){
-        return memberrepository.saveAndFlush(member);
+        return repository.saveAndFlush(member);
     }
 
 	}

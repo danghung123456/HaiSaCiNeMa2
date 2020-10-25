@@ -13,6 +13,7 @@ import com.Entity.Movie;
 
 @Repository
 public interface MovieRepository extends JpaRepository<Movie, Integer> {
+	
 	@Query("FROM Movie m WHERE m.status = :status")
 	Page<Movie> findMovieByStatus(Integer status ,Pageable pageable);
 

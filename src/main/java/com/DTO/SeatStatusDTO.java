@@ -9,12 +9,26 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class SeatStatusDTO {
 	private Integer seatStatusId;
+	private Integer showtimeId;
+	private Integer seatId;
+	private int status;
 	private Showtimes showtimes;
 	private Seat seat;
-	private int status;
+
+	public SeatStatusDTO() {
+
+	}
+
+	public SeatStatusDTO(Integer seatStatusId, Integer showtimeId, Integer seatId, int status) {
+		super();
+		this.seatStatusId = seatStatusId;
+		this.showtimeId = showtimeId;
+		this.seatId = seatId;
+		this.status = status;
+	}
 
 	public boolean isNull(boolean includeId) {
-		boolean res = isNull(showtimes.getShowtimeId()) || isNull(seat.getSeatId());
+		boolean res = isNull(showtimeId) || isNull(seatId);
 		return includeId ? res || isNull(seatStatusId) : res;
 	}
 
@@ -27,21 +41,15 @@ public class SeatStatusDTO {
 	}
 
 	public SeatStatus convertToCinema() {
+		Showtimes showtimes = new Showtimes();
+		showtimes.setShowtimeId(this.getShowtimeId());
+		this.setShowtimes(showtimes);
+		Seat seat = new Seat();
+		seat.setSeatId(this.getSeatId());
+		this.setSeat(seat);
 		ObjectMapper mapper = new ObjectMapper();
 		SeatStatus seatStatus = mapper.convertValue(this, SeatStatus.class);
 		return seatStatus;
-	}
-
-	public SeatStatusDTO() {
-
-	}
-
-	public SeatStatusDTO(Integer seatStatusId, Showtimes showtimes, Seat seat, int status) {
-		super();
-		this.seatStatusId = seatStatusId;
-		this.showtimes = showtimes;
-		this.seat = seat;
-		this.status = status;
 	}
 
 	public Integer getSeatStatusId() {
@@ -74,6 +82,22 @@ public class SeatStatusDTO {
 
 	public void setStatus(int status) {
 		this.status = status;
+	}
+
+	public Integer getShowtimeId() {
+		return showtimeId;
+	}
+
+	public void setShowtimesId(Integer showtimeId) {
+		this.showtimeId = showtimeId;
+	}
+
+	public Integer getSeatId() {
+		return seatId;
+	}
+
+	public void setSeatId(Integer seatId) {
+		this.seatId = seatId;
 	}
 
 	@Override

@@ -16,11 +16,22 @@ public class MovieDTO {
 	private Integer ageLimit;
 	private Integer status;
 
-	@Override
-	public String toString() {
-		return "MovieDTO [movieId=" + movieId + ", movieName=" + movieName + ", duration=" + duration + ", description="
-				+ description + ", thumbnail=" + thumbnail + ", actors=" + actors + ", director=" + director
-				+ ", ageLimit=" + ageLimit + ", status=" + status + "]";
+	public MovieDTO() {
+		super();
+	}
+
+	public MovieDTO(Integer movieId, String movieName, String duration, String description, String thumbnail,
+			String actors, String director, Integer ageLimit, Integer status) {
+		super();
+		this.movieId = movieId;
+		this.movieName = movieName;
+		this.duration = duration;
+		this.description = description;
+		this.thumbnail = thumbnail;
+		this.actors = actors;
+		this.director = director;
+		this.ageLimit = ageLimit;
+		this.status = status;
 	}
 
 	public boolean isNull(boolean includeId) {
@@ -118,4 +129,10 @@ public class MovieDTO {
 		this.status = status;
 	}
 
+	@Override
+	public String toString() {
+		return "MovieDTO [movieId=" + movieId + ", movieName=" + movieName + ", duration=" + duration + ", description="
+				+ description + ", thumbnail=" + thumbnail + ", actors=" + actors + ", director=" + director
+				+ ", ageLimit=" + ageLimit + ", status=" + status + "]";
+	}
 }
