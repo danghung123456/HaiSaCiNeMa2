@@ -9,10 +9,35 @@ public class PeriodDTO {
 	private Integer statusDay;
 	private float price;
 
-	@Override
-	public String toString() {
-		return "PeriodDTO [periodId=" + periodId + ", startTime=" + startTime + ", statusDay=" + statusDay + ", price="
-				+ price + "]";
+	public PeriodDTO() {
+
+	}
+
+	public PeriodDTO(Integer periodId, String startTime, Integer statusDay, float price) {
+		super();
+		this.periodId = periodId;
+		this.startTime = startTime;
+		this.statusDay = statusDay;
+		this.price = price;
+	}
+
+	public boolean isNull(boolean includeId) {
+		boolean res = isNull(startTime) || isNull(statusDay);
+		return includeId ? res || isNull(periodId) : res;
+	}
+
+	private boolean isNull(String input) {
+		return input == null || input.trim().length() == 0;
+	}
+
+	private boolean isNull(Integer input) {
+		return input == null;
+	}
+
+	public Period convertToPeriod() {
+		ObjectMapper mapper = new ObjectMapper();
+		Period period = mapper.convertValue(this, Period.class);
+		return period;
 	}
 
 	public Integer getPeriodId() {
@@ -47,26 +72,10 @@ public class PeriodDTO {
 		this.price = price;
 	}
 
-	public boolean isNull(boolean includeId) {
-		boolean res = isNull(startTime) || isNull(statusDay);
-		return includeId ? res || isNull(periodId) : res;
+	@Override
+	public String toString() {
+		return "PeriodDTO [periodId=" + periodId + ", startTime=" + startTime + ", statusDay=" + statusDay + ", price="
+				+ price + "]";
 	}
 
-	private boolean isNull(String input) {
-		return input == null || input.trim().length() == 0;
-	}
-
-	private boolean isNull(Integer input) {
-		return input == null;
-	}
-
-	public Period convertToPeriod() {
-		ObjectMapper mapper = new ObjectMapper();
-		Period period = mapper.convertValue(this, Period.class);
-		return period;
-	}
-
-	public PeriodDTO() {
-
-	}
 }

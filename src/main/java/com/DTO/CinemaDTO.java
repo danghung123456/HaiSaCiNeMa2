@@ -8,6 +8,36 @@ public class CinemaDTO {
 	private String name;
 	private String address;
 
+	public CinemaDTO() {
+
+	}
+
+	public CinemaDTO(Integer cinemaId, String name, String address) {
+		super();
+		this.cinemaId = cinemaId;
+		this.name = name;
+		this.address = address;
+	}
+
+	public boolean isNull(boolean includeId) {
+		boolean res = isNull(name) || isNull(address);
+		return includeId ? res || isNull(cinemaId) : res;
+	}
+
+	private boolean isNull(String input) {
+		return input == null || input.trim().length() == 0;
+	}
+
+	private boolean isNull(Integer input) {
+		return input == null;
+	}
+
+	public Cinema convertToCinema() {
+		ObjectMapper mapper = new ObjectMapper();
+		Cinema cinema = mapper.convertValue(this, Cinema.class);
+		return cinema;
+	}
+
 	public Integer getCinemaId() {
 		return cinemaId;
 	}
@@ -37,26 +67,4 @@ public class CinemaDTO {
 		return "CinemaDTO [cinemaId=" + cinemaId + ", name=" + name + ", address=" + address + "]";
 	}
 
-	public boolean isNull(boolean includeId) {
-		boolean res = isNull(name) || isNull(address);
-		return includeId ? res || isNull(cinemaId) : res;
-	}
-
-	private boolean isNull(String input) {
-		return input == null || input.trim().length() == 0;
-	}
-
-	private boolean isNull(Integer input) {
-		return input == null;
-	}
-
-	public Cinema convertToCinema() {
-		ObjectMapper mapper = new ObjectMapper();
-		Cinema cinema = mapper.convertValue(this, Cinema.class);
-		return cinema;
-	}
-
-	public CinemaDTO() {
-
-	}
 }

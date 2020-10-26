@@ -16,11 +16,22 @@ public class MemberDTO {
 	private Integer idCard;
 	private Double totalMoney;
 
-	@Override
-	public String toString() {
-		return "MemberDTO [memberId=" + memberId + ", memberName=" + memberName + ", email=" + email + ", password="
-				+ password + ", phone=" + phone + ", address=" + address + ", birthday=" + birthday + ", idCard="
-				+ idCard + ", totalMoney=" + totalMoney + "]";
+	public MemberDTO() {
+		super();
+	}
+
+	public MemberDTO(Integer memberId, String memberName, String email, String password, String phone, String address,
+			Date birthday, Integer idCard, Double totalMoney) {
+		super();
+		this.memberId = memberId;
+		this.memberName = memberName;
+		this.email = email;
+		this.password = password;
+		this.phone = phone;
+		this.address = address;
+		this.birthday = birthday;
+		this.idCard = idCard;
+		this.totalMoney = totalMoney;
 	}
 
 	public boolean isNull(boolean includeId) {
@@ -112,5 +123,12 @@ public class MemberDTO {
 
 	public void setTotalMoney(Double totalMoney) {
 		this.totalMoney = totalMoney;
+	}
+
+	@Override
+	public String toString() {
+		return "MemberDTO [memberId=" + memberId + ", memberName=" + memberName + ", email=" + email + ", password="
+				+ password + ", phone=" + phone + ", address=" + address + ", birthday=" + birthday + ", idCard="
+				+ idCard + ", totalMoney=" + totalMoney + "]";
 	}
 }

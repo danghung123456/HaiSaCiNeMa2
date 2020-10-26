@@ -1,5 +1,6 @@
 package com.DTO;
 
+import com.Entity.Cinema;
 import com.Entity.Food;
 import com.Entity.FoodBillDetail;
 import com.Entity.Ticket;
@@ -8,13 +9,29 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 public class FoodBillDetailDTO {
 
 	private Integer foodBillDetailId;
-	private Ticket ticket;
-	private Food food;
+	private Integer ticketId;
+	private Integer foodId;
 	private Integer quantity;
 	private Float amount;
+	private Ticket ticket;
+	private Food food;
+
+	public FoodBillDetailDTO() {
+		super();
+	}
+
+	public FoodBillDetailDTO(Integer foodBillDetailId, Integer ticketId, Integer foodId, Integer quantity,
+			Float amount) {
+		super();
+		this.foodBillDetailId = foodBillDetailId;
+		this.ticketId = ticketId;
+		this.foodId = foodId;
+		this.quantity = quantity;
+		this.amount = amount;
+	}
 
 	public boolean isNull(boolean includeId) {
-		boolean res = isNull(quantity) || isNull(amount) || isNull(ticket.getTicketId()) || isNull(food.getFoodId());
+		boolean res = isNull(quantity) || isNull(amount) || isNull(ticketId) || isNull(foodId);
 		return includeId ? res || isNull(foodBillDetailId) : res;
 	}
 
@@ -31,22 +48,15 @@ public class FoodBillDetailDTO {
 	}
 
 	public FoodBillDetail convertToFood() {
+		Ticket ticket = new Ticket();
+		ticket.setTicketId(this.getTicketId());
+		this.ticket = ticket;
+		Food food = new Food();
+		food.setFoodId(this.getFoodId());
+		this.food = food;
 		ObjectMapper mapper = new ObjectMapper();
 		FoodBillDetail foodBillDetail = mapper.convertValue(this, FoodBillDetail.class);
 		return foodBillDetail;
-	}
-
-	public FoodBillDetailDTO() {
-		super();
-	}
-
-	public FoodBillDetailDTO(Integer foodBillDetailId, Ticket ticket, Food food, Integer quantity, Float amount) {
-		super();
-		this.foodBillDetailId = foodBillDetailId;
-		this.ticket = ticket;
-		this.food = food;
-		this.quantity = quantity;
-		this.amount = amount;
 	}
 
 	public Integer getFoodBillDetailId() {
@@ -87,6 +97,22 @@ public class FoodBillDetailDTO {
 
 	public void setAmount(Float amount) {
 		this.amount = amount;
+	}
+
+	public Integer getTicketId() {
+		return ticketId;
+	}
+
+	public void setTicketId(Integer ticketId) {
+		this.ticketId = ticketId;
+	}
+
+	public Integer getFoodId() {
+		return foodId;
+	}
+
+	public void setFoodId(Integer foodId) {
+		this.foodId = foodId;
 	}
 
 	@Override

@@ -16,19 +16,33 @@ public class EmployeeDTO {
 	private String address;
 	private Date birthday;
 	private String idCard;
-	private Cinema cinema;
+	private Integer cinemaId;
 	private Integer status;
+	private Cinema cinema;
 
-	@Override
-	public String toString() {
-		return "EmployeeDTO [employeeId=" + employeeId + ", name=" + name + ", password=" + password + ", role=" + role
-				+ ", email=" + email + ", phone=" + phone + ", address=" + address + ", birthday=" + birthday
-				+ ", idCard=" + idCard + ", cinema=" + cinema + ", status=" + status + "]";
+	public EmployeeDTO() {
+		super();
+	}
+
+	public EmployeeDTO(Integer employeeId, String name, String password, Integer role, String email, Integer phone,
+			String address, Date birthday, String idCard, Integer cinemaId, Integer status) {
+		super();
+		this.employeeId = employeeId;
+		this.name = name;
+		this.password = password;
+		this.role = role;
+		this.email = email;
+		this.phone = phone;
+		this.address = address;
+		this.birthday = birthday;
+		this.idCard = idCard;
+		this.cinemaId = cinemaId;
+		this.status = status;
 	}
 
 	public boolean isNull(boolean includeId) {
 		boolean res = isNull(name) || isNull(password) || isNull(email) || isNull(phone) || isNull(address)
-				|| isNull(idCard) || isNull(cinema.getCinemaId());
+				|| isNull(idCard) || isNull(cinemaId);
 		return includeId ? res || isNull(employeeId) : res;
 	}
 
@@ -41,6 +55,9 @@ public class EmployeeDTO {
 	}
 
 	public Employee convertToEmployee() {
+		Cinema cinema = new Cinema();
+		cinema.setCinemaId(this.getCinemaId());
+		this.setCinema(cinema);
 		ObjectMapper mapper = new ObjectMapper();
 		Employee employee = mapper.convertValue(this, Employee.class);
 		if (isNull(status)) {
@@ -121,12 +138,12 @@ public class EmployeeDTO {
 		this.idCard = idCard;
 	}
 
-	public Cinema getCinema() {
-		return cinema;
+	public Integer getCinemaId() {
+		return cinemaId;
 	}
 
-	public void setCinema(Cinema cinema) {
-		this.cinema = cinema;
+	public void setCinemaId(Integer cinemaId) {
+		this.cinemaId = cinemaId;
 	}
 
 	public void setRole(Integer role) {
@@ -140,4 +157,13 @@ public class EmployeeDTO {
 	public void setStatus(Integer status) {
 		this.status = status;
 	}
+
+	public Cinema getCinema() {
+		return cinema;
+	}
+
+	public void setCinema(Cinema cinema) {
+		this.cinema = cinema;
+	}
+
 }

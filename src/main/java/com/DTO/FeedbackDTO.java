@@ -9,10 +9,35 @@ public class FeedbackDTO {
 	private String phone;
 	private String content;
 
-	@Override
-	public String toString() {
-		return "FeedbackDTO [responseId=" + responseId + ", email=" + email + ", phone=" + phone + ", content="
-				+ content + "]";
+	public FeedbackDTO() {
+
+	}
+
+	public FeedbackDTO(Integer responseId, String email, String phone, String content) {
+		super();
+		this.responseId = responseId;
+		this.email = email;
+		this.phone = phone;
+		this.content = content;
+	}
+
+	public boolean isNull(boolean includeId) {
+		boolean res = isNull(email) || isNull(phone) || isNull(content);
+		return includeId ? res || isNull(responseId) : res;
+	}
+
+	private boolean isNull(String input) {
+		return input == null || input.trim().length() == 0;
+	}
+
+	private boolean isNull(Integer input) {
+		return input == null;
+	}
+
+	public Feedback convertToFeedback() {
+		ObjectMapper mapper = new ObjectMapper();
+		Feedback feedback = mapper.convertValue(this, Feedback.class);
+		return feedback;
 	}
 
 	public Integer getResponseId() {
@@ -47,26 +72,10 @@ public class FeedbackDTO {
 		this.content = content;
 	}
 
-	public boolean isNull(boolean includeId) {
-		boolean res = isNull(email) || isNull(phone) || isNull(content);
-		return includeId ? res || isNull(responseId) : res;
+	@Override
+	public String toString() {
+		return "FeedbackDTO [responseId=" + responseId + ", email=" + email + ", phone=" + phone + ", content="
+				+ content + "]";
 	}
 
-	private boolean isNull(String input) {
-		return input == null || input.trim().length() == 0;
-	}
-
-	private boolean isNull(Integer input) {
-		return input == null;
-	}
-
-	public Feedback convertToFeedback() {
-		ObjectMapper mapper = new ObjectMapper();
-		Feedback feedback = mapper.convertValue(this, Feedback.class);
-		return feedback;
-	}
-
-	public FeedbackDTO() {
-
-	}
 }

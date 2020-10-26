@@ -11,11 +11,13 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class TicketDetailDTO {
 	private Integer ticketDetatailId;
+	private Integer ticketId;
+	private Integer seatId;
 	private Ticket ticket;
 	private Seat seat;
 
 	public boolean isNull(boolean includeId) {
-		boolean res = isNull(ticket.getTicketId()) || isNull(seat.getSeatId());
+		boolean res = isNull(ticketId) || isNull(seatId);
 		return includeId ? res || isNull(ticketDetatailId) : res;
 	}
 
@@ -28,6 +30,12 @@ public class TicketDetailDTO {
 	}
 
 	public TicketDetail convertToCinema() {
+		Seat seat = new Seat();
+		seat.setSeatId(this.getSeatId());
+		this.setSeat(seat);
+		Ticket ticket = new Ticket();
+		ticket.setTicketId(this.getTicketId());
+		this.ticket = ticket;
 		ObjectMapper mapper = new ObjectMapper();
 		TicketDetail ticketDetail = mapper.convertValue(this, TicketDetail.class);
 		return ticketDetail;
@@ -66,6 +74,22 @@ public class TicketDetailDTO {
 
 	public void setSeat(Seat seat) {
 		this.seat = seat;
+	}
+
+	public Integer getTicketId() {
+		return ticketId;
+	}
+
+	public void setTicketId(Integer ticketId) {
+		this.ticketId = ticketId;
+	}
+
+	public Integer getSeatId() {
+		return seatId;
+	}
+
+	public void setSeatId(Integer seatId) {
+		this.seatId = seatId;
 	}
 
 	@Override
