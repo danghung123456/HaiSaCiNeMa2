@@ -12,11 +12,12 @@ import org.springframework.web.bind.annotation.RestController;
 import com.Constant.Constant;
 import com.DTO.SeatDTO;
 import com.DTO.Base.ResponseEntiy;
+import com.Entity.Room;
 import com.Entity.Seat;
 import com.Services.SeatService;
 
 @RestController
-@RequestMapping(value = "/Seat")
+@RequestMapping(value = "/seat")
 public class SeatController {
 
 	@Autowired
@@ -31,7 +32,10 @@ public class SeatController {
 		if(seatDTO.isNull(false)) {
 			return ResponseEntiy.body(Constant.BAD_REQUEST);
 		}else {
+			seatDTO.setSeatId(null);
+			System.out.println(seatDTO.getRoomId());
 			Seat seat  = seatDTO.convertToDTO();
+//			seat.setRoom(new Room(seatDTO.getRoomId()));
 			return ResponseEntiy.body(seatService.save(seat));
 		}
 	}

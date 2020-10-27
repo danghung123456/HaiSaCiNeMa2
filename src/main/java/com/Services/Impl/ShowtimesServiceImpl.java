@@ -9,7 +9,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import com.Entity.Cinema;
+import com.DTO.ViewDTO;
 import com.Entity.Showtimes;
 import com.Repository.ShomtimesRepository;
 import com.Services.ShowtimesService;
@@ -18,6 +18,7 @@ import com.Services.ShowtimesService;
 public class ShowtimesServiceImpl implements ShowtimesService {
 	@Autowired
     ShomtimesRepository repository;
+
 	
 	@Override
 	public Page<Showtimes> getAll(Pageable pageable) {
@@ -32,7 +33,6 @@ public class ShowtimesServiceImpl implements ShowtimesService {
 
 	@Override
 	public Showtimes add(Showtimes showtimes) {
-		
 		return repository.save(showtimes);
 	}
 
@@ -60,5 +60,26 @@ public class ShowtimesServiceImpl implements ShowtimesService {
 		
 		return repository.findShowtimesByStatus(status, pageable);
 	}
+
+	@Override
+	public List<ViewDTO> getViewShowtimes() {
+		// TODO Auto-generated method stub
+		return repository.getViewShowTimes();
+	}
+
+
+
+//	@Override
+//	public List<showMovieDTO> findAll() {
+//		// TODO Auto-generated method stub
+//		return repoView.myView();
+//	}
+
+
+
+
+
+
+
 
 }

@@ -8,6 +8,10 @@ public class SeatDTO {
 	private String seatName;
 	private Integer roomId;
 	
+	public void setSeatId(Integer seatId) {
+		this.seatId = seatId;
+	}
+
 	public Integer getSeatId() {
 		return seatId;
 	}
@@ -36,9 +40,13 @@ public class SeatDTO {
     private boolean isNull(Integer input) {
         return input == null;
     }
+
+
     public Seat convertToDTO() {
     	ObjectMapper mapper = new ObjectMapper();
+//    	mapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
     	Seat seat = mapper.convertValue(this, Seat.class);
+    	System.out.println("this is seat: "+seat.toString());
     	return seat;
     }
 }

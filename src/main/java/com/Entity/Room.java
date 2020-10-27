@@ -1,15 +1,14 @@
 package com.Entity;
 // default package
-// Generated Oct 13, 2020, 8:28:21 PM by Hibernate Tools 5.1.10.Final
 
-import java.util.HashSet;
+import static javax.persistence.GenerationType.IDENTITY;
+
 import java.util.List;
-import java.util.Set;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
-import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -27,11 +26,11 @@ public class Room {
 
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
-	@Column(name = "roomid", unique = true, nullable = false)
+	@Column(name = "roomId", unique = true, nullable = false)
 	Integer roomId;
-	
+
 	@ManyToOne
-	@JsonIgnore
+
 	@JoinColumn(name = "cinemaId")
 	Cinema cinema;
 
@@ -43,8 +42,8 @@ public class Room {
 
 	@OneToMany(mappedBy = "room")
 	List<Showtimes> showtimes;
-
-	@OneToMany(mappedBy = "room")
+	
+	@OneToMany(mappedBy = "room", cascade = CascadeType.ALL)
 	List<Seat> seat;
 
 	public Integer getRoomId() {
@@ -94,7 +93,10 @@ public class Room {
 	public void setSeat(List<Seat> seat) {
 		this.seat = seat;
 	}
-	
-	
 
+//	public Room(Integer roomId) {
+//		super();
+//		this.roomId = roomId;
+//	}
+	
 }
