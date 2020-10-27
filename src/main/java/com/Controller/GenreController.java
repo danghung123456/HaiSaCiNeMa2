@@ -5,10 +5,7 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import com.Constant.Constant;
-<<<<<<< HEAD
 import com.DTO.EmployeeDTO;
-=======
->>>>>>> 6222713c78c657846100e90e1939d674ae87bccb
 import com.DTO.GenreMovieDTO;
 import com.DTO.Base.ResponseEntiy;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -61,30 +58,14 @@ public class GenreController {
 		}
 	}
 
-	@DeleteMapping(value = "/delete")
-	public ResponseEntiy<Object> deleteEmployee(@RequestBody GenreMovieDTO genreDTO) {
-		if (genreDTO.getGenreId() == null) {
-			return ResponseEntiy.body(Constant.BAD_REQUEST);
-		} else {
-			Optional<GenreMovie> checkGenre = genreService.findById(genreDTO.getGenreId());
-			if (checkGenre.isPresent()) {
-				GenreMovie genre = genreDTO.convertToGenreEntity();
-				return ResponseEntiy.body(genreService.save(genre));
-			} else {
-				return ResponseEntiy.body(Constant.NOT_FOUND);
-			}
-		}
-	}
 
 	@GetMapping("/findbyid")
 	public ResponseEntiy<Object> findById(Integer id) {
-		System.out.println(genreService.findById(id));
 		return ResponseEntiy.body(genreService.findById(id));
-	}
+	}	
 
 	@GetMapping("/findbyname")
 	public ResponseEntiy<Object> findByName(String name) {
-		System.out.println(genreService.findByName(name));
 		return ResponseEntiy.body(genreService.findByName(name));
 	}
 }

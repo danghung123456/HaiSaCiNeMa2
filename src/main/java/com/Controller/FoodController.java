@@ -27,8 +27,14 @@ public class FoodController {
 	private FoodService foodService;
 	
 	@GetMapping
-	public  List<Food> index() {
-		return foodService.getAll();
+	public  List<Food> index(Integer status) {
+		int st;
+		if (status == null) {
+			st = 1;
+		} else {
+			st = status;
+		}
+		return foodService.getAll(st);
 	}
 	
 	@PostMapping("/add")

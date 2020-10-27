@@ -66,7 +66,7 @@ public class ShowtimesDTO {
 		period.setPeriodId(this.getPeriodId());
 		this.setPeriod(period);
 		Employee employee = new Employee();
-		employee.setEmployeeid(this.getEmployeeId());
+		employee.setEmployeeId(this.getEmployeeId());
 		this.setEmployee(employee);
 		Cinema cinema = new Cinema();
 		cinema.setCinemaId(this.getCinemaId());

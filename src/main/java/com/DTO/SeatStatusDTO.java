@@ -18,7 +18,6 @@ public class SeatStatusDTO {
 	public SeatStatusDTO() {
 
 	}
-
 	public SeatStatusDTO(Integer seatStatusId, Integer showtimeId, Integer seatId, int status) {
 		super();
 		this.seatStatusId = seatStatusId;

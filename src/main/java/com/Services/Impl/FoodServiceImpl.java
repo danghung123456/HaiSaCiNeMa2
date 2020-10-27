@@ -23,8 +23,8 @@ public class FoodServiceImpl implements FoodService {
 	FoodRepository repository;
 	
 	@Override
-	public List<Food> getAll() {
-		return repository.findAll();
+	public List<Food> getAll(Integer st) {
+		return repository.findFoodByStatus(st);
 	}
 
 	@Override
@@ -50,12 +50,12 @@ public class FoodServiceImpl implements FoodService {
 
 	@Override
 	public Optional<Food> findById(Integer id) {
-		return repository.findById(id);
+		return repository.findFoodById(id);
 	}
 
 	@Override
 	public List<Food> findByName(String name) {
-		return repository.findByFoodName(name);
+		return repository.findFoodByName(name);
 	}
 
 	@Override
@@ -63,11 +63,6 @@ public class FoodServiceImpl implements FoodService {
 		return repository.saveAndFlush(food);
 	}
 
-	@Override
-	public Page<Food> findFoodByStatus(Integer status, Pageable pageable) {
-		// TODO Auto-generated method stub
-		return repository.findFoodByStatus(status, pageable);
-	}
 
 	
 	

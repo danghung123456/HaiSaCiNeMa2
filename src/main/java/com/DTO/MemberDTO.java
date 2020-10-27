@@ -13,7 +13,7 @@ public class MemberDTO {
 	private String phone;
 	private String address;
 	private Date birthday;
-	private Integer idCard;
+	private String idCard;
 	private Double totalMoney;
 
 	public MemberDTO() {
@@ -21,7 +21,7 @@ public class MemberDTO {
 	}
 
 	public MemberDTO(Integer memberId, String memberName, String email, String password, String phone, String address,
-			Date birthday, Integer idCard, Double totalMoney) {
+			Date birthday, String idCard, Double totalMoney) {
 		super();
 		this.memberId = memberId;
 		this.memberName = memberName;
@@ -109,11 +109,11 @@ public class MemberDTO {
 		this.birthday = birthday;
 	}
 
-	public Integer getIdCard() {
+	public String getIdCard() {
 		return idCard;
 	}
 
-	public void setIdCard(Integer idCard) {
+	public void setIdCard(String idCard) {
 		this.idCard = idCard;
 	}
 

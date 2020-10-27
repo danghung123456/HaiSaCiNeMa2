@@ -10,7 +10,7 @@ import com.Entity.Food;
 @Service
 public interface FoodService {
 
-	public List<Food> getAll();
+	public List<Food> getAll(Integer st);
 
 	public void deleteAll();
 
@@ -24,6 +24,5 @@ public interface FoodService {
 
 	public Food save(Food food);
 
-	public Page<Food> findFoodByStatus(Integer status, Pageable pageable);
 
 }

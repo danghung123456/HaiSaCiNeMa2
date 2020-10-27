@@ -54,7 +54,6 @@ public class ShowtimesServiceImpl implements ShowtimesService {
 
 	@Override
 	public Page<Showtimes> findShowtimesByStatus(Integer status, Pageable pageable) {
-
 		return repository.findShowtimesByStatus(status, pageable);
 	}
 

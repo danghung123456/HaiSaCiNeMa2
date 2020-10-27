@@ -7,8 +7,8 @@ import java.util.Optional;
 
 @Service
 public interface EmployeeService {
-
-	public List<Employee> findAll();
+	
+	public List<Employee> findAll(Integer st);
 	
     public void deleteAll();
 

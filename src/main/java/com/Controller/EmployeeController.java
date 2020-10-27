@@ -23,8 +23,14 @@ public class EmployeeController {
 	private EmployeeService employeeService;
 
 	@GetMapping
-	public List<Employee> index() {
-		return employeeService.findAll();
+	public List<Employee> index(Integer status) {
+		int st;
+		if (status == null) {
+			st = 1;
+		} else {
+			st = status;
+		}
+		return employeeService.findAll(st);
 
 	}
 

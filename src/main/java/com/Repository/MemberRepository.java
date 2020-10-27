@@ -11,6 +11,6 @@ import com.Entity.Member;
 @Repository
 public interface MemberRepository extends JpaRepository<Member, Integer> {
 	
-	@Query(value = "SELECT * FROM Member m WHERE m.memberName LIKE %?%", nativeQuery = true)
+	@Query(value = "SELECT m FROM Member m WHERE m.memberName LIKE %:name%")
 	List<Member> findByMemberName(String name);
 }

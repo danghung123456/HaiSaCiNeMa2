@@ -17,8 +17,8 @@ public class EmployeeServiceImpl implements EmployeeService {
 	@Autowired
 	EmployeeRepository repository;
 
-	public List<Employee> findAll() {
-		return repository.findAll();
+	public List<Employee> findAll(Integer st) {
+		return repository.findEmployeeByStatus(st);
 	}
 
 	public void deleteAll() {
@@ -38,8 +38,9 @@ public class EmployeeServiceImpl implements EmployeeService {
 	}
 
 	public Optional<Employee> findById(Integer id) {
-		return repository.findById(id);
+		return repository.findEmployeeById(id);
 	}
+	
 
 	public List<Employee> findByName(String name) {
 		return repository.findByName(name);

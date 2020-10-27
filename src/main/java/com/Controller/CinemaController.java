@@ -60,21 +60,6 @@ public class CinemaController {
         }
 	}
 	
-	@DeleteMapping(value = "/delete")
-	public ResponseEntiy<Object> deleteCinema(@RequestBody CinemaDTO cinemaDTO) {
-		if (cinemaDTO.getCinemaId() == null) {
-            return ResponseEntiy.body(Constant.BAD_REQUEST);
-        } else {
-            Optional<Cinema> checkCinema = cinemaService.findById(cinemaDTO.getCinemaId());
-            if (checkCinema.isPresent()) {
-            	Cinema cinema = cinemaDTO.convertToCinema();
-                return ResponseEntiy.body(cinemaService.save(cinema));
-            } else {
-                return ResponseEntiy.body(Constant.NOT_FOUND);
-            }
-        }
-	}
-	
 	@GetMapping("/findbyid")
 	public ResponseEntiy<Object> findById(Integer id) {
 		return  ResponseEntiy.body(cinemaService.findById(id));

@@ -7,6 +7,8 @@ import java.sql.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -32,7 +34,7 @@ public class Employee  {
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
 	@Column(name = "employeeid", unique = true, nullable = false)
-	Integer employeeid;
+	Integer employeeId;
 
 	@Column(name = "name")
 	String name;
@@ -61,7 +63,7 @@ public class Employee  {
 	@Column(name = "status")
 	Integer status;
 	
-	@ManyToOne
+	@ManyToOne(cascade = {CascadeType.ALL})
 	@JoinColumn(name = "cinemaid")
 	Cinema cinema;
 
@@ -73,12 +75,12 @@ public class Employee  {
 		super();
 	}
 
-	public Integer getEmployeeid() {
-		return employeeid;
+	public Integer getEmployeeId() {
+		return employeeId;
 	}
 
-	public void setEmployeeid(Integer employeeid) {
-		this.employeeid = employeeid;
+	public void setEmployeeId(Integer employeeId) {
+		this.employeeId = employeeId;
 	}
 
 	public Cinema getCinema() {

@@ -14,12 +14,12 @@ import com.Entity.Food;
 public interface FoodRepository extends JpaRepository<Food, Integer> {
 
 	@Query("FROM Food f WHERE f.status = :status")
-	Page<Food> findFoodByStatus(Integer status ,Pageable pageable);
+	List<Food> findFoodByStatus(Integer status);
 	
 	@Query("FROM Food f WHERE f.foodId = :id AND f.status = 1")
-	Optional<Food> findByFoodId(Integer id);
+	Optional<Food> findFoodById(Integer id);
 
-	@Query(value = "SELECT * FROM Food f WHERE f.name LIKE %?% AND f.status = 1",nativeQuery = true)
-	List<Food> findByFoodName(String name);
+	@Query(value = "SELECT f FROM Food f WHERE f.name LIKE %:name% AND f.status = 1")
+	List<Food> findFoodByName(String name);
 	
 }
