@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -18,12 +19,14 @@ import com.DTO.Base.ResponseEntiy;
 
 @RestController
 @RequestMapping(value = "member")
+
 public class MemberController {
 
 	@Autowired
 	private MemberService memberService;
 
-	@GetMapping
+	@GetMapping(value="/index")
+	
 	public List<Member> index() {
 		return memberService.findAll();
 	}
