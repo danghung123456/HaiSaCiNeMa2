@@ -15,18 +15,18 @@ import com.Services.EmployeeService;
 @Service
 public class EmployeeServiceImpl implements EmployeeService {
 	@Autowired
-	EmployeeRepository employeerepository;
+	EmployeeRepository repository;
 
-	public List<Employee> findAll() {
-		return employeerepository.findAll();
+	public List<Employee> findAll(Integer st) {
+		return repository.findEmployeeByStatus(st);
 	}
 
 	public void deleteAll() {
-		employeerepository.deleteAll();
+		repository.deleteAll();
 	}
 
 	public Employee add(Employee employee) {
-		return employeerepository.save(employee);
+		return repository.save(employee);
 	}
 
 	public List<Employee> addAll(List<Employee> list) {
@@ -38,15 +38,16 @@ public class EmployeeServiceImpl implements EmployeeService {
 	}
 
 	public Optional<Employee> findById(Integer id) {
-		return employeerepository.findById(id);
+		return repository.findEmployeeById(id);
 	}
+	
 
 	public List<Employee> findByName(String name) {
-		return employeerepository.findByName(name);
+		return repository.findByName(name);
 	}
 
 	public Employee save(Employee employee){
-        return employeerepository.saveAndFlush(employee);
+        return repository.saveAndFlush(employee);
     }
 
 	}

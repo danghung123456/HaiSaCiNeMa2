@@ -10,7 +10,7 @@ import java.util.Optional;
 @Service
 public interface MovieService {
 
-	 public Page<Movie> getAll(Pageable pageable);
+	 	public Page<Movie> getAll(Pageable pageable);
 
 	    public Movie add(Movie movie);
 	    
@@ -26,5 +26,9 @@ public interface MovieService {
 	    
 	    public List<Movie> findByName(String name);
 	    
+<<<<<<< HEAD
 	
+=======
+	   
+>>>>>>> 6afbf360483d921cdd3533b8d03d15c40e343080
 }

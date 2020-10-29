@@ -53,5 +53,11 @@ public class MovieServiceImpl implements MovieService {
 		return repository.findMovieByStatus(status, pageable);
 	}
 
+<<<<<<< HEAD
 
+=======
+	
+
+	
+>>>>>>> 6afbf360483d921cdd3533b8d03d15c40e343080
 }

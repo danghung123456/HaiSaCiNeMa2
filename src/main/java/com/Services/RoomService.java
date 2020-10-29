@@ -13,7 +13,7 @@ import com.Entity.Room;
 @Service
 public interface RoomService {
 
-	 public Page<Room> getAll(Pageable pageable);
+	 	public Page<Room> getAll(Pageable pageable);
 
 	    public void deleteAll();
 

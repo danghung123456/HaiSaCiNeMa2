@@ -26,12 +26,10 @@ public class MovieGenreDetail{
 	private Integer movieGenreDetailId;
 	
 	@ManyToOne
-	@JsonIgnore
 	@JoinColumn(name = "genreid")
 	private GenreMovie genreMovie;
 	
 	@ManyToOne
-	@JsonIgnore
 	@JoinColumn(name = "movieid")
 	private Movie movie;
 

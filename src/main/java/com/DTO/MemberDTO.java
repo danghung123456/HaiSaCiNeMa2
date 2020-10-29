@@ -1,6 +1,5 @@
 package com.DTO;
 
-
 import java.sql.Date;
 
 import com.Entity.Member;
@@ -14,34 +13,46 @@ public class MemberDTO {
 	private String phone;
 	private String address;
 	private Date birthday;
-	private Integer idCard;
+	private String idCard;
 	private Double totalMoney;
 
-	@Override
-	public String toString() {
-		return "MemberDTO [memberId=" + memberId + ", memberName=" + memberName + ", email=" + email + ", password="
-				+ password + ", phone=" + phone + ", address=" + address + ", birthday=" + birthday +", idCard=" + idCard + ", totalMoney=" + totalMoney + "]";
+	public MemberDTO() {
+		super();
 	}
-	
+
+	public MemberDTO(Integer memberId, String memberName, String email, String password, String phone, String address,
+			Date birthday, String idCard, Double totalMoney) {
+		super();
+		this.memberId = memberId;
+		this.memberName = memberName;
+		this.email = email;
+		this.password = password;
+		this.phone = phone;
+		this.address = address;
+		this.birthday = birthday;
+		this.idCard = idCard;
+		this.totalMoney = totalMoney;
+	}
+
 	public boolean isNull(boolean includeId) {
-        boolean res = isNull(memberName) || isNull(email) || isNull(password) || isNull(idCard);
-        return includeId ? res || isNull(memberId) : res;
-    }
+		boolean res = isNull(memberName) || isNull(email) || isNull(password) || isNull(phone);
+		return includeId ? res || isNull(memberId) : res;
+	}
 
-    private boolean isNull(String input) {
-        return input == null || input.trim().length() == 0;
-    }
+	private boolean isNull(String input) {
+		return input == null || input.trim().length() == 0;
+	}
 
-    private boolean isNull(Integer input) {
-        return input == null;
-    }
-	
-    public Member convertToMember() {
-        ObjectMapper mapper = new ObjectMapper();
-        Member member = mapper.convertValue(this, Member.class);
-        return member;
-    }
-	
+	private boolean isNull(Integer input) {
+		return input == null;
+	}
+
+	public Member convertToMember() {
+		ObjectMapper mapper = new ObjectMapper();
+		Member member = mapper.convertValue(this, Member.class);
+		return member;
+	}
+
 	public Integer getMemberId() {
 		return memberId;
 	}
@@ -98,11 +109,11 @@ public class MemberDTO {
 		this.birthday = birthday;
 	}
 
-	public Integer getIdCard() {
+	public String getIdCard() {
 		return idCard;
 	}
 
-	public void setIdCard(Integer idCard) {
+	public void setIdCard(String idCard) {
 		this.idCard = idCard;
 	}
 
@@ -112,5 +123,12 @@ public class MemberDTO {
 
 	public void setTotalMoney(Double totalMoney) {
 		this.totalMoney = totalMoney;
+	}
+
+	@Override
+	public String toString() {
+		return "MemberDTO [memberId=" + memberId + ", memberName=" + memberName + ", email=" + email + ", password="
+				+ password + ", phone=" + phone + ", address=" + address + ", birthday=" + birthday + ", idCard="
+				+ idCard + ", totalMoney=" + totalMoney + "]";
 	}
 }

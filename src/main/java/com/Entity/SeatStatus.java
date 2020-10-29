@@ -28,12 +28,10 @@ public class SeatStatus {
 	Integer seatStatusId;
 	
 	@ManyToOne
-	@JsonIgnore
 	@JoinColumn(name = "seatid")
 	Seat seat;
 
 	@ManyToOne
-	@JsonIgnore
 	@JoinColumn(name = "showtimeid")
 	Showtimes showtimes;
 	

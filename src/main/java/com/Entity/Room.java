@@ -30,7 +30,10 @@ public class Room {
 	Integer roomId;
 
 	@ManyToOne
+<<<<<<< HEAD
 
+=======
+>>>>>>> 6afbf360483d921cdd3533b8d03d15c40e343080
 	@JoinColumn(name = "cinemaId")
 	Cinema cinema;
 
@@ -40,10 +43,17 @@ public class Room {
 	@Column(name = "seatamount")
 	Integer seatAmount;
 
+	@JsonIgnore
 	@OneToMany(mappedBy = "room")
 	List<Showtimes> showtimes;
+<<<<<<< HEAD
 	
 	@OneToMany(mappedBy = "room", cascade = CascadeType.ALL)
+=======
+
+	@JsonIgnore
+	@OneToMany(mappedBy = "room")
+>>>>>>> 6afbf360483d921cdd3533b8d03d15c40e343080
 	List<Seat> seat;
 
 	public Integer getRoomId() {

@@ -30,16 +30,9 @@ public class CinemaController {
 	@Autowired
 	private CinemaService cinemaService;
 
-	@GetMapping("/index")
-	public  ResponseEntiy<List<Cinema>> index(Integer page) {
-		List<Cinema> list;
-		int pageSize = 5;
-		if (page == null) {
-			list = cinemaService.getAll(Pageable.unpaged()).getContent();
-		} else {
-			list = cinemaService.getAll(PageRequest.of(page, pageSize)).getContent();
-		}
-		return  ResponseEntiy.body(list);
+	@GetMapping
+	public  List<Cinema> index() {
+		return cinemaService.getAll();
 	}
 
 	@PostMapping(value = "/add")
@@ -62,22 +55,6 @@ public class CinemaController {
             Optional<Cinema> checkCinema = cinemaService.findById(cinemaDTO.getCinemaId());
             if (checkCinema.isPresent()) {
                 Cinema cinema = cinemaDTO.convertToCinema();
-                return ResponseEntiy.body(cinemaService.save(cinema));
-            } else {
-                return ResponseEntiy.body(Constant.NOT_FOUND);
-            }
-        }
-	}
-	
-	@DeleteMapping(value = "/delete")
-	public ResponseEntiy<Object> deleteCinema(@RequestBody CinemaDTO cinemaDTO) {
-		if (cinemaDTO.getCinemaId() == null) {
-            return ResponseEntiy.body(Constant.BAD_REQUEST);
-        } else {
-            Optional<Cinema> checkCinema = cinemaService.findById(cinemaDTO.getCinemaId());
-            if (checkCinema.isPresent()) {
-            	Cinema cinema = cinemaDTO.convertToCinema();
-//            	movie.setStatus(0);
                 return ResponseEntiy.body(cinemaService.save(cinema));
             } else {
                 return ResponseEntiy.body(Constant.NOT_FOUND);

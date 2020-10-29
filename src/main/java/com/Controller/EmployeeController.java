@@ -25,8 +25,14 @@ public class EmployeeController {
 	private EmployeeService employeeService;
 
 	@GetMapping
-	public List<Employee> index() {
-		return employeeService.findAll();
+	public List<Employee> index(Integer status) {
+		int st;
+		if (status == null) {
+			st = 1;
+		} else {
+			st = status;
+		}
+		return employeeService.findAll(st);
 
 	}
 
@@ -35,12 +41,13 @@ public class EmployeeController {
 		 if (employeeDTO.isNull(false)) {
 	            return ResponseEntiy.body(Constant.BAD_REQUEST);
 	        } else {
-	            //Make sure id is NULL to insert Entity
+//	            Make sure id is NULL to insert Entity
 	            employeeDTO.setEmployeeId(null);
 	            Employee employee = employeeDTO.convertToEmployee();
 	            return ResponseEntiy.body(employeeService.add(employee));
 	        }
-	} 
+	}
+
 	
 	@PutMapping(value = "/update")
 	public ResponseEntiy<Object> updateEmployee(@RequestBody EmployeeDTO employeeDTO) {

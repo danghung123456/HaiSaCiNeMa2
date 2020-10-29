@@ -31,6 +31,7 @@ public class Seat {
 	@GeneratedValue(strategy = IDENTITY)
 	@Column(name = "seatid", unique = true, nullable = false)
 	Integer seatId;
+<<<<<<< HEAD
 	
 	@JsonIgnore
 	@ManyToOne
@@ -40,9 +41,21 @@ public class Seat {
 	@Column(name = "seatname")
 	String seatName;
 
+=======
+
+	@ManyToOne
+	@JoinColumn(name = "roomid")
+	Room room;
+
+	@Column(name = "seatname")
+	String seatName;
+	
+	@JsonIgnore
+>>>>>>> 6afbf360483d921cdd3533b8d03d15c40e343080
 	@OneToMany(mappedBy = "seat")
 	List<SeatStatus> seatStatus;
 
+	@JsonIgnore
 	@OneToMany(mappedBy = "seat")
 	List<TicketDetail> ticketDetail;
 

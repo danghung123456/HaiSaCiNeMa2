@@ -18,8 +18,8 @@ public class Feedback {
 
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
-	@Column(name = "responeid", unique = true, nullable = false)
-	Integer responeId;
+	@Column(name = "responseid", unique = true, nullable = false)
+	Integer responseId;
 
 	@Column(name = "email")
 	String email;
@@ -30,12 +30,12 @@ public class Feedback {
 	@Column(name = "content")
 	String content;
 
-	public Integer getResponeId() {
-		return responeId;
+	public Integer getResponseId() {
+		return responseId;
 	}
 
-	public void setResponeId(Integer responeId) {
-		this.responeId = responeId;
+	public void setResponseId(Integer responseId) {
+		this.responseId = responseId;
 	}
 
 	public String getEmail() {

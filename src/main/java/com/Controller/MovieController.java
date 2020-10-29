@@ -1,8 +1,6 @@
 package com.Controller;
 
-import java.util.List;
 import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -14,7 +12,6 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
 import com.DTO.MovieDTO;
 import com.Entity.Movie;
 import com.Services.MovieService;
@@ -29,7 +26,7 @@ public class MovieController {
 	@Autowired
 	private MovieService movieService;
 
-	@GetMapping("/index")
+	@GetMapping
 	public  ResponseEntiy<Page<Movie>> index(Integer status ,Integer page) {
 		Page<Movie> list;
 		//1 trang có 5 phim
@@ -102,5 +99,9 @@ public class MovieController {
 		return ResponseEntiy.body(movieService.findByName(name));
 	}
 
+<<<<<<< HEAD
+=======
+	
+>>>>>>> 6afbf360483d921cdd3533b8d03d15c40e343080
 
 }
