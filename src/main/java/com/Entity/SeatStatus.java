@@ -38,4 +38,38 @@ public class SeatStatus {
 	@Column(name = "status")
 	Boolean status;
 
+	public Integer getSeatStatusId() {
+		return seatStatusId;
+	}
+
+	public void setSeatStatusId(Integer seatStatusId) {
+		this.seatStatusId = seatStatusId;
+	}
+
+	public Seat getSeat() {
+		return seat;
+	}
+
+	public void setSeat(Seat seat) {
+		this.seat = seat;
+	}
+
+	public Showtimes getShowtimes() {
+		return showtimes;
+	}
+
+	public void setShowtimes(Showtimes showtimes) {
+		this.showtimes = showtimes;
+	}
+
+	public Boolean getStatus() {
+		return status;
+	}
+
+	public void setStatus(Boolean status) {
+		this.status = status;
+	}
+	
+	
+
 }

@@ -6,26 +6,30 @@ import java.util.Optional;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+
+import com.DTO.ShowtimesDTO;
 import com.DTO.ViewDTO;
 import com.Entity.Showtimes;
 
 @Service
 public interface ShowtimesService {
+
+	Page<Showtimes> getAll(Pageable pageable);
+
+	void deleteAll();
+
+	Showtimes add(Showtimes showtimes);
+
+	List<ViewDTO> getViewShowtimes();
+
+	List<Showtimes> addAll(List<Showtimes> list);
+
+	Optional<Showtimes> findById(Integer id);
+
+	Showtimes save(Showtimes showtimes);
+
+	Page<Showtimes> findShowtimesByStatus(Integer status, Pageable pageable);
 	
-	public Page<Showtimes> getAll(Pageable pageable);
-
-	public void deleteAll();
-
-	public Showtimes add(Showtimes showtimes);
-
- List<ViewDTO> getViewShowtimes();
-
-	public List<Showtimes> addAll(List<Showtimes> list);
-
-	public Optional<Showtimes> findById(Integer id);
-
-	public Showtimes save(Showtimes showtimes);
-
-	public Page<Showtimes> findShowtimesByStatus(Integer status, Pageable pageable);
+	Showtimes convert(ShowtimesDTO dto);
 
 }

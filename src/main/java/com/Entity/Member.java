@@ -34,7 +34,6 @@ public class Member {
 	
 	@Column(name = "email")
 	String email;
-
 	
 	@Column(name = "password")
 	String password;

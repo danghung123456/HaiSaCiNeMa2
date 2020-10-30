@@ -28,7 +28,6 @@ public class Room {
 	Integer roomId;
 
 	@ManyToOne
-
 	@JoinColumn(name = "cinemaId")
 	Cinema cinema;
 

@@ -8,17 +8,32 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import com.DTO.ShowtimesDTO;
 import com.DTO.ViewDTO;
-
+import com.Entity.Employee;
+import com.Entity.Movie;
+import com.Entity.Period;
+import com.Entity.Room;
 import com.Entity.Showtimes;
 import com.Repository.ShomtimesRepository;
+import com.Services.EmployeeService;
+import com.Services.MovieService;
+import com.Services.PeriodService;
+import com.Services.RoomService;
 import com.Services.ShowtimesService;
 
 @Service
 public class ShowtimesServiceImpl implements ShowtimesService {
 	@Autowired
 	ShomtimesRepository repository;
-
+	@Autowired
+	MovieService movieService;
+	@Autowired
+	EmployeeService empService;
+	@Autowired
+	RoomService roomService;
+	@Autowired
+	PeriodService periodService;
 
 	@Override
 	public Page<Showtimes> getAll(Pageable pageable) {
@@ -67,19 +82,26 @@ public class ShowtimesServiceImpl implements ShowtimesService {
 		return repository.getViewShowTimes();
 	}
 
-
+	@Override
+	public Showtimes convert(ShowtimesDTO dto) {
+		Movie movie = movieService.findById(dto.getMovieId()).orElse(null);
+		Employee employee = empService.findById(dto.getEmployeeId()).orElse(null);
+		Room room = roomService.findById(dto.getRoomId()).orElse(null);
+		Period period = periodService.findById(dto.getPeriodId()).orElse(null);
+		Showtimes showtime = new Showtimes();
+		showtime.setMovie(movie);
+		showtime.setEmployee(employee);
+		showtime.setRoom(room);
+		showtime.setPeriod(period);
+		showtime.setDate(dto.getDate());
+		showtime.setStatus(1);
+		return showtime;
+	}
 
 //	@Override
 //	public List<showMovieDTO> findAll() {
 //		// TODO Auto-generated method stub
 //		return repoView.myView();
 //	}
-
-
-
-
-
-
-
 
 }

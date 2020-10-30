@@ -1,5 +1,6 @@
 package com.Entity;
 // default package
+
 // Generated Oct 11, 2020, 8:25:38 PM by Hibernate Tools 5.1.10.Final
 
 import java.io.Serializable;
@@ -19,45 +20,51 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
  */
 @Entity
 @Table(name = "movie")
-public class Movie{
+public class Movie {
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
 	@Column(name = "movieid", unique = true, nullable = false)
 	private Integer movieId;
-	
+
 	@Column(name = "moviename")
 	private String movieName;
-	
+
 	@Column(name = "duration")
 	private Integer duration;
-	
+
 	@Column(name = "description")
 	private String description;
-	
+
 	@Column(name = "thumbnail")
 	private String thumbnail;
-	
+
 	@Column(name = "actors")
 	private String actors;
-	
+
 	@Column(name = "director")
 	private String director;
-	
+
 	@Column(name = "agelimit")
 	private Integer agelimit;
-	
+
 	@Column(name = "status")
 	private Integer status;
-	
+
 	@JsonIgnore
 	@OneToMany(mappedBy = "movie")
 	private List<MovieGenreDetail> movieGenreDetail;
-	
+
 	@JsonIgnore
 	@OneToMany(mappedBy = "movie")
 	List<Showtimes> showtimes;
 
 	public Movie() {
+
+	}
+
+	public Movie(Integer movieId) {
+		super();
+		this.movieId = movieId;
 	}
 
 	public Integer getMovieId() {

@@ -49,8 +49,10 @@ public class MovieDTO {
 	}
 
 	public Movie convertToMovie() {
+		
 		ObjectMapper mapper = new ObjectMapper();
-		Movie movie = mapper.convertValue(this, Movie.class);
+		Movie movie = new Movie(this.getMovieId());
+		movie = mapper.convertValue(this, Movie.class);
 		if (isNull(status)) {
 			movie.setStatus(1);
 		}

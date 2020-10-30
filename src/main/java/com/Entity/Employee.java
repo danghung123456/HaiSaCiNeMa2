@@ -63,7 +63,7 @@ public class Employee  {
 	@Column(name = "status")
 	Integer status;
 	
-	@ManyToOne(cascade = {CascadeType.ALL})
+	@ManyToOne
 	@JoinColumn(name = "cinemaid")
 	Cinema cinema;
 

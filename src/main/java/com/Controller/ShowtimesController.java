@@ -3,6 +3,9 @@ package com.Controller;
 
 import java.util.List;
 import java.util.Optional;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -19,22 +22,29 @@ import com.DTO.ShowtimesDTO;
 import com.DTO.ViewDTO;
 import com.DTO.Base.ResponseEntiy;
 import com.Entity.Showtimes;
+import com.Services.SeatStatusService;
 import com.Services.ShowtimesService;
+
+import net.bytebuddy.asm.Advice.This;
 
 @RestController
 @RequestMapping(value = "showtimes")
 
 public class ShowtimesController {
+	private static final Logger logger = LoggerFactory.getLogger(ShowtimesController.class);
 
 	@Autowired
 	private ShowtimesService showtimesService;
+	@Autowired
+	private SeatStatusService seatStatusService;
 
 
 	
 	@GetMapping("/index")
 	public ResponseEntiy<Page<Showtimes>> index(Integer status, Integer page) {
+		logger.info("Call index API path: {}", "/index");
 		Page<Showtimes> list;
-		int pageSize = 5;
+		int pageSize = 30;
 		int st;
 		if (status == null) {
 			st = 1;
@@ -46,18 +56,24 @@ public class ShowtimesController {
 		} else {
 			list = showtimesService.findShowtimesByStatus(st, PageRequest.of(page, pageSize));
 		}
+		logger.info("Return value: {}", list);
 		return ResponseEntiy.body(list);
 	}
 
 	@PostMapping(value = "/add")
 	public ResponseEntiy<Object> addShowtimes(@RequestBody ShowtimesDTO showtimesDTO) {
+		logger.info("Call /add API, payload=[{}]", showtimesDTO);
 		if (showtimesDTO.isNull(false)) {
 			return ResponseEntiy.body(Constant.BAD_REQUEST);
 		} else {
 			// Make sure id is NULL to insert Entity
 			showtimesDTO.setShowtimeId(null);
-			Showtimes showtimes = showtimesDTO.convertToShowtimes();
-			return ResponseEntiy.body(showtimesService.add(showtimes));
+			System.out.println("Start convert DTO to eNTITY");
+			Showtimes showtimes = showtimesService.convert(showtimesDTO);
+			System.out.println("Convert Done!!");
+			showtimesService.add(showtimes);
+			seatStatusService.add(showtimes);
+			return ResponseEntiy.body(showtimes);
 		}
 	}
 
