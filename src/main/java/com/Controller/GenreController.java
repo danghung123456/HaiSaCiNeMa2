@@ -4,28 +4,16 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-<<<<<<< HEAD
-import org.springframework.web.bind.annotation.CrossOrigin;
-=======
-import com.Constant.Constant;
-import com.DTO.EmployeeDTO;
-import com.DTO.GenreMovieDTO;
-import com.DTO.Base.ResponseEntiy;
->>>>>>> 6afbf360483d921cdd3533b8d03d15c40e343080
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-<<<<<<< HEAD
 
 import com.Constant.Constant;
-import com.DTO.GenreDTO;
+import com.DTO.GenreMovieDTO;
 import com.DTO.Base.ResponseEntiy;
-=======
->>>>>>> 6afbf360483d921cdd3533b8d03d15c40e343080
 import com.Entity.GenreMovie;
 import com.Services.GenreMovieService;
 
@@ -37,7 +25,7 @@ public class GenreController {
 	@Autowired
 	private GenreMovieService genreService;
 
-<<<<<<< HEAD
+
 //	@GetMapping("/index")
 //	public ResponseEntiy<List<GenreMovie>> index(Integer page) {
 //		List<GenreMovie> list;
@@ -51,9 +39,8 @@ public class GenreController {
 //		return ResponseEntiy.body(list);
 //	}
 	@GetMapping("/index")
-=======
-	@GetMapping
->>>>>>> 6afbf360483d921cdd3533b8d03d15c40e343080
+
+
 	public List<GenreMovie> index() {
 		return genreService.findAll();
 	}

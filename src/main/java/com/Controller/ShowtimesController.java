@@ -1,22 +1,19 @@
 package com.Controller;
 
 
+import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-<<<<<<< HEAD
 import org.springframework.web.bind.annotation.CrossOrigin;
-=======
->>>>>>> 6afbf360483d921cdd3533b8d03d15c40e343080
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
 import com.Constant.Constant;
 import com.DTO.ShowtimesDTO;
 import com.DTO.ViewDTO;
@@ -32,14 +29,10 @@ public class ShowtimesController {
 	@Autowired
 	private ShowtimesService showtimesService;
 
-<<<<<<< HEAD
+
 	
 	@GetMapping("/index")
 	public ResponseEntiy<Page<Showtimes>> index(Integer status, Integer page) {
-=======
-	@GetMapping
-	public  ResponseEntiy<Page<Showtimes>> index(Integer status, Integer page) {
->>>>>>> 6afbf360483d921cdd3533b8d03d15c40e343080
 		Page<Showtimes> list;
 		int pageSize = 5;
 		int st;

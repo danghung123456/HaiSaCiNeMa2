@@ -1,9 +1,8 @@
 package com.DTO;
 
-<<<<<<< HEAD
-=======
+
 import com.Entity.Room;
->>>>>>> 6afbf360483d921cdd3533b8d03d15c40e343080
+
 import com.Entity.Seat;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -11,11 +10,7 @@ public class SeatDTO {
 	private Integer seatId;
 	private String seatName;
 	private Integer roomId;
-<<<<<<< HEAD
-	
-	public void setSeatId(Integer seatId) {
-		this.seatId = seatId;
-=======
+
 	private Room room;
 
 	public SeatDTO() {
@@ -49,38 +44,9 @@ public class SeatDTO {
 		ObjectMapper mapper = new ObjectMapper();
 		Seat seat = mapper.convertValue(this, Seat.class);
 		return seat;
->>>>>>> 6afbf360483d921cdd3533b8d03d15c40e343080
+
 	}
 
-	public Integer getSeatId() {
-		return seatId;
-	}
-
-<<<<<<< HEAD
-	public String getSeatName() {
-		return seatName;
-	}
-	public void setSeatName(String seatName) {
-		this.seatName = seatName;
-	}
-	public Integer getRoomId() {
-		return roomId;
-	}
-	public void setRoomId(Integer roomId) {
-		this.roomId = roomId;
-	}
-	public boolean isNull(boolean includeId) {
-        boolean res = isNull(seatName) || isNull(roomId) ;
-        return includeId ? res || isNull(seatId) : res;
-    }
-
-    private boolean isNull(String input) {
-        return input == null || input.trim().length() == 0;
-    }
-
-    private boolean isNull(Integer input) {
-        return input == null;
-    }
 
 
     public Seat convertToDTO() {
@@ -90,7 +56,7 @@ public class SeatDTO {
     	System.out.println("this is seat: "+seat.toString());
     	return seat;
     }
-=======
+
 	public void setSeatId(Integer seatId) {
 		this.seatId = seatId;
 	}
@@ -124,5 +90,5 @@ public class SeatDTO {
 		return "SeatDTO [seatId=" + seatId + ", seatName=" + seatName + ", room=" + room + "]";
 	}
 
->>>>>>> 6afbf360483d921cdd3533b8d03d15c40e343080
+
 }

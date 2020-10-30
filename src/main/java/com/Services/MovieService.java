@@ -25,10 +25,5 @@ public interface MovieService {
 	    public Optional<Movie> findById(Integer id);
 	    
 	    public List<Movie> findByName(String name);
-	    
-<<<<<<< HEAD
-	
-=======
-	   
->>>>>>> 6afbf360483d921cdd3533b8d03d15c40e343080
+
 }
