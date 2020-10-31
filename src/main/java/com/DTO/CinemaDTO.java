@@ -19,7 +19,8 @@ public class CinemaDTO {
 		this.address = address;
 
 		System.out.println("sadasdasdsadsadassd");
-
+System.out.println("asdsadsad");
+		
 	}
 
 	public boolean isNull(boolean includeId) {
