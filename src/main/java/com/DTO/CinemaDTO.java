@@ -17,6 +17,7 @@ public class CinemaDTO {
 		this.cinemaId = cinemaId;
 		this.name = name;
 		this.address = address;
+	abc
 	}
 
 	public boolean isNull(boolean includeId) {
