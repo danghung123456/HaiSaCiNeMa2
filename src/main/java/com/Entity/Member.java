@@ -50,7 +50,7 @@ public class Member {
 	@Column(name = "idcard")
 	String idCard;
 
-	@Column(name = "totalmoney", precision = 53, scale = 0)
+	@Column(name = "totalmoney")
 	Double totalMoney;
 
 	@OneToMany(mappedBy = "member")

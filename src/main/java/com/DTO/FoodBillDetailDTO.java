@@ -12,7 +12,7 @@ public class FoodBillDetailDTO {
 	private Integer ticketId;
 	private Integer foodId;
 	private Integer quantity;
-	private Float amount;
+	private Double total;
 	private Ticket ticket;
 	private Food food;
 
@@ -21,17 +21,17 @@ public class FoodBillDetailDTO {
 	}
 
 	public FoodBillDetailDTO(Integer foodBillDetailId, Integer ticketId, Integer foodId, Integer quantity,
-			Float amount) {
+			Double total) {
 		super();
 		this.foodBillDetailId = foodBillDetailId;
 		this.ticketId = ticketId;
 		this.foodId = foodId;
 		this.quantity = quantity;
-		this.amount = amount;
+		this.total = total;
 	}
 
 	public boolean isNull(boolean includeId) {
-		boolean res = isNull(quantity) || isNull(amount) || isNull(ticketId) || isNull(foodId);
+		boolean res = isNull(quantity) || isNull(ticketId) || isNull(foodId);
 		return includeId ? res || isNull(foodBillDetailId) : res;
 	}
 
@@ -91,12 +91,12 @@ public class FoodBillDetailDTO {
 		this.quantity = quantity;
 	}
 
-	public Float getAmount() {
-		return amount;
+	public Double getTotal() {
+		return total;
 	}
 
-	public void setAmount(Float amount) {
-		this.amount = amount;
+	public void setTotal(Double total) {
+		this.total = total;
 	}
 
 	public Integer getTicketId() {
@@ -118,7 +118,7 @@ public class FoodBillDetailDTO {
 	@Override
 	public String toString() {
 		return "FoodBillDetailDTO [foodBillDetailId=" + foodBillDetailId + ", ticket=" + ticket + ", food=" + food
-				+ ", quantity=" + quantity + ", amount=" + amount + "]";
+				+ ", quantity=" + quantity + ", total=" + total + "]";
 	}
 
 }

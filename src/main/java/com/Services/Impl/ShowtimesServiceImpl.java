@@ -15,7 +15,7 @@ import com.Entity.Movie;
 import com.Entity.Period;
 import com.Entity.Room;
 import com.Entity.Showtimes;
-import com.Repository.ShomtimesRepository;
+import com.Repository.ShowtimesRepository;
 import com.Services.EmployeeService;
 import com.Services.MovieService;
 import com.Services.PeriodService;
@@ -25,7 +25,7 @@ import com.Services.ShowtimesService;
 @Service
 public class ShowtimesServiceImpl implements ShowtimesService {
 	@Autowired
-	ShomtimesRepository repository;
+	ShowtimesRepository repository;
 	@Autowired
 	MovieService movieService;
 	@Autowired

@@ -40,22 +40,23 @@ public class Ticket {
 	Integer ticketQuantity;
 
 	@Column(name = "ticketpriceamount")
-	Float ticketPriceAmount;
+	Double ticketPriceAmount;
 
 	@Column(name = "code")
 	String code;
 
 	@Column(name = "total")
-	Float total;
+	Double total;
 
 	@OneToMany(mappedBy = "ticket")
+	@JsonIgnore
 	List<TicketDetail> ticketDetail;
 
 	@OneToMany(mappedBy = "ticket")
+	@JsonIgnore
 	List<FoodBillDetail> foodBillDetail;
 
 	@ManyToOne
-	@JsonIgnore
 	@JoinColumn(name = "showtimeid")
 	Showtimes showtimes;
 
@@ -87,11 +88,11 @@ public class Ticket {
 		this.ticketQuantity = ticketQuantity;
 	}
 
-	public Float getTicketPriceAmount() {
+	public Double getTicketPriceAmount() {
 		return ticketPriceAmount;
 	}
 
-	public void setTicketPriceAmount(Float ticketPriceAmount) {
+	public void setTicketPriceAmount(Double ticketPriceAmount) {
 		this.ticketPriceAmount = ticketPriceAmount;
 	}
 
@@ -103,11 +104,11 @@ public class Ticket {
 		this.code = code;
 	}
 
-	public Float getTotal() {
+	public Double getTotal() {
 		return total;
 	}
 
-	public void setTotal(Float total) {
+	public void setTotal(Double total) {
 		this.total = total;
 	}
 

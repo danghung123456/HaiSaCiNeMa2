@@ -39,7 +39,7 @@ public class FoodBillDetail {
 	Integer quantity;
 
 	@Column(name = "total")
-	Float total;
+	Double total;
 
 	public FoodBillDetail() {
 	}
@@ -76,11 +76,11 @@ public class FoodBillDetail {
 		this.quantity = quantity;
 	}
 
-	public Float getTotal() {
+	public Double getTotal() {
 		return total;
 	}
 
-	public void setTotal(Float total) {
+	public void setTotal(Double total) {
 		this.total = total;
 	}
 

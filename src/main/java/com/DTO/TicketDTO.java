@@ -1,5 +1,7 @@
 package com.DTO;
 
+import java.util.List;
+
 import com.Entity.Cinema;
 import com.Entity.Member;
 import com.Entity.Movie;
@@ -15,31 +17,19 @@ public class TicketDTO {
 	private Integer ticketQuantity;
 	private Integer memberId;
 	private Integer showtimeId;
-	private Integer ticketPriceAmount;
-	private Integer code;
-	private Integer total;
-	private Member member;
-	private Showtimes showtimes;
+	private Double ticketPriceAmount;
+	private String code;
+	private Double total;
+	private List<SeatStatusDTO> listSeatStatus;
+	private List<SeatDTO> listSeat;
+	private List<FoodBillDetailDTO> listFoodBillDetail;
 
 	public TicketDTO() {
 		super();
 	}
 
-	public TicketDTO(Integer ticketId, Integer ticketQuantity, Integer memberId, Integer showtimeId,
-			Integer ticketPriceAmount, Integer code, Integer total) {
-		super();
-		this.ticketId = ticketId;
-		this.ticketQuantity = ticketQuantity;
-		this.memberId = memberId;
-		this.showtimeId = showtimeId;
-		this.ticketPriceAmount = ticketPriceAmount;
-		this.code = code;
-		this.total = total;
-	}
-
 	public boolean isNull(boolean includeId) {
-		boolean res = isNull(ticketQuantity) || isNull(memberId) || isNull(code) || isNull(ticketPriceAmount)
-				|| isNull(showtimeId);
+		boolean res = isNull(ticketQuantity) || isNull(memberId) || isNull(showtimeId);
 		return includeId ? res || isNull(ticketId) : res;
 	}
 
@@ -49,18 +39,6 @@ public class TicketDTO {
 
 	private boolean isNull(Integer input) {
 		return input == null;
-	}
-
-	public TicketDetail convertToCinema() {
-		Showtimes showtimes = new Showtimes();
-		showtimes.setShowtimeId(this.getShowtimeId());
-		this.setShowtimes(showtimes);
-		Member member = new Member();
-		member.setMemberId(this.getMemberId());
-		this.setMember(member);
-		ObjectMapper mapper = new ObjectMapper();
-		TicketDetail ticketDetail = mapper.convertValue(this, TicketDetail.class);
-		return ticketDetail;
 	}
 
 	public Integer getTicketId() {
@@ -95,51 +73,59 @@ public class TicketDTO {
 		this.showtimeId = showtimeId;
 	}
 
-	public Integer getTicketPriceAmount() {
+	public Double getTicketPriceAmount() {
 		return ticketPriceAmount;
 	}
 
-	public void setTicketPriceAmount(Integer ticketPriceAmount) {
+	public void setTicketPriceAmount(Double ticketPriceAmount) {
 		this.ticketPriceAmount = ticketPriceAmount;
 	}
 
-	public Integer getCode() {
+	public String getCode() {
 		return code;
 	}
 
-	public void setCode(Integer code) {
+	public void setCode(String code) {
 		this.code = code;
 	}
 
-	public Integer getTotal() {
+	public Double getTotal() {
 		return total;
 	}
 
-	public void setTotal(Integer total) {
+	public void setTotal(Double total) {
 		this.total = total;
 	}
 
-	public Member getMember() {
-		return member;
+	public List<SeatDTO> getListSeat() {
+		return listSeat;
 	}
 
-	public void setMember(Member member) {
-		this.member = member;
+	public void setListSeat(List<SeatDTO> listSeat) {
+		this.listSeat = listSeat;
 	}
 
-	public Showtimes getShowtimes() {
-		return showtimes;
+	public List<FoodBillDetailDTO> getListFoodBillDetail() {
+		return listFoodBillDetail;
 	}
 
-	public void setShowtimes(Showtimes showtimes) {
-		this.showtimes = showtimes;
+	public void setListFoodBillDetail(List<FoodBillDetailDTO> listFoodBillDetail) {
+		this.listFoodBillDetail = listFoodBillDetail;
+	}
+
+	public List<SeatStatusDTO> getListSeatStatus() {
+		return listSeatStatus;
+	}
+
+	public void setListSeatStatus(List<SeatStatusDTO> listSeatStatus) {
+		this.listSeatStatus = listSeatStatus;
 	}
 
 	@Override
 	public String toString() {
 		return "TicketDTO [ticketId=" + ticketId + ", ticketQuantity=" + ticketQuantity + ", memberId=" + memberId
 				+ ", showtimeId=" + showtimeId + ", ticketPriceAmount=" + ticketPriceAmount + ", code=" + code
-				+ ", total=" + total + "]";
+				+ ", total=" + total + ", listSeat=" + listSeat + ", listFoodBillDetail=" + listFoodBillDetail + "]";
 	}
 
 }

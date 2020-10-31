@@ -13,7 +13,7 @@ import com.DTO.ViewDTO;
 import com.Entity.Showtimes;
 
 @Repository
-public interface ShomtimesRepository extends JpaRepository<Showtimes, Integer> {
+public interface ShowtimesRepository extends JpaRepository<Showtimes, Integer> {
 
 	@Query("FROM Showtimes s WHERE s.status = :status")
 	Page<Showtimes> findShowtimesByStatus(Integer status, Pageable pageable);

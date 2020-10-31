@@ -2,6 +2,7 @@ package com.Services.Impl;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -10,7 +11,7 @@ import com.Entity.Seat;
 import com.Entity.SeatStatus;
 import com.Entity.Showtimes;
 import com.Repository.SeatStatusRepository;
-import com.Repository.ShomtimesRepository;
+import com.Repository.ShowtimesRepository;
 import com.Services.SeatStatusService;
 
 @Service
@@ -18,7 +19,7 @@ public class SeatStatusServiceImpl implements SeatStatusService {
 	@Autowired
 	SeatStatusRepository repository;
 	@Autowired
-	ShomtimesRepository ShowtimesRepository;
+	ShowtimesRepository ShowtimesRepository;
 
 	@Override
 	public Showtimes add(Showtimes showtimes) {
@@ -38,6 +39,11 @@ public class SeatStatusServiceImpl implements SeatStatusService {
 	@Override
 	public SeatStatus save(SeatStatus seatStatus) {
 		return repository.saveAndFlush(seatStatus);
+	}
+
+	@Override
+	public Optional<SeatStatus> findById(Integer seatStatusId) {
+		return repository.findById(seatStatusId);
 	}
 
 }

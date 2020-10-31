@@ -57,6 +57,10 @@ public class SeatDTO {
     	return seat;
     }
 
+    public Integer getSeatId() {
+		return seatId;
+	}
+    
 	public void setSeatId(Integer seatId) {
 		this.seatId = seatId;
 	}
