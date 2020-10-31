@@ -24,7 +24,6 @@ public interface ShowtimesRepository extends JpaRepository<Showtimes, Integer> {
 	@Query(value = "SELECT * FROM Showtimes s WHERE s.movieName LIKE %?% AND m.status = 1", nativeQuery = true)
 	List<Showtimes> findByName(String name);
 
-//query view showtime
 	@Query(nativeQuery = true, value = "select * from showMovie")
 	List<ViewDTO> getViewShowTimes();
 }
