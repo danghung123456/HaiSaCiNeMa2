@@ -17,7 +17,7 @@ public class CinemaDTO {
 		this.cinemaId = cinemaId;
 		this.name = name;
 		this.address = address;
-	abc
+		System.out.println("LOL");
 	}
 
 	public boolean isNull(boolean includeId) {
