@@ -11,6 +11,7 @@ public class MovieDTO {
 	private String duration;
 	private String description;
 	private String thumbnail;
+	private String trailer;
 	private String actors;
 	private String director;
 	private Integer ageLimit;
@@ -21,13 +22,14 @@ public class MovieDTO {
 	}
 
 	public MovieDTO(Integer movieId, String movieName, String duration, String description, String thumbnail,
-			String actors, String director, Integer ageLimit, Integer status) {
+			String trailer, String actors, String director, Integer ageLimit, Integer status) {
 		super();
 		this.movieId = movieId;
 		this.movieName = movieName;
 		this.duration = duration;
 		this.description = description;
 		this.thumbnail = thumbnail;
+		this.trailer = trailer;
 		this.actors = actors;
 		this.director = director;
 		this.ageLimit = ageLimit;
@@ -49,7 +51,7 @@ public class MovieDTO {
 	}
 
 	public Movie convertToMovie() {
-		
+
 		ObjectMapper mapper = new ObjectMapper();
 		Movie movie = new Movie(this.getMovieId());
 		movie = mapper.convertValue(this, Movie.class);
@@ -129,6 +131,14 @@ public class MovieDTO {
 
 	public void setStatus(Integer status) {
 		this.status = status;
+	}
+
+	public String getTrailer() {
+		return trailer;
+	}
+
+	public void setTrailer(String trailer) {
+		this.trailer = trailer;
 	}
 
 	@Override
