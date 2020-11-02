@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.DTO.TicketDTO;
-import com.DTO.view.TicketByCinemaView;
+import com.DTO.view.TicketByMovieView;
 import com.DTO.view.TicketByShowtimeView;
 import com.Entity.Member;
 import com.Entity.Showtimes;
@@ -66,14 +66,5 @@ public class TicketServiceImpl implements TicketService {
 		return repository.findAll();
 	}
 
-	@Override
-	public List<TicketByCinemaView> getTicketByCinema() {
-		return repository.getTicketByCinema();
-	}
-
-	@Override
-	public List<TicketByShowtimeView> getTicketByShowtime() {
-		return repository.getTicketByShowtime();
-	}
 
 }

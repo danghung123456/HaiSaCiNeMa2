@@ -6,7 +6,7 @@ import java.util.Optional;
 import org.springframework.stereotype.Service;
 
 import com.DTO.TicketDTO;
-import com.DTO.view.TicketByCinemaView;
+import com.DTO.view.TicketByMovieView;
 import com.DTO.view.TicketByShowtimeView;
 import com.Entity.Ticket;
 
@@ -23,8 +23,4 @@ public interface TicketService {
 	    Optional<Ticket> findById(Integer id);
 	    
 	    Ticket converToTicket(TicketDTO ticketDTO);
-	    
-	    List<TicketByCinemaView> getTicketByCinema();
-	    
-	    List<TicketByShowtimeView> getTicketByShowtime();
 }

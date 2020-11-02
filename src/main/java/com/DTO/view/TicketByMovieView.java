@@ -1,8 +1,8 @@
 package com.DTO.view;
 
 
-public interface TicketByCinemaView {
-	String getcinemaName();
+public interface TicketByMovieView {
+	String getmovieName();
 
 	Integer getticketQuantity();
 
