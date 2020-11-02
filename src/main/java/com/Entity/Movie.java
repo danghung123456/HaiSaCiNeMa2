@@ -158,14 +158,6 @@ public class Movie {
 		this.trailer = trailer;
 	}
 
-	public Integer getAgelimit() {
-		return agelimit;
-	}
-
-	public void setAgelimit(Integer agelimit) {
-		this.agelimit = agelimit;
-	}
-
 	public List<Showtimes> getShowtimes() {
 		return showtimes;
 	}
