@@ -1,5 +1,6 @@
 package com.Controller;
 
+import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -27,10 +28,7 @@ public class MovieController {
 	private MovieService movieService;
 
 	@GetMapping
-	public  ResponseEntiy<Page<Movie>> index(Integer status ,Integer page) {
-		Page<Movie> list;
-		//1 trang có 5 phim
-		int pageSize = 5;
+	public  ResponseEntiy<List<Movie>> index(Integer status) {
 		//Tìm danh sách phim theo status(status: 0: ngừng chiếu, 1: đang chiếu, 2: sắp chiếu)
 		int st;
 		if (status == null) {
@@ -38,12 +36,7 @@ public class MovieController {
 		} else {
 			st = status;
 		}
-		if (page == null) {
-			list = movieService.findMovieByStatus(st, Pageable.unpaged());
-		} else {
-			list = movieService.findMovieByStatus(st, PageRequest.of(page, pageSize));
-		}
-		return  ResponseEntiy.body(list);
+		return  ResponseEntiy.body(movieService.findMovieByStatus(st));
 	}
 
 	@PostMapping(value = "/add")

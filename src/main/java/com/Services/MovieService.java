@@ -20,7 +20,7 @@ public interface MovieService {
 
 	    public List<Movie> addAll(List<Movie> list);
 	    
-	    public Page<Movie> findMovieByStatus(Integer status, Pageable pageable);
+	    public List<Movie> findMovieByStatus(Integer status);
 	    
 	    public Optional<Movie> findById(Integer id);
 	    

@@ -49,8 +49,8 @@ public class MovieServiceImpl implements MovieService {
     public Movie save(Movie movie){
         return repository.saveAndFlush(movie);
     }
-    public Page<Movie> findMovieByStatus(Integer status, Pageable pageable) {
-		return repository.findMovieByStatus(status, pageable);
+    public List<Movie> findMovieByStatus(Integer status) {
+		return repository.findMovieByStatus(status);
 	}
 
 
