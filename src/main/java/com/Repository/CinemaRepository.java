@@ -11,4 +11,5 @@ public interface CinemaRepository extends JpaRepository<Cinema, Integer> {
 
 	@Query(value = "FROM Cinema c WHERE c.name LIKE %:name%")
 	List<Cinema> findByNames(String name);
+	
 }

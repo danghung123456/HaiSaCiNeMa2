@@ -37,7 +37,7 @@ import com.Services.TicketDetailService;
 import com.Services.TicketService;
 import com.Constant.*;
 import com.DTO.Base.ResponseEntiy;
-import com.DTO.view.TicketByCinemaView;
+import com.DTO.view.TicketByMovieView;
 import com.DTO.view.TicketByShowtimeView;
 
 @RestController
@@ -109,20 +109,10 @@ public class TicketController {
 	} 
 	
 	
-	
 	@GetMapping("/findbyid")
 	public ResponseEntiy<Object> findById(Integer id) {
 		return  ResponseEntiy.body(ticketService.findById(id));
 	}
 	
-	@GetMapping("/ticketbycinema")
-	public List<TicketByCinemaView> getTicketByCinema(){
-		return ticketService.getTicketByCinema();
-	}
-	
-	@GetMapping("/ticketbyshowtime")
-	public List<TicketByShowtimeView> getTicketByShowtime(){
-		return ticketService.getTicketByShowtime();
-	}
 
 }
