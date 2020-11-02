@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -19,7 +18,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.Constant.Constant;
 import com.DTO.ShowtimesDTO;
-import com.DTO.ViewDTO;
 import com.DTO.Base.ResponseEntiy;
 import com.Entity.Showtimes;
 import com.Services.SeatStatusService;
@@ -40,7 +38,7 @@ public class ShowtimesController {
 
 
 	
-	@GetMapping("/index")
+	@GetMapping
 	public ResponseEntiy<Page<Showtimes>> index(Integer status, Integer page) {
 		logger.info("Call index API path: {}", "/index");
 		Page<Showtimes> list;
@@ -68,9 +66,7 @@ public class ShowtimesController {
 		} else {
 			// Make sure id is NULL to insert Entity
 			showtimesDTO.setShowtimeId(null);
-			System.out.println("Start convert DTO to eNTITY");
 			Showtimes showtimes = showtimesService.convert(showtimesDTO);
-			System.out.println("Convert Done!!");
 			showtimesService.add(showtimes);
 			seatStatusService.add(showtimes);
 			return ResponseEntiy.body(showtimes);
@@ -113,14 +109,5 @@ public class ShowtimesController {
 		return ResponseEntiy.body(showtimesService.findById(id));
 	}
 
-	@GetMapping("/view")
-	@CrossOrigin(origins = "http://localhost:4200")
-	public List<ViewDTO> getShowmovie() {
-		return showtimesService.getViewShowtimes();
-	}
 
-//	@GetMapping("/findbyname")
-//	public ResponseEntiy<Object> findByName(String name) {
-//		return ResponseEntiy.body(cinemaService.findByName(name));
-//	}
-}
+	}

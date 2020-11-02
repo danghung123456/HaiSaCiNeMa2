@@ -45,7 +45,7 @@ public class FoodController {
 			return ResponseEntiy.body(Constant.BAD_REQUEST);
 		}else {
 			foodDTO.setFoodId(null);
-//			foodDTO.setStatus(1);
+			foodDTO.setStatus(1);
 			Food food = foodDTO.convertToFood();
 			return ResponseEntiy.body(foodService.add(food));
 		}

@@ -6,9 +6,7 @@ import java.util.Optional;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-
 import com.DTO.ShowtimesDTO;
-import com.DTO.ViewDTO;
 import com.Entity.Showtimes;
 
 @Service
@@ -19,8 +17,6 @@ public interface ShowtimesService {
 	void deleteAll();
 
 	Showtimes add(Showtimes showtimes);
-
-	List<ViewDTO> getViewShowtimes();
 
 	List<Showtimes> addAll(List<Showtimes> list);
 

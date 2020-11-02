@@ -26,7 +26,7 @@ public class MovieController {
 	@Autowired
 	private MovieService movieService;
 
-	@GetMapping(value = "/index")
+	@GetMapping
 	public  ResponseEntiy<Page<Movie>> index(Integer status ,Integer page) {
 		Page<Movie> list;
 		//1 trang có 5 phim

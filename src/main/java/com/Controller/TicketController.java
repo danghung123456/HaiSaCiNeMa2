@@ -37,6 +37,8 @@ import com.Services.TicketDetailService;
 import com.Services.TicketService;
 import com.Constant.*;
 import com.DTO.Base.ResponseEntiy;
+import com.DTO.view.TicketByCinemaView;
+import com.DTO.view.TicketByShowtimeView;
 
 @RestController
 @RequestMapping(value = "ticket")
@@ -59,25 +61,10 @@ public class TicketController {
 	private SeatStatusService seatStatusService;
 
 
-//	@GetMapping(value = "/index")
-//	public  ResponseEntiy<Page<Movie>> index(Integer status ,Integer page) {
-//		Page<Movie> list;
-//		//1 trang có 5 phim
-//		int pageSize = 5;
-//		//Tìm danh sách phim theo status(status: 0: ngừng chiếu, 1: đang chiếu, 2: sắp chiếu)
-//		int st;
-//		if (status == null) {
-//			st = 1;
-//		} else {
-//			st = status;
-//		}
-//		if (page == null) {
-//			list = movieService.findMovieByStatus(st, Pageable.unpaged());
-//		} else {
-//			list = movieService.findMovieByStatus(st, PageRequest.of(page, pageSize));
-//		}
-//		return  ResponseEntiy.body(list);
-//	}
+	@GetMapping(value = "/index")
+	public  List<Ticket> index() {
+		return  ticketService.getAll();
+	}
 
 	@PostMapping(value = "/book")
 	public ResponseEntiy<Object> bookTicket(@RequestBody TicketDTO ticketDTO) {
@@ -127,12 +114,15 @@ public class TicketController {
 	public ResponseEntiy<Object> findById(Integer id) {
 		return  ResponseEntiy.body(ticketService.findById(id));
 	}
-//	
-//	@GetMapping("/findbyname")
-//	public ResponseEntiy<Object> findByName(String name) {
-//		return ResponseEntiy.body(movieService.findByName(name));
-//	}
-//
-
+	
+	@GetMapping("/ticketbycinema")
+	public List<TicketByCinemaView> getTicketByCinema(){
+		return ticketService.getTicketByCinema();
+	}
+	
+	@GetMapping("/ticketbyshowtime")
+	public List<TicketByShowtimeView> getTicketByShowtime(){
+		return ticketService.getTicketByShowtime();
+	}
 
 }

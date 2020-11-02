@@ -25,7 +25,7 @@ public class MemberController {
 	@Autowired
 	private MemberService memberService;
 
-	@GetMapping(value="/index")
+	@GetMapping
 	
 	public List<Member> index() {
 		return memberService.findAll();
