@@ -19,6 +19,8 @@ public interface ShowtimesService {
 	Showtimes add(Showtimes showtimes);
 
 	List<Showtimes> addAll(List<Showtimes> list);
+	
+	List<Showtimes> findByMovieName(String movieName);
 
 	Optional<Showtimes> findById(Integer id);
 

@@ -93,6 +93,11 @@ public class ShowtimesServiceImpl implements ShowtimesService {
 		return showtime;
 	}
 
+	@Override
+	public List<Showtimes> findByMovieName(String movieName) {
+		return repository.findByName(movieName);
+	}
+
 //	@Override
 //	public List<showMovieDTO> findAll() {
 //		// TODO Auto-generated method stub

@@ -108,6 +108,11 @@ public class ShowtimesController {
 	public ResponseEntiy<Object> findById(Integer id) {
 		return ResponseEntiy.body(showtimesService.findById(id));
 	}
+	
+	@GetMapping("/findbyMovieName")
+	public ResponseEntiy<Object> findById(String movieName) {
+		return ResponseEntiy.body(showtimesService.findByMovieName(movieName));
+	}
 
 
 	}
