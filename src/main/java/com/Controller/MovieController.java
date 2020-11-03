@@ -2,6 +2,9 @@ package com.Controller;
 
 import java.util.List;
 import java.util.Optional;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -25,7 +28,7 @@ import com.DTO.Base.ResponseEntity;
 @RequestMapping(value = "movie")
 
 public class MovieController {
-
+	private static final Logger logger = LoggerFactory.getLogger(MovieController.class);
 	@Autowired
 	private MovieService movieService;
 	@Autowired
@@ -58,7 +61,7 @@ public class MovieController {
 		} else {
 			// Make sure id is NULL to insert Entity
 			movieDTO.setMovieId(null);
-			Movie movie = movieDTO.convertToMovie();
+			Movie movie = movieDTO.convertToMovie(movieDTO);
 			movie.setStatus(2);
 			movie = movieService.save(movie);
 			List<GenreMovieDTO> listGenre = movieDTO.getListGenre();
@@ -75,12 +78,13 @@ public class MovieController {
 
 	@PutMapping(value = "/update")
 	public ResponseEntity<Object> updateMovie(@RequestBody MovieDTO movieDTO) {
+		logger.info("Call /add API, payload=[{}]", movieDTO);
 		if (movieDTO.isNull(true)) {
 			return ResponseEntity.body(Constant.BAD_REQUEST);
 		} else {
 			Optional<Movie> checkMovie = movieService.findById(movieDTO.getMovieId());
 			if (checkMovie.isPresent()) {
-				Movie movie = movieDTO.convertToMovie();
+				Movie movie = movieDTO.convertToMovie(movieDTO);
 				return ResponseEntity.body(movieService.save(movie));
 			} else {
 				return ResponseEntity.body(Constant.NOT_FOUND);
