@@ -1,4 +1,6 @@
 package com.Services.Impl;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.Entity.MovieGenreDetail;
@@ -19,6 +21,12 @@ public class MovieGenreDetailServiceImpl implements MovieGenreDetailService {
 	@Override
 	public MovieGenreDetail save(MovieGenreDetail movieGenreDetail) {
 		return repository.saveAndFlush(movieGenreDetail);
+	}
+
+	@Override
+	public Optional<MovieGenreDetail> findById(Integer id) {
+		// TODO Auto-generated method stub
+		return repository.findById(id);
 	}
 
 }

@@ -30,7 +30,7 @@ public class Movie {
 	private String movieName;
 
 	@Column(name = "duration")
-	private Integer duration;
+	private String duration;
 
 	@Column(name = "description")
 	private String description;
@@ -86,11 +86,11 @@ public class Movie {
 		this.movieName = movieName;
 	}
 
-	public Integer getDuration() {
+	public String getDuration() {
 		return duration;
 	}
 
-	public void setDuration(Integer duration) {
+	public void setDuration(String duration) {
 		this.duration = duration;
 	}
 

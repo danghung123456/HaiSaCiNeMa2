@@ -1,5 +1,6 @@
 package com.Services;
 
+import com.DTO.MovieDTO;
 import com.Entity.Movie;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -10,20 +11,22 @@ import java.util.Optional;
 @Service
 public interface MovieService {
 
-	 	public List<Movie> getAll();
+	 	 List<Movie> getAll();
 
-	    public Movie add(Movie movie);
+	     Movie add(Movie movie);
 	    
-	    public Movie save(Movie movie);
+	     Movie save(Movie movie);
 	    
-	    public void deleteAll();
+	     void deleteAll();
 
-	    public List<Movie> addAll(List<Movie> list);
+	     List<Movie> addAll(List<Movie> list);
 	    
-	    public List<Movie> findMovieByStatus(Integer status);
+	     List<Movie> findMovieByStatus(Integer status);
 	    
-	    public Optional<Movie> findById(Integer id);
+	     Optional<Movie> findById(Integer id);
 	    
-	    public List<Movie> findByName(String name);
+	     List<Movie> findByName(String name);
+	     
+	     Movie convertToMovie(MovieDTO dto);
 
 }

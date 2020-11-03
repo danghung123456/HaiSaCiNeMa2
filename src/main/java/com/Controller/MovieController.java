@@ -3,10 +3,6 @@ package com.Controller;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -14,11 +10,16 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import com.DTO.MovieDTO;
+import com.Entity.GenreMovie;
 import com.Entity.Movie;
+import com.Entity.MovieGenreDetail;
+import com.Services.GenreMovieService;
+import com.Services.MovieGenreDetailService;
 import com.Services.MovieService;
 import com.Constant.*;
-import com.DTO.Base.ResponseEntiy;
+import com.DTO.GenreMovieDTO;
+import com.DTO.MovieDTO;
+import com.DTO.Base.ResponseEntity;
 
 @RestController
 @RequestMapping(value = "movie")
@@ -27,14 +28,18 @@ public class MovieController {
 
 	@Autowired
 	private MovieService movieService;
+	@Autowired
+	private GenreMovieService genreService;
+	@Autowired
+	private MovieGenreDetailService genreDetailService;
 	
 	@GetMapping
-	public  ResponseEntiy<List<Movie>> index() {
-		return  ResponseEntiy.body(movieService.getAll());
+	public  ResponseEntity<List<Movie>> index() {
+		return  ResponseEntity.body(movieService.getAll());
 	}
 
 	@GetMapping(value = "/{status}")
-	public  ResponseEntiy<List<Movie>> findByStatus(@PathVariable("status") Integer status) {
+	public  ResponseEntity<List<Movie>> findByStatus(@PathVariable("status") Integer status) {
 		//Tìm danh sách phim theo status(status: 0: ngừng chiếu, 1: đang chiếu, 2: sắp chiếu)
 		int st;
 		if (status == null) {
@@ -42,60 +47,69 @@ public class MovieController {
 		} else {
 			st = status;
 		}
-		return  ResponseEntiy.body(movieService.findMovieByStatus(st));
+		return  ResponseEntity.body(movieService.findMovieByStatus(st));
 	}
 
 	@PostMapping(value = "/add")
-	public ResponseEntiy<Object> addMovie(@RequestBody MovieDTO movieDTO) {
+	public ResponseEntity<Object> addMovie(@RequestBody MovieDTO movieDTO) {
 		 if (movieDTO.isNull(false)) {
-	            return ResponseEntiy.body(Constant.BAD_REQUEST);
+	            return ResponseEntity.body(Constant.BAD_REQUEST);
 	        } else {
 	            //Make sure id is NULL to insert Entity
 	            movieDTO.setMovieId(null);
-	            Movie movie = movieDTO.convertToMovie();
-	            return ResponseEntiy.body(movieService.add(movie));
+	            Movie movie = movieService.convertToMovie(movieDTO);
+	            movie = movieService.save(movie);
+	            List<GenreMovieDTO> listGenre = movieDTO.getListGenre();
+	            for(GenreMovieDTO genreDTO : listGenre) {
+	            	GenreMovie genreMovie = genreService.findById(genreDTO.getGenreId()).orElse(null);
+	            	MovieGenreDetail genreDetail = new MovieGenreDetail();
+	            	genreDetail.setMovie(movie);
+	            	genreDetail.setGenreMovie(genreMovie);
+	            	genreDetailService.save(genreDetail);
+	            }
+	            return ResponseEntity.body(movie);
 	        }
 	} 
 	
 	@PutMapping(value = "/update")
-	public ResponseEntiy<Object> updateMovie(@RequestBody MovieDTO movieDTO) {
+	public ResponseEntity<Object> updateMovie(@RequestBody MovieDTO movieDTO) {
 		if (movieDTO.isNull(true)) {
-            return ResponseEntiy.body(Constant.BAD_REQUEST);
+            return ResponseEntity.body(Constant.BAD_REQUEST);
         } else {
             Optional<Movie> checkMovie = movieService.findById(movieDTO.getMovieId());
             if (checkMovie.isPresent()) {
                 Movie movie = movieDTO.convertToMovie();
-                return ResponseEntiy.body(movieService.save(movie));
+                return ResponseEntity.body(movieService.save(movie));
             } else {
-                return ResponseEntiy.body(Constant.NOT_FOUND);
+                return ResponseEntity.body(Constant.NOT_FOUND);
             }
         }
 	}
 	
 	@PutMapping(value = "/delete")
-	public ResponseEntiy<Object> deleteMovie(@RequestBody MovieDTO movieDTO) {
+	public ResponseEntity<Object> deleteMovie(@RequestBody MovieDTO movieDTO) {
 		if (movieDTO.getMovieId() == null) {
-            return ResponseEntiy.body(Constant.BAD_REQUEST);
+            return ResponseEntity.body(Constant.BAD_REQUEST);
         } else {
             Optional<Movie> checkMovie = movieService.findById(movieDTO.getMovieId());
             if (checkMovie.isPresent()) {
             	Movie movie = movieDTO.convertToMovie();
             	movie.setStatus(0);
-                return ResponseEntiy.body(movieService.save(movie));
+                return ResponseEntity.body(movieService.save(movie));
             } else {
-                return ResponseEntiy.body(Constant.NOT_FOUND);
+                return ResponseEntity.body(Constant.NOT_FOUND);
             }
         }
 	}
 	
 	@GetMapping("/findbyid")
-	public ResponseEntiy<Object> findById(Integer id) {
-		return  ResponseEntiy.body(movieService.findById(id));
+	public ResponseEntity<Object> findById(Integer id) {
+		return  ResponseEntity.body(movieService.findById(id));
 	}
 	
 	@GetMapping("/findbyname")
-	public ResponseEntiy<Object> findByName(String name) {
-		return ResponseEntiy.body(movieService.findByName(name));
+	public ResponseEntity<Object> findByName(String name) {
+		return ResponseEntity.body(movieService.findByName(name));
 	}
 
 

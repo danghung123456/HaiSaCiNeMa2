@@ -8,19 +8,22 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-
+import com.DTO.MovieDTO;
+import com.DTO.MovieGenreDetail;
+import com.Entity.GenreMovie;
 import com.Entity.Movie;
+import com.Repository.GenreMovieRepository;
 import com.Repository.MovieRepository;
+import com.Services.MovieGenreDetailService;
 import com.Services.MovieService;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Service
 public class MovieServiceImpl implements MovieService {
 	@Autowired
     MovieRepository repository;
-
-    public Page<Movie> getAll(Pageable pageable) {
-        return repository.findAll(pageable);
-    }
+	@Autowired
+    GenreMovieRepository genreRepository;
 
     public void deleteAll() {
         repository.deleteAll();
@@ -57,6 +60,22 @@ public class MovieServiceImpl implements MovieService {
 	public List<Movie> getAll() {
 		return repository.findAll();
 	}
+
+	@Override
+	public Movie convertToMovie(MovieDTO dto) {
+		Movie movie = new Movie();
+		movie.setMovieName(dto.getMovieName());
+		movie.setDuration(dto.getDuration());
+		movie.setDescription(dto.getDescription());
+		movie.setActors(dto.getActors());
+		movie.setDirector(dto.getDirector());
+		movie.setThumbnail(dto.getThumbnail());
+		movie.setTrailer(dto.getTrailer());
+		movie.setAgeLimit(dto.getAgeLimit());
+		movie.setStatus(2);
+		return movie;
+	}
+
 
 
 }

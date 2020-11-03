@@ -6,7 +6,7 @@ package com.DTO.Base;
  * Use for common return model
  * @param <T> the generic Type of the response
  */
-public class ResponseEntiy<T>{
+public class ResponseEntity<T>{
 
     private T data;
 
@@ -14,7 +14,7 @@ public class ResponseEntiy<T>{
         return data;
     }
 
-    public ResponseEntiy(T data) {
+    public ResponseEntity(T data) {
         this.data = data;
     }
 
@@ -22,8 +22,8 @@ public class ResponseEntiy<T>{
         this.data = data;
     }
 
-    public static <T> ResponseEntiy<T> body(T body) {
-        return new ResponseEntiy<>(body);
+    public static <T> ResponseEntity<T> body(T body) {
+        return new ResponseEntity<>(body);
     }
 
 }

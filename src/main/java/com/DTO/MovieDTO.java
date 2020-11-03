@@ -1,8 +1,10 @@
 package com.DTO;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.DTO.MovieDTO;
+import java.util.List;
+
+import com.Entity.GenreMovie;
 import com.Entity.Movie;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class MovieDTO {
 
@@ -16,6 +18,31 @@ public class MovieDTO {
 	private String director;
 	private Integer ageLimit;
 	private Integer status;
+	private List<GenreMovieDTO> listGenre;
+	
+	public Movie convertToMovie() {
+
+		ObjectMapper mapper = new ObjectMapper();
+		Movie movie = new Movie(this.getMovieId());
+		movie = mapper.convertValue(this, Movie.class);
+		if (isNull(status)) {
+			movie.setStatus(1);
+		}
+		return movie;
+	}
+
+	public MovieDTO(List<GenreMovieDTO> listGenre) {
+		super();
+		this.listGenre = listGenre;
+	}
+
+	public List<GenreMovieDTO> getListGenre() {
+		return listGenre;
+	}
+
+	public void setListGenre(List<GenreMovieDTO> listGenre) {
+		this.listGenre = listGenre;
+	}
 
 	public MovieDTO() {
 		super();
@@ -48,17 +75,6 @@ public class MovieDTO {
 
 	private boolean isNull(Integer input) {
 		return input == null;
-	}
-
-	public Movie convertToMovie() {
-
-		ObjectMapper mapper = new ObjectMapper();
-		Movie movie = new Movie(this.getMovieId());
-		movie = mapper.convertValue(this, Movie.class);
-		if (isNull(status)) {
-			movie.setStatus(1);
-		}
-		return movie;
 	}
 
 	public Integer getMovieId() {
