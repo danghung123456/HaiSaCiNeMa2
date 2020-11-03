@@ -1,4 +1,4 @@
-package com.Services.Impl;
+	package com.Services.Impl;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,8 +36,8 @@ public class ShowtimesServiceImpl implements ShowtimesService {
 	PeriodService periodService;
 
 	@Override
-	public Page<Showtimes> getAll(Pageable pageable) {
-		return repository.findAll(pageable);
+	public List<Showtimes> getAll() {
+		return repository.findAll();
 	}
 
 	@Override
@@ -72,8 +72,8 @@ public class ShowtimesServiceImpl implements ShowtimesService {
 	}
 
 	@Override
-	public Page<Showtimes> findShowtimesByStatus(Integer status, Pageable pageable) {
-		return repository.findShowtimesByStatus(status, pageable);
+	public List<Showtimes> findShowtimesByStatus(Integer status) {
+		return repository.findShowtimesByStatus(status);
 	}
 
 

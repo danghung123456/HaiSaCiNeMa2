@@ -16,7 +16,7 @@ public class MemberServiceImpl implements MemberService {
 	@Autowired
 	MemberRepository repository;
 
-	public List<Member> findAll() {
+	public List<Member> getAll() {
 		return repository.findAll();
 	}
 

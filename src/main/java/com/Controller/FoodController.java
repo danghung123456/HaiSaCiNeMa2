@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.Constant.*;
 import com.DTO.FoodDTO;
-import com.DTO.Base.ResponseEntiy;
+import com.DTO.Base.ResponseEntity;
 import com.Entity.Food;
 import com.Services.FoodService;
 
@@ -29,67 +29,67 @@ public class FoodController {
 	private FoodService foodService;
 	
 	@GetMapping
-	public  List<Food> index(Integer status) {
+	public  ResponseEntity<List<Food>> index(Integer status) {
 		int st;
 		if (status == null) {
 			st = 1;
 		} else {
 			st = status;
 		}
-		return foodService.getAll(st);
+		return ResponseEntity.body(foodService.getAll(st));
 	}
 	
 	@PostMapping("/add")
-	public ResponseEntiy<Object> addFood(@RequestBody FoodDTO foodDTO){
+	public ResponseEntity<Object> addFood(@RequestBody FoodDTO foodDTO){
 		if (foodDTO.isNull(false)) {
-			return ResponseEntiy.body(Constant.BAD_REQUEST);
+			return ResponseEntity.body(Constant.BAD_REQUEST);
 		}else {
 			foodDTO.setFoodId(null);
 			foodDTO.setStatus(1);
 			Food food = foodDTO.convertToFood();
-			return ResponseEntiy.body(foodService.add(food));
+			return ResponseEntity.body(foodService.add(food));
 		}
 	}
 	
 	@PutMapping(value = "/update")
-	public ResponseEntiy<Object> updateFood(@RequestBody FoodDTO foodDTO) {
+	public ResponseEntity<Object> updateFood(@RequestBody FoodDTO foodDTO) {
 		if (foodDTO.isNull(true)) {
-            return ResponseEntiy.body(Constant.BAD_REQUEST);
+            return ResponseEntity.body(Constant.BAD_REQUEST);
         } else {
             Optional<Food> checkFood = foodService.findById(foodDTO.getFoodId());
             if (checkFood.isPresent()) {
             	Food food = foodDTO.convertToFood();
-                return ResponseEntiy.body(foodService.save(food));
+                return ResponseEntity.body(foodService.save(food));
             } else {
-                return ResponseEntiy.body(Constant.NOT_FOUND);
+                return ResponseEntity.body(Constant.NOT_FOUND);
             }
         }
 	}
 	 
 	@PutMapping(value = "/delete")
-	public ResponseEntiy<Object> deleteFood(@RequestBody FoodDTO foodDTO) {
+	public ResponseEntity<Object> deleteFood(@RequestBody FoodDTO foodDTO) {
 		if (foodDTO.getFoodId() == null) {
-            return ResponseEntiy.body(Constant.BAD_REQUEST);
+            return ResponseEntity.body(Constant.BAD_REQUEST);
         } else {
             Optional<Food> checkMovie = foodService.findById(foodDTO.getFoodId());
             if (checkMovie.isPresent()) {
             	Food food = foodDTO.convertToFood();
             	food.setStatus(0);
-                return ResponseEntiy.body(foodService.save(food));
+                return ResponseEntity.body(foodService.save(food));
             } else {
-                return ResponseEntiy.body(Constant.NOT_FOUND);
+                return ResponseEntity.body(Constant.NOT_FOUND);
             }
         }
 	}
 	
 	@GetMapping("/findbyid")
-	public ResponseEntiy<Object> findById(Integer id) {
-		return  ResponseEntiy.body(foodService.findById(id));
+	public ResponseEntity<Object> findById(Integer id) {
+		return  ResponseEntity.body(foodService.findById(id));
 	}
 	
 	@GetMapping("/findbyname")
-	public ResponseEntiy<Object> findByName(String name) {
-		return ResponseEntiy.body(foodService.findByName(name));
+	public ResponseEntity<Object> findByName(String name) {
+		return ResponseEntity.body(foodService.findByName(name));
 	}
 	
 	

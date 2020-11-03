@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.Constant.Constant;
 import com.DTO.ShowtimesDTO;
-import com.DTO.Base.ResponseEntiy;
+import com.DTO.Base.ResponseEntity;
 import com.Entity.Showtimes;
 import com.Services.SeatStatusService;
 import com.Services.ShowtimesService;
@@ -39,79 +39,70 @@ public class ShowtimesController {
 
 	
 	@GetMapping
-	public ResponseEntiy<Page<Showtimes>> index(Integer status, Integer page) {
-		logger.info("Call index API path: {}", "/index");
-		Page<Showtimes> list;
-		int pageSize = 30;
+	public ResponseEntity<List<Showtimes>> index(Integer status) {
 		int st;
 		if (status == null) {
 			st = 1;
 		} else {
 			st = status;
 		}
-		if (page == null) {
-			list = showtimesService.findShowtimesByStatus(st, Pageable.unpaged());
-		} else {
-			list = showtimesService.findShowtimesByStatus(st, PageRequest.of(page, pageSize));
-		}
-		logger.info("Return value: {}", list);
-		return ResponseEntiy.body(list);
+		return ResponseEntity.body(showtimesService.findShowtimesByStatus(st));
 	}
 
 	@PostMapping(value = "/add")
-	public ResponseEntiy<Object> addShowtimes(@RequestBody ShowtimesDTO showtimesDTO) {
+	public ResponseEntity<Object> addShowtimes(@RequestBody ShowtimesDTO showtimesDTO) {
 		logger.info("Call /add API, payload=[{}]", showtimesDTO);
 		if (showtimesDTO.isNull(false)) {
-			return ResponseEntiy.body(Constant.BAD_REQUEST);
+			return ResponseEntity.body(Constant.BAD_REQUEST);
 		} else {
 			// Make sure id is NULL to insert Entity
 			showtimesDTO.setShowtimeId(null);
 			Showtimes showtimes = showtimesService.convert(showtimesDTO);
 			showtimesService.add(showtimes);
 			seatStatusService.add(showtimes);
-			return ResponseEntiy.body(showtimes);
+			return ResponseEntity.body(showtimes);
 		}
 	}
 
 	@PutMapping(value = "/update")
-	public ResponseEntiy<Object> updateShowtimes(@RequestBody ShowtimesDTO showtimesDTO) {
+	public ResponseEntity<Object> updateShowtimes(@RequestBody ShowtimesDTO showtimesDTO) {
 		if (showtimesDTO.isNull(true)) {
-			return ResponseEntiy.body(Constant.BAD_REQUEST);
+			return ResponseEntity.body(Constant.BAD_REQUEST);
 		} else {
 			Optional<Showtimes> checkShowtimes = showtimesService.findById(showtimesDTO.getShowtimeId());
 			if (checkShowtimes.isPresent()) {
 				Showtimes showtimes = showtimesDTO.convertToShowtimes();
-				return ResponseEntiy.body(showtimesService.save(showtimes));
+				return ResponseEntity.body(showtimesService.save(showtimes));
 			} else {
-				return ResponseEntiy.body(Constant.NOT_FOUND);
+				return ResponseEntity.body(Constant.NOT_FOUND);
 			}
 		}
 	}
 
 	@PutMapping(value = "/delete")
-	public ResponseEntiy<Object> deleteShowtimes(@RequestBody ShowtimesDTO showtimesDTO) {
+	public ResponseEntity<Object> deleteShowtimes(@RequestBody ShowtimesDTO showtimesDTO) {
 		if (showtimesDTO.getShowtimeId() == null) {
-			return ResponseEntiy.body(Constant.BAD_REQUEST);
+			return ResponseEntity.body(Constant.BAD_REQUEST);
 		} else {
 			Optional<Showtimes> checkShowtimes = showtimesService.findById(showtimesDTO.getShowtimeId());
 			if (checkShowtimes.isPresent()) {
 				Showtimes showtimes = showtimesDTO.convertToShowtimes();
 				showtimes.setStatus(0);
-				return ResponseEntiy.body(showtimesService.save(showtimes));
+				return ResponseEntity.body(showtimesService.save(showtimes));
 			} else {
-				return ResponseEntiy.body(Constant.NOT_FOUND);
+				return ResponseEntity.body(Constant.NOT_FOUND);
 			}
 		}
 	}
 
 	@GetMapping("/findbyid")
-	public ResponseEntiy<Object> findById(Integer id) {
-		return ResponseEntiy.body(showtimesService.findById(id));
+	public ResponseEntity<Object> findById(Integer id) {
+		return ResponseEntity.body(showtimesService.findById(id));
 	}
 	
 	@GetMapping("/findbyMovieName")
-	public ResponseEntiy<Object> findById(String movieName) {
-		return ResponseEntiy.body(showtimesService.findByMovieName(movieName));
+	public ResponseEntity<Object> findById(String movieName) {
+		return ResponseEntity.body(showtimesService.findByMovieName(movieName));
 	}
 
 

@@ -13,11 +13,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.Constant.Constant;
 import com.DTO.CinemaDTO;
-import com.DTO.Base.ResponseEntiy;
+import com.DTO.Base.ResponseEntity;
 import com.DTO.view.TotalByCinemaView;
 import com.Entity.Cinema;
 import com.Services.CinemaService;
@@ -32,44 +33,44 @@ public class CinemaController {
 	private CinemaService cinemaService;
 
 	@GetMapping
-	public  List<Cinema> index() {
-		return cinemaService.getAll();
+	public  ResponseEntity<List<Cinema>> index() {
+		return ResponseEntity.body(cinemaService.getAll());
 	}
 
 	@PostMapping(value = "/add")
-	public ResponseEntiy<Object> addCinema(@RequestBody CinemaDTO cinemaDTO) {
+	public ResponseEntity<Object> addCinema(@RequestBody CinemaDTO cinemaDTO) {
 		 if (cinemaDTO.isNull(false)) {
-	            return ResponseEntiy.body(Constant.BAD_REQUEST);
+	            return ResponseEntity.body(Constant.BAD_REQUEST);
 	        } else {
 	            //Make sure id is NULL to insert Entity
 	            cinemaDTO.setCinemaId(null);
 	            Cinema cinema = cinemaDTO.convertToCinema();
-	            return ResponseEntiy.body(cinemaService.add(cinema));
+	            return ResponseEntity.body(cinemaService.add(cinema));
 	        }
 	} 
 	
 	@PutMapping(value = "/update")
-	public ResponseEntiy<Object> updateCinema(@RequestBody CinemaDTO cinemaDTO) {
+	public ResponseEntity<Object> updateCinema(@RequestBody CinemaDTO cinemaDTO) {
 		if (cinemaDTO.isNull(true)) {
-            return ResponseEntiy.body(Constant.BAD_REQUEST);
+            return ResponseEntity.body(Constant.BAD_REQUEST);
         } else {
             Optional<Cinema> checkCinema = cinemaService.findById(cinemaDTO.getCinemaId());
             if (checkCinema.isPresent()) {
                 Cinema cinema = cinemaDTO.convertToCinema();
-                return ResponseEntiy.body(cinemaService.save(cinema));
+                return ResponseEntity.body(cinemaService.save(cinema));
             } else {
-                return ResponseEntiy.body(Constant.NOT_FOUND);
+                return ResponseEntity.body(Constant.NOT_FOUND);
             }
         }
 	}
 	
 	@GetMapping("/findbyid")
-	public ResponseEntiy<Object> findById(Integer id) {
-		return  ResponseEntiy.body(cinemaService.findById(id));
+	public ResponseEntity<Object> findById(Integer id) {
+		return  ResponseEntity.body(cinemaService.findById(id));
 	}
 	
 	@GetMapping("/findbyname")
-	public ResponseEntiy<Object> findByName(String name) {
-		return ResponseEntiy.body(cinemaService.findByName(name));
+	public ResponseEntity<Object> findByName(String name) {
+		return ResponseEntity.body(cinemaService.findByName(name));
 	}
 }

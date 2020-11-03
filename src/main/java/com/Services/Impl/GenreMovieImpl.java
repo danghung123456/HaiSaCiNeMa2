@@ -16,7 +16,7 @@ public class GenreMovieImpl implements GenreMovieService {
 	@Autowired
 	GenreMovieRepository repository;
 	@Override
-	public List<GenreMovie> findAll() {
+	public List<GenreMovie> getAll() {
 		// TODO Auto-generated method stub
 		return repository.findAll();
 	}
@@ -45,16 +45,6 @@ public class GenreMovieImpl implements GenreMovieService {
 		return repository.save(genre);
 	}
 
-	@Override
-	public Page<GenreMovie> getAll(Pageable pageable) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
-//	@Override
-//	public Page<GenreMovie> getAll(Pageable pageable) {
-//		// TODO Auto-generated method stub
-//		return repository.findAll(pageable);
-//	}
 
 }

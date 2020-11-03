@@ -12,15 +12,16 @@ import com.Entity.Ticket;
 
 @Service
 public interface TicketService {
-		
-		List<Ticket> getAll();
-	    Ticket add(Ticket ticket);
 
-	    Ticket save(Ticket ticket);
-	    
-	    Ticket findTicketByCode(String code);
-	    
-	    Optional<Ticket> findById(Integer id);
-	    
-	    Ticket converToTicket(TicketDTO ticketDTO);
+	List<Ticket> getAll();
+
+	Ticket add(Ticket ticket);
+
+	Ticket save(Ticket ticket);
+
+	Ticket findTicketByCode(String code);
+
+	Optional<Ticket> findById(Integer id);
+
+	Ticket converToTicket(TicketDTO ticketDTO);
 }

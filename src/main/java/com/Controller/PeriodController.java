@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.Constant.Constant;
 import com.DTO.PeriodDTO;
-import com.DTO.Base.ResponseEntiy;
+import com.DTO.Base.ResponseEntity;
 import com.Services.PeriodService;
 
 @RestController
@@ -27,34 +27,34 @@ public class PeriodController {
 	PeriodService periodService;
 	
 	@GetMapping
-	public List<Period> index() {
-		return periodService.findAll();
+	public ResponseEntity<List<Period>> index() {
+		return ResponseEntity.body(periodService.getAll());
 
 	}
 
 	@PostMapping(value = "/add")
-	public ResponseEntiy<Object> addPeriod(@RequestBody PeriodDTO periodDTO) {
+	public ResponseEntity<Object> addPeriod(@RequestBody PeriodDTO periodDTO) {
 		 if (periodDTO.isNull(false)) {
-	            return ResponseEntiy.body(Constant.BAD_REQUEST);
+	            return ResponseEntity.body(Constant.BAD_REQUEST);
 	        } else {
 	            //Make sure id is NULL to insert Entity
 	            periodDTO.setPeriodId(null);;
 	            Period period = periodDTO.convertToPeriod();
-	            return ResponseEntiy.body(periodService.add(period));
+	            return ResponseEntity.body(periodService.add(period));
 	        }
 	} 
 	
 	@PutMapping(value = "/update")
-	public ResponseEntiy<Object> updatePeriod(@RequestBody PeriodDTO periodDTO) {
+	public ResponseEntity<Object> updatePeriod(@RequestBody PeriodDTO periodDTO) {
 		if (periodDTO.isNull(true)) {
-            return ResponseEntiy.body(Constant.BAD_REQUEST);
+            return ResponseEntity.body(Constant.BAD_REQUEST);
         } else {
             Optional<Period> checkPeriod = periodService.findById(periodDTO.getPeriodId());
             if (checkPeriod.isPresent()) {
                 Period period = periodDTO.convertToPeriod();
-                return ResponseEntiy.body(periodService.save(period));
+                return ResponseEntity.body(periodService.save(period));
             } else {
-                return ResponseEntiy.body(Constant.NOT_FOUND);
+                return ResponseEntity.body(Constant.NOT_FOUND);
             }
         }
 	}
@@ -76,7 +76,7 @@ public class PeriodController {
 //	}
 	
 	@GetMapping("/findbystatus")
-	public ResponseEntiy<Object> findPeriodByStatus(Integer status) {
-		return ResponseEntiy.body(periodService.findPeriodByStatus(status));
+	public ResponseEntity<Object> findPeriodByStatus(Integer status) {
+		return ResponseEntity.body(periodService.findPeriodByStatus(status));
 	}
 }

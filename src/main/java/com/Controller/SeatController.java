@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.Constant.Constant;
 import com.DTO.SeatDTO;
-import com.DTO.Base.ResponseEntiy;
+import com.DTO.Base.ResponseEntity;
 import com.Entity.Seat;
 import com.Services.SeatService;
 
@@ -25,17 +25,17 @@ public class SeatController {
 	SeatService seatService;
 	
 	@GetMapping
-	public List<Seat> index(){
-		return seatService.findAll();
+	public ResponseEntity<List<Seat>> index(){
+		return ResponseEntity.body(seatService.findAll());
 	}
 	@PostMapping("/add")
-	public ResponseEntiy<Object> addSeat(@RequestBody SeatDTO seatDTO){
+	public ResponseEntity<Object> addSeat(@RequestBody SeatDTO seatDTO){
 		if(seatDTO.isNull(false)) {
-			return ResponseEntiy.body(Constant.BAD_REQUEST);
+			return ResponseEntity.body(Constant.BAD_REQUEST);
 		}else {
 			seatDTO.setSeatId(null);
 			Seat seat  = seatDTO.convertToDTO();
-			return ResponseEntiy.body(seatService.save(seat));
+			return ResponseEntity.body(seatService.save(seat));
 		}
 	}
 }

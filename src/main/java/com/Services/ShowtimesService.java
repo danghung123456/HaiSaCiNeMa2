@@ -12,7 +12,7 @@ import com.Entity.Showtimes;
 @Service
 public interface ShowtimesService {
 
-	Page<Showtimes> getAll(Pageable pageable);
+	List<Showtimes> getAll();
 
 	void deleteAll();
 
@@ -26,7 +26,7 @@ public interface ShowtimesService {
 
 	Showtimes save(Showtimes showtimes);
 
-	Page<Showtimes> findShowtimesByStatus(Integer status, Pageable pageable);
+	List<Showtimes> findShowtimesByStatus(Integer status);
 	
 	Showtimes convert(ShowtimesDTO dto);
 

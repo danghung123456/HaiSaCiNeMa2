@@ -36,7 +36,7 @@ import com.Services.SeatStatusService;
 import com.Services.TicketDetailService;
 import com.Services.TicketService;
 import com.Constant.*;
-import com.DTO.Base.ResponseEntiy;
+import com.DTO.Base.ResponseEntity;
 import com.DTO.view.TicketByMovieView;
 import com.DTO.view.TicketByShowtimeView;
 
@@ -61,15 +61,15 @@ public class TicketController {
 	private SeatStatusService seatStatusService;
 
 
-	@GetMapping(value = "/index")
-	public  List<Ticket> index() {
-		return  ticketService.getAll();
+	@GetMapping
+	public  ResponseEntity<List<Ticket>> index() {
+		return  ResponseEntity.body(ticketService.getAll());
 	}
 
 	@PostMapping(value = "/book")
-	public ResponseEntiy<Object> bookTicket(@RequestBody TicketDTO ticketDTO) {
+	public ResponseEntity<Object> bookTicket(@RequestBody TicketDTO ticketDTO) {
 		 if (ticketDTO.isNull(false)) {
-	            return ResponseEntiy.body(Constant.BAD_REQUEST);
+	            return ResponseEntity.body(Constant.BAD_REQUEST);
 	        } else {
 	            //Make sure id is NULL to insert Entity
 	        	ticketDTO.setTicketId(null);
@@ -104,14 +104,14 @@ public class TicketController {
 	            Double total = ticket.getTotal() + member.getTotalMoney();
 	            member.setTotalMoney(total);
 	            ticket = ticketService.findById(ticket.getTicketId()).orElse(null);
-	            return ResponseEntiy.body(ticket);
+	            return ResponseEntity.body(ticket);
 	        }
 	} 
 	
 	
 	@GetMapping("/findbyid")
-	public ResponseEntiy<Object> findById(Integer id) {
-		return  ResponseEntiy.body(ticketService.findById(id));
+	public ResponseEntity<Object> findById(Integer id) {
+		return  ResponseEntity.body(ticketService.findById(id));
 	}
 	
 

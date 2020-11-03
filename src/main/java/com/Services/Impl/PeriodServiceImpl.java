@@ -17,7 +17,7 @@ public class PeriodServiceImpl implements PeriodService {
 	PeriodRepository repository;
 
 	@Override
-	public List<Period> findAll() {
+	public List<Period> getAll() {
 		return repository.findAll();
 	}
 
