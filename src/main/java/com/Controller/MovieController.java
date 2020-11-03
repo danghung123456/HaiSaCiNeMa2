@@ -1,5 +1,6 @@
 package com.Controller;
 
+import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -7,6 +8,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -25,12 +27,14 @@ public class MovieController {
 
 	@Autowired
 	private MovieService movieService;
+	
+	@GetMapping
+	public  ResponseEntiy<List<Movie>> index() {
+		return  ResponseEntiy.body(movieService.getAll());
+	}
 
-	@GetMapping(value = "/index")
-	public  ResponseEntiy<Page<Movie>> index(Integer status ,Integer page) {
-		Page<Movie> list;
-		//1 trang có 5 phim
-		int pageSize = 5;
+	@GetMapping(value = "/{status}")
+	public  ResponseEntiy<List<Movie>> findByStatus(@PathVariable("status") Integer status) {
 		//Tìm danh sách phim theo status(status: 0: ngừng chiếu, 1: đang chiếu, 2: sắp chiếu)
 		int st;
 		if (status == null) {
@@ -38,12 +42,7 @@ public class MovieController {
 		} else {
 			st = status;
 		}
-		if (page == null) {
-			list = movieService.findMovieByStatus(st, Pageable.unpaged());
-		} else {
-			list = movieService.findMovieByStatus(st, PageRequest.of(page, pageSize));
-		}
-		return  ResponseEntiy.body(list);
+		return  ResponseEntiy.body(movieService.findMovieByStatus(st));
 	}
 
 	@PostMapping(value = "/add")

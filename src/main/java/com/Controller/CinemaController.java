@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.Constant.Constant;
 import com.DTO.CinemaDTO;
 import com.DTO.Base.ResponseEntiy;
+import com.DTO.view.TotalByCinemaView;
 import com.Entity.Cinema;
 import com.Services.CinemaService;
 
@@ -71,5 +72,4 @@ public class CinemaController {
 	public ResponseEntiy<Object> findByName(String name) {
 		return ResponseEntiy.body(cinemaService.findByName(name));
 	}
-	
 }

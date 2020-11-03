@@ -24,7 +24,7 @@ public class SeatController {
 	@Autowired
 	SeatService seatService;
 	
-	@GetMapping("/index")
+	@GetMapping
 	public List<Seat> index(){
 		return seatService.findAll();
 	}
@@ -34,26 +34,8 @@ public class SeatController {
 			return ResponseEntiy.body(Constant.BAD_REQUEST);
 		}else {
 			seatDTO.setSeatId(null);
-			System.out.println(seatDTO.getRoomId());
 			Seat seat  = seatDTO.convertToDTO();
-//			seat.setRoom(new Room(seatDTO.getRoomId()));
 			return ResponseEntiy.body(seatService.save(seat));
 		}
 	}
-//	@GetMapping("/index")
-//	public void index() {
-//		List<Seat> list = new ArrayList<Seat>();
-//		try {
-//			Class.forname("sqlserver...");
-//			Connection con = DriverManager.getConnection(url,sa,pw);
-//			PreparesStatement ps = con.prepareStatement("select * from ... ");
-//			ResultSet rs = ps.executeQuery();
-//			while(rs.next()) {
-//				Seat seat = new Seat();
-//				Long id = rs.getLong("seatId");
-//				String seatName = rs.getString("seatName");
-//				list.add(seat);
-//			}
-//		}
-//	}
 }

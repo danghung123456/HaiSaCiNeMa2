@@ -25,22 +25,7 @@ public class GenreController {
 	@Autowired
 	private GenreMovieService genreService;
 
-
-//	@GetMapping("/index")
-//	public ResponseEntiy<List<GenreMovie>> index(Integer page) {
-//		List<GenreMovie> list;
-//		int pageSize = 5;
-//		if (page == null) {
-//			list = genreService.getAll(Pageable.unpaged()).getContent();
-//		} else {
-//			list = genreService.getAll(PageRequest.of(page, pageSize)).getContent();
-//
-//		}
-//		return ResponseEntiy.body(list);
-//	}
-	@GetMapping("/index")
-
-
+	@GetMapping
 	public List<GenreMovie> index() {
 		return genreService.findAll();
 	}

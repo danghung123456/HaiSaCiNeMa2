@@ -8,6 +8,7 @@ public class CinemaDTO {
 	private String name;
 	private String address;
 
+<<<<<<< HEAD
 	public CinemaDTO() {
 
 	}
@@ -21,6 +22,11 @@ public class CinemaDTO {
 		System.out.println("sadasdasdsadsadassd");
 System.out.println("asdsadsad");
 		
+=======
+	@Override
+	public String toString() {
+		return "CinemaDTO [cinemaId=" + cinemaId + ", name=" + name + ", address=" + address + "]";
+>>>>>>> 436b74f030f0c7c2ae6c46a85fa9937e17d0e164
 	}
 
 	public boolean isNull(boolean includeId) {
@@ -40,6 +46,17 @@ System.out.println("asdsadsad");
 		ObjectMapper mapper = new ObjectMapper();
 		Cinema cinema = mapper.convertValue(this, Cinema.class);
 		return cinema;
+	}
+
+	public CinemaDTO(Integer cinemaId, String name, String address) {
+		super();
+		this.cinemaId = cinemaId;
+		this.name = name;
+		this.address = address;
+	}
+
+	public CinemaDTO() {
+
 	}
 
 	public Integer getCinemaId() {
@@ -64,11 +81,6 @@ System.out.println("asdsadsad");
 
 	public void setAddress(String address) {
 		this.address = address;
-	}
-
-	@Override
-	public String toString() {
-		return "CinemaDTO [cinemaId=" + cinemaId + ", name=" + name + ", address=" + address + "]";
 	}
 
 }

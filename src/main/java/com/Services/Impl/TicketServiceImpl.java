@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.DTO.TicketDTO;
+import com.DTO.view.TicketByMovieView;
+import com.DTO.view.TicketByShowtimeView;
 import com.Entity.Member;
 import com.Entity.Showtimes;
 import com.Entity.Ticket;
@@ -17,6 +19,7 @@ import com.Services.TicketService;
 
 @Service
 public class TicketServiceImpl implements TicketService {
+	
 	@Autowired
 	TicketRepository repository;
 	@Autowired
@@ -56,6 +59,11 @@ public class TicketServiceImpl implements TicketService {
 	@Override
 	public Optional<Ticket> findById(Integer id) {
 		return repository.findById(id);
+	}
+
+	@Override
+	public List<Ticket> getAll() {
+		return repository.findAll();
 	}
 
 

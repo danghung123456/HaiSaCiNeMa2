@@ -3,8 +3,6 @@ package com.Services;
 import java.util.Optional;
 
 import org.springframework.stereotype.Service;
-
-import com.Entity.Seat;
 import com.Entity.SeatStatus;
 import com.Entity.Showtimes;
 

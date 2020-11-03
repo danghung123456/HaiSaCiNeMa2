@@ -38,6 +38,9 @@ public class Movie {
 	@Column(name = "thumbnail")
 	private String thumbnail;
 
+	@Column(name = "trailer")
+	private String trailer;
+
 	@Column(name = "actors")
 	private String actors;
 
@@ -145,6 +148,22 @@ public class Movie {
 
 	public void setMovieGenreDetail(List<MovieGenreDetail> movieGenreDetail) {
 		this.movieGenreDetail = movieGenreDetail;
+	}
+
+	public String getTrailer() {
+		return trailer;
+	}
+
+	public void setTrailer(String trailer) {
+		this.trailer = trailer;
+	}
+
+	public List<Showtimes> getShowtimes() {
+		return showtimes;
+	}
+
+	public void setShowtimes(List<Showtimes> showtimes) {
+		this.showtimes = showtimes;
 	}
 
 }

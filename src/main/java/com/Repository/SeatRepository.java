@@ -12,9 +12,9 @@ import com.Entity.Seat;
 @Repository
 public interface SeatRepository extends JpaRepository<Seat, Integer> {
 	
-	@Query("from Seat s where s.seatId = :id ")
+	@Query("FROM Seat s WHERE s.seatId = :id ")
 	Optional<Seat> findBySeatId(Integer id);
 
-	@Query(value = "select * from Seat s where s.name = :name", nativeQuery = true)
+	@Query("FROM Seat s WHERE s.seatName LIKE %:name%")
 	List<Seat> findBySeatName(String name);
 }
