@@ -36,8 +36,6 @@ public class ShowtimesController {
 	@Autowired
 	private SeatStatusService seatStatusService;
 
-
-	
 	@GetMapping
 	public ResponseEntity<List<Showtimes>> index(Integer status) {
 		int st;
@@ -71,7 +69,7 @@ public class ShowtimesController {
 		} else {
 			Optional<Showtimes> checkShowtimes = showtimesService.findById(showtimesDTO.getShowtimeId());
 			if (checkShowtimes.isPresent()) {
-				Showtimes showtimes = showtimesDTO.convertToShowtimes();
+				Showtimes showtimes = showtimesService.convert(showtimesDTO);
 				return ResponseEntity.body(showtimesService.save(showtimes));
 			} else {
 				return ResponseEntity.body(Constant.NOT_FOUND);
@@ -80,13 +78,13 @@ public class ShowtimesController {
 	}
 
 	@PutMapping(value = "/delete")
-	public ResponseEntity<Object> deleteShowtimes(@RequestBody ShowtimesDTO showtimesDTO) {
-		if (showtimesDTO.getShowtimeId() == null) {
+	public ResponseEntity<Object> deleteShowtimes(Integer id) {
+		if (id == null) {
 			return ResponseEntity.body(Constant.BAD_REQUEST);
 		} else {
-			Optional<Showtimes> checkShowtimes = showtimesService.findById(showtimesDTO.getShowtimeId());
+			Optional<Showtimes> checkShowtimes = showtimesService.findById(id);
 			if (checkShowtimes.isPresent()) {
-				Showtimes showtimes = showtimesDTO.convertToShowtimes();
+				Showtimes showtimes = checkShowtimes.orElse(null);
 				showtimes.setStatus(0);
 				return ResponseEntity.body(showtimesService.save(showtimes));
 			} else {
