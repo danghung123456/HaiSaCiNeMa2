@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.Entity.GenreMovie;
 import com.Entity.Movie;
 import com.Entity.MovieGenreDetail;
+import com.Entity.Showtimes;
 import com.Services.GenreMovieService;
 import com.Services.MovieGenreDetailService;
 import com.Services.MovieService;
@@ -88,15 +89,19 @@ public class MovieController {
 		}
 	}
 
-	@PutMapping(value = "/delete/{id}")
-	public ResponseEntity<Object> deleteMovie(@PathVariable("id") Integer id) {
-		Optional<Movie> checkMovie = movieService.findById(id);
-		if (checkMovie.isPresent()) {
-			Movie movie = checkMovie.orElse(null);
-			movie.setStatus(0);
-			return ResponseEntity.body(movieService.save(movie));
+	@PutMapping(value = "/delete")
+	public ResponseEntity<Object> deleteMovie(Integer id) {
+		if (id == null) {
+			return ResponseEntity.body(Constant.BAD_REQUEST);
 		} else {
-			return ResponseEntity.body(Constant.NOT_FOUND);
+			Optional<Movie> checkMovie = movieService.findById(id);
+			if (checkMovie.isPresent()) {
+				Movie movie = checkMovie.orElse(null);
+				movie.setStatus(0);
+				return ResponseEntity.body(movieService.save(movie));
+			} else {
+				return ResponseEntity.body(Constant.NOT_FOUND);
+			}
 		}
 	}
 
