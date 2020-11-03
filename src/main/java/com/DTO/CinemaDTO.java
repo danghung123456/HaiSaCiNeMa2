@@ -8,25 +8,11 @@ public class CinemaDTO {
 	private String name;
 	private String address;
 
-<<<<<<< HEAD
-	public CinemaDTO() {
 
-	}
-
-	public CinemaDTO(Integer cinemaId, String name, String address) {
-		super();
-		this.cinemaId = cinemaId;
-		this.name = name;
-		this.address = address;
-
-		System.out.println("sadasdasdsadsadassd");
-System.out.println("asdsadsad");
-		
-=======
 	@Override
 	public String toString() {
 		return "CinemaDTO [cinemaId=" + cinemaId + ", name=" + name + ", address=" + address + "]";
->>>>>>> 436b74f030f0c7c2ae6c46a85fa9937e17d0e164
+
 	}
 
 	public boolean isNull(boolean includeId) {
