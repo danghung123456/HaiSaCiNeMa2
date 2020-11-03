@@ -2,16 +2,6 @@ package com.DTO;
 
 import java.util.List;
 
-import com.Entity.Cinema;
-import com.Entity.Member;
-import com.Entity.Movie;
-import com.Entity.Seat;
-import com.Entity.SeatStatus;
-import com.Entity.Showtimes;
-import com.Entity.Ticket;
-import com.Entity.TicketDetail;
-import com.fasterxml.jackson.databind.ObjectMapper;
-
 public class TicketDTO {
 	private Integer ticketId;
 	private Integer ticketQuantity;

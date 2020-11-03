@@ -1,16 +1,13 @@
 package com.Entity;
 // default package
 
-// Generated Oct 13, 2020, 8:28:21 PM by Hibernate Tools 5.1.10.Final
+import static javax.persistence.GenerationType.IDENTITY;
 
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
-import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
