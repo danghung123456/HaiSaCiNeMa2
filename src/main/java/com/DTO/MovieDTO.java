@@ -22,7 +22,7 @@ public class MovieDTO {
 	}
 
 	public MovieDTO(Integer movieId, String movieName, String duration, String description, String thumbnail,
-			String trailer, String actors, String director, Integer ageLimit, Integer status) {
+			String trailer, String actors, String director, Integer ageLimit) {
 		super();
 		this.movieId = movieId;
 		this.movieName = movieName;
@@ -33,7 +33,6 @@ public class MovieDTO {
 		this.actors = actors;
 		this.director = director;
 		this.ageLimit = ageLimit;
-		this.status = status;
 	}
 
 	public boolean isNull(boolean includeId) {
@@ -51,13 +50,9 @@ public class MovieDTO {
 	}
 
 	public Movie convertToMovie() {
-
 		ObjectMapper mapper = new ObjectMapper();
 		Movie movie = new Movie(this.getMovieId());
 		movie = mapper.convertValue(this, Movie.class);
-		if (isNull(status)) {
-			movie.setStatus(1);
-		}
 		return movie;
 	}
 
