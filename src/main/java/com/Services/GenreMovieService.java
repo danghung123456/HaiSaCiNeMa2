@@ -11,10 +11,8 @@ import com.Entity.GenreMovie;
 @Service
 public interface GenreMovieService {
 	
-	Page<GenreMovie> getAll(Pageable pageable);
+	List<GenreMovie> getAll();
 	
-	List<GenreMovie> findAll();
-
 	GenreMovie save(GenreMovie genre);
 
 	Optional<GenreMovie> findById(Integer id);
@@ -22,5 +20,7 @@ public interface GenreMovieService {
 	List<GenreMovie> findByName(String name);
 
 	GenreMovie add(GenreMovie genre);
+	
+	
 
 }

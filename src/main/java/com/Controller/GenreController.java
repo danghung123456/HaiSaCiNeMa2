@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.Constant.Constant;
 import com.DTO.GenreMovieDTO;
-import com.DTO.Base.ResponseEntiy;
+import com.DTO.Base.ResponseEntity;
 import com.Entity.GenreMovie;
 import com.Services.GenreMovieService;
 
@@ -26,46 +26,45 @@ public class GenreController {
 	private GenreMovieService genreService;
 
 	@GetMapping
-	public List<GenreMovie> index() {
-		return genreService.findAll();
+	public ResponseEntity<List<GenreMovie>> index() {
+		return ResponseEntity.body(genreService.getAll());
 	}
 
 	@PostMapping("/add")
-	public ResponseEntiy<Object> addGenreMovie(@RequestBody GenreMovieDTO genreDTO) {
+	public ResponseEntity<Object> addGenreMovie(@RequestBody GenreMovieDTO genreDTO) {
 		if (genreDTO.isNull(false)) {
-			return ResponseEntiy.body(Constant.BAD_REQUEST);
+			return ResponseEntity.body(Constant.BAD_REQUEST);
 		} else {
 			genreDTO.setGenreId(null);
 			GenreMovie genre = genreDTO.convertToGenreEntity();
-			return ResponseEntiy.body(genreService.save(genre));
+			return ResponseEntity.body(genreService.save(genre));
 		}
 	}
 
 	@PutMapping("/update")
-	public ResponseEntiy<Object> updateGenreMovie(@RequestBody GenreMovieDTO genreDTO) {
+	public ResponseEntity<Object> updateGenreMovie(@RequestBody GenreMovieDTO genreDTO) {
 		if (genreDTO.isNull(true)) {
-			return ResponseEntiy.body(Constant.BAD_REQUEST);
+			return ResponseEntity.body(Constant.BAD_REQUEST);
 		} else {
 
 			Optional<GenreMovie> checkGenre = genreService.findById(genreDTO.getGenreId());
 			if (checkGenre.isPresent()) {
 				GenreMovie genre = genreDTO.convertToGenreEntity();
-				return ResponseEntiy.body(genreService.save(genre));
+				return ResponseEntity.body(genreService.save(genre));
 			} else {
-				return ResponseEntiy.body(Constant.NOT_FOUND);
+				return ResponseEntity.body(Constant.NOT_FOUND);
 			}
 
 		}
 	}
 
-
 	@GetMapping("/findbyid")
-	public ResponseEntiy<Object> findById(Integer id) {
-		return ResponseEntiy.body(genreService.findById(id));
-	}	
+	public ResponseEntity<Object> findById(Integer id) {
+		return ResponseEntity.body(genreService.findById(id));
+	}
 
 	@GetMapping("/findbyname")
-	public ResponseEntiy<Object> findByName(String name) {
-		return ResponseEntiy.body(genreService.findByName(name));
+	public ResponseEntity<Object> findByName(String name) {
+		return ResponseEntity.body(genreService.findByName(name));
 	}
 }

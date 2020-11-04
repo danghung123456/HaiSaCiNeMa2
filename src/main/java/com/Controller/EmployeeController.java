@@ -14,7 +14,7 @@ import com.DTO.EmployeeDTO;
 import com.Entity.Employee;
 import com.Services.EmployeeService;
 import com.Constant.*;
-import com.DTO.Base.ResponseEntiy;
+import com.DTO.Base.ResponseEntity;
 
 @RestController
 @RequestMapping(value = "employee")
@@ -25,69 +25,69 @@ public class EmployeeController {
 	private EmployeeService employeeService;
 
 	@GetMapping
-	public List<Employee> index(Integer status) {
+	public ResponseEntity<List<Employee>> index(Integer status) {
 		int st;
 		if (status == null) {
 			st = 1;
 		} else {
 			st = status;
 		}
-		return employeeService.findAll(st);
+		return ResponseEntity.body(employeeService.getAll(st));
 
 	}
 
 	@PostMapping(value = "/add")
-	public ResponseEntiy<Object> addEmployee(@RequestBody EmployeeDTO employeeDTO) {
+	public ResponseEntity<Object> addEmployee(@RequestBody EmployeeDTO employeeDTO) {
 		 if (employeeDTO.isNull(false)) {
-	            return ResponseEntiy.body(Constant.BAD_REQUEST);
+	            return ResponseEntity.body(Constant.BAD_REQUEST);
 	        } else {
 //	            Make sure id is NULL to insert Entity
 	            employeeDTO.setEmployeeId(null);
 	            Employee employee = employeeDTO.convertToEmployee();
-	            return ResponseEntiy.body(employeeService.add(employee));
+	            return ResponseEntity.body(employeeService.add(employee));
 	        }
 	}
 
 	
 	@PutMapping(value = "/update")
-	public ResponseEntiy<Object> updateEmployee(@RequestBody EmployeeDTO employeeDTO) {
+	public ResponseEntity<Object> updateEmployee(@RequestBody EmployeeDTO employeeDTO) {
 		if (employeeDTO.isNull(true)) {
-            return ResponseEntiy.body(Constant.BAD_REQUEST);
+            return ResponseEntity.body(Constant.BAD_REQUEST);
         } else {
             Optional<Employee> checkEmployee = employeeService.findById(employeeDTO.getEmployeeId());
             if (checkEmployee.isPresent()) {
                 Employee employee = employeeDTO.convertToEmployee();
-                return ResponseEntiy.body(employeeService.save(employee));
+                return ResponseEntity.body(employeeService.save(employee));
             } else {
-                return ResponseEntiy.body(Constant.NOT_FOUND);
+                return ResponseEntity.body(Constant.NOT_FOUND);
             }
         }
 	}
 	
 	@PutMapping(value = "/delete")
-	public ResponseEntiy<Object> deleteEmployee(@RequestBody EmployeeDTO employeeDTO) {
+	public ResponseEntity<Object> deleteEmployee(@RequestBody EmployeeDTO employeeDTO) {
 		if (employeeDTO.getEmployeeId() == null) {
-            return ResponseEntiy.body(Constant.BAD_REQUEST);
+            return ResponseEntity.body(Constant.BAD_REQUEST);
         } else {
             Optional<Employee> checkEmployee = employeeService.findById(employeeDTO.getEmployeeId());
             if (checkEmployee.isPresent()) {
             	Employee employee = employeeDTO.convertToEmployee();
             	employee.setStatus(0);
-                return ResponseEntiy.body(employeeService.save(employee));
+                return ResponseEntity.body(employeeService.save(employee));
             } else {
-                return ResponseEntiy.body(Constant.NOT_FOUND);
+                return ResponseEntity.body(Constant.NOT_FOUND);
             }
         }
 	}
 	
 	@GetMapping("/findbyid")
-	public ResponseEntiy<Object> findById(Integer id) {
-		return  ResponseEntiy.body(employeeService.findById(id));
+	public ResponseEntity<Object> findById(Integer id) {
+		return  ResponseEntity.body(employeeService.findById(id));
 	}
 	
 	@GetMapping("/findbyname")
-	public ResponseEntiy<Object> findByName(String name) {
-		return ResponseEntiy.body(employeeService.findByName(name));
+	public ResponseEntity<Object> findByName(String name) {
+		return ResponseEntity.body(employeeService.findByName(name));
 	}
 
 }

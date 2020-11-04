@@ -1,8 +1,10 @@
 package com.DTO;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.DTO.MovieDTO;
+import java.util.List;
+
+import com.Entity.GenreMovie;
 import com.Entity.Movie;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class MovieDTO {
 
@@ -16,13 +18,10 @@ public class MovieDTO {
 	private String director;
 	private Integer ageLimit;
 	private Integer status;
-
-	public MovieDTO() {
-		super();
-	}
+	private List<GenreMovieDTO> listGenre;
 
 	public MovieDTO(Integer movieId, String movieName, String duration, String description, String thumbnail,
-			String trailer, String actors, String director, Integer ageLimit, Integer status) {
+			String trailer, String actors, String director, Integer ageLimit) {
 		super();
 		this.movieId = movieId;
 		this.movieName = movieName;
@@ -33,7 +32,6 @@ public class MovieDTO {
 		this.actors = actors;
 		this.director = director;
 		this.ageLimit = ageLimit;
-		this.status = status;
 	}
 
 	public boolean isNull(boolean includeId) {
@@ -51,13 +49,9 @@ public class MovieDTO {
 	}
 
 	public Movie convertToMovie() {
-
 		ObjectMapper mapper = new ObjectMapper();
 		Movie movie = new Movie(this.getMovieId());
 		movie = mapper.convertValue(this, Movie.class);
-		if (isNull(status)) {
-			movie.setStatus(1);
-		}
 		return movie;
 	}
 
@@ -139,6 +133,23 @@ public class MovieDTO {
 
 	public void setTrailer(String trailer) {
 		this.trailer = trailer;
+	}
+	
+	public MovieDTO(List<GenreMovieDTO> listGenre) {
+		super();
+		this.listGenre = listGenre;
+	}
+
+	public List<GenreMovieDTO> getListGenre() {
+		return listGenre;
+	}
+
+	public void setListGenre(List<GenreMovieDTO> listGenre) {
+		this.listGenre = listGenre;
+	}
+
+	public MovieDTO() {
+		super();
 	}
 
 	@Override

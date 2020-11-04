@@ -15,7 +15,7 @@ import com.DTO.MemberDTO;
 import com.Entity.Member;
 import com.Services.MemberService;
 import com.Constant.*;
-import com.DTO.Base.ResponseEntiy;
+import com.DTO.Base.ResponseEntity;
 
 @RestController
 @RequestMapping(value = "member")
@@ -27,44 +27,44 @@ public class MemberController {
 
 	@GetMapping
 	
-	public List<Member> index() {
-		return memberService.findAll();
+	public ResponseEntity<List<Member>> index() {
+		return ResponseEntity.body(memberService.getAll());
 	}
 
 	@PostMapping(value = "/add")
-	public ResponseEntiy<Object> addMember(@RequestBody MemberDTO memberDTO) {
+	public ResponseEntity<Object> addMember(@RequestBody MemberDTO memberDTO) {
 		 if (memberDTO.isNull(false)) {
-	            return ResponseEntiy.body(Constant.BAD_REQUEST);
+	            return ResponseEntity.body(Constant.BAD_REQUEST);
 	        } else {
 	            //Make sure id is NULL to insert Entity
 	            memberDTO.setMemberId(null);
 	            Member member = memberDTO.convertToMember();
-	            return ResponseEntiy.body(memberService.add(member));
+	            return ResponseEntity.body(memberService.add(member));
 	        }
 	} 
 	
 	@PutMapping(value = "/update")
-	public ResponseEntiy<Object> updateMember(@RequestBody MemberDTO memberDTO) {
+	public ResponseEntity<Object> updateMember(@RequestBody MemberDTO memberDTO) {
 		if (memberDTO.isNull(true)) {
-            return ResponseEntiy.body(Constant.BAD_REQUEST);
+            return ResponseEntity.body(Constant.BAD_REQUEST);
         } else {
             Optional<Member> checkMember = memberService.findById(memberDTO.getMemberId());
             if (checkMember.isPresent()) {
                 Member member = memberDTO.convertToMember();
-                return ResponseEntiy.body(memberService.save(member));
+                return ResponseEntity.body(memberService.save(member));
             } else {
-                return ResponseEntiy.body(Constant.NOT_FOUND);
+                return ResponseEntity.body(Constant.NOT_FOUND);
             }
         }
 	}
 	@GetMapping("/findbyid")
-	public ResponseEntiy<Object> findById(Integer id) {
-		return  ResponseEntiy.body(memberService.findById(id));
+	public ResponseEntity<Object> findById(Integer id) {
+		return  ResponseEntity.body(memberService.findById(id));
 	}
 	
 	@GetMapping("/findbyname")
-	public ResponseEntiy<Object> findByName(String name) {
-		return ResponseEntiy.body(memberService.findByName(name));
+	public ResponseEntity<Object> findByName(String name) {
+		return ResponseEntity.body(memberService.findByName(name));
 	}
 
 }

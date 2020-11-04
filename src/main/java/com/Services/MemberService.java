@@ -8,7 +8,7 @@ import java.util.Optional;
 @Service
 public interface MemberService {
 
-	public List<Member> findAll();
+	public List<Member> getAll();
 	
     public void deleteAll();
 

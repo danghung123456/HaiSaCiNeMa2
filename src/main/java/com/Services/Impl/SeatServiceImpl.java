@@ -18,9 +18,9 @@ public class SeatServiceImpl implements SeatService {
 	SeatRepository repository;
 
 	@Override
-	public Page<Seat> findAll(Pageable pageable) {
+	public List<Seat> getAll(Integer st) {
 		// TODO Auto-generated method stub
-		return repository.findAll(pageable);
+		return repository.findAll();
 	}
 
 	@Override

@@ -14,7 +14,7 @@ import com.Entity.Showtimes;
 public interface ShowtimesRepository extends JpaRepository<Showtimes, Integer> {
 
 	@Query("FROM Showtimes s WHERE s.status = :status")
-	Page<Showtimes> findShowtimesByStatus(Integer status, Pageable pageable);
+	List<Showtimes> findShowtimesByStatus(Integer status);
 
 	@Query("FROM  Showtimes s WHERE s.showtimeId = :id AND s.status = 1")
 	Optional<Showtimes> findByShowtimesId(Integer id);

@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.Constant.Constant;
 import com.DTO.FeedbackDTO;
-import com.DTO.Base.ResponseEntiy;
+import com.DTO.Base.ResponseEntity;
 import com.Entity.Feedback;
 import com.Services.FeedbackService;
 
@@ -25,19 +25,19 @@ public class FeedbackController {
 	private FeedbackService feedbackService;
 	
 	@GetMapping
-	public  List<Feedback> index() {
-		return feedbackService.getAll();
+	public  ResponseEntity<List<Feedback>> index() {
+		return ResponseEntity.body(feedbackService.getAll());
 	}
 
 	@PostMapping(value = "/add")
-	public ResponseEntiy<Object> addFeedback(@RequestBody FeedbackDTO feedbackDTO) {
+	public ResponseEntity<Object> addFeedback(@RequestBody FeedbackDTO feedbackDTO) {
 		 if (feedbackDTO.isNull(false)) {
-	            return ResponseEntiy.body(Constant.BAD_REQUEST);
+	            return ResponseEntity.body(Constant.BAD_REQUEST);
 	        } else {
 	            //Make sure id is NULL to insert Entity
 	            feedbackDTO.setResponseId(null);
 	            Feedback feedback = feedbackDTO.convertToFeedback();
-	            return ResponseEntiy.body(feedbackService.add(feedback));
+	            return ResponseEntity.body(feedbackService.add(feedback));
 	        }
 	} 
 }
