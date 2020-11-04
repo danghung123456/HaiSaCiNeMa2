@@ -79,13 +79,22 @@ public class MovieController {
 
 	@PutMapping(value = "/update")
 	public ResponseEntity<Object> updateMovie(@RequestBody MovieDTO movieDTO) {
-		logger.info("Call /add API, payload=[{}]", movieDTO);
+		logger.info("Call /update API, payload=[{}]", movieDTO);
 		if (movieDTO.isNull(true)) {
 			return ResponseEntity.body(Constant.BAD_REQUEST);
 		} else {
 			Optional<Movie> checkMovie = movieService.findById(movieDTO.getMovieId());
 			if (checkMovie.isPresent()) {
 				Movie movie = movieDTO.convertToMovie(movieDTO);
+				genreDetailService.deleteByMovieId(movieDTO.getMovieId());
+				List<GenreMovieDTO> listGenre = movieDTO.getListGenre();
+				for (GenreMovieDTO genreDTO : listGenre) {
+					GenreMovie genreMovie = genreService.findById(genreDTO.getGenreId()).orElse(null);
+					MovieGenreDetail genreDetail = new MovieGenreDetail();
+					genreDetail.setMovie(movie);
+					genreDetail.setGenreMovie(genreMovie);
+					genreDetailService.save(genreDetail);
+				}
 				return ResponseEntity.body(movieService.save(movie));
 			} else {
 				return ResponseEntity.body(Constant.NOT_FOUND);

@@ -13,4 +13,6 @@ public interface MovieGenreDetailService {
 	MovieGenreDetail save(MovieGenreDetail movieGenreDetail);
 
 	Optional<MovieGenreDetail> findById(Integer id);
+	
+	void deleteByMovieId(Integer movieId);
 }
