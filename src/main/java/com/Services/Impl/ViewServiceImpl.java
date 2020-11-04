@@ -9,10 +9,12 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import com.DTO.view.GenreMovieView;
 import com.DTO.view.TicketByMovieView;
 import com.DTO.view.TicketByShowtimeView;
 import com.DTO.view.TotalByCinemaView;
 import com.Entity.Cinema;
+import com.Entity.GenreMovie;
 import com.Repository.CinemaRepository;
 import com.Repository.ViewRepository;
 import com.Services.CinemaService;
@@ -37,6 +39,13 @@ public class ViewServiceImpl implements ViewService {
 	public List<TotalByCinemaView> getTotalByCinema() {
 		return repository.getTotalByCinema();
 	}
+
+	@Override
+	public List<GenreMovieView> getGenreByMovieId(Integer id) {
+		return repository.getGenreByMovieId(id);
+		
+	}
+	
 }
 	
 

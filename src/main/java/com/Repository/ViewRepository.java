@@ -5,10 +5,12 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import com.DTO.view.GenreMovieView;
 import com.DTO.view.TicketByMovieView;
 import com.DTO.view.TicketByShowtimeView;
 import com.DTO.view.TotalByCinemaView;
 import com.Entity.Cinema;
+import com.Entity.GenreMovie;
 import com.Entity.View;
 
 @Repository
@@ -29,6 +31,10 @@ public interface ViewRepository extends JpaRepository<View, Integer> {
 			+ "GROUP BY f.ticket.showtimes.room.cinema.name, f.ticket.showtimes.room.cinema.cinemaId, MONTH(f.ticket.showtimes.date) ")
 	List<TotalByCinemaView> getTotalByCinema();
 	
+	@Query(value = "SELECT m.movie.movieName as movieName, m.genreMovie.name as genreName "
+			+ "FROM MovieGenreDetail m "
+			+ "WHERE m.movie.movieId = :id ")
+	List<GenreMovieView> getGenreByMovieId(Integer id);
 	
 	
 }
