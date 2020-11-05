@@ -2,6 +2,9 @@ package com.Controller;
 
 import java.util.List;
 import java.util.Optional;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,26 +20,34 @@ import com.Entity.Showtimes;
 import com.Services.GenreMovieService;
 import com.Services.MovieGenreDetailService;
 import com.Services.MovieService;
+import com.Services.ViewService;
 import com.Constant.*;
 import com.DTO.GenreMovieDTO;
 import com.DTO.MovieDTO;
 import com.DTO.Base.ResponseEntity;
+import com.DTO.view.GenreMovieView;
 
 @RestController
 @RequestMapping(value = "movie")
 
 public class MovieController {
-
+	private static final Logger logger = LoggerFactory.getLogger(MovieController.class);
 	@Autowired
 	private MovieService movieService;
 	@Autowired
 	private GenreMovieService genreService;
 	@Autowired
 	private MovieGenreDetailService genreDetailService;
+	@Autowired
+	private ViewService viewService;
 
 	@GetMapping
 	public ResponseEntity<List<Movie>> index() {
 		return ResponseEntity.body(movieService.getAll());
+	}
+	@GetMapping("/getgenre")
+	public List<GenreMovieView> getGenreByMovieId(Integer id){
+		return viewService.getGenreByMovieId(id);
 	}
 
 	@GetMapping(value = "/{status}")
@@ -59,7 +70,7 @@ public class MovieController {
 		} else {
 			// Make sure id is NULL to insert Entity
 			movieDTO.setMovieId(null);
-			Movie movie = movieDTO.convertToMovie();
+			Movie movie = movieDTO.convertToMovie(movieDTO);
 			movie.setStatus(2);
 			movie = movieService.save(movie);
 			List<GenreMovieDTO> listGenre = movieDTO.getListGenre();
@@ -76,12 +87,22 @@ public class MovieController {
 
 	@PutMapping(value = "/update")
 	public ResponseEntity<Object> updateMovie(@RequestBody MovieDTO movieDTO) {
+		logger.info("Call /update API, payload=[{}]", movieDTO);
 		if (movieDTO.isNull(true)) {
 			return ResponseEntity.body(Constant.BAD_REQUEST);
 		} else {
 			Optional<Movie> checkMovie = movieService.findById(movieDTO.getMovieId());
 			if (checkMovie.isPresent()) {
-				Movie movie = movieDTO.convertToMovie();
+				Movie movie = movieDTO.convertToMovie(movieDTO);
+				genreDetailService.deleteByMovieId(movieDTO.getMovieId());
+				List<GenreMovieDTO> listGenre = movieDTO.getListGenre();
+				for (GenreMovieDTO genreDTO : listGenre) {
+					GenreMovie genreMovie = genreService.findById(genreDTO.getGenreId()).orElse(null);
+					MovieGenreDetail genreDetail = new MovieGenreDetail();
+					genreDetail.setMovie(movie);
+					genreDetail.setGenreMovie(genreMovie);
+					genreDetailService.save(genreDetail);
+				}
 				return ResponseEntity.body(movieService.save(movie));
 			} else {
 				return ResponseEntity.body(Constant.NOT_FOUND);

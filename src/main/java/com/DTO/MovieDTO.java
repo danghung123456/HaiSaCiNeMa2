@@ -47,11 +47,17 @@ public class MovieDTO {
 	private boolean isNull(Integer input) {
 		return input == null;
 	}
-
-	public Movie convertToMovie() {
-		ObjectMapper mapper = new ObjectMapper();
+	public Movie convertToMovie(MovieDTO movieDTO) {
 		Movie movie = new Movie(this.getMovieId());
-		movie = mapper.convertValue(this, Movie.class);
+		movie.setMovieName(movieDTO.getMovieName());
+		movie.setDuration(movieDTO.getDuration());
+		movie.setDescription(movieDTO.getDescription());
+		movie.setActors(movieDTO.getActors());
+		movie.setDirector(movieDTO.getDirector());
+		movie.setAgeLimit(movieDTO.getAgeLimit());
+		movie.setThumbnail(movieDTO.getThumbnail());
+		movie.setTrailer(movieDTO.getTrailer());
+		movie.setStatus(movieDTO.getStatus());
 		return movie;
 	}
 

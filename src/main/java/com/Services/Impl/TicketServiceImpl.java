@@ -13,6 +13,7 @@ import com.DTO.view.TicketByShowtimeView;
 import com.Entity.Member;
 import com.Entity.Showtimes;
 import com.Entity.Ticket;
+import com.Entity.TicketDetail;
 import com.Repository.MemberRepository;
 import com.Repository.ShowtimesRepository;
 import com.Repository.TicketRepository;
@@ -93,6 +94,5 @@ public class TicketServiceImpl implements TicketService {
 
 		return encodedString;
 	}
-
 
 }

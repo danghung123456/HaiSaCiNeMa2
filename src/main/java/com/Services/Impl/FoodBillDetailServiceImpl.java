@@ -21,4 +21,9 @@ public class FoodBillDetailServiceImpl implements FoodBillDetailService {
 		return repository.saveAndFlush(foodBillDetail);
 	}
 
+	@Override
+	public Double getTotalFood(Integer ticketId) {
+		return repository.getTotalFood(ticketId);
+	}
+
 }

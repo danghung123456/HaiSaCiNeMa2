@@ -24,7 +24,6 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
  */
 @Entity
 @Table(name = "seat")
-@JsonIgnoreProperties(ignoreUnknown = true)
 public class Seat {
 
 	@Id
@@ -32,15 +31,13 @@ public class Seat {
 	@Column(name = "seatid", unique = true, nullable = false)
 	Integer seatId;
 
-	
-
 	@ManyToOne
 	@JoinColumn(name = "roomid")
 	Room room;
 
 	@Column(name = "seatname")
 	String seatName;
-	
+
 	@JsonIgnore
 	@OneToMany(mappedBy = "seat")
 	List<SeatStatus> seatStatus;

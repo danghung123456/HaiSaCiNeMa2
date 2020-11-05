@@ -9,4 +9,6 @@ public interface FoodBillDetailService {
 	FoodBillDetail add(FoodBillDetail foodBillDetail);
 
 	FoodBillDetail save(FoodBillDetail foodBillDetail);
+	
+	Double getTotalFood (Integer ticketId);
 }
