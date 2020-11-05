@@ -20,10 +20,12 @@ import com.Entity.Showtimes;
 import com.Services.GenreMovieService;
 import com.Services.MovieGenreDetailService;
 import com.Services.MovieService;
+import com.Services.ViewService;
 import com.Constant.*;
 import com.DTO.GenreMovieDTO;
 import com.DTO.MovieDTO;
 import com.DTO.Base.ResponseEntity;
+import com.DTO.view.GenreMovieView;
 
 @RestController
 @RequestMapping(value = "movie")
@@ -36,10 +38,16 @@ public class MovieController {
 	private GenreMovieService genreService;
 	@Autowired
 	private MovieGenreDetailService genreDetailService;
+	@Autowired
+	private ViewService viewService;
 
 	@GetMapping
 	public ResponseEntity<List<Movie>> index() {
 		return ResponseEntity.body(movieService.getAll());
+	}
+	@GetMapping("/getgenre")
+	public List<GenreMovieView> getGenreByMovieId(Integer id){
+		return viewService.getGenreByMovieId(id);
 	}
 
 	@GetMapping(value = "/{status}")

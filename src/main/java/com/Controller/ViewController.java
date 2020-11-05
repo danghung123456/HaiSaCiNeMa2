@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.DTO.Base.ResponseEntity;
 import com.DTO.view.GenreMovieView;
+import com.DTO.view.HistoryTransView;
 import com.DTO.view.TicketByMovieView;
 import com.DTO.view.TicketByShowtimeView;
 import com.DTO.view.TotalByCinemaView;
@@ -42,5 +43,9 @@ public class ViewController {
 	public List<GenreMovieView> getGenreByMovieId(Integer id){
 		return viewService.getGenreByMovieId(id);
 		
+	}
+	@GetMapping("/historytrans")
+	public List<HistoryTransView> getHistoryTransaction(Integer id){
+		return viewService.getTicketBought(id);
 	}
 }
