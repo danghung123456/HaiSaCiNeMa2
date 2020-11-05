@@ -5,22 +5,20 @@ import java.util.Optional;
 import org.springframework.stereotype.Service;
 import com.Entity.Cinema;
 
-
-
 @Service
 public interface CinemaService {
-	
-	 	public List<Cinema> getAll();
 
-	    public void deleteAll();
+	List<Cinema> getAll();
 
-	    public Cinema add(Cinema cinema);
+	void deleteAll();
 
-	    public List<Cinema> addAll(List<Cinema> list);
-	    
-	    public Optional<Cinema> findById(Integer id);
-	    
-	    public List<Cinema> findByName(String name);
+	Cinema add(Cinema cinema);
 
-	    public Cinema save(Cinema cinema);
+	List<Cinema> addAll(List<Cinema> list);
+
+	Optional<Cinema> findById(Integer id);
+
+	List<Cinema> findByName(String name);
+
+	Cinema save(Cinema cinema);
 }

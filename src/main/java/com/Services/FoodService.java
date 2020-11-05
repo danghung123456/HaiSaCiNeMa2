@@ -8,19 +8,18 @@ import com.Entity.Food;
 @Service
 public interface FoodService {
 
-	public List<Food> getAll(Integer st);
+	List<Food> getAll(Integer st);
 
-	public void deleteAll();
+	void deleteAll();
 
-	public Food add(Food food);
+	Food add(Food food);
 
-	public List<Food> addAll(List<Food> list);
+	List<Food> addAll(List<Food> list);
 
-	public Optional<Food> findById(Integer id);
+	Optional<Food> findById(Integer id);
 
-	public List<Food> findByName(String name);
+	List<Food> findByName(String name);
 
-	public Food save(Food food);
-
+	Food save(Food food);
 
 }

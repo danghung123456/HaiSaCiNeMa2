@@ -5,23 +5,17 @@ import org.springframework.stereotype.Service;
 
 import com.Entity.Feedback;
 
-
-
-
 @Service
 public interface FeedbackService {
-	
-	public List<Feedback> getAll();
 
-    public Feedback add(Feedback feedback);
-    
-    public Feedback save(Feedback feedback);
-    
-    public void deleteAll();
+	List<Feedback> getAll();
 
-    public List<Feedback> addAll(List<Feedback> list);
-    
-    
-	
-	
+	Feedback add(Feedback feedback);
+
+	Feedback save(Feedback feedback);
+
+	void deleteAll();
+
+	List<Feedback> addAll(List<Feedback> list);
+
 }

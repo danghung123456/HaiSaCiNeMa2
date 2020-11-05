@@ -1,5 +1,6 @@
 package com.Services.Impl;
 
+import java.util.Base64;
 import java.util.List;
 import java.util.Optional;
 
@@ -64,6 +65,33 @@ public class TicketServiceImpl implements TicketService {
 	@Override
 	public List<Ticket> getAll() {
 		return repository.findAll();
+	}
+
+	@Override
+	public String createCode(Integer ticketId, Integer showtimeId) {
+		String ticketIdString = String.valueOf(ticketId);
+		String showtimeIdString = String.valueOf(showtimeId);
+		String totalIdString = ticketIdString + showtimeIdString;
+		System.out.println(totalIdString);
+
+		String encodedString1 = Base64.getEncoder().withoutPadding().encodeToString(ticketIdString.getBytes());
+		String encodedString2 = Base64.getEncoder().withoutPadding().encodeToString(showtimeIdString.getBytes());
+		String encodedString = encodedString1 + encodedString2;
+		String random = "";
+		
+		if (totalIdString.length() < 10) {
+			int count = 10 - totalIdString.length();
+			for (int i = 0; i < count; i++) {
+				int random_int = (int) (Math.random() * (9 - 0 + 1) + 0);
+				random = random + String.valueOf(random_int);
+			}
+		}
+		
+		System.out.println(random);
+		String encodedString3 = Base64.getEncoder().withoutPadding().encodeToString(random.getBytes());
+		encodedString = encodedString + encodedString3;
+
+		return encodedString;
 	}
 
 

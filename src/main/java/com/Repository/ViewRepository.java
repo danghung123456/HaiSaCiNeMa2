@@ -29,6 +29,4 @@ public interface ViewRepository extends JpaRepository<View, Integer> {
 			+ "GROUP BY f.ticket.showtimes.room.cinema.name, f.ticket.showtimes.room.cinema.cinemaId, MONTH(f.ticket.showtimes.date) ")
 	List<TotalByCinemaView> getTotalByCinema();
 	
-	
-	
 }

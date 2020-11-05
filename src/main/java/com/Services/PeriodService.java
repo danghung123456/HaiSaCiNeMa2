@@ -7,22 +7,20 @@ import org.springframework.stereotype.Service;
 
 @Service
 public interface PeriodService {
-public List<Period> getAll();
-	
-    public void deleteAll();
+	public List<Period> getAll();
 
-    public Period add(Period period);
+	void deleteAll();
 
-    public List<Period> addAll(List<Period> list);
-    
-    public Optional<Period> findById(Integer id);
-    
-    public List<Period> findByName(String name);
+	Period add(Period period);
 
-    public Period save(Period period);
-    
-    public List<Period> findPeriodByStatus(Integer status);
-    
-    
-   
+	List<Period> addAll(List<Period> list);
+
+	Optional<Period> findById(Integer id);
+
+	List<Period> findByName(String name);
+
+	Period save(Period period);
+
+	List<Period> findPeriodByStatus(Integer status);
+
 }

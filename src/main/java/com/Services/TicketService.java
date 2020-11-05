@@ -24,4 +24,6 @@ public interface TicketService {
 	Optional<Ticket> findById(Integer id);
 
 	Ticket converToTicket(TicketDTO ticketDTO);
+	
+	String createCode(Integer ticketId, Integer showtimeId);
 }
