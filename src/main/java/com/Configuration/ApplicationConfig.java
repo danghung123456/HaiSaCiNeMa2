@@ -23,6 +23,7 @@ public class ApplicationConfig {
 			}
 		};
 	}
+}
 	
 //	@Bean
 //	public JavaMailSender getJavaMailSender() {
@@ -50,4 +51,4 @@ public class ApplicationConfig {
 //	    return message;
 //	}
 	
-}
+

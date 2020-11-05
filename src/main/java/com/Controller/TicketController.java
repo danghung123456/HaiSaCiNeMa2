@@ -79,6 +79,7 @@ public class TicketController {
 			Ticket ticket = ticketService.converToTicket(ticketDTO);
 			ticket = ticketService.save(ticket);
 			String code = ticketService.createCode(ticket.getTicketId(), ticket.getShowtimes().getShowtimeId());
+			ticket.setCode(code);
 			ticket = ticketService.save(ticket);
 
 			List<SeatDTO> listSeat = ticketDTO.getListSeat();
