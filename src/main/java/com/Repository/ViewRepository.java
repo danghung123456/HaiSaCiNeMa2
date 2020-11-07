@@ -35,9 +35,10 @@ public interface ViewRepository extends JpaRepository<View, Integer> {
 			+ "WHERE m.movie.movieId = :id ")
 	List<GenreMovieView> getGenreByMovieId(Integer id);
 	
-	@Query(value= "SELECT t.ticketId as ticketId, t.member.memberId as memberId,t.member.memberName as memberName, t.ticketQuantity as ticketQuantity,t.total as total,t.showtimes.movie.movieName as movieName,t.showtimes.employee.name as employeeName,t.showtimes.date as date,t.showtimes.room.roomName as room,t.showtimes.room.cinema.name as cinemaName,t.showtimes.period.startTime as showtime,t.ticketPriceAmount as ticketPrice "
-			+ "FROM Ticket t "
-			+ "WHERE t.member.memberId = :id")
+	@Query(value= "SELECT t.ticket.ticketId as ticketId, t.ticket.member.memberId as memberId, t.ticket.member.memberName as memberName, t.ticket.ticketQuantity as ticketQuantity, t.ticket.total as total, t.ticket.showtimes.movie.movieName as movieName, t.ticket.showtimes.employee.name as employeeName, t.ticket.showtimes.date as date, t.ticket.showtimes.room.roomName as room, t.ticket.showtimes.room.cinema.name as cinemaName, t.ticket.showtimes.period.startTime as showtime, t.ticket.ticketPriceAmount as ticketPrice, SUM(t.total) as foodPrice "
+			+ "FROM FoodBillDetail t "
+			+ "WHERE t.ticket.member.memberId = :id "
+			+ "GROUP BY t.ticket.member.memberId, t.ticket.ticketId, t.ticket.member.memberId, t.ticket.member.memberName, t.ticket.ticketQuantity, t.ticket.total, t.ticket.showtimes.movie.movieName, t.ticket.showtimes.employee.name, t.ticket.showtimes.date, t.ticket.showtimes.room.roomName, t.ticket.showtimes.room.cinema.name, t.ticket.showtimes.period.startTime, t.ticket.ticketPriceAmount")
 	List<HistoryTransView> getTicketBought(Integer id);
 	
 }

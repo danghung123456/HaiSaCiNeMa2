@@ -28,4 +28,8 @@ public interface HistoryTransView {
 	String getshowtime();
 	
 	Double getticketPrice();
+	
+	Double getfoodPrice();
+	
+	List<String> getseats();
 }

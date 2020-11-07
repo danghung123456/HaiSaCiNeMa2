@@ -68,7 +68,6 @@ public class ViewController {
 				listSeat.add(ticketDetail.getSeat().getSeatName());
 			}
 			dto.setSeats(listSeat);
-			dto.setFoodPrice(foodBillDetailService.getTotalFood(historyTransView.getticketId()));
 			listDTO.add(dto);
 		}
 		return listDTO;
