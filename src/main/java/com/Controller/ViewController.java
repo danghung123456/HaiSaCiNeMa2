@@ -71,10 +71,4 @@ public class ViewController {
 		}
 		return listDTO;
 	}
-	@GetMapping("/getshowtimes")
-	public List<StartTimeView> getStarTime(Integer id){
-		return viewService.getStartTime(id);
-			
-			
-		}
 	}

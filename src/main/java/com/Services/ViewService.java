@@ -25,5 +25,4 @@ public interface ViewService {
 
 	HistoryTransViewDTO convertToDtos(HistoryTransView historyTransView);
 	
-	List<StartTimeView> getStartTime(Integer id);
 }

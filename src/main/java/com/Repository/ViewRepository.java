@@ -42,9 +42,4 @@ public interface ViewRepository extends JpaRepository<View, Integer> {
 	List<HistoryTransView> getTicketBought(Integer id);
 
 	
-	@Query(value="SELECT s.employee.cinema.cinemaId as cinemaId, s.employee.cinema.name as cinemaName,s.employee.cinema.address as address,s.period.periodId as periodId, s.period.startTime as startTime "
-			+ "FROM Showtimes s "
-			+ "WHERE s.movie.movieId = :id")
-	List<StartTimeView> getStartTime(Integer id);
-	
 }

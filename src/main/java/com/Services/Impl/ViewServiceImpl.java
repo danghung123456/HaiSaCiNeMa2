@@ -69,9 +69,4 @@ public class ViewServiceImpl implements ViewService {
 		return dto;
 	}
 
-	@Override
-	public List<StartTimeView> getStartTime(Integer id) {
-		return repository.getStartTime(id);
-	}
-
 }
