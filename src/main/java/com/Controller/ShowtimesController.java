@@ -90,7 +90,8 @@ public class ShowtimesController {
 			Optional<Showtimes> checkShowtimes = showtimesService.findById(id);
 			if (checkShowtimes.isPresent()) {
 				Showtimes showtimes = checkShowtimes.orElse(null);
-				showtimes.setStatus(0);
+				//status =1 : đang hoạt động status =2 : ngừng hoạt động
+				showtimes.setStatus(2);
 				return ResponseEntity.body(showtimesService.save(showtimes));
 			} else {
 				return ResponseEntity.body(Constant.NOT_FOUND);

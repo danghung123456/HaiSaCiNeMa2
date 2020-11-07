@@ -74,13 +74,13 @@ public class FoodController {
 	}
 	 
 	@PutMapping(value = "/delete")
-	public ResponseEntity<Object> deleteFood(@RequestBody FoodDTO foodDTO) {
-		if (foodDTO.getFoodId() == null) {
+	public ResponseEntity<Object> deleteFood(Integer id) {
+		if (id == null) {
             return ResponseEntity.body(Constant.BAD_REQUEST);
         } else {
-            Optional<Food> checkMovie = foodService.findById(foodDTO.getFoodId());
-            if (checkMovie.isPresent()) {
-            	Food food = foodDTO.convertToFood();
+            Optional<Food> checkFood = foodService.findById(id);
+            if (checkFood.isPresent()) {
+            	Food food = checkFood.orElse(null);
             	//status =1 : đang bán, status = 2 : ngừng bán
             	food.setStatus(2);
                 return ResponseEntity.body(foodService.save(food));

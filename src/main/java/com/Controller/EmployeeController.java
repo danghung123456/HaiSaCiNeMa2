@@ -72,13 +72,13 @@ public class EmployeeController {
 	}
 	
 	@PutMapping(value = "/delete")
-	public ResponseEntity<Object> deleteEmployee(@RequestBody EmployeeDTO employeeDTO) {
-		if (employeeDTO.getEmployeeId() == null) {
+	public ResponseEntity<Object> deleteEmployee(Integer id) {
+		if (id == null) {
             return ResponseEntity.body(Constant.BAD_REQUEST);
         } else {
-            Optional<Employee> checkEmployee = employeeService.findById(employeeDTO.getEmployeeId());
+            Optional<Employee> checkEmployee = employeeService.findById(id);
             if (checkEmployee.isPresent()) {
-            	Employee employee = employeeDTO.convertToEmployee();
+            	Employee employee = checkEmployee.orElse(null);
             	// status = 1 : đang hoạt động, status = 2 : ngưng hoạt động
             	employee.setStatus(2);
                 return ResponseEntity.body(employeeService.save(employee));
