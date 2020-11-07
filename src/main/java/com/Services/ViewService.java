@@ -5,6 +5,7 @@ import java.util.List;
 import com.DTO.HistoryTransViewDTO;
 import com.DTO.view.GenreMovieView;
 import com.DTO.view.HistoryTransView;
+import com.DTO.view.StartTimeView;
 import com.DTO.view.TicketByMovieView;
 import com.DTO.view.TicketByShowtimeView;
 import com.DTO.view.TotalByCinemaView;
@@ -23,4 +24,6 @@ public interface ViewService {
 	List<HistoryTransView> getTicketBought(Integer id);	
 
 	HistoryTransViewDTO convertToDtos(HistoryTransView historyTransView);
+	
+	List<StartTimeView> getStartTime(Integer id);
 }

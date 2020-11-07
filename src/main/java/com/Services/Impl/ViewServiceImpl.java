@@ -5,13 +5,12 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.DTO.HistoryTransViewDTO;
 import com.DTO.view.GenreMovieView;
 import com.DTO.view.HistoryTransView;
+import com.DTO.view.StartTimeView;
 import com.DTO.view.TicketByMovieView;
 import com.DTO.view.TicketByShowtimeView;
 import com.DTO.view.TotalByCinemaView;
@@ -68,6 +67,11 @@ public class ViewServiceImpl implements ViewService {
 		dto.setShowtime(historyTransView.getshowtime());
 		dto.setTicketPrice(historyTransView.getticketPrice());
 		return dto;
+	}
+
+	@Override
+	public List<StartTimeView> getStartTime(Integer id) {
+		return repository.getStartTime(id);
 	}
 
 }

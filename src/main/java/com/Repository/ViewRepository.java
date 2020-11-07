@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 
 import com.DTO.view.GenreMovieView;
 import com.DTO.view.HistoryTransView;
+import com.DTO.view.StartTimeView;
 import com.DTO.view.TicketByMovieView;
 import com.DTO.view.TicketByShowtimeView;
 import com.DTO.view.TotalByCinemaView;
@@ -39,5 +40,11 @@ public interface ViewRepository extends JpaRepository<View, Integer> {
 			+ "FROM Ticket t "
 			+ "WHERE t.member.memberId = :id")
 	List<HistoryTransView> getTicketBought(Integer id);
+
+	
+	@Query(value="SELECT s.employee.cinema.cinemaId as cinemaId, s.employee.cinema.name as cinemaName,s.employee.cinema.address as address,s.period.periodId as periodId, s.period.startTime as startTime "
+			+ "FROM Showtimes s "
+			+ "WHERE s.movie.movieId = :id")
+	List<StartTimeView> getStartTime(Integer id);
 	
 }
