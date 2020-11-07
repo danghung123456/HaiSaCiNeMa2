@@ -1,4 +1,4 @@
-	package com.DTO;
+package com.DTO;
 
 import java.sql.Date;
 
@@ -12,19 +12,18 @@ public class EmployeeDTO {
 	private String password;
 	private Integer role;
 	private String email;
-	private Integer phone;
+	private String phone;
 	private String address;
 	private Date birthday;
 	private String idCard;
 	private Integer cinemaId;
 	private Integer status;
-	private Cinema cinema;
 
 	public EmployeeDTO() {
 		super();
 	}
 
-	public EmployeeDTO(Integer employeeId, String name, String password, Integer role, String email, Integer phone,
+	public EmployeeDTO(Integer employeeId, String name, String password, Integer role, String email, String phone,
 			String address, Date birthday, String idCard, Integer cinemaId, Integer status) {
 		super();
 		this.employeeId = employeeId;
@@ -42,7 +41,7 @@ public class EmployeeDTO {
 
 	public boolean isNull(boolean includeId) {
 		boolean res = isNull(name) || isNull(password) || isNull(email) || isNull(phone) || isNull(address)
-				|| isNull(idCard) || isNull(cinemaId);
+				|| isNull(idCard);
 		return includeId ? res || isNull(employeeId) : res;
 	}
 
@@ -55,11 +54,20 @@ public class EmployeeDTO {
 	}
 
 	public Employee convertToEmployee() {
+		Employee employee = new Employee();
 		Cinema cinema = new Cinema();
 		cinema.setCinemaId(this.getCinemaId());
-		this.setCinema(cinema);
-		ObjectMapper mapper = new ObjectMapper();
-		Employee employee = mapper.convertValue(this, Employee.class);
+		employee.setCinema(cinema);
+		employee.setEmployeeId(this.getEmployeeId());
+		employee.setName(this.getName());
+		employee.setEmail(this.getEmail());
+		employee.setPassword(this.getPassword());
+		employee.setBirthday(this.getBirthday());
+		employee.setPhone(this.getPhone());
+		employee.setIdCard(this.getIdCard());
+		employee.setAddress(this.getAddress());
+		employee.setRole(this.getRole());
+		employee.setStatus(1);
 		if (isNull(status)) {
 			employee.setStatus(1);
 		}
@@ -106,11 +114,11 @@ public class EmployeeDTO {
 		this.email = email;
 	}
 
-	public Integer getPhone() {
+	public String getPhone() {
 		return phone;
 	}
 
-	public void setPhone(Integer phone) {
+	public void setPhone(String phone) {
 		this.phone = phone;
 	}
 
@@ -156,14 +164,6 @@ public class EmployeeDTO {
 
 	public void setStatus(Integer status) {
 		this.status = status;
-	}
-
-	public Cinema getCinema() {
-		return cinema;
-	}
-
-	public void setCinema(Cinema cinema) {
-		this.cinema = cinema;
 	}
 
 }
