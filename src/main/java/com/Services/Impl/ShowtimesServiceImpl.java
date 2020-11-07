@@ -36,7 +36,7 @@ public class ShowtimesServiceImpl implements ShowtimesService {
 	PeriodService periodService;
 
 	@Override
-	public List<Showtimes> getAll() {
+	public List<Showtimes> getAllShowtimes() {
 		return repository.findAll();
 	}
 

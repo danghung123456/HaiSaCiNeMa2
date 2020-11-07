@@ -52,7 +52,7 @@ public class MovieController {
 
 	@GetMapping(value = "/{status}")
 	public ResponseEntity<List<Movie>> findByStatus(@PathVariable("status") Integer status) {
-		// Tìm danh sách phim theo status(status: 0: ngừng chiếu, 1: đang chiếu, 2: sắp
+		// Tìm danh sách phim theo status(status: 3: ngừng chiếu, 1: đang chiếu, 2: sắp
 		// chiếu)
 		int st;
 		if (status == null) {
@@ -71,6 +71,7 @@ public class MovieController {
 			// Make sure id is NULL to insert Entity
 			movieDTO.setMovieId(null);
 			Movie movie = movieDTO.convertToMovie(movieDTO);
+			// mặc định thêm vào là phim sắp chiếu
 			movie.setStatus(2);
 			movie = movieService.save(movie);
 			List<GenreMovieDTO> listGenre = movieDTO.getListGenre();
@@ -118,7 +119,8 @@ public class MovieController {
 			Optional<Movie> checkMovie = movieService.findById(id);
 			if (checkMovie.isPresent()) {
 				Movie movie = checkMovie.orElse(null);
-				movie.setStatus(0);
+				// status = 3 : phim ngừng chiếu
+				movie.setStatus(3);
 				return ResponseEntity.body(movieService.save(movie));
 			} else {
 				return ResponseEntity.body(Constant.NOT_FOUND);

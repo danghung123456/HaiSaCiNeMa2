@@ -8,6 +8,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -29,14 +30,19 @@ public class FoodController {
 	private FoodService foodService;
 	
 	@GetMapping
-	public  ResponseEntity<List<Food>> index(Integer status) {
+	public ResponseEntity<List<Food>> getAllFood(){
+		return ResponseEntity.body(foodService.getAllFood());
+	}
+	@GetMapping(value ="/{status}")
+	public  ResponseEntity<List<Food>> getFoodByStatus(@PathVariable("status") Integer status) {
+		// tìm danh sách food theo status : 1: đang kinh doanh 2: ngừng kinh doanh
 		int st;
 		if (status == null) {
 			st = 1;
 		} else {
 			st = status;
 		}
-		return ResponseEntity.body(foodService.getAll(st));
+		return ResponseEntity.body(foodService.getAllByStatus(st));
 	}
 	
 	@PostMapping("/add")
@@ -75,7 +81,8 @@ public class FoodController {
             Optional<Food> checkMovie = foodService.findById(foodDTO.getFoodId());
             if (checkMovie.isPresent()) {
             	Food food = foodDTO.convertToFood();
-            	food.setStatus(0);
+            	//status =1 : đang bán, status = 2 : ngừng bán
+            	food.setStatus(2);
                 return ResponseEntity.body(foodService.save(food));
             } else {
                 return ResponseEntity.body(Constant.NOT_FOUND);

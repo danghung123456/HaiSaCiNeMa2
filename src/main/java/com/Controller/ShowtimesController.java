@@ -11,6 +11,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -37,7 +38,11 @@ public class ShowtimesController {
 	private SeatStatusService seatStatusService;
 
 	@GetMapping
-	public ResponseEntity<List<Showtimes>> index(Integer status) {
+	public ResponseEntity<List<Showtimes>> getAllShowtimes(){
+		return ResponseEntity.body(showtimesService.getAllShowtimes());
+	}
+	@GetMapping("/{status}")
+	public ResponseEntity<List<Showtimes>> getShowtimesByStatus(@PathVariable("status") Integer status) {
 		int st;
 		if (status == null) {
 			st = 1;

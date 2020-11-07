@@ -17,7 +17,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 	@Autowired
 	EmployeeRepository repository;
 
-	public List<Employee> getAll(Integer st) {
+	public List<Employee> getAllByStatus(Integer st) {
 		return repository.findEmployeeByStatus(st);
 	}
 
@@ -49,6 +49,12 @@ public class EmployeeServiceImpl implements EmployeeService {
 	public Employee save(Employee employee){
         return repository.saveAndFlush(employee);
     }
+
+	@Override
+	public List<Employee> getAll() {
+		return repository.findAll();
+	}
+
 
 	}
 

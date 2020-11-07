@@ -8,7 +8,9 @@ import com.Entity.Food;
 @Service
 public interface FoodService {
 
-	List<Food> getAll(Integer st);
+	List<Food> getAllByStatus(Integer st);
+	
+	List<Food> getAllFood();
 
 	void deleteAll();
 
