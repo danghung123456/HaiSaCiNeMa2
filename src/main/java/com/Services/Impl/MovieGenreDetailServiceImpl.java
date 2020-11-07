@@ -29,4 +29,9 @@ public class MovieGenreDetailServiceImpl implements MovieGenreDetailService {
 		return repository.findById(id);
 	}
 
+	@Override
+	public void deleteByMovieId(Integer movieId) {
+		repository.deleteByMovieId(movieId);
+	}
+
 }

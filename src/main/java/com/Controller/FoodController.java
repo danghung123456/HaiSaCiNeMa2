@@ -47,7 +47,8 @@ public class FoodController {
 			foodDTO.setFoodId(null);
 			foodDTO.setStatus(1);
 			Food food = foodDTO.convertToFood();
-			return ResponseEntity.body(foodService.add(food));
+			foodService.add(food);
+			return ResponseEntity.body(foodDTO);
 		}
 	}
 	

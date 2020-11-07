@@ -8,17 +8,17 @@ import java.util.Optional;
 @Service
 public interface MemberService {
 
-	public List<Member> getAll();
-	
-    public void deleteAll();
+	List<Member> getAll();
 
-    public Member add(Member member);
+	void deleteAll();
 
-    public List<Member> addAll(List<Member> list);
-    
-    public Optional<Member> findById(Integer id);
-    
-    public List<Member> findByName(String name);
+	Member add(Member member);
 
-    public Member save(Member member);
+	List<Member> addAll(List<Member> list);
+
+	Optional<Member> findById(Integer id);
+
+	List<Member> findByName(String name);
+
+	Member save(Member member);
 }

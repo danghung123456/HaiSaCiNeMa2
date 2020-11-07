@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.mail.SimpleMailMessage;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.Configuration.*;
 import com.DTO.FoodBillDetailDTO;
 import com.DTO.MovieDTO;
 import com.DTO.SeatDTO;
@@ -27,6 +29,7 @@ import com.Entity.Seat;
 import com.Entity.SeatStatus;
 import com.Entity.Ticket;
 import com.Entity.TicketDetail;
+import com.Services.EmailService;
 import com.Services.FoodBillDetailService;
 import com.Services.FoodService;
 import com.Services.MemberService;
@@ -59,60 +62,68 @@ public class TicketController {
 	private MemberService memberService;
 	@Autowired
 	private SeatStatusService seatStatusService;
-
+	@Autowired
+	private EmailService emailService;
 
 	@GetMapping
-	public  ResponseEntity<List<Ticket>> index() {
-		return  ResponseEntity.body(ticketService.getAll());
+	public ResponseEntity<List<Ticket>> index() {
+		return ResponseEntity.body(ticketService.getAll());
 	}
 
 	@PostMapping(value = "/book")
 	public ResponseEntity<Object> bookTicket(@RequestBody TicketDTO ticketDTO) {
-		 if (ticketDTO.isNull(false)) {
-	            return ResponseEntity.body(Constant.BAD_REQUEST);
-	        } else {
-	            //Make sure id is NULL to insert Entity
-	        	ticketDTO.setTicketId(null);
-	            Ticket ticket = ticketService.converToTicket(ticketDTO);
-	            ticket = ticketService.save(ticket);
-	            List<SeatDTO> listSeat = ticketDTO.getListSeat();
-	            List<FoodBillDetailDTO> listFoodBillDetailDTO = ticketDTO.getListFoodBillDetail();
-	            List<SeatStatusDTO> listSeatStatusDTO = ticketDTO.getListSeatStatus();
-	            for (SeatDTO seatDTO : listSeat) {
-	            	Seat seat = seatService.findById(seatDTO.getSeatId()).orElse(null);
-					TicketDetail ticketDetail = new TicketDetail();
-					ticketDetail.setTicket(ticket);
-					ticketDetail.setSeat(seat);
-					ticketDetailService.save(ticketDetail);
-				}
-	            for (FoodBillDetailDTO foodsDto : listFoodBillDetailDTO) {
-	            	Food food = foodService.findById(foodsDto.getFoodId()).orElse(null);
-	            	FoodBillDetail foodBillDetail = new FoodBillDetail();
-	            	foodBillDetail.setTicket(ticket);
-	            	foodBillDetail.setFood(food);
-	            	foodBillDetail.setQuantity(foodsDto.getQuantity());
-	            	foodBillDetail.setTotal(foodsDto.getTotal());
-	            	foodBillDetailService.save(foodBillDetail);
-				}
-	            for (SeatStatusDTO seatStatusDTO : listSeatStatusDTO) {
-	            	SeatStatus seatStatus = seatStatusService.findById(seatStatusDTO.getSeatStatusId()).orElse(null);
-	            	seatStatus.setStatus(true);
-	            	seatStatusService.save(seatStatus);
-				}
-	            Member member = new Member();
-	            member = memberService.findById(ticket.getMember().getMemberId()).orElse(null);
-	            Double total = ticket.getTotal() + member.getTotalMoney();
-	            member.setTotalMoney(total);
-	            ticket = ticketService.findById(ticket.getTicketId()).orElse(null);
-	            return ResponseEntity.body(ticket);
-	        }
-	} 
-	
-	
+		if (ticketDTO.isNull(false)) {
+			return ResponseEntity.body(Constant.BAD_REQUEST);
+		} else {
+			ticketDTO.setTicketId(null);
+			Ticket ticket = ticketService.converToTicket(ticketDTO);
+			ticket = ticketService.save(ticket);
+			String code = ticketService.createCode(ticket.getTicketId(), ticket.getShowtimes().getShowtimeId());
+			ticket.setCode(code);
+			ticket = ticketService.save(ticket);
+
+			List<SeatDTO> listSeat = ticketDTO.getListSeat();
+			List<FoodBillDetailDTO> listFoodBillDetailDTO = ticketDTO.getListFoodBillDetail();
+			List<SeatStatusDTO> listSeatStatusDTO = ticketDTO.getListSeatStatus();
+
+			for (SeatDTO seatDTO : listSeat) {
+				Seat seat = seatService.findById(seatDTO.getSeatId()).orElse(null);
+				TicketDetail ticketDetail = new TicketDetail();
+				ticketDetail.setTicket(ticket);
+				ticketDetail.setSeat(seat);
+				ticketDetailService.save(ticketDetail);
+			}
+
+			for (FoodBillDetailDTO foodsDto : listFoodBillDetailDTO) {
+				Food food = foodService.findById(foodsDto.getFoodId()).orElse(null);
+				FoodBillDetail foodBillDetail = new FoodBillDetail();
+				foodBillDetail.setTicket(ticket);
+				foodBillDetail.setFood(food);
+				foodBillDetail.setQuantity(foodsDto.getQuantity());
+				foodBillDetail.setTotal(foodsDto.getTotal());
+				foodBillDetailService.save(foodBillDetail);
+			}
+
+			for (SeatStatusDTO seatStatusDTO : listSeatStatusDTO) {
+				SeatStatus seatStatus = seatStatusService.findById(seatStatusDTO.getSeatStatusId()).orElse(null);
+				seatStatus.setStatus(true);
+				seatStatusService.save(seatStatus);
+			}
+			
+			Member member = new Member();
+			member = memberService.findById(ticket.getMember().getMemberId()).orElse(null);
+			Double total = ticket.getTotal() + member.getTotalMoney();
+			member.setTotalMoney(total);
+			member = memberService.save(member);
+			
+			ticket = ticketService.findById(ticket.getTicketId()).orElse(null);
+			return ResponseEntity.body(ticket);
+		}
+	}
+
 	@GetMapping("/findbyid")
 	public ResponseEntity<Object> findById(Integer id) {
-		return  ResponseEntity.body(ticketService.findById(id));
+		return ResponseEntity.body(ticketService.findById(id));
 	}
-	
 
 }

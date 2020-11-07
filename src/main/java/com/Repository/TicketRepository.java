@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 import com.DTO.view.TicketByMovieView;
 import com.DTO.view.TicketByShowtimeView;
 import com.Entity.Ticket;
+import com.Entity.TicketDetail;
 
 @Repository
 public interface TicketRepository extends JpaRepository<Ticket, Integer> {

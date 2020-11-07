@@ -6,7 +6,9 @@ import com.Entity.FoodBillDetail;
 @Service
 public interface FoodBillDetailService {
 
-	public FoodBillDetail add(FoodBillDetail foodBillDetail);
+	FoodBillDetail add(FoodBillDetail foodBillDetail);
 
-	public FoodBillDetail save(FoodBillDetail foodBillDetail);
+	FoodBillDetail save(FoodBillDetail foodBillDetail);
+	
+	Double getTotalFood (Integer ticketId);
 }

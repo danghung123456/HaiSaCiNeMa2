@@ -9,9 +9,9 @@ import com.Entity.Showtimes;
 @Service
 public interface SeatStatusService {
 
-	public Showtimes add(Showtimes showtimes);
+	Showtimes add(Showtimes showtimes);
 
-	public SeatStatus save(SeatStatus seatStatus);
+	SeatStatus save(SeatStatus seatStatus);
 
-	public Optional<SeatStatus> findById(Integer seatStatusId);
+	Optional<SeatStatus> findById(Integer seatStatusId);
 }

@@ -7,18 +7,18 @@ import java.util.Optional;
 
 @Service
 public interface EmployeeService {
-	
-	public List<Employee> getAll(Integer st);
-	
-    public void deleteAll();
 
-    public Employee add(Employee employee);
+	List<Employee> getAll(Integer st);
 
-    public List<Employee> addAll(List<Employee> list);
-    
-    public Optional<Employee> findById(Integer id);
-    
-    public List<Employee> findByName(String name);
+	void deleteAll();
 
-    public Employee save(Employee employee);
+	Employee add(Employee employee);
+
+	List<Employee> addAll(List<Employee> list);
+
+	Optional<Employee> findById(Integer id);
+
+	List<Employee> findByName(String name);
+
+	Employee save(Employee employee);
 }
