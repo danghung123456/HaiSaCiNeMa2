@@ -7,6 +7,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import com.DTO.ShowtimesDTO;
+import com.DTO.ShowtimesMovieDTO;
 import com.Entity.Showtimes;
 
 @Service
@@ -29,5 +30,7 @@ public interface ShowtimesService {
 	List<Showtimes> findShowtimesByStatus(Integer status);
 	
 	Showtimes convert(ShowtimesDTO dto);
+	
+	List<ShowtimesMovieDTO> listShowtime(Integer movieId);
 
 }

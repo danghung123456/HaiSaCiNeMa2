@@ -1,5 +1,6 @@
 package com.Services;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.stereotype.Service;
@@ -14,4 +15,6 @@ public interface SeatStatusService {
 	SeatStatus save(SeatStatus seatStatus);
 
 	Optional<SeatStatus> findById(Integer seatStatusId);
+	
+	List<SeatStatus> findAllByShowtimeId(Integer showtimeId);
 }
