@@ -1,13 +1,14 @@
 package com.Repository;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
+
+import com.Entity.Period;
 import com.Entity.Showtimes;
 
 @Repository
@@ -21,5 +22,14 @@ public interface ShowtimesRepository extends JpaRepository<Showtimes, Integer> {
 
 	@Query(value = "SELECT s FROM Showtimes s WHERE s.movie.movieName LIKE %:name% AND s.status = 1")
 	List<Showtimes> findByName(String name);
+
+	@Query(value = "SELECT s.room.cinema.cinemaId FROM Showtimes s WHERE s.movie.movieId = :movieId GROUP BY s.room.cinema.cinemaId")
+	List<Integer> findCinemaByMovieId(Integer movieId);
+
+	@Query(value = "SELECT s.date FROM Showtimes s WHERE s.movie.movieId = :movieId AND s.room.cinema.cinemaId = :cinemaId GROUP BY s.date")
+	List<Date> findDateByCinemaMovie(Integer cinemaId, Integer movieId);
+
+	@Query(value = "SELECT s FROM Showtimes s WHERE s.movie.movieId = :movieId AND s.room.cinema.cinemaId = :cinemaId AND s.date = :date")
+	List<Showtimes> findPeriod(Integer cinemaId, Integer movieId, Date date);
 
 }

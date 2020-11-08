@@ -109,13 +109,13 @@ public class TicketController {
 				seatStatus.setStatus(true);
 				seatStatusService.save(seatStatus);
 			}
-			
+
 			Member member = new Member();
 			member = memberService.findById(ticket.getMember().getMemberId()).orElse(null);
 			Double total = ticket.getTotal() + member.getTotalMoney();
 			member.setTotalMoney(total);
 			member = memberService.save(member);
-			
+
 			ticket = ticketService.findById(ticket.getTicketId()).orElse(null);
 			return ResponseEntity.body(ticket);
 		}

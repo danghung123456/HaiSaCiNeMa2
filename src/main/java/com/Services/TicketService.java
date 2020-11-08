@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
+import com.DTO.ShowtimesMovieDTO;
 import com.DTO.TicketDTO;
 import com.DTO.view.TicketByMovieView;
 import com.DTO.view.TicketByShowtimeView;
@@ -27,5 +28,7 @@ public interface TicketService {
 	Ticket converToTicket(TicketDTO ticketDTO);
 	
 	String createCode(Integer ticketId, Integer showtimeId);
+	
+	
 	
 }
