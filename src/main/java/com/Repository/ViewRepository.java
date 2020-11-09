@@ -1,5 +1,6 @@
 package com.Repository;
 
+import java.util.Date;
 import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -7,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import com.DTO.view.GenreMovieView;
 import com.DTO.view.HistoryTransView;
+import com.DTO.view.TopMovieView;
 import com.DTO.view.StartTimeView;
 import com.DTO.view.TicketByMovieView;
 import com.DTO.view.TicketByShowtimeView;
@@ -40,6 +42,12 @@ public interface ViewRepository extends JpaRepository<View, Integer> {
 			+ "FROM Ticket t "
 			+ "WHERE t.member.memberId = :id")
 	List<HistoryTransView> getTicketBought(Integer id);
-
+	
+	@Query(value= "SELECT t.showtimes.movie.movieId as movieId, t.showtimes.movie.movieName as movieName,t.showtimes.movie.thumbnail as thumbnail, SUM(t.ticketQuantity) "
+			+ "FROM Ticket t "
+			+ "WHERE t.showtimes.date BETWEEN  :dateNow AND :date "
+			+ "GROUP BY t.showtimes.movie.movieId, t.showtimes.movie.movieName,t.showtimes.movie.thumbnail "
+			+ "ORDER BY SUM(t.ticketQuantity) DESC ")
+	List<TopMovieView> getTopMovie(Date date, Date dateNow);
 	
 }

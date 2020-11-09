@@ -25,7 +25,6 @@ public class SeatStatusServiceImpl implements SeatStatusService {
 	public Showtimes add(Showtimes showtimes) {
 		// roomID = > findById => listSeat 
 		List<Seat> seatList = showtimes.getRoom().getSeat();
-		List<SeatStatus> list = new ArrayList<SeatStatus>();
 		for(Seat seat : seatList) {
 			SeatStatus seatStatus = new SeatStatus();
 			seatStatus.setShowtimes(showtimes);

@@ -2,6 +2,9 @@ package com.Controller;
 
 import java.util.List;
 import java.util.Optional;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -47,7 +50,6 @@ import com.DTO.view.TicketByShowtimeView;
 @RequestMapping(value = "ticket")
 
 public class TicketController {
-
 	@Autowired
 	private TicketService ticketService;
 	@Autowired
@@ -64,6 +66,7 @@ public class TicketController {
 	private SeatStatusService seatStatusService;
 	@Autowired
 	private EmailService emailService;
+
 
 	@GetMapping
 	public ResponseEntity<List<Ticket>> index() {
@@ -115,8 +118,11 @@ public class TicketController {
 			Double total = ticket.getTotal() + member.getTotalMoney();
 			member.setTotalMoney(total);
 			member = memberService.save(member);
-			
 			ticket = ticketService.findById(ticket.getTicketId()).orElse(null);
+			String codeTicket = "ID vé:"+ ticket.getTicketId() + "\n" + "Mã vé :" + ticket.getCode() + "\n" + "Tiền vé :"+ ticket.getTicketPriceAmount();
+			String email = memberService.findEmailById(ticket.getMember().getMemberId());
+			String subject = "Đặt vé thành công!";
+			emailService.sendMail(email, subject, codeTicket);
 			return ResponseEntity.body(ticket);
 		}
 	}

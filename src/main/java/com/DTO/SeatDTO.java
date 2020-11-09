@@ -11,8 +11,6 @@ public class SeatDTO {
 	private String seatName;
 	private Integer roomId;
 
-	private Room room;
-
 	public SeatDTO() {
 		super();
 	}
@@ -33,29 +31,20 @@ public class SeatDTO {
 	}
 
 	public boolean isNull(boolean includeId) {
-		boolean res = isNull(seatName) || isNull(room.getRoomId());
+		boolean res = isNull(seatName) || isNull(roomId);
 		return includeId ? res || isNull(seatId) : res;
 	}
 
-	public Seat convertToRoom() {
+	public Seat convertToDTO() {
 		Room room = new Room();
+		Seat seat = new Seat();
 		room.setRoomId(this.getRoomId());
-		this.setRoom(room);
-		ObjectMapper mapper = new ObjectMapper();
-		Seat seat = mapper.convertValue(this, Seat.class);
+		seat.setRoom(room);
+		seat.setSeatId(this.getSeatId());
+		seat.setSeatName(this.getSeatName());
 		return seat;
-
 	}
 
-
-
-    public Seat convertToDTO() {
-    	ObjectMapper mapper = new ObjectMapper();
-//    	mapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
-    	Seat seat = mapper.convertValue(this, Seat.class);
-    	System.out.println("this is seat: "+seat.toString());
-    	return seat;
-    }
 
     public Integer getSeatId() {
 		return seatId;
@@ -73,14 +62,6 @@ public class SeatDTO {
 		this.seatName = seatName;
 	}
 
-	public Room getRoom() {
-		return room;
-	}
-
-	public void setRoom(Room room) {
-		this.room = room;
-	}
-
 	public Integer getRoomId() {
 		return roomId;
 	}
@@ -91,7 +72,7 @@ public class SeatDTO {
 
 	@Override
 	public String toString() {
-		return "SeatDTO [seatId=" + seatId + ", seatName=" + seatName + ", room=" + room + "]";
+		return "SeatDTO [seatId=" + seatId + ", seatName=" + seatName + "]";
 	}
 
 

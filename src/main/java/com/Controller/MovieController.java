@@ -1,5 +1,7 @@
 package com.Controller;
 
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 
@@ -26,6 +28,7 @@ import com.DTO.GenreMovieDTO;
 import com.DTO.MovieDTO;
 import com.DTO.Base.ResponseEntity;
 import com.DTO.view.GenreMovieView;
+import com.DTO.view.TopMovieView;
 
 @RestController
 @RequestMapping(value = "movie")
@@ -45,8 +48,9 @@ public class MovieController {
 	public ResponseEntity<List<Movie>> index() {
 		return ResponseEntity.body(movieService.getAll());
 	}
+
 	@GetMapping("/getgenre")
-	public List<GenreMovieView> getGenreByMovieId(Integer id){
+	public List<GenreMovieView> getGenreByMovieId(Integer id) {
 		return viewService.getGenreByMovieId(id);
 	}
 
@@ -136,6 +140,21 @@ public class MovieController {
 	@GetMapping("/findbyname")
 	public ResponseEntity<Object> findByName(String name) {
 		return ResponseEntity.body(movieService.findByName(name));
+	}
+
+	@GetMapping("/movieofweek")
+	public ResponseEntity<Object> findMovieOfWeek() {
+		return ResponseEntity.body(viewService.getMovieOfWeek());
+	}
+
+	@GetMapping("/movieofmonth")
+	public ResponseEntity<Object> findMovieOfMonth() {
+//		List<TopMovieView> listTopMovie = viewService.getMovieOfMonth();
+//		List<TopMovieView> listTop5 = new ArrayList<>();
+//		for (TopMovieView topMovie : listTopMovie) {
+//			listTop5.add(topMovie);
+//		}
+		return ResponseEntity.body(viewService.getMovieOfMonth());
 	}
 
 }

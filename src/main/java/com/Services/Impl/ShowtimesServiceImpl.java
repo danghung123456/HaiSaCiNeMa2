@@ -48,7 +48,6 @@ public class ShowtimesServiceImpl implements ShowtimesService {
 
 	@Override
 	public Showtimes add(Showtimes showtimes) {
-
 		return repository.save(showtimes);
 	}
 

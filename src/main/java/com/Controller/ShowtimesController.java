@@ -54,7 +54,6 @@ public class ShowtimesController {
 
 	@PostMapping(value = "/add")
 	public ResponseEntity<Object> addShowtimes(@RequestBody ShowtimesDTO showtimesDTO) {
-		logger.info("Call /add API, payload=[{}]", showtimesDTO);
 		if (showtimesDTO.isNull(false)) {
 			return ResponseEntity.body(Constant.BAD_REQUEST);
 		} else {
