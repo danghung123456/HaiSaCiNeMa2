@@ -43,6 +43,8 @@ public class MovieController {
 	private MovieGenreDetailService genreDetailService;
 	@Autowired
 	private ViewService viewService;
+	@Autowired
+	private MovieGenreDetailService movieGenreDetailService;
 
 	@GetMapping
 	public ResponseEntity<List<Movie>> index() {
@@ -156,5 +158,11 @@ public class MovieController {
 //		}
 		return ResponseEntity.body(viewService.getMovieOfMonth());
 	}
+	
+	@GetMapping("/findbygenre")
+	public ResponseEntity<Object> findAllByMovie(Integer id) {
+		return ResponseEntity.body(movieGenreDetailService.findAllByGenre(id));
+	}
+
 
 }

@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import com.Entity.FoodBillDetail;
 import com.Entity.Ticket;
 import com.Entity.TicketDetail;
+import com.Repository.TicketDetailRepository;
 import com.Services.EmailService;
 
 @Service
@@ -18,14 +19,20 @@ public class EmailServiceImpl implements EmailService {
 
 	@Autowired
     private JavaMailSender emailSender;
+	@Autowired
+	private TicketDetailRepository ticketDetailRepository;
 	
 	@Override
 	public void sendMail(String to, String subject, Ticket ticket) {
 //		List<String> listSeat = new ArrayList<>();
-//		List<TicketDetail> lisTicketDetails = ticket.getTicketDetail();
-//		if (ticket.getTicketDetail().size() != 0) {
-//			for (TicketDetail ticketDetail : lisTicketDetails) {
-//				listSeat.add(ticketDetail.getSeat().getSeatName());
+//		System.out.println(ticket.getTicketId());
+//		List<TicketDetail> lisTicketDetails = ticketDetailRepository.
+//		if (!ticket.getTicketDetail().isEmpty()) {
+//			
+//			if (ticket.getTicketDetail().size() != 0) {
+//				for (TicketDetail ticketDetail : lisTicketDetails) {
+//					listSeat.add(ticketDetail.getSeat().getSeatName());
+//				}
 //			}
 //		}
 //		List<String> listFood = new ArrayList<>();

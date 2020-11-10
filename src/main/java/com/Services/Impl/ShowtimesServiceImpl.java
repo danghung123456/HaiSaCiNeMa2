@@ -33,7 +33,7 @@ import com.Services.ShowtimesService;
 
 @Service
 public class ShowtimesServiceImpl implements ShowtimesService {
-	
+
 	@Autowired
 	ShowtimesRepository repository;
 	@Autowired
@@ -87,7 +87,6 @@ public class ShowtimesServiceImpl implements ShowtimesService {
 		return repository.findShowtimesByStatus(status);
 	}
 
-
 	@Override
 	public Showtimes convert(ShowtimesDTO dto) {
 		Movie movie = movieRepository.findById(dto.getMovieId()).orElse(null);
@@ -102,11 +101,6 @@ public class ShowtimesServiceImpl implements ShowtimesService {
 		showtime.setDate(dto.getDate());
 		showtime.setStatus(1);
 		return showtime;
-	}
-
-	@Override
-	public List<Showtimes> findByMovieName(String movieName) {
-		return repository.findByName(movieName);
 	}
 
 	@Override

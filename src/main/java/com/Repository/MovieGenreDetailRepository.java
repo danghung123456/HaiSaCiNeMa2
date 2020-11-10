@@ -15,6 +15,10 @@ public interface MovieGenreDetailRepository extends JpaRepository<MovieGenreDeta
 	@Query(value = "DELETE FROM MovieGenreDetail m WHERE m.movie.movieId = :movieId ")
 	void deleteByMovieId(Integer movieId);
 	
-	@Query(value = "SELECT m FROM MovieGenreDetail m WHERE m.movie.movieId = :id")
+
 	List<MovieGenreDetail> findAllByMovieMovieId(Integer id);
+	
+	@Query(value = "SELECT m FROM MovieGenreDetail m WHERE m.genreMovie.genreId = :id AND m.movie.status = 1")
+	List<MovieGenreDetail> findAllByGenre(Integer id);
+	
 }

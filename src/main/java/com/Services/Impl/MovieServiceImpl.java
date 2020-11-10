@@ -5,18 +5,14 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import com.DTO.MovieDTO;
-import com.DTO.MovieGenreDetail;
-import com.Entity.GenreMovie;
+
+import com.Entity.MovieGenreDetail;
 import com.Entity.Movie;
 import com.Repository.GenreMovieRepository;
+import com.Repository.MovieGenreDetailRepository;
 import com.Repository.MovieRepository;
-import com.Services.MovieGenreDetailService;
 import com.Services.MovieService;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Service
 public class MovieServiceImpl implements MovieService {
@@ -24,7 +20,9 @@ public class MovieServiceImpl implements MovieService {
     MovieRepository repository;
 	@Autowired
     GenreMovieRepository genreRepository;
-
+	@Autowired
+	MovieGenreDetailRepository movieGenreDetailRepository;
+	
     public void deleteAll() {
         repository.deleteAll();
     }

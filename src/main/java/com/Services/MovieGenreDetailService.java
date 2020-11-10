@@ -18,4 +18,6 @@ public interface MovieGenreDetailService {
 	void deleteByMovieId(Integer movieId);
 	
 	List<MovieGenreDetail> findAllByMovieId(Integer movieId);
+	
+	List<MovieGenreDetail> findAllByGenre(Integer genreId);
 }

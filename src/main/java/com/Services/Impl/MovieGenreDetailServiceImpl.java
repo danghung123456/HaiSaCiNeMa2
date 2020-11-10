@@ -40,4 +40,9 @@ public class MovieGenreDetailServiceImpl implements MovieGenreDetailService {
 		return repository.findAllByMovieMovieId(movieId);
 	}
 
+	@Override
+	public List<MovieGenreDetail> findAllByGenre(Integer genreId) {
+		return repository.findAllByGenre(genreId);
+	}
+
 }
