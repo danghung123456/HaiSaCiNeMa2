@@ -1,5 +1,6 @@
 package com.Services;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.stereotype.Service;
@@ -15,4 +16,6 @@ public interface MovieGenreDetailService {
 	Optional<MovieGenreDetail> findById(Integer id);
 	
 	void deleteByMovieId(Integer movieId);
+	
+	List<MovieGenreDetail> findAllByMovieId(Integer movieId);
 }

@@ -115,8 +115,11 @@ public class TicketController {
 			Double total = ticket.getTotal() + member.getTotalMoney();
 			member.setTotalMoney(total);
 			member = memberService.save(member);
-
+			
 			ticket = ticketService.findById(ticket.getTicketId()).orElse(null);
+			
+			emailService.sendMail(member.getEmail(), "Đặt vé thành công", ticket);
+
 			return ResponseEntity.body(ticket);
 		}
 	}

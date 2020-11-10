@@ -1,4 +1,6 @@
 package com.Repository;
+import java.util.List;
+
 import javax.transaction.Transactional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
@@ -12,4 +14,7 @@ public interface MovieGenreDetailRepository extends JpaRepository<MovieGenreDeta
 	@Modifying
 	@Query(value = "DELETE FROM MovieGenreDetail m WHERE m.movie.movieId = :movieId ")
 	void deleteByMovieId(Integer movieId);
+	
+	@Query(value = "SELECT m FROM MovieGenreDetail m WHERE m.movie.movieId = :id")
+	List<MovieGenreDetail> findAllByMovieMovieId(Integer id);
 }

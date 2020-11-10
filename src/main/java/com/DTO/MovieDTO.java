@@ -10,7 +10,7 @@ public class MovieDTO {
 
 	private Integer movieId;
 	private String movieName;
-	private String duration;
+	private Integer duration;
 	private String description;
 	private String thumbnail;
 	private String trailer;
@@ -20,7 +20,7 @@ public class MovieDTO {
 	private Integer status;
 	private List<GenreMovieDTO> listGenre;
 
-	public MovieDTO(Integer movieId, String movieName, String duration, String description, String thumbnail,
+	public MovieDTO(Integer movieId, String movieName, Integer duration, String description, String thumbnail,
 			String trailer, String actors, String director, Integer ageLimit) {
 		super();
 		this.movieId = movieId;
@@ -48,7 +48,8 @@ public class MovieDTO {
 		return input == null;
 	}
 	public Movie convertToMovie(MovieDTO movieDTO) {
-		Movie movie = new Movie(this.getMovieId());
+		Movie movie = new Movie();
+		movie.setMovieId(movieDTO.getMovieId());
 		movie.setMovieName(movieDTO.getMovieName());
 		movie.setDuration(movieDTO.getDuration());
 		movie.setDescription(movieDTO.getDescription());
@@ -77,11 +78,11 @@ public class MovieDTO {
 		this.movieName = movieName;
 	}
 
-	public String getDuration() {
+	public Integer getDuration() {
 		return duration;
 	}
 
-	public void setDuration(String duration) {
+	public void setDuration(Integer duration) {
 		this.duration = duration;
 	}
 

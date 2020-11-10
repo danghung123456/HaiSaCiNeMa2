@@ -1,4 +1,5 @@
 package com.Services.Impl;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +33,11 @@ public class MovieGenreDetailServiceImpl implements MovieGenreDetailService {
 	@Override
 	public void deleteByMovieId(Integer movieId) {
 		repository.deleteByMovieId(movieId);
+	}
+
+	@Override
+	public List<MovieGenreDetail> findAllByMovieId(Integer movieId) {
+		return repository.findAllByMovieMovieId(movieId);
 	}
 
 }
