@@ -15,4 +15,5 @@ public interface TicketDetailRepository extends JpaRepository<TicketDetail, Inte
 	@Query(value = "SELECT t.seat.seatName FROM TicketDetail t WHERE t.ticketDetailId = :id")
 	String findByTicketDetailId(Integer id);
 
+	List<TicketDetail> findAllByTicketTicketId(Integer id);
 }
