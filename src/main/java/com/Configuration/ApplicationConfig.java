@@ -17,12 +17,29 @@ public class ApplicationConfig {
 	public WebMvcConfigurer webMVCConfig() {
 		return new WebMvcConfigurer() {
 			@Override
-			public void	addCorsMappings(CorsRegistry registry) {
-				registry.addMapping("/**").allowedOrigins("http://localhost:4200").allowedMethods("PUT", "DELETE", "GET", "POST");
+			public void addCorsMappings(CorsRegistry registry) {
+				registry.addMapping("/**").allowedOrigins("http://localhost:8080/").allowedMethods("PUT", "GET",
+						"DELETE", "POST");
 			}
 		};
 	}
 	
-	
-	
+	@Bean
+	public JavaMailSender getJavaMailSender() {
+		JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
+		mailSender.setHost("smtp.gmail.com");
+		mailSender.setPort(587);
+
+		mailSender.setUsername("HaiSaCinema@gmail.com");
+		mailSender.setPassword("songlong123");
+
+		Properties props = mailSender.getJavaMailProperties();
+		props.put("mail.transport.protocol", "smtp");
+		props.put("mail.smtp.auth", "true");
+		props.put("mail.smtp.starttls.enable", "true");
+		props.put("mail.debug", "true");
+
+		return mailSender;
+	}
+
 }

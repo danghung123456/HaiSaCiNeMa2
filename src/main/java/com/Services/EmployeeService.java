@@ -8,7 +8,9 @@ import java.util.Optional;
 @Service
 public interface EmployeeService {
 
-	List<Employee> getAll(Integer st);
+	List<Employee> getAllByStatus(Integer st);
+	
+	List<Employee> getAll();
 
 	void deleteAll();
 

@@ -48,7 +48,7 @@ public class ShowtimesServiceImpl implements ShowtimesService {
 	CinemaRepository cinemaRepository;
 
 	@Override
-	public List<Showtimes> getAll() {
+	public List<Showtimes> getAllShowtimes() {
 		return repository.findAll();
 	}
 
@@ -60,7 +60,6 @@ public class ShowtimesServiceImpl implements ShowtimesService {
 
 	@Override
 	public Showtimes add(Showtimes showtimes) {
-
 		return repository.save(showtimes);
 	}
 

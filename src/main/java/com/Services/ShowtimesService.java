@@ -13,7 +13,7 @@ import com.Entity.Showtimes;
 @Service
 public interface ShowtimesService {
 
-	List<Showtimes> getAll();
+	List<Showtimes> getAllShowtimes();
 
 	void deleteAll();
 

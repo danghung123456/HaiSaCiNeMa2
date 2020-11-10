@@ -7,6 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -31,7 +32,11 @@ public class ShowtimesController {
 	private SeatStatusService seatStatusService;
 
 	@GetMapping
-	public ResponseEntity<List<Showtimes>> index(Integer status) {
+	public ResponseEntity<List<Showtimes>> getAllShowtimes(){
+		return ResponseEntity.body(showtimesService.getAllShowtimes());
+	}
+	@GetMapping("/{status}")
+	public ResponseEntity<List<Showtimes>> getShowtimesByStatus(@PathVariable("status") Integer status) {
 		int st;
 		if (status == null) {
 			st = 1;
@@ -43,7 +48,6 @@ public class ShowtimesController {
 
 	@PostMapping(value = "/add")
 	public ResponseEntity<Object> addShowtimes(@RequestBody ShowtimesDTO showtimesDTO) {
-		logger.info("Call /add API, payload=[{}]", showtimesDTO);
 		if (showtimesDTO.isNull(false)) {
 			return ResponseEntity.body(Constant.BAD_REQUEST);
 		} else {
@@ -79,7 +83,8 @@ public class ShowtimesController {
 			Optional<Showtimes> checkShowtimes = showtimesService.findById(id);
 			if (checkShowtimes.isPresent()) {
 				Showtimes showtimes = checkShowtimes.orElse(null);
-				showtimes.setStatus(0);
+				//status =1 : đang hoạt động status =2 : ngừng hoạt động
+				showtimes.setStatus(2);
 				return ResponseEntity.body(showtimesService.save(showtimes));
 			} else {
 				return ResponseEntity.body(Constant.NOT_FOUND);

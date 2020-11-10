@@ -1,5 +1,7 @@
 package com.Controller;
 
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 
@@ -26,6 +28,7 @@ import com.DTO.GenreMovieDTO;
 import com.DTO.MovieDTO;
 import com.DTO.Base.ResponseEntity;
 import com.DTO.view.GenreMovieView;
+import com.DTO.view.TopMovieView;
 
 @RestController
 @RequestMapping(value = "movie")
@@ -45,14 +48,15 @@ public class MovieController {
 	public ResponseEntity<List<Movie>> index() {
 		return ResponseEntity.body(movieService.getAll());
 	}
+
 	@GetMapping("/getgenre")
-	public List<GenreMovieView> getGenreByMovieId(Integer id){
+	public List<GenreMovieView> getGenreByMovieId(Integer id) {
 		return viewService.getGenreByMovieId(id);
 	}
 
 	@GetMapping(value = "/{status}")
 	public ResponseEntity<List<Movie>> findByStatus(@PathVariable("status") Integer status) {
-		// Tìm danh sách phim theo status(status: 0: ngừng chiếu, 1: đang chiếu, 2: sắp
+		// Tìm danh sách phim theo status(status: 3: ngừng chiếu, 1: đang chiếu, 2: sắp
 		// chiếu)
 		int st;
 		if (status == null) {
@@ -71,6 +75,7 @@ public class MovieController {
 			// Make sure id is NULL to insert Entity
 			movieDTO.setMovieId(null);
 			Movie movie = movieDTO.convertToMovie(movieDTO);
+			// mặc định thêm vào là phim sắp chiếu
 			movie.setStatus(2);
 			movie = movieService.save(movie);
 			List<GenreMovieDTO> listGenre = movieDTO.getListGenre();
@@ -118,7 +123,8 @@ public class MovieController {
 			Optional<Movie> checkMovie = movieService.findById(id);
 			if (checkMovie.isPresent()) {
 				Movie movie = checkMovie.orElse(null);
-				movie.setStatus(0);
+				// status = 3 : phim ngừng chiếu
+				movie.setStatus(3);
 				return ResponseEntity.body(movieService.save(movie));
 			} else {
 				return ResponseEntity.body(Constant.NOT_FOUND);
@@ -134,6 +140,21 @@ public class MovieController {
 	@GetMapping("/findbyname")
 	public ResponseEntity<Object> findByName(String name) {
 		return ResponseEntity.body(movieService.findByName(name));
+	}
+
+	@GetMapping("/movieofweek")
+	public ResponseEntity<Object> findMovieOfWeek() {
+		return ResponseEntity.body(viewService.getMovieOfWeek());
+	}
+
+	@GetMapping("/movieofmonth")
+	public ResponseEntity<Object> findMovieOfMonth() {
+//		List<TopMovieView> listTopMovie = viewService.getMovieOfMonth();
+//		List<TopMovieView> listTop5 = new ArrayList<>();
+//		for (TopMovieView topMovie : listTopMovie) {
+//			listTop5.add(topMovie);
+//		}
+		return ResponseEntity.body(viewService.getMovieOfMonth());
 	}
 
 }

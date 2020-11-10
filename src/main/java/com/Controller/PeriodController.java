@@ -59,24 +59,14 @@ public class PeriodController {
         }
 	}
 	
-//	@PutMapping(value = "/delete")
-//	public ResponseEntiy<Object> delete(@RequestBody MovieDTO movieDTO) {
-//		if (movieDTO.getMovieId() == null) {
-//            return ResponseEntiy.body(Constant.BAD_REQUEST);
-//        } else {
-//            Optional<Movie> checkMovie = movieService.findById(movieDTO.getMovieId());
-//            if (checkMovie.isPresent()) {
-//            	Movie movie = movieDTO.convertToMovie();
-//            	movie.setStatus(0);
-//                return ResponseEntiy.body(movieService.save(movie));
-//            } else {
-//                return ResponseEntiy.body(Constant.NOT_FOUND);
-//            }
-//        }
-//	}
 	
 	@GetMapping("/findbystatus")
 	public ResponseEntity<Object> findPeriodByStatus(Integer status) {
 		return ResponseEntity.body(periodService.findPeriodByStatus(status));
+	}
+	
+	@GetMapping("/findbyid")
+	public ResponseEntity<Object> findPeriodById(Integer id){
+		return ResponseEntity.body(periodService.findById(id));
 	}
 }

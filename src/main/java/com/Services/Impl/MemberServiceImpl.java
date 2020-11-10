@@ -48,5 +48,10 @@ public class MemberServiceImpl implements MemberService {
         return repository.saveAndFlush(member);
     }
 
+	@Override
+	public String findEmailById(Integer id) {
+		return repository.findEmailById(id);
+	}
+
 	}
 

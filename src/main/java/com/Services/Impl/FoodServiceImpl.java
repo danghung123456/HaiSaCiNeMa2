@@ -23,7 +23,7 @@ public class FoodServiceImpl implements FoodService {
 	FoodRepository repository;
 	
 	@Override
-	public List<Food> getAll(Integer st) {
+	public List<Food> getAllByStatus(Integer st) {
 		return repository.findFoodByStatus(st);
 	}
 
@@ -61,6 +61,11 @@ public class FoodServiceImpl implements FoodService {
 	@Override
 	public Food save(Food food) {
 		return repository.saveAndFlush(food);
+	}
+
+	@Override
+	public List<Food> getAllFood() {
+		return repository.findAll();
 	}
 
 
