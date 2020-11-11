@@ -97,5 +97,10 @@ public class EmployeeController {
 	public ResponseEntity<Object> findByName(String name) {
 		return ResponseEntity.body(employeeService.findByName(name));
 	}
+	@GetMapping("/findbyrole/{role}")
+	public ResponseEntity<Object> findByRole(@PathVariable("role") Integer role){
+		// role 1 :quản lý ,role 0 : nhân viên;
+		return ResponseEntity.body(employeeService.findByRole(role));
+	}
 
 }
