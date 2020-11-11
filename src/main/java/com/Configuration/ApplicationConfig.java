@@ -12,17 +12,6 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
 public class ApplicationConfig {
-
-	@Bean
-	public WebMvcConfigurer webMVCConfig() {
-		return new WebMvcConfigurer() {
-			@Override
-			public void addCorsMappings(CorsRegistry registry) {
-				registry.addMapping("/**").allowedOrigins("http://localhost:8080/").allowedMethods("PUT", "GET",
-						"DELETE", "POST");
-			}
-		};
-	}
 	
 	@Bean
 	public JavaMailSender getJavaMailSender() {
@@ -40,6 +29,17 @@ public class ApplicationConfig {
 		props.put("mail.debug", "true");
 
 		return mailSender;
+	}
+	
+	@Bean
+	public WebMvcConfigurer webMVCConfig() {
+		return new WebMvcConfigurer() {
+			@Override
+			public void addCorsMappings(CorsRegistry registry) {
+				registry.addMapping("/**").allowedOrigins("http://localhost:4200").allowedMethods("PUT", "GET",
+						"DELETE", "POST");
+			}
+		};
 	}
 
 }
