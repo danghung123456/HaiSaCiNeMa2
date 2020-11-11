@@ -9,12 +9,14 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.DTO.ShowtimesDTO;
+import com.Entity.Cinema;
 import com.Entity.Employee;
 import com.Entity.Movie;
 import com.Entity.Period;
 import com.Entity.Room;
 import com.Entity.Showtimes;
 import com.Repository.ShowtimesRepository;
+import com.Services.CinemaService;
 import com.Services.EmployeeService;
 import com.Services.MovieService;
 import com.Services.PeriodService;
@@ -78,11 +80,12 @@ public class ShowtimesServiceImpl implements ShowtimesService {
 
 	@Override
 	public Showtimes convert(ShowtimesDTO dto) {
+		Showtimes showtime = new Showtimes();
 		Movie movie = movieService.findById(dto.getMovieId()).orElse(null);
 		Employee employee = empService.findById(dto.getEmployeeId()).orElse(null);
 		Room room = roomService.findById(dto.getRoomId()).orElse(null);
 		Period period = periodService.findById(dto.getPeriodId()).orElse(null);
-		Showtimes showtime = new Showtimes();
+		showtime.setShowtimeId(dto.getShowtimeId());
 		showtime.setMovie(movie);
 		showtime.setEmployee(employee);
 		showtime.setRoom(room);

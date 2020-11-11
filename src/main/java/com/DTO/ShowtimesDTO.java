@@ -22,7 +22,7 @@ public class ShowtimesDTO {
 	private Date date;
 	private Integer periodId;
 	private Integer employeeId;
-	private Integer cinemaId;
+//	private Integer cinemaId;
 	private Integer status;
 
 	public ShowtimesDTO(){
@@ -30,7 +30,7 @@ public class ShowtimesDTO {
 	}
 
 	public ShowtimesDTO(Integer showtimeId, Integer movieId, Integer roomId, Date date, Integer periodId,
-			Integer employeeId, Integer cinemaId, Integer status) {
+			Integer employeeId, Integer status) {
 		super();
 		this.showtimeId = showtimeId;
 		this.movieId = movieId;
@@ -38,12 +38,11 @@ public class ShowtimesDTO {
 		this.date = date;
 		this.periodId = periodId;
 		this.employeeId = employeeId;
-		this.cinemaId = cinemaId;
 		this.status = status;
 	}
 
 	public boolean isNull(boolean includeId) {
-		boolean res = isNull(movieId) || isNull(roomId) || isNull(periodId) || isNull(employeeId) || isNull(cinemaId);
+		boolean res = isNull(movieId) || isNull(roomId) || isNull(periodId) || isNull(employeeId);
 		return includeId ? res || isNull(showtimeId) : res;
 	}
 
@@ -53,11 +52,6 @@ public class ShowtimesDTO {
 
 	private boolean isNull(Integer input) {
 		return input == null;
-	}
-
-	public Showtimes convertToShowtimes() {
-		//TODO abc
-		return null;
 	}
 
 	public Integer getShowtimeId() {
@@ -118,19 +112,11 @@ public class ShowtimesDTO {
 		this.employeeId = employeeId;
 	}
 
-	public Integer getCinemaId() {
-		return cinemaId;
-	}
-
-	public void setCinemaId(Integer cinemaId) {
-		this.cinemaId = cinemaId;
-	}
 
 	@Override
 	public String toString() {
 		return "ShowtimesDTO [showtimeId=" + showtimeId + ", movieId=" + movieId + ", roomId=" + roomId + ", date="
-				+ date + ", periodId=" + periodId + ", employeeId=" + employeeId + ", cinemaId=" + cinemaId
-				+ ", status=" + status + "]";
+				+ date + ", periodId=" + periodId + ", employeeId=" + employeeId +  ", status=" + status + "]";
 	}
 
 }
