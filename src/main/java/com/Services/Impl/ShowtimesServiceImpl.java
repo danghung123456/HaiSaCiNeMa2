@@ -12,10 +12,7 @@ import org.springframework.stereotype.Service;
 
 import com.DTO.DatePeriodDTO;
 import com.DTO.ShowtimesDTO;
-<<<<<<< HEAD
-=======
 import com.DTO.ShowtimesMovieDTO;
->>>>>>> cb43a2b24f765ea543047ea7de86a6076d23dbdf
 import com.Entity.Cinema;
 import com.Entity.Employee;
 import com.Entity.Movie;
@@ -28,11 +25,6 @@ import com.Repository.MovieRepository;
 import com.Repository.PeriodRepository;
 import com.Repository.RoomRepository;
 import com.Repository.ShowtimesRepository;
-import com.Services.CinemaService;
-import com.Services.EmployeeService;
-import com.Services.MovieService;
-import com.Services.PeriodService;
-import com.Services.RoomService;
 import com.Services.ShowtimesService;
 
 @Service
@@ -93,20 +85,12 @@ public class ShowtimesServiceImpl implements ShowtimesService {
 
 	@Override
 	public Showtimes convert(ShowtimesDTO dto) {
-<<<<<<< HEAD
-		Showtimes showtime = new Showtimes();
-		Movie movie = movieService.findById(dto.getMovieId()).orElse(null);
-		Employee employee = empService.findById(dto.getEmployeeId()).orElse(null);
-		Room room = roomService.findById(dto.getRoomId()).orElse(null);
-		Period period = periodService.findById(dto.getPeriodId()).orElse(null);
-		showtime.setShowtimeId(dto.getShowtimeId());
-=======
 		Movie movie = movieRepository.findById(dto.getMovieId()).orElse(null);
 		Employee employee = employeeRepository.findById(dto.getEmployeeId()).orElse(null);
 		Room room = roomRepository.findById(dto.getRoomId()).orElse(null);
 		Period period = periodRepository.findById(dto.getPeriodId()).orElse(null);
 		Showtimes showtime = new Showtimes();
->>>>>>> cb43a2b24f765ea543047ea7de86a6076d23dbdf
+		showtime.setShowtimeId(dto.getShowtimeId());
 		showtime.setMovie(movie);
 		showtime.setEmployee(employee);
 		showtime.setRoom(room);
