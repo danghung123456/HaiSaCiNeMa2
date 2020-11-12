@@ -81,6 +81,7 @@ public class EmployeeController {
             	Employee employee = checkEmployee.orElse(null);
             	// status = 1 : đang hoạt động, status = 2 : ngưng hoạt động
             	employee.setStatus(2);
+            	employee.setRole(3);
                 return ResponseEntity.body(employeeService.save(employee));
             } else {
                 return ResponseEntity.body(Constant.NOT_FOUND);
