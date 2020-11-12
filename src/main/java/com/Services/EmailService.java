@@ -7,7 +7,7 @@ import com.Entity.Ticket;
 
 @Service
 public interface EmailService {
-	
-	void sendMail(String to, String subject, Ticket ticket);
+
+	void sendMail(String to, String subject, Ticket ticket, String filePath);
 	
 }
