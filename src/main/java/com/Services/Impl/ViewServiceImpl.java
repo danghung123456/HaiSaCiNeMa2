@@ -1,10 +1,7 @@
 package com.Services.Impl;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,16 +9,11 @@ import com.DTO.HistoryTransViewDTO;
 import com.DTO.view.GenreMovieView;
 import com.DTO.view.HistoryTransView;
 import com.DTO.view.TopMovieView;
-import com.DTO.view.StartTimeView;
 import com.DTO.view.TicketByMovieView;
 import com.DTO.view.TicketByShowtimeView;
 import com.DTO.view.TotalByCinemaView;
-import com.Entity.Cinema;
-import com.Entity.GenreMovie;
-import com.Repository.CinemaRepository;
 import com.Repository.ShowtimesRepository;
 import com.Repository.ViewRepository;
-import com.Services.CinemaService;
 import com.Services.ViewService;
 
 @Service
@@ -83,6 +75,7 @@ public class ViewServiceImpl implements ViewService {
 		dto.setRoom(historyTransView.getroom());
 		dto.setShowtime(historyTransView.getshowtime());
 		dto.setTicketPrice(historyTransView.getticketPrice());
+		dto.setFoodPrice(historyTransView.getfoodPrice());
 		return dto;
 	}
 

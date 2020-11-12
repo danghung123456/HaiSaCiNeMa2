@@ -1,4 +1,4 @@
-package com.Controller;
+ package com.Controller;
 
 import java.util.List;
 import java.util.Optional;
@@ -16,6 +16,7 @@ import com.DTO.GenreMovieDTO;
 import com.DTO.Base.ResponseEntity;
 import com.Entity.GenreMovie;
 import com.Services.GenreMovieService;
+import com.Services.MovieGenreDetailService;
 
 @RestController
 @RequestMapping(value = "genre")
@@ -24,6 +25,8 @@ public class GenreController {
 
 	@Autowired
 	private GenreMovieService genreService;
+	@Autowired
+	private MovieGenreDetailService movieGenreDetailService;
 
 	@GetMapping
 	public ResponseEntity<List<GenreMovie>> index() {
@@ -60,11 +63,17 @@ public class GenreController {
 
 	@GetMapping("/findbyid")
 	public ResponseEntity<Object> findById(Integer id) {
-		return ResponseEntity.body(genreService.findById(id));
+		return ResponseEntity.body(genreService.findById(id).orElse(null));
 	}
 
 	@GetMapping("/findbyname")
 	public ResponseEntity<Object> findByName(String name) {
 		return ResponseEntity.body(genreService.findByName(name));
 	}
+	
+	@GetMapping("/findbymovie")
+	public ResponseEntity<Object> findByMovieId(Integer id) {
+		return ResponseEntity.body(movieGenreDetailService.findAllByMovieId(id));
+	}
+	
 }

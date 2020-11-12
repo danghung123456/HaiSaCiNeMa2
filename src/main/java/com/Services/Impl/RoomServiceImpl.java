@@ -14,33 +14,20 @@ import com.Entity.Room;
 import com.Repository.RoomRepository;
 import com.Services.RoomService;
 
-
-
 @Service
 public class RoomServiceImpl implements RoomService {
 
 	@Autowired
 	RoomRepository repository;
-	
 
 	@Override
 	public Room add(Room room) {
 		return repository.save(room);
 	}
 
-//	@Override
-//	public List<Room> addAll(List<Room> list) {
-//		 List<Room> res = new ArrayList<>();
-//	        for (Room room : list){
-//	            res.add(add(room));
-//	        }
-//	        return res;
-//
-//	}
-
 	@Override
 	public Optional<Room> findById(Integer id) {
-		
+
 		return repository.findById(id);
 	}
 
@@ -54,4 +41,3 @@ public class RoomServiceImpl implements RoomService {
 		return repository.saveAndFlush(room);
 	}
 }
-

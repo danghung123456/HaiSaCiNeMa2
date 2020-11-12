@@ -1,6 +1,8 @@
-	package com.Services.Impl;
+package com.Services.Impl;
 
 import java.util.ArrayList;
+import java.util.Date;
+import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,13 +10,23 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import com.DTO.DatePeriodDTO;
 import com.DTO.ShowtimesDTO;
+<<<<<<< HEAD
+=======
+import com.DTO.ShowtimesMovieDTO;
+>>>>>>> cb43a2b24f765ea543047ea7de86a6076d23dbdf
 import com.Entity.Cinema;
 import com.Entity.Employee;
 import com.Entity.Movie;
 import com.Entity.Period;
 import com.Entity.Room;
 import com.Entity.Showtimes;
+import com.Repository.CinemaRepository;
+import com.Repository.EmployeeRepository;
+import com.Repository.MovieRepository;
+import com.Repository.PeriodRepository;
+import com.Repository.RoomRepository;
 import com.Repository.ShowtimesRepository;
 import com.Services.CinemaService;
 import com.Services.EmployeeService;
@@ -25,17 +37,19 @@ import com.Services.ShowtimesService;
 
 @Service
 public class ShowtimesServiceImpl implements ShowtimesService {
-	
+
 	@Autowired
 	ShowtimesRepository repository;
 	@Autowired
-	MovieService movieService;
+	MovieRepository movieRepository;
 	@Autowired
-	EmployeeService empService;
+	EmployeeRepository employeeRepository;
 	@Autowired
-	RoomService roomService;
+	RoomRepository roomRepository;
 	@Autowired
-	PeriodService periodService;
+	PeriodRepository periodRepository;
+	@Autowired
+	CinemaRepository cinemaRepository;
 
 	@Override
 	public List<Showtimes> getAllShowtimes() {
@@ -77,15 +91,22 @@ public class ShowtimesServiceImpl implements ShowtimesService {
 		return repository.findShowtimesByStatus(status);
 	}
 
-
 	@Override
 	public Showtimes convert(ShowtimesDTO dto) {
+<<<<<<< HEAD
 		Showtimes showtime = new Showtimes();
 		Movie movie = movieService.findById(dto.getMovieId()).orElse(null);
 		Employee employee = empService.findById(dto.getEmployeeId()).orElse(null);
 		Room room = roomService.findById(dto.getRoomId()).orElse(null);
 		Period period = periodService.findById(dto.getPeriodId()).orElse(null);
 		showtime.setShowtimeId(dto.getShowtimeId());
+=======
+		Movie movie = movieRepository.findById(dto.getMovieId()).orElse(null);
+		Employee employee = employeeRepository.findById(dto.getEmployeeId()).orElse(null);
+		Room room = roomRepository.findById(dto.getRoomId()).orElse(null);
+		Period period = periodRepository.findById(dto.getPeriodId()).orElse(null);
+		Showtimes showtime = new Showtimes();
+>>>>>>> cb43a2b24f765ea543047ea7de86a6076d23dbdf
 		showtime.setMovie(movie);
 		showtime.setEmployee(employee);
 		showtime.setRoom(room);
@@ -96,14 +117,35 @@ public class ShowtimesServiceImpl implements ShowtimesService {
 	}
 
 	@Override
-	public List<Showtimes> findByMovieName(String movieName) {
-		return repository.findByName(movieName);
+	public List<ShowtimesMovieDTO> listShowtime(Integer movieId) {
+		List<ShowtimesMovieDTO> list = new ArrayList<ShowtimesMovieDTO>();
+		List<Integer> listCinemaId = repository.findCinemaByMovieId(movieId);
+		List<Cinema> listCinema = new ArrayList<>();
+		for (Integer cinemaId : listCinemaId) {
+			Cinema cinema = cinemaRepository.findById(cinemaId).orElse(null);
+			listCinema.add(cinema);
+		}
+		for (Cinema cinema : listCinema) {
+			ShowtimesMovieDTO dto = new ShowtimesMovieDTO();
+			dto.setCinemaId(cinema.getCinemaId());
+			dto.setCinemaName(cinema.getName());
+			dto.setAddress(cinema.getAddress());
+			List<Date> listDate = repository.findDateByCinemaMovie(cinema.getCinemaId(), movieId);
+			List<DatePeriodDTO> listPeriodDTO = new ArrayList<>();
+			for (Date dateIndex : listDate) {
+				DatePeriodDTO periodDTO = new DatePeriodDTO();
+				periodDTO.setDate(dateIndex);
+				List<Showtimes> listShowtimes = repository.findPeriod(cinema.getCinemaId(), movieId, dateIndex);
+				List<Period> listPeriod = new ArrayList<>();
+				for (Showtimes showtime : listShowtimes) {
+					listPeriod.add(showtime.getPeriod());
+				}
+				periodDTO.setPeriods(listPeriod);
+				listPeriodDTO.add(periodDTO);
+			}
+			dto.setPeriods(listPeriodDTO);
+			list.add(dto);
+		}
+		return list;
 	}
-
-//	@Override
-//	public List<showMovieDTO> findAll() {
-//		// TODO Auto-generated method stub
-//		return repoView.myView();
-//	}
-
 }

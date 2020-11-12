@@ -19,11 +19,11 @@ public class SeatStatusServiceImpl implements SeatStatusService {
 	@Autowired
 	SeatStatusRepository repository;
 	@Autowired
-	ShowtimesRepository ShowtimesRepository;
+	ShowtimesRepository showtimesRepository;
 
 	@Override
 	public Showtimes add(Showtimes showtimes) {
-		// roomID = > findById => listSeat 
+		System.out.println("123");
 		List<Seat> seatList = showtimes.getRoom().getSeat();
 		for(Seat seat : seatList) {
 			SeatStatus seatStatus = new SeatStatus();
@@ -32,7 +32,7 @@ public class SeatStatusServiceImpl implements SeatStatusService {
 			seatStatus.setStatus(false);
 			repository.save(seatStatus);
 		}
-		return ShowtimesRepository.findByShowtimesId(showtimes.getShowtimeId()).get();
+		return showtimesRepository.findByShowtimesId(showtimes.getShowtimeId()).get();
 	}
 
 	@Override
@@ -43,6 +43,12 @@ public class SeatStatusServiceImpl implements SeatStatusService {
 	@Override
 	public Optional<SeatStatus> findById(Integer seatStatusId) {
 		return repository.findById(seatStatusId);
+	}
+
+	@Override
+	public List<SeatStatus> findAllByShowtimeId(Integer showtimeId) {
+		Showtimes showtimes = showtimesRepository.findById(showtimeId).orElse(null);
+		return repository.findByShowtimes(showtimes);
 	}
 
 }
