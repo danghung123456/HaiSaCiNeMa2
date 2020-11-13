@@ -10,7 +10,6 @@ public class RoomDTO {
 	private Integer roomName;
 	private Integer seatAmount;
 	private Integer cinemaId;
-	private Cinema cinema;
 
 	public RoomDTO() {
 
@@ -33,16 +32,18 @@ public class RoomDTO {
 	}
 
 	public boolean isNull(boolean includeId) {
-		boolean res = isNull(roomName) || isNull(seatAmount) || isNull(cinema.getCinemaId());
+		boolean res = isNull(roomName) || isNull(seatAmount) || isNull(cinemaId);
 		return includeId ? res || isNull(roomID) : res;
 	}
 
 	public Room convertToRoom() {
 		Cinema cinema = new Cinema();
+		Room  room = new Room();
 		cinema.setCinemaId(this.getCinemaId());
-		this.setCinema(cinema);
-		ObjectMapper mapper = new ObjectMapper();
-		Room room = mapper.convertValue(this, Room.class);
+		room.setCinema(cinema);
+		room.setRoomId(this.getRoomID());
+		room.setRoomName(this.getRoomName());
+		room.setSeatAmount(this.getSeatAmount());
 		return room;
 	}
 
@@ -70,13 +71,6 @@ public class RoomDTO {
 		this.seatAmount = seatAmount;
 	}
 
-	public Cinema getCinema() {
-		return cinema;
-	}
-
-	public void setCinema(Cinema cinema) {
-		this.cinema = cinema;
-	}
 
 	public Integer getCinemaId() {
 		return cinemaId;
@@ -88,8 +82,7 @@ public class RoomDTO {
 
 	@Override
 	public String toString() {
-		return "RoomDTO [roomID=" + roomID + ", roomName=" + roomName + ", seatAmount=" + seatAmount + ", cinema="
-				+ cinema + "]";
+		return "RoomDTO [roomID=" + roomID + ", roomName=" + roomName + ", seatAmount=" + seatAmount +"]";
 	}
 
 }

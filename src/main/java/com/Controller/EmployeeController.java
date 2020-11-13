@@ -5,6 +5,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -23,17 +24,23 @@ public class EmployeeController {
 
 	@Autowired
 	private EmployeeService employeeService;
-
+	
 	@GetMapping
-	public ResponseEntity<List<Employee>> index(Integer status) {
-		int st;
+	public ResponseEntity<List<Employee>> getAllEmployee() {
+		return ResponseEntity.body(employeeService.getAll());
+	}
+
+
+	@GetMapping("/{status}")
+	public ResponseEntity<List<Employee>> getEmployeePresent(@PathVariable("status") Integer status) {
+		//tìm danh sách employee theo status : 1 : đang hoạt động 2: ngưng hoạt động
+ 		int st;
 		if (status == null) {
 			st = 1;
 		} else {
 			st = status;
 		}
-		return ResponseEntity.body(employeeService.getAll(st));
-
+		return ResponseEntity.body(employeeService.getAllByStatus(st));
 	}
 
 	@PostMapping(value = "/add")
@@ -65,14 +72,15 @@ public class EmployeeController {
 	}
 	
 	@PutMapping(value = "/delete")
-	public ResponseEntity<Object> deleteEmployee(@RequestBody EmployeeDTO employeeDTO) {
-		if (employeeDTO.getEmployeeId() == null) {
+	public ResponseEntity<Object> deleteEmployee(Integer id) {
+		if (id == null) {
             return ResponseEntity.body(Constant.BAD_REQUEST);
         } else {
-            Optional<Employee> checkEmployee = employeeService.findById(employeeDTO.getEmployeeId());
+            Optional<Employee> checkEmployee = employeeService.findById(id);
             if (checkEmployee.isPresent()) {
-            	Employee employee = employeeDTO.convertToEmployee();
-            	employee.setStatus(0);
+            	Employee employee = checkEmployee.orElse(null);
+            	// status = 1 : đang hoạt động, status = 2 : ngưng hoạt động
+            	employee.setStatus(2);
                 return ResponseEntity.body(employeeService.save(employee));
             } else {
                 return ResponseEntity.body(Constant.NOT_FOUND);

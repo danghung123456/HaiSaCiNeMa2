@@ -13,24 +13,22 @@ import com.Entity.Showtimes;
 @Service
 public interface ShowtimesService {
 
-	List<Showtimes> getAll();
+	List<Showtimes> getAllShowtimes();
 
 	void deleteAll();
 
 	Showtimes add(Showtimes showtimes);
 
 	List<Showtimes> addAll(List<Showtimes> list);
-	
-	List<Showtimes> findByMovieName(String movieName);
 
 	Optional<Showtimes> findById(Integer id);
 
 	Showtimes save(Showtimes showtimes);
 
 	List<Showtimes> findShowtimesByStatus(Integer status);
-	
+
 	Showtimes convert(ShowtimesDTO dto);
-	
+
 	List<ShowtimesMovieDTO> listShowtime(Integer movieId);
 
 }

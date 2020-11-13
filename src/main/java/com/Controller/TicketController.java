@@ -1,30 +1,21 @@
 package com.Controller;
 
+import java.awt.image.BufferedImage;
 import java.util.List;
-import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.mail.SimpleMailMessage;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.Configuration.*;
 import com.DTO.FoodBillDetailDTO;
-import com.DTO.MovieDTO;
 import com.DTO.SeatDTO;
 import com.DTO.SeatStatusDTO;
 import com.DTO.TicketDTO;
 import com.Entity.Food;
 import com.Entity.FoodBillDetail;
 import com.Entity.Member;
-import com.Entity.Movie;
 import com.Entity.Seat;
 import com.Entity.SeatStatus;
 import com.Entity.Ticket;
@@ -33,21 +24,18 @@ import com.Services.EmailService;
 import com.Services.FoodBillDetailService;
 import com.Services.FoodService;
 import com.Services.MemberService;
-import com.Services.MovieService;
+import com.Services.QRCodeService;
 import com.Services.SeatService;
 import com.Services.SeatStatusService;
 import com.Services.TicketDetailService;
 import com.Services.TicketService;
 import com.Constant.*;
 import com.DTO.Base.ResponseEntity;
-import com.DTO.view.TicketByMovieView;
-import com.DTO.view.TicketByShowtimeView;
 
 @RestController
 @RequestMapping(value = "ticket")
 
 public class TicketController {
-
 	@Autowired
 	private TicketService ticketService;
 	@Autowired
@@ -64,6 +52,10 @@ public class TicketController {
 	private SeatStatusService seatStatusService;
 	@Autowired
 	private EmailService emailService;
+	@Autowired
+	QRCodeService qRCodeService;
+
+	private static final String QR_CODE_IMAGE_PATH = "D:/Fpoly/Project/Database/Code/";
 
 	@GetMapping
 	public ResponseEntity<List<Ticket>> index() {
@@ -71,7 +63,7 @@ public class TicketController {
 	}
 
 	@PostMapping(value = "/book")
-	public ResponseEntity<Object> bookTicket(@RequestBody TicketDTO ticketDTO) {
+	public ResponseEntity<Object> bookTicket(@RequestBody TicketDTO ticketDTO) throws Exception {
 		if (ticketDTO.isNull(false)) {
 			return ResponseEntity.body(Constant.BAD_REQUEST);
 		} else {
@@ -117,9 +109,16 @@ public class TicketController {
 			member = memberService.save(member);
 
 			ticket = ticketService.findById(ticket.getTicketId()).orElse(null);
+
+			System.out.println(ticket.getCode());
+			String filePath = QR_CODE_IMAGE_PATH + ticket.getTicketId() + ".png";
+			qRCodeService.generateQRCodeImage(ticket.getCode(), 200, 200, filePath);
+			emailService.sendMail(member.getEmail(), "Đặt vé thành công", ticket, filePath);
+
 			return ResponseEntity.body(ticket);
 		}
 	}
+
 
 	@GetMapping("/findbyid")
 	public ResponseEntity<Object> findById(Integer id) {

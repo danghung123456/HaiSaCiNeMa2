@@ -20,7 +20,5 @@ public interface GenreMovieService {
 	List<GenreMovie> findByName(String name);
 
 	GenreMovie add(GenreMovie genre);
-	
-	
 
 }

@@ -6,6 +6,7 @@ import java.util.List;
 import com.Entity.Seat;
 
 public class HistoryTransViewDTO {
+	
 	private Integer ticketId;
 	private String memberName;
 	private Integer ticketQuantity;

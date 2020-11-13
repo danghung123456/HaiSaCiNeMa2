@@ -1,5 +1,6 @@
 package com.Services.Impl;
 
+import java.util.Date;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -7,9 +8,11 @@ import org.springframework.stereotype.Service;
 import com.DTO.HistoryTransViewDTO;
 import com.DTO.view.GenreMovieView;
 import com.DTO.view.HistoryTransView;
+import com.DTO.view.TopMovieView;
 import com.DTO.view.TicketByMovieView;
 import com.DTO.view.TicketByShowtimeView;
 import com.DTO.view.TotalByCinemaView;
+import com.Repository.ShowtimesRepository;
 import com.Repository.ViewRepository;
 import com.Services.ViewService;
 
@@ -17,6 +20,8 @@ import com.Services.ViewService;
 public class ViewServiceImpl implements ViewService {
 	@Autowired
 	ViewRepository repository;
+	@Autowired
+	ShowtimesRepository showtimesRepository;
 
 	@Override
 	public List<TicketByShowtimeView> getTicketByShowtime() {
@@ -60,6 +65,22 @@ public class ViewServiceImpl implements ViewService {
 		dto.setTicketPrice(historyTransView.getticketPrice());
 		dto.setFoodPrice(historyTransView.getfoodPrice());
 		return dto;
+	}
+
+	@Override
+	public List<TopMovieView> getMovieOfWeek() {
+		Date dateNow = new Date();
+		long msOfNow = dateNow.getTime();
+		Date date = new Date(msOfNow - 604800016);
+		return repository.getTopMovie(dateNow, date);
+	}
+
+	@Override
+	public List<TopMovieView> getMovieOfMonth() {
+		Date dateNow = new Date();
+		long msOfNow = dateNow.getTime();
+		Date date = new Date(msOfNow - 2629800000L);
+		return repository.getTopMovie(dateNow, date);
 	}
 
 }

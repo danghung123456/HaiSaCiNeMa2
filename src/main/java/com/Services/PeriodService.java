@@ -7,7 +7,8 @@ import org.springframework.stereotype.Service;
 
 @Service
 public interface PeriodService {
-	public List<Period> getAll();
+	
+	List<Period> getAll();
 
 	void deleteAll();
 
