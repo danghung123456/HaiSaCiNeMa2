@@ -55,6 +55,11 @@ public class EmployeeServiceImpl implements EmployeeService {
 		return repository.findAll();
 	}
 
+	@Override
+	public List<Employee> findByRole(Integer role) {
+		return repository.findByRole(role);
+	}
+
 
 	}
 

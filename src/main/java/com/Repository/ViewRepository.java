@@ -21,7 +21,13 @@ public interface ViewRepository extends JpaRepository<View, Integer> {
 	@Query(value = "SELECT t.showtimes.movie.movieId, t.showtimes.movie.movieName as movieName, Month(t.showtimes.date) as month, SUM(t.ticketQuantity) as ticketQuantity "
 			+ "FROM Ticket t "
 			+ "GROUP BY t.showtimes.movie.movieId, Month(t.showtimes.date), t.showtimes.movie.movieName")
-	List<TicketByMovieView> getTicketByMovie();
+	List<TicketByMovieView> getTicketOfMonthByMovie();
+	
+	@Query(value = "SELECT t.showtimes.movie.movieId, t.showtimes.movie.movieName as movieName, SUM(t.ticketQuantity) as ticketQuantity "
+			+ "FROM Ticket t "
+			+ "WHERE t.showtimes.movie.status = :status "
+			+ "GROUP BY t.showtimes.movie.movieId, t.showtimes.movie.movieName")
+	List<TicketByMovieView> getTicketByMovie(Integer status);
 
 	@Query(value = "SELECT t.showtimes.room.cinema.name as cinemaName,  t.showtimes.period.startTime as startTime, SUM(t.ticketQuantity) as ticketQuantity "
 			+ "FROM Ticket t "
@@ -31,6 +37,11 @@ public interface ViewRepository extends JpaRepository<View, Integer> {
 	@Query(value = "SELECT f.ticket.showtimes.room.cinema.name as cinemaName, MONTH(f.ticket.showtimes.date) as month, SUM(f.ticket.ticketPriceAmount) as totalTicket, SUM(f.total) as totalFood, SUM(f.ticket.total) as total "
 			+ "FROM FoodBillDetail f "
 			+ "GROUP BY f.ticket.showtimes.room.cinema.name, f.ticket.showtimes.room.cinema.cinemaId, MONTH(f.ticket.showtimes.date) ")
+	List<TotalByCinemaView> getTotalOfMonthByCinema();
+	
+	@Query(value= "SELECT t.showtimes.room.cinema.name as cinemaName, SUM(t.total) as total "
+			+ "FROM Ticket t "
+			+ "GROUP BY t.showtimes.room.cinema.name, t.showtimes.room.cinema.cinemaId ")
 	List<TotalByCinemaView> getTotalByCinema();
 	
 	@Query(value = "SELECT m.movie.movieName as movieName, m.genreMovie.name as genreName "
@@ -50,5 +61,8 @@ public interface ViewRepository extends JpaRepository<View, Integer> {
 			+ "GROUP BY t.showtimes.movie.movieId, t.showtimes.movie.movieName,t.showtimes.movie.thumbnail "
 			+ "ORDER BY SUM(t.ticketQuantity) DESC ")
 	List<TopMovieView> getTopMovie(Date date, Date dateNow);
+	
+
+	
 	
 }

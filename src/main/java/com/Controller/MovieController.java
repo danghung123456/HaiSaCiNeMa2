@@ -146,17 +146,42 @@ public class MovieController {
 
 	@GetMapping("/movieofweek")
 	public ResponseEntity<Object> findMovieOfWeek() {
-		return ResponseEntity.body(viewService.getMovieOfWeek());
+		List<TopMovieView> listTopMovie = viewService.getMovieOfWeek();
+		List<Movie> listMovie = new ArrayList<>();
+		List<Movie> listMovieTop5 = new ArrayList<>();
+		for (TopMovieView top : listTopMovie) {
+			Movie movie = movieService.findById(top.getmovieId()).orElse(null);
+			listMovie.add(movie);
+		}
+		int count = 5;
+		if (listMovie.size() < 5) {
+			count = listMovie.size();
+		}
+		for (int i = 0; i < count; i++) {
+			Movie movie = listMovie.get(i);
+			listMovieTop5.add(movie);
+		}
+		return ResponseEntity.body(listMovieTop5);
 	}
 
 	@GetMapping("/movieofmonth")
 	public ResponseEntity<Object> findMovieOfMonth() {
-//		List<TopMovieView> listTopMovie = viewService.getMovieOfMonth();
-//		List<TopMovieView> listTop5 = new ArrayList<>();
-//		for (TopMovieView topMovie : listTopMovie) {
-//			listTop5.add(topMovie);
-//		}
-		return ResponseEntity.body(viewService.getMovieOfMonth());
+		List<TopMovieView> listTopMovie = viewService.getMovieOfMonth();
+		List<Movie> listMovie = new ArrayList<>();
+		List<Movie> listMovieTop5 = new ArrayList<>();
+		for (TopMovieView top : listTopMovie) {
+			Movie movie = movieService.findById(top.getmovieId()).orElse(null);
+			listMovie.add(movie);
+		}
+		int count = 5;
+		if (listMovie.size() < 5) {
+			count = listMovie.size();
+		}
+		for (int i = 0; i < count; i++) {
+			Movie movie = listMovie.get(i);
+			listMovieTop5.add(movie);
+		}
+		return ResponseEntity.body(listMovieTop5);
 	}
 	
 	@GetMapping("/findbygenre")

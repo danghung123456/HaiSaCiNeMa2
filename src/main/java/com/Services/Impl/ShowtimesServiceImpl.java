@@ -25,10 +25,6 @@ import com.Repository.MovieRepository;
 import com.Repository.PeriodRepository;
 import com.Repository.RoomRepository;
 import com.Repository.ShowtimesRepository;
-import com.Services.EmployeeService;
-import com.Services.MovieService;
-import com.Services.PeriodService;
-import com.Services.RoomService;
 import com.Services.ShowtimesService;
 
 @Service
@@ -94,6 +90,7 @@ public class ShowtimesServiceImpl implements ShowtimesService {
 		Room room = roomRepository.findById(dto.getRoomId()).orElse(null);
 		Period period = periodRepository.findById(dto.getPeriodId()).orElse(null);
 		Showtimes showtime = new Showtimes();
+		showtime.setShowtimeId(dto.getShowtimeId());
 		showtime.setMovie(movie);
 		showtime.setEmployee(employee);
 		showtime.setRoom(room);
