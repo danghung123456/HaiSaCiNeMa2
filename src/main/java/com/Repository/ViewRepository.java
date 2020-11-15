@@ -18,10 +18,11 @@ import com.Entity.View;
 @Repository
 public interface ViewRepository extends JpaRepository<View, Integer> {
 
-	@Query(value = "SELECT t.showtimes.movie.movieId, t.showtimes.movie.movieName as movieName, Month(t.showtimes.date) as month, SUM(t.ticketQuantity) as ticketQuantity "
+	@Query(value = "SELECT t.showtimes.movie.movieId, t.showtimes.movie.movieName as movieName, Month(t.showtimes.date) as month, SUM(t.ticketQuantity) as ticketQuantity, YEAR(t.showtimes.date) as year "
 			+ "FROM Ticket t "
-			+ "GROUP BY t.showtimes.movie.movieId, Month(t.showtimes.date), t.showtimes.movie.movieName")
-	List<TicketByMovieView> getTicketByMovie();
+			+ "WHERE Month(t.showtimes.date) = :month AND YEAR(t.showtimes.date) = :year "
+			+ "GROUP BY t.showtimes.movie.movieId, Month(t.showtimes.date), t.showtimes.movie.movieName, YEAR(t.showtimes.date) ")
+	List<TicketByMovieView> getTicketByMovie(Integer month, Integer year);
 
 	@Query(value = "SELECT t.showtimes.room.cinema.name as cinemaName,  t.showtimes.period.startTime as startTime, SUM(t.ticketQuantity) as ticketQuantity "
 			+ "FROM Ticket t "

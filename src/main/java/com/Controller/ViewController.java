@@ -31,13 +31,11 @@ public class ViewController {
 	@Autowired
 	private ViewService viewService;
 	@Autowired
-	private FoodBillDetailService foodBillDetailService;
-	@Autowired
 	private TicketService ticketService;
 
 	@GetMapping("/ticketbymovie")
-	public List<TicketByMovieView> getTicketByMovie() {
-		return viewService.getTicketByMovie();
+	public List<TicketByMovieView> getTicketByMovie(Integer month) {
+		return viewService.getTicketByMovie(month);
 	}
 
 	@GetMapping("/ticketbyshowtime")

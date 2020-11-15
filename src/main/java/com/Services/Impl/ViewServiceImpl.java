@@ -29,8 +29,10 @@ public class ViewServiceImpl implements ViewService {
 	}
 
 	@Override
-	public List<TicketByMovieView> getTicketByMovie() {
-		return repository.getTicketByMovie();
+	public List<TicketByMovieView> getTicketByMovie(Integer month) {
+		Date date = new Date();
+		Integer year = date.getYear() + 1900;
+		return repository.getTicketByMovie(month, year);
 	}
 
 	@Override
