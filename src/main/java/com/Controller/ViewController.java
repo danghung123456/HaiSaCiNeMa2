@@ -9,8 +9,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.Constant.Constant;
 import com.DTO.HistoryTransViewDTO;
 import com.DTO.TotalMemberFeedbackMovieTicket;
+import com.DTO.Base.ResponseEntity;
 import com.DTO.view.GenreMovieView;
 import com.DTO.view.HistoryTransView;
 import com.DTO.view.TopMovieView;
@@ -43,14 +45,18 @@ public class ViewController {
 
 	@GetMapping("/ticketbymovie/{status}")
 	// tổng vé theo phim, tìm theo status 1 : đang chiếu, 2 sắp chiếu, 3 ngừng chiếu
-	public List<TicketByMovieView> getTicketByMovie(@PathVariable("status") Integer status) {
+	public ResponseEntity<Object> getTicketByMovie(@PathVariable("status") Integer status) {
 		int st;
 		if (status == null) {
 			st = 1;
 		} else {
 			st = status;
 		}
-		return viewService.getTicketByMovie(st);
+		if (viewService.getTicketByMovie(st).isEmpty()) {
+			return ResponseEntity.body(Constant.NOT_FOUND);
+		} else {
+			return ResponseEntity.body(viewService.getTicketByMovie(st));
+		}
 	}
 
 	@GetMapping("/ticketbyshowtime")
