@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.Constant.Constant;
 import com.DTO.ShowtimesDTO;
+import com.DTO.ShowtimesMovieDTO;
 import com.DTO.Base.ResponseEntity;
 import com.Entity.Showtimes;
 import com.Services.SeatStatusService;
@@ -32,18 +33,24 @@ public class ShowtimesController {
 	private SeatStatusService seatStatusService;
 
 	@GetMapping
-	public ResponseEntity<List<Showtimes>> getAllShowtimes(){
+	public ResponseEntity<List<Showtimes>> getAllShowtimes() {
 		return ResponseEntity.body(showtimesService.getAllShowtimes());
 	}
+
 	@GetMapping("/{status}")
-	public ResponseEntity<List<Showtimes>> getShowtimesByStatus(@PathVariable("status") Integer status) {
+	public ResponseEntity<Object> getShowtimesByStatus(@PathVariable("status") Integer status) {
 		int st;
 		if (status == null) {
 			st = 1;
 		} else {
 			st = status;
 		}
-		return ResponseEntity.body(showtimesService.findShowtimesByStatus(st));
+		List<Showtimes> listShowtime = showtimesService.findShowtimesByStatus(st);
+		if (listShowtime.isEmpty()) {
+			return ResponseEntity.body(Constant.NOT_FOUND);
+		} else {
+			return ResponseEntity.body(listShowtime);
+		}
 	}
 
 	@PostMapping(value = "/add")
@@ -83,7 +90,7 @@ public class ShowtimesController {
 			Optional<Showtimes> checkShowtimes = showtimesService.findById(id);
 			if (checkShowtimes.isPresent()) {
 				Showtimes showtimes = checkShowtimes.orElse(null);
-				//status =1 : đang hoạt động status =2 : ngừng hoạt động
+				// status =1 : đang hoạt động status =2 : ngừng hoạt động
 				showtimes.setStatus(2);
 				return ResponseEntity.body(showtimesService.save(showtimes));
 			} else {
@@ -94,12 +101,29 @@ public class ShowtimesController {
 
 	@GetMapping("/findbyid")
 	public ResponseEntity<Object> findById(Integer id) {
-		return ResponseEntity.body(showtimesService.findById(id));
-	}
-	
-	@GetMapping("/getshowtimesbymovieid")
-	public ResponseEntity<Object> getShowtimes(Integer id) {
-		return ResponseEntity.body(showtimesService.listShowtime(id));
+		if (id == null) {
+			return ResponseEntity.body(Constant.BAD_REQUEST);
+		} else {
+			Optional<Showtimes> optionalShowtime = showtimesService.findById(id);
+			if (optionalShowtime.isPresent()) {
+				Showtimes showtime = optionalShowtime.orElse(null);
+				return ResponseEntity.body(showtime);
+			} else {
+				return ResponseEntity.body(Constant.NOT_FOUND);
+			}
+		}
 	}
 
+	@GetMapping("/getshowtimesbymovieid")
+	public ResponseEntity<Object> getShowtimes(Integer id) {
+		if (id == null) {
+			return ResponseEntity.body(Constant.BAD_REQUEST);
+		} else {
+			List<ShowtimesMovieDTO> listShowtimes = showtimesService.listShowtime(id);
+			if (listShowtimes.isEmpty()) {
+				return ResponseEntity.body(Constant.NOT_FOUND);
+			} else
+				return ResponseEntity.body(listShowtimes);
+		}
+	}
 }

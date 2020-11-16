@@ -8,11 +8,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-<<<<<<< HEAD
-=======
 
 import com.Constant.Constant;
->>>>>>> f707a2ce04edae91efee5850c946b8ee59c35e1c
 import com.DTO.HistoryTransViewDTO;
 import com.DTO.TotalMemberFeedbackMovieTicket;
 import com.DTO.Base.ResponseEntity;
@@ -42,8 +39,8 @@ public class ViewController {
 
 	@GetMapping("/ticketofmonth")
 	// tổng vé theo phim (theo tháng)
-	public List<TicketByMovieView> getTicketOfMonthByMovie(Integer month) {
-		return viewService.getTicketOfMonthByMovie(month);
+	public ResponseEntity<List<TicketByMovieView>> getTicketOfMonthByMovie(Integer month) {
+		return ResponseEntity.body(viewService.getTicketOfMonthByMovie(month));
 	}
 
 	@GetMapping("/ticketbymovie/{status}")
@@ -64,31 +61,31 @@ public class ViewController {
 
 	@GetMapping("/ticketbyshowtime")
 	// tổng vé theo khung giờ chiếu
-	public List<TicketByShowtimeView> getTicketByShowtime() {
-		return viewService.getTicketByShowtime();
+	public ResponseEntity<List<TicketByShowtimeView>> getTicketByShowtime() {
+		return ResponseEntity.body(viewService.getTicketByShowtime());
 	}
 
 	@GetMapping("/totalofmonth")
 	// tổng tiền của các rạp theo tháng
-	public List<TotalByCinemaView> getTotalOfMonthByCinema() {
-		return viewService.getTotalOfMonthByCinema();
+	public ResponseEntity<List<TotalByCinemaView>> getTotalOfMonthByCinema() {
+		return ResponseEntity.body(viewService.getTotalOfMonthByCinema());
 	}
 
 	@GetMapping("/totalbycinema")
 	// tổng tiền của rạp
-	public List<TotalByCinemaView> getTotalByCinema() {
-		return viewService.getTotalByCinema();
+	public ResponseEntity<List<TotalByCinemaView>> getTotalByCinema() {
+		return ResponseEntity.body(viewService.getTotalByCinema());
 	}
 
 	@GetMapping("/findgenre")
-	public List<GenreMovieView> getGenreByMovieId(Integer id) {
-		return viewService.getGenreByMovieId(id);
+	public ResponseEntity<List<GenreMovieView>> getGenreByMovieId(Integer id) {
+		return ResponseEntity.body(viewService.getGenreByMovieId(id));
 	}
 
 	@GetMapping("/historytrans")
 	// lịch sử giao dịch ( tất cả thông tin của vé) theo memberId :
 	// /historytrans?id=???
-	public List<HistoryTransViewDTO> getHistoryTransaction(Integer id) {
+	public ResponseEntity<List<HistoryTransViewDTO>> getHistoryTransaction(Integer id) {
 		List<HistoryTransView> list = viewService.getTicketBought(id);
 		List<HistoryTransViewDTO> listDTO = new ArrayList<>();
 		for (HistoryTransView historyTransView : list) {
@@ -103,13 +100,13 @@ public class ViewController {
 			dto.setSeats(listSeat);
 			listDTO.add(dto);
 		}
-		return listDTO;
+		return  ResponseEntity.body(listDTO);
 	}
 
 	//Lấy số lượng member, feedback, movie, ticket
 	@GetMapping("/findcount")
-	public TotalMemberFeedbackMovieTicket getTotalMemberFeedbackMovieTicket() {
-		return viewService.getTotalMemberFeedbackMovieTicket();
+	public ResponseEntity<TotalMemberFeedbackMovieTicket> getTotalMemberFeedbackMovieTicket() {
+		return ResponseEntity.body(viewService.getTotalMemberFeedbackMovieTicket());
 	}
 	
 }
