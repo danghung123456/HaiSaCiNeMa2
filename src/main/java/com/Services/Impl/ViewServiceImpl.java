@@ -29,10 +29,20 @@ public class ViewServiceImpl implements ViewService {
 	}
 
 	@Override
-	public List<TicketByMovieView> getTicketByMovie(Integer month) {
+	public List<TicketByMovieView> getTicketOfMonthByMovie(Integer month) {
 		Date date = new Date();
 		Integer year = date.getYear() + 1900;
-		return repository.getTicketByMovie(month, year);
+		return repository.getTicketOfMonthByMovie(month, year);
+	}
+		
+	public List<TicketByMovieView> getTicketByMovie(Integer status) {
+		return repository.getTicketByMovie(status);
+	}
+	
+
+	@Override
+	public List<TotalByCinemaView> getTotalOfMonthByCinema() {
+		return repository.getTotalOfMonthByCinema();
 	}
 
 	@Override
@@ -84,5 +94,7 @@ public class ViewServiceImpl implements ViewService {
 		Date date = new Date(msOfNow - 2629800000L);
 		return repository.getTopMovie(dateNow, date);
 	}
+
+
 
 }

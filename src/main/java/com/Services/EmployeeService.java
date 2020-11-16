@@ -21,6 +21,10 @@ public interface EmployeeService {
 	Optional<Employee> findById(Integer id);
 
 	List<Employee> findByName(String name);
+	
+	List<Employee> findByRole(Integer role);
 
 	Employee save(Employee employee);
+	
+	
 }

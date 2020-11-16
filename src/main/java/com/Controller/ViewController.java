@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -33,27 +34,49 @@ public class ViewController {
 	@Autowired
 	private TicketService ticketService;
 
-	@GetMapping("/ticketbymovie")
-	public List<TicketByMovieView> getTicketByMovie(Integer month) {
-		return viewService.getTicketByMovie(month);
+
+	@GetMapping("/ticketofmonth")
+	//tổng vé theo phim (theo tháng)
+	public List<TicketByMovieView> getTicketOfMonthByMovie(Integer month) {
+		return viewService.getTicketOfMonthByMovie(month);
 	}
 
+	@GetMapping("/ticketbymovie/{status}")
+	//tổng vé theo phim, tìm theo status 1 : đang chiếu, 2 sắp chiếu, 3 ngừng chiếu 
+	public List<TicketByMovieView> getTicketByMovie(@PathVariable("status") Integer status) {
+		int st;
+		if (status == null) {
+			st = 1;
+		} else {
+			st = status;
+		}
+		return viewService.getTicketByMovie(st);
+	}
+	
 	@GetMapping("/ticketbyshowtime")
+	//tổng vé theo khung giờ chiếu
 	public List<TicketByShowtimeView> getTicketByShowtime() {
 		return viewService.getTicketByShowtime();
 	}
 
+	@GetMapping("/totalofmonth")
+	//tổng tiền của các rạp theo tháng 
+	public List<TotalByCinemaView> getTotalOfMonthByCinema() {
+		return viewService.getTotalOfMonthByCinema();
+	}
 	@GetMapping("/totalbycinema")
+	//tổng tiền của rạp
 	public List<TotalByCinemaView> getTotalByCinema() {
 		return viewService.getTotalByCinema();
 	}
-
+	
 	@GetMapping("/findgenre")
 	public List<GenreMovieView> getGenreByMovieId(Integer id){
 		return viewService.getGenreByMovieId(id);
 		
 	}
 	@GetMapping("/historytrans")
+	//lịch sử giao dịch ( tất cả thông tin của vé) theo memberId : /historytrans?id=???
 	public List<HistoryTransViewDTO> getHistoryTransaction(Integer id){
 		List<HistoryTransView> list = viewService.getTicketBought(id);
 		List<HistoryTransViewDTO> listDTO = new ArrayList<>();

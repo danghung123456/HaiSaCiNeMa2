@@ -17,8 +17,12 @@ public interface ViewService {
 
 	List<TicketByShowtimeView> getTicketByShowtime();
 
-	List<TicketByMovieView> getTicketByMovie(Integer month);
+	List<TicketByMovieView> getTicketByMovie(Integer status);
+	
+	List<TicketByMovieView> getTicketOfMonthByMovie(Integer month);
 
+	List<TotalByCinemaView> getTotalOfMonthByCinema();
+	
 	List<TotalByCinemaView> getTotalByCinema();
 
 	List<GenreMovieView> getGenreByMovieId(Integer id);

@@ -81,6 +81,7 @@ public class EmployeeController {
             	Employee employee = checkEmployee.orElse(null);
             	// status = 1 : đang hoạt động, status = 2 : ngưng hoạt động
             	employee.setStatus(2);
+            	employee.setRole(3);
                 return ResponseEntity.body(employeeService.save(employee));
             } else {
                 return ResponseEntity.body(Constant.NOT_FOUND);
@@ -96,6 +97,11 @@ public class EmployeeController {
 	@GetMapping("/findbyname")
 	public ResponseEntity<Object> findByName(String name) {
 		return ResponseEntity.body(employeeService.findByName(name));
+	}
+	@GetMapping("/findbyrole/{role}")
+	public ResponseEntity<Object> findByRole(@PathVariable("role") Integer role){
+		// role 1 :quản lý ,role 0 : nhân viên;
+		return ResponseEntity.body(employeeService.findByRole(role));
 	}
 
 }
