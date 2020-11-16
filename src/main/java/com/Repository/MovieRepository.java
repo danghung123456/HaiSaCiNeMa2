@@ -21,4 +21,6 @@ public interface MovieRepository extends JpaRepository<Movie, Integer> {
 	@Query(value = "SELECT m FROM Movie m WHERE m.movieName LIKE %:name%")
 	List<Movie> findByMovieName(String name);
 	
+	@Query(value = "SELECT COUNT(m) FROM Movie m")
+	Integer totalMovie();
 }

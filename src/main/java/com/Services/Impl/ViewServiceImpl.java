@@ -6,13 +6,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.DTO.HistoryTransViewDTO;
+import com.DTO.TotalMemberFeedbackMovieTicket;
 import com.DTO.view.GenreMovieView;
 import com.DTO.view.HistoryTransView;
 import com.DTO.view.TopMovieView;
 import com.DTO.view.TicketByMovieView;
 import com.DTO.view.TicketByShowtimeView;
 import com.DTO.view.TotalByCinemaView;
+import com.Repository.FeedbackRepository;
+import com.Repository.MemberRepository;
+import com.Repository.MovieRepository;
 import com.Repository.ShowtimesRepository;
+import com.Repository.TicketRepository;
 import com.Repository.ViewRepository;
 import com.Services.ViewService;
 
@@ -22,6 +27,14 @@ public class ViewServiceImpl implements ViewService {
 	ViewRepository repository;
 	@Autowired
 	ShowtimesRepository showtimesRepository;
+	@Autowired
+	MemberRepository memberRepository;
+	@Autowired
+	MovieRepository movieRepository;
+	@Autowired 
+	FeedbackRepository feedbackRepository;
+	@Autowired
+	TicketRepository ticketRepository;
 
 	@Override
 	public List<TicketByShowtimeView> getTicketByShowtime() {
@@ -93,6 +106,16 @@ public class ViewServiceImpl implements ViewService {
 		long msOfNow = dateNow.getTime();
 		Date date = new Date(msOfNow - 2629800000L);
 		return repository.getTopMovie(dateNow, date);
+	}
+
+	@Override
+	public TotalMemberFeedbackMovieTicket getTotalMemberFeedbackMovieTicket() {
+		TotalMemberFeedbackMovieTicket total = new TotalMemberFeedbackMovieTicket();
+		total.setMember(memberRepository.totalMember());
+		total.setFeedback(feedbackRepository.totalFeedback());
+		total.setMovie(movieRepository.totalMovie());
+		total.setTicket(ticketRepository.totalTicket());
+		return total;
 	}
 
 

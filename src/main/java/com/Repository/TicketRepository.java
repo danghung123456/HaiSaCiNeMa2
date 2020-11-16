@@ -16,4 +16,7 @@ public interface TicketRepository extends JpaRepository<Ticket, Integer> {
 	@Query("FROM Ticket t WHERE t.code = :code")
 	Ticket findTicketByCode(String code);
 
+	@Query(value = "SELECT COUNT(t) FROM Ticket t")
+	Integer totalTicket();
+	
 }

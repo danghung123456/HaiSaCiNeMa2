@@ -63,7 +63,4 @@ public interface ViewRepository extends JpaRepository<View, Integer> {
 			+ "ORDER BY SUM(t.ticketQuantity) DESC ")
 	List<TopMovieView> getTopMovie(Date date, Date dateNow);
 	
-
-	
-	
 }
