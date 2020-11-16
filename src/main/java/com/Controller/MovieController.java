@@ -52,21 +52,32 @@ public class MovieController {
 	}
 
 	@GetMapping("/getgenre")
-	public List<GenreMovieView> getGenreByMovieId(Integer id) {
-		return viewService.getGenreByMovieId(id);
+	public ResponseEntity<Object> getGenreByMovieId(Integer id) {
+		if (id == null) {
+			return ResponseEntity.body(Constant.BAD_REQUEST);
+		} else {
+			List<GenreMovieView> list = viewService.getGenreByMovieId(id);
+			if (list.isEmpty()) {
+				return ResponseEntity.body(Constant.NOT_FOUND);
+			} else {
+				return ResponseEntity.body(list);
+			}
+		}
 	}
 
 	@GetMapping(value = "/{status}")
-	public ResponseEntity<List<Movie>> findByStatus(@PathVariable("status") Integer status) {
-		// Tìm danh sách phim theo status(status: 3: ngừng chiếu, 1: đang chiếu, 2: sắp
-		// chiếu)
-		int st;
+	public ResponseEntity<Object> findByStatus(@PathVariable("status") Integer status) {
+		// Tìm danh sách phim theo status(status: 3: ngừng chiếu, 1: đang chiếu, 2: sắp chiếu)
 		if (status == null) {
-			st = 1;
+			return ResponseEntity.body(Constant.BAD_REQUEST);
 		} else {
-			st = status;
+			List<Movie> list = movieService.findMovieByStatus(status);
+			if (list.isEmpty()) {
+				return ResponseEntity.body(Constant.NOT_FOUND);
+			} else {
+				return ResponseEntity.body(list);
+			}
 		}
-		return ResponseEntity.body(movieService.findMovieByStatus(st));
 	}
 
 	@PostMapping(value = "/add")
@@ -136,12 +147,31 @@ public class MovieController {
 
 	@GetMapping("/findbyid")
 	public ResponseEntity<Object> findById(Integer id) {
-		return ResponseEntity.body(movieService.findById(id));
+		if (id == null) {
+			return ResponseEntity.body(Constant.BAD_REQUEST);
+		} else {
+			Optional<Movie> optionalMovie = movieService.findById(id);
+			if (optionalMovie.isPresent()) {
+				Movie movie = optionalMovie.orElse(null);
+				return ResponseEntity.body(movie);
+			} else {
+				return ResponseEntity.body(Constant.NOT_FOUND);
+			}
+		}
 	}
 
 	@GetMapping("/findbyname")
 	public ResponseEntity<Object> findByName(String name) {
-		return ResponseEntity.body(movieService.findByName(name));
+		if (name == null) {
+			return ResponseEntity.body(Constant.BAD_REQUEST);
+		} else {
+			List<Movie> listMovie = movieService.findByName(name);
+			if (listMovie.isEmpty()) {
+				return ResponseEntity.body(Constant.NOT_FOUND);
+			} else {
+				return ResponseEntity.body(listMovie);
+			}
+		}
 	}
 
 	@GetMapping("/movieofweek")
@@ -183,11 +213,19 @@ public class MovieController {
 		}
 		return ResponseEntity.body(listMovieTop5);
 	}
-	
+
 	@GetMapping("/findbygenre")
 	public ResponseEntity<Object> findAllByMovie(Integer id) {
-		return ResponseEntity.body(movieGenreDetailService.findAllByGenre(id));
+		if (id == null) {
+			return ResponseEntity.body(Constant.BAD_REQUEST);
+		} else {
+			List<MovieGenreDetail> list = movieGenreDetailService.findAllByGenre(id);
+			if (list.isEmpty()) {
+				return ResponseEntity.body(Constant.NOT_FOUND);
+			} else {
+				return ResponseEntity.body(list);
+			}
+		}
 	}
-
 
 }
