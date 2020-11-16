@@ -74,8 +74,7 @@ public class FeedbackDTO {
 
 	@Override
 	public String toString() {
-		return "FeedbackDTO [responseId=" + responseId + ", email=" + email + ", phone=" + phone + ", content="
-				+ content + "]";
+		return "FeedbackDTO [responseId=" + responseId + ", email=" + email + ", phone=" + phone + ", content="+ content + "]";
 	}
 
 }

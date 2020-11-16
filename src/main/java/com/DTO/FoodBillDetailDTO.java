@@ -30,23 +30,6 @@ public class FoodBillDetailDTO {
 		this.total = total;
 	}
 
-	public boolean isNull(boolean includeId) {
-		boolean res = isNull(quantity) || isNull(ticketId) || isNull(foodId);
-		return includeId ? res || isNull(foodBillDetailId) : res;
-	}
-
-	private boolean isNull(String input) {
-		return input == null || input.trim().length() == 0;
-	}
-
-	private boolean isNull(Integer input) {
-		return input == null;
-	}
-
-	private boolean isNull(Float input) {
-		return input == null;
-	}
-
 	public FoodBillDetail convertToFood() {
 		Ticket ticket = new Ticket();
 		ticket.setTicketId(this.getTicketId());
@@ -58,6 +41,13 @@ public class FoodBillDetailDTO {
 		FoodBillDetail foodBillDetail = mapper.convertValue(this, FoodBillDetail.class);
 		return foodBillDetail;
 	}
+	
+	@Override
+	public String toString() {
+		return "FoodBillDetailDTO [foodBillDetailId=" + foodBillDetailId + ", ticket=" + ticket + ", food=" + food
+				+ ", quantity=" + quantity + ", total=" + total + "]";
+	}
+
 
 	public Integer getFoodBillDetailId() {
 		return foodBillDetailId;
@@ -115,10 +105,5 @@ public class FoodBillDetailDTO {
 		this.foodId = foodId;
 	}
 
-	@Override
-	public String toString() {
-		return "FoodBillDetailDTO [foodBillDetailId=" + foodBillDetailId + ", ticket=" + ticket + ", food=" + food
-				+ ", quantity=" + quantity + ", total=" + total + "]";
-	}
 
 }
