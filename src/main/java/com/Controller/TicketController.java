@@ -57,7 +57,11 @@ public class TicketController {
 	@Autowired
 	QRCodeService qRCodeService;
 
+<<<<<<< HEAD
 	private static final String QR_CODE_IMAGE_PATH = "C:/Fpoly/Project/Database/Code/";
+=======
+	private static final String QR_CODE_IMAGE_PATH = "./src/main/resources/images/";
+>>>>>>> fa52a06d34afacf6f093f0d78a0956b3b3ab6099
 
 	@GetMapping
 	public ResponseEntity<List<Ticket>> index() {
