@@ -32,13 +32,15 @@ public interface ViewRepository extends JpaRepository<View, Integer> {
 
 	@Query(value = "SELECT t.showtimes.room.cinema.name as cinemaName,  t.showtimes.period.startTime as startTime, SUM(t.ticketQuantity) as ticketQuantity "
 			+ "FROM Ticket t "
+			+ "WHERE t.showtimes.room.cinema.cinemaId = :id "
 			+ "GROUP BY t.showtimes.period.periodId, t.showtimes.room.cinema.cinemaId, t.showtimes.room.cinema.name, t.showtimes.period.startTime")
-	List<TicketByShowtimeView> getTicketByShowtime();
+	List<TicketByShowtimeView> getTicketByShowtime(Integer id);
 	
 	@Query(value = "SELECT f.ticket.showtimes.room.cinema.name as cinemaName, MONTH(f.ticket.showtimes.date) as month, SUM(f.ticket.ticketPriceAmount) as totalTicket, SUM(f.total) as totalFood, SUM(f.ticket.total) as total "
 			+ "FROM FoodBillDetail f "
+			+ "WHERE f.ticket.showtimes.room.cinema.cinemaId = :id "
 			+ "GROUP BY f.ticket.showtimes.room.cinema.name, f.ticket.showtimes.room.cinema.cinemaId, MONTH(f.ticket.showtimes.date) ")
-	List<TotalByCinemaView> getTotalOfMonthByCinema();
+	List<TotalByCinemaView> getTotalOfMonthByCinema(Integer id);
 	
 	@Query(value= "SELECT t.showtimes.room.cinema.name as cinemaName, SUM(t.total) as total "
 			+ "FROM Ticket t "

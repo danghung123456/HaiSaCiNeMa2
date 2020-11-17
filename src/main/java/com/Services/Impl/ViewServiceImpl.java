@@ -37,8 +37,8 @@ public class ViewServiceImpl implements ViewService {
 	TicketRepository ticketRepository;
 
 	@Override
-	public List<TicketByShowtimeView> getTicketByShowtime() {
-		return repository.getTicketByShowtime();
+	public List<TicketByShowtimeView> getTicketByShowtime(Integer cinemaId) {
+		return repository.getTicketByShowtime(cinemaId);
 	}
 
 	@Override
@@ -54,8 +54,8 @@ public class ViewServiceImpl implements ViewService {
 	
 
 	@Override
-	public List<TotalByCinemaView> getTotalOfMonthByCinema() {
-		return repository.getTotalOfMonthByCinema();
+	public List<TotalByCinemaView> getTotalOfMonthByCinema(Integer cinemaId) {
+		return repository.getTotalOfMonthByCinema(cinemaId);
 	}
 
 	@Override

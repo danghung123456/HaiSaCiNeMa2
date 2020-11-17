@@ -13,13 +13,13 @@ import com.DTO.view.TotalByCinemaView;
 
 public interface ViewService {
 
-	List<TicketByShowtimeView> getTicketByShowtime();
+	List<TicketByShowtimeView> getTicketByShowtime(Integer cinemaId);
 
 	List<TicketByMovieView> getTicketByMovie(Integer status);
 
 	List<TicketByMovieView> getTicketOfMonthByMovie(Integer month);
 
-	List<TotalByCinemaView> getTotalOfMonthByCinema();
+	List<TotalByCinemaView> getTotalOfMonthByCinema(Integer cinemaId);
 
 	List<TotalByCinemaView> getTotalByCinema();
 

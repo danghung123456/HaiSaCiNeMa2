@@ -61,14 +61,14 @@ public class ViewController {
 
 	@GetMapping("/ticketbyshowtime")
 	// tổng vé theo khung giờ chiếu
-	public List<TicketByShowtimeView> getTicketByShowtime() {
-		return viewService.getTicketByShowtime();
+	public List<TicketByShowtimeView> getTicketByShowtime(Integer id) {
+		return viewService.getTicketByShowtime(id);
 	}
 
 	@GetMapping("/totalofmonth")
 	// tổng tiền của các rạp theo tháng
-	public List<TotalByCinemaView> getTotalOfMonthByCinema() {
-		return viewService.getTotalOfMonthByCinema();
+	public List<TotalByCinemaView> getTotalOfMonthByCinema(Integer id) {
+		return viewService.getTotalOfMonthByCinema(id);
 	}
 
 	@GetMapping("/totalbycinema")
