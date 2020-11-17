@@ -45,18 +45,14 @@ public class ViewController {
 
 	@GetMapping("/ticketbymovie/{status}")
 	// tổng vé theo phim, tìm theo status 1 : đang chiếu, 2 sắp chiếu, 3 ngừng chiếu
-	public ResponseEntity<Object> getTicketByMovie(@PathVariable("status") Integer status) {
+	public List<TicketByMovieView> getTicketByMovie(@PathVariable("status") Integer status) {
 		int st;
 		if (status == null) {
 			st = 1;
 		} else {
 			st = status;
 		}
-		if (viewService.getTicketByMovie(st).isEmpty()) {
-			return ResponseEntity.body(Constant.NOT_FOUND);
-		} else {
-			return ResponseEntity.body(viewService.getTicketByMovie(st));
-		}
+		return viewService.getTicketByMovie(st);
 	}
 
 	@GetMapping("/ticketbyshowtime")
@@ -73,8 +69,8 @@ public class ViewController {
 
 	@GetMapping("/totalbycinema")
 	// tổng tiền của rạp
-	public ResponseEntity<List<TotalByCinemaView>> getTotalByCinema() {
-		return ResponseEntity.body(viewService.getTotalByCinema());
+	public List<TotalByCinemaView> getTotalByCinema() {
+		return viewService.getTotalByCinema();
 	}
 
 	@GetMapping("/findgenre")
@@ -100,13 +96,13 @@ public class ViewController {
 			dto.setSeats(listSeat);
 			listDTO.add(dto);
 		}
-		return  ResponseEntity.body(listDTO);
+		return ResponseEntity.body(listDTO);
 	}
 
-	//Lấy số lượng member, feedback, movie, ticket
+	// Lấy số lượng member, feedback, movie, ticket
 	@GetMapping("/findcount")
 	public ResponseEntity<TotalMemberFeedbackMovieTicket> getTotalMemberFeedbackMovieTicket() {
 		return ResponseEntity.body(viewService.getTotalMemberFeedbackMovieTicket());
 	}
-	
+
 }
