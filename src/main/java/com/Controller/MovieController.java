@@ -64,7 +64,6 @@ public class MovieController {
 			}
 		}
 	}
-
 	@GetMapping(value = "/{status}")
 	public ResponseEntity<Object> findByStatus(@PathVariable("status") Integer status) {
 		// Tìm danh sách phim theo status(status: 3: ngừng chiếu, 1: đang chiếu, 2: sắp chiếu)

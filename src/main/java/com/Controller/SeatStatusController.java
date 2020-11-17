@@ -21,9 +21,9 @@ import com.DTO.CinemaDTO;
 import com.DTO.Base.ResponseEntity;
 import com.DTO.view.TotalByCinemaView;
 import com.Entity.Cinema;
+import com.Entity.SeatStatus;
 import com.Services.CinemaService;
 import com.Services.SeatStatusService;
-
 
 @RestController
 @RequestMapping(value = "seatstatus")
@@ -32,10 +32,18 @@ public class SeatStatusController {
 
 	@Autowired
 	private SeatStatusService seatStatusService;
-	
+
 	@GetMapping("/findbyshowtimeid")
 	public ResponseEntity<Object> findById(Integer id) {
-		return  ResponseEntity.body(seatStatusService.findAllByShowtimeId(id));
+		if (id == null) {
+			return ResponseEntity.body(Constant.BAD_REQUEST);
+		} else {
+			List<SeatStatus> listSeatStatus = seatStatusService.findAllByShowtimeId(id);
+			if (listSeatStatus.isEmpty()) {
+				return ResponseEntity.body(Constant.NOT_FOUND);
+			} else {
+				return ResponseEntity.body(listSeatStatus);
+			}
+		}
 	}
-	
 }

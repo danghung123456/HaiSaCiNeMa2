@@ -2,6 +2,8 @@ package com.Controller;
 
 import java.awt.image.BufferedImage;
 import java.util.List;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -119,10 +121,18 @@ public class TicketController {
 		}
 	}
 
-
 	@GetMapping("/findbyid")
 	public ResponseEntity<Object> findById(Integer id) {
-		return ResponseEntity.body(ticketService.findById(id));
+		if (id == null) {
+			return ResponseEntity.body(Constant.BAD_REQUEST);
+		} else {
+			Optional<Ticket> optionalTicket = ticketService.findById(id);
+			if (optionalTicket.isPresent()) {
+				Ticket ticket = optionalTicket.orElse(null);
+				return ResponseEntity.body(ticket);
+			} else {
+				return ResponseEntity.body(Constant.NOT_FOUND);
+			}
+		}
 	}
-
 }
