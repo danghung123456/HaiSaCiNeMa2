@@ -11,6 +11,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.DTO.DatePeriodDTO;
+import com.DTO.ShowtimePeriodDTO;
 import com.DTO.ShowtimesDTO;
 import com.DTO.ShowtimesMovieDTO;
 import com.Entity.Cinema;
@@ -120,9 +121,15 @@ public class ShowtimesServiceImpl implements ShowtimesService {
 				DatePeriodDTO periodDTO = new DatePeriodDTO();
 				periodDTO.setDate(dateIndex);
 				List<Showtimes> listShowtimes = repository.findPeriod(cinema.getCinemaId(), movieId, dateIndex);
-				List<Period> listPeriod = new ArrayList<>();
+				List<ShowtimePeriodDTO> listPeriod = new ArrayList<>();
 				for (Showtimes showtime : listShowtimes) {
-					listPeriod.add(showtime.getPeriod());
+					ShowtimePeriodDTO dtoSP = new ShowtimePeriodDTO();
+					dtoSP.setShowtimeId(showtime.getShowtimeId());
+					dtoSP.setPeriodId(showtime.getPeriod().getPeriodId());
+					dtoSP.setStatusDay(showtime.getPeriod().getStatusDay());
+					dtoSP.setPrice(showtime.getPeriod().getPrice());
+					dtoSP.setStartTime(showtime.getPeriod().getStartTime());
+					listPeriod.add(dtoSP);
 				}
 				periodDTO.setPeriods(listPeriod);
 				listPeriodDTO.add(periodDTO);
