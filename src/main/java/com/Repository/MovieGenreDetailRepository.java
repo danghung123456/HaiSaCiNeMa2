@@ -18,7 +18,7 @@ public interface MovieGenreDetailRepository extends JpaRepository<MovieGenreDeta
 
 	List<MovieGenreDetail> findAllByMovieMovieId(Integer id);
 	
-	@Query(value = "SELECT m FROM MovieGenreDetail m WHERE m.genreMovie.genreId = :id AND m.movie.status = 1")
+	@Query(value = "SELECT m FROM MovieGenreDetail m WHERE m.genreMovie.genreId = :id")
 	List<MovieGenreDetail> findAllByGenre(Integer id);
 	
 }
