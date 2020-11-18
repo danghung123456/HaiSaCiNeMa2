@@ -40,4 +40,9 @@ public class RoomServiceImpl implements RoomService {
 	public Room save(Room room) {
 		return repository.saveAndFlush(room);
 	}
+
+	@Override
+	public List<Room> getAll() {
+		return repository.findAll();
+	}
 }
