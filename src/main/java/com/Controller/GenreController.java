@@ -1,4 +1,4 @@
- package com.Controller;
+package com.Controller;
 
 import java.util.List;
 import java.util.Optional;
@@ -15,6 +15,8 @@ import com.Constant.Constant;
 import com.DTO.GenreMovieDTO;
 import com.DTO.Base.ResponseEntity;
 import com.Entity.GenreMovie;
+import com.Entity.Movie;
+import com.Entity.MovieGenreDetail;
 import com.Services.GenreMovieService;
 import com.Services.MovieGenreDetailService;
 
@@ -63,17 +65,45 @@ public class GenreController {
 
 	@GetMapping("/findbyid")
 	public ResponseEntity<Object> findById(Integer id) {
-		return ResponseEntity.body(genreService.findById(id).orElse(null));
+		if (id == null) {
+			return ResponseEntity.body(Constant.BAD_REQUEST);
+		} else {
+			Optional<GenreMovie> optionalGenre = genreService.findById(id);
+			if (optionalGenre.isPresent()) {
+				GenreMovie genreMovie = optionalGenre.orElse(null);
+				return ResponseEntity.body(genreMovie);
+			} else {
+				return ResponseEntity.body(Constant.NOT_FOUND);
+			}
+		}
 	}
 
 	@GetMapping("/findbyname")
 	public ResponseEntity<Object> findByName(String name) {
-		return ResponseEntity.body(genreService.findByName(name));
+		if (name == null) {
+			return ResponseEntity.body(Constant.BAD_REQUEST);
+		} else {
+			List<GenreMovie> listGenre = genreService.findByName(name);
+			if (listGenre.isEmpty()) {
+				return ResponseEntity.body(Constant.NOT_FOUND);
+			} else {
+				return ResponseEntity.body(listGenre);
+			}
+		}
 	}
-	
+
 	@GetMapping("/findbymovie")
 	public ResponseEntity<Object> findByMovieId(Integer id) {
-		return ResponseEntity.body(movieGenreDetailService.findAllByMovieId(id));
+		if (id == null) {
+			return ResponseEntity.body(Constant.BAD_REQUEST);
+		} else {
+			List<MovieGenreDetail> listGenreDetail = movieGenreDetailService.findAllByMovieId(id);
+			if (listGenreDetail.isEmpty()) {
+				return ResponseEntity.body(Constant.NOT_FOUND);
+			} else {
+				return ResponseEntity.body(listGenreDetail);
+			}
+			
+		}
 	}
-	
 }

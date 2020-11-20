@@ -23,6 +23,13 @@ public class EmployeeDTO {
 		super();
 	}
 
+	@Override
+	public String toString() {
+		return "EmployeeDTO [employeeId=" + employeeId + ", name=" + name + ", password=" + password + ", role=" + role
+				+ ", email=" + email + ",phone=" + phone + ",address=" + address + ",birthday=" + birthday + ",idCard="
+				+ idCard + ",cinemaId=" + cinemaId + ",status=" + status + "]";
+	}
+
 	public EmployeeDTO(Integer employeeId, String name, String password, Integer role, String email, String phone,
 			String address, Date birthday, String idCard, Integer cinemaId, Integer status) {
 		super();
@@ -40,8 +47,8 @@ public class EmployeeDTO {
 	}
 
 	public boolean isNull(boolean includeId) {
-		boolean res = isNull(name) || isNull(password) || isNull(email) || isNull(phone) || isNull(address)
-				|| isNull(idCard);
+		boolean res = isNull(name) || isNull(password) || isNull(role) || isNull(email) || isNull(phone)
+				|| isNull(address) || isNull(cinemaId) || isNull(idCard);
 		return includeId ? res || isNull(employeeId) : res;
 	}
 

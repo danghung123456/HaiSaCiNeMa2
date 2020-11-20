@@ -18,10 +18,11 @@ import com.Entity.View;
 @Repository
 public interface ViewRepository extends JpaRepository<View, Integer> {
 
-	@Query(value = "SELECT t.showtimes.movie.movieId, t.showtimes.movie.movieName as movieName, Month(t.showtimes.date) as month, SUM(t.ticketQuantity) as ticketQuantity "
+	@Query(value = "SELECT t.showtimes.movie.movieId, t.showtimes.movie.movieName as movieName, Month(t.showtimes.date) as month, SUM(t.ticketQuantity) as ticketQuantity, YEAR(t.showtimes.date) as year "
 			+ "FROM Ticket t "
-			+ "GROUP BY t.showtimes.movie.movieId, Month(t.showtimes.date), t.showtimes.movie.movieName")
-	List<TicketByMovieView> getTicketOfMonthByMovie();
+			+ "WHERE Month(t.showtimes.date) = :month AND YEAR(t.showtimes.date) = :year "
+			+ "GROUP BY t.showtimes.movie.movieId, Month(t.showtimes.date), t.showtimes.movie.movieName, YEAR(t.showtimes.date) ")
+	List<TicketByMovieView> getTicketOfMonthByMovie(Integer month, Integer year);
 	
 	@Query(value = "SELECT t.showtimes.movie.movieId, t.showtimes.movie.movieName as movieName, SUM(t.ticketQuantity) as ticketQuantity "
 			+ "FROM Ticket t "
@@ -31,13 +32,15 @@ public interface ViewRepository extends JpaRepository<View, Integer> {
 
 	@Query(value = "SELECT t.showtimes.room.cinema.name as cinemaName,  t.showtimes.period.startTime as startTime, SUM(t.ticketQuantity) as ticketQuantity "
 			+ "FROM Ticket t "
+			+ "WHERE t.showtimes.room.cinema.cinemaId = :id "
 			+ "GROUP BY t.showtimes.period.periodId, t.showtimes.room.cinema.cinemaId, t.showtimes.room.cinema.name, t.showtimes.period.startTime")
-	List<TicketByShowtimeView> getTicketByShowtime();
+	List<TicketByShowtimeView> getTicketByShowtime(Integer id);
 	
 	@Query(value = "SELECT f.ticket.showtimes.room.cinema.name as cinemaName, MONTH(f.ticket.showtimes.date) as month, SUM(f.ticket.ticketPriceAmount) as totalTicket, SUM(f.total) as totalFood, SUM(f.ticket.total) as total "
 			+ "FROM FoodBillDetail f "
+			+ "WHERE f.ticket.showtimes.room.cinema.cinemaId = :id "
 			+ "GROUP BY f.ticket.showtimes.room.cinema.name, f.ticket.showtimes.room.cinema.cinemaId, MONTH(f.ticket.showtimes.date) ")
-	List<TotalByCinemaView> getTotalOfMonthByCinema();
+	List<TotalByCinemaView> getTotalOfMonthByCinema(Integer id);
 	
 	@Query(value= "SELECT t.showtimes.room.cinema.name as cinemaName, SUM(t.total) as total "
 			+ "FROM Ticket t "
@@ -61,8 +64,5 @@ public interface ViewRepository extends JpaRepository<View, Integer> {
 			+ "GROUP BY t.showtimes.movie.movieId, t.showtimes.movie.movieName,t.showtimes.movie.thumbnail "
 			+ "ORDER BY SUM(t.ticketQuantity) DESC ")
 	List<TopMovieView> getTopMovie(Date date, Date dateNow);
-	
-
-	
 	
 }

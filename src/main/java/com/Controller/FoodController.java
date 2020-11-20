@@ -18,6 +18,7 @@ import com.Constant.*;
 import com.DTO.FoodDTO;
 import com.DTO.Base.ResponseEntity;
 import com.Entity.Food;
+import com.Entity.Movie;
 import com.Services.FoodService;
 
 
@@ -92,12 +93,31 @@ public class FoodController {
 	
 	@GetMapping("/findbyid")
 	public ResponseEntity<Object> findById(Integer id) {
-		return  ResponseEntity.body(foodService.findById(id));
+		if(id == null) {
+			return ResponseEntity.body(Constant.BAD_REQUEST);
+		} else {
+			Optional<Food> optionalFood = foodService.findById(id);
+			if (optionalFood.isPresent()) {
+				Food food = optionalFood.orElse(null);
+				return ResponseEntity.body(food);
+			} else {
+				return ResponseEntity.body(Constant.NOT_FOUND);
+			}
+	}
 	}
 	
 	@GetMapping("/findbyname")
 	public ResponseEntity<Object> findByName(String name) {
-		return ResponseEntity.body(foodService.findByName(name));
+		if (name == null) {
+			return ResponseEntity.body(Constant.BAD_REQUEST);
+		} else {
+			List<Food> listFood = foodService.findByName(name);
+			if (listFood.isEmpty()) {
+				return ResponseEntity.body(Constant.NOT_FOUND);
+			} else {
+				return ResponseEntity.body(listFood);
+			}
+		}
 	}
 	
 	

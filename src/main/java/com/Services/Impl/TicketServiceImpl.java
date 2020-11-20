@@ -78,14 +78,13 @@ public class TicketServiceImpl implements TicketService {
 		String random = "";
 		
 		if (totalIdString.length() < 10) {
-			int count = 10 - totalIdString.length();
+			int count = 15 - totalIdString.length();
 			for (int i = 0; i < count; i++) {
 				int random_int = (int) (Math.random() * (9 - 0 + 1) + 0);
 				random = random + String.valueOf(random_int);
 			}
 		}
 		
-		System.out.println(random);
 		String encodedString3 = Base64.getEncoder().withoutPadding().encodeToString(random.getBytes());
 		encodedString = encodedString + encodedString3;
 

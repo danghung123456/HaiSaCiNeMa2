@@ -1,11 +1,8 @@
 package com.Entity;
-// default package
-// Generated Oct 13, 2020, 8:28:21 PM by Hibernate Tools 5.1.10.Final
 
 
 import static javax.persistence.GenerationType.IDENTITY;
-
-import java.sql.Date;
+import java.util.Date;
 import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -18,50 +15,49 @@ import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-
 @Entity
 @Table(name = "employee")
-public class Employee  {
-	
+public class Employee {
+
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
 	@Column(name = "employeeid", unique = true, nullable = false)
-	Integer employeeId;
+	private Integer employeeId;
 
 	@Column(name = "name")
-	String name;
+	private String name;
 
 	@Column(name = "password")
-	String password;
+	private String password;
 
 	@Column(name = "role")
-	int role;
+	private Integer role;
 
-	@Column(name = "email")
-	String email;
+	@Column(name = "email", unique = true)
+	private String email;
 
 	@Column(name = "phone")
-	String  phone;
+	private String phone;
 
 	@Column(name = "address")
-	String address;
+	private String address;
 
 	@Column(name = "birthday")
-	Date birthday;
+	private Date birthday;
 
 	@Column(name = "idcard")
-	String idCard;
+	private String idCard;
 
 	@Column(name = "status")
-	Integer status;
-	
+	private Integer status;
+
 	@ManyToOne
 	@JoinColumn(name = "cinemaid")
-	Cinema cinema;
+	private Cinema cinema;
 
 	@JsonIgnore
 	@OneToMany(mappedBy = "employee")
-	List<Showtimes> showtimes;
+	private List<Showtimes> showtimes;
 
 	public Employee() {
 		super();
@@ -162,7 +158,5 @@ public class Employee  {
 	public void setShowtimes(List<Showtimes> showtimes) {
 		this.showtimes = showtimes;
 	}
-	
-	
 
 }

@@ -3,17 +3,15 @@ package com.DTO;
 import java.util.Date;
 import java.util.List;
 
-import com.Entity.Period;
-
 public class DatePeriodDTO {
 	private Date date;
-	private List<Period> periods;
+	private List<ShowtimePeriodDTO> periods;
 
 	public DatePeriodDTO() {
 		super();
 	}
 
-	public DatePeriodDTO(Date date, List<Period> periods) {
+	public DatePeriodDTO(Date date, List<ShowtimePeriodDTO> periods) {
 		super();
 		this.date = date;
 		this.periods = periods;
@@ -27,11 +25,11 @@ public class DatePeriodDTO {
 		this.date = date;
 	}
 
-	public List<Period> getPeriods() {
+	public List<ShowtimePeriodDTO> getPeriods() {
 		return periods;
 	}
 
-	public void setPeriods(List<Period> periods) {
+	public void setPeriods(List<ShowtimePeriodDTO> periods) {
 		this.periods = periods;
 	}
 

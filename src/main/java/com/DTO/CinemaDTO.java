@@ -13,6 +13,7 @@ public class CinemaDTO {
 	public String toString() {
 		return "CinemaDTO [cinemaId=" + cinemaId + ", name=" + name + ", address=" + address + "]";
 
+
 	}
 
 	public boolean isNull(boolean includeId) {

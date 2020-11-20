@@ -1,10 +1,7 @@
 package com.Entity;
-// default package
-// Generated Oct 13, 2020, 8:28:21 PM by Hibernate Tools 5.1.10.Final
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
@@ -21,22 +18,22 @@ public class TicketDetail {
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
 	@Column(name = "ticketdetailid", unique = true, nullable = false)
-	Integer ticketDetailId;
-	
+	private Integer ticketDetailId;
+
 	@ManyToOne
 	@JsonIgnore
 	@JoinColumn(name = "seatid")
-	Seat seat;
+	private Seat seat;
 
 	@ManyToOne
 	@JsonIgnore
 	@JoinColumn(name = "ticketid")
-	Ticket ticket;
+	private Ticket ticket;
 
 	public TicketDetail() {
-		
+
 	}
-	
+
 	public Integer getTicketDetailId() {
 		return ticketDetailId;
 	}

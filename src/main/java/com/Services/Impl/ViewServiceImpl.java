@@ -6,13 +6,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.DTO.HistoryTransViewDTO;
+import com.DTO.TotalMemberFeedbackMovieTicket;
 import com.DTO.view.GenreMovieView;
 import com.DTO.view.HistoryTransView;
 import com.DTO.view.TopMovieView;
 import com.DTO.view.TicketByMovieView;
 import com.DTO.view.TicketByShowtimeView;
 import com.DTO.view.TotalByCinemaView;
+import com.Repository.FeedbackRepository;
+import com.Repository.MemberRepository;
+import com.Repository.MovieRepository;
 import com.Repository.ShowtimesRepository;
+import com.Repository.TicketRepository;
 import com.Repository.ViewRepository;
 import com.Services.ViewService;
 
@@ -22,27 +27,35 @@ public class ViewServiceImpl implements ViewService {
 	ViewRepository repository;
 	@Autowired
 	ShowtimesRepository showtimesRepository;
+	@Autowired
+	MemberRepository memberRepository;
+	@Autowired
+	MovieRepository movieRepository;
+	@Autowired 
+	FeedbackRepository feedbackRepository;
+	@Autowired
+	TicketRepository ticketRepository;
 
 	@Override
-	public List<TicketByShowtimeView> getTicketByShowtime() {
-		return repository.getTicketByShowtime();
+	public List<TicketByShowtimeView> getTicketByShowtime(Integer cinemaId) {
+		return repository.getTicketByShowtime(cinemaId);
 	}
 
 	@Override
+	public List<TicketByMovieView> getTicketOfMonthByMovie(Integer month) {
+		Date date = new Date();
+		Integer year = date.getYear() + 1900;
+		return repository.getTicketOfMonthByMovie(month, year);
+	}
+		
 	public List<TicketByMovieView> getTicketByMovie(Integer status) {
 		return repository.getTicketByMovie(status);
 	}
 	
-	@Override
-	public List<TicketByMovieView> getTicketOfMonthByMovie() {
-		return repository.getTicketOfMonthByMovie();
-		
-	}
-
 
 	@Override
-	public List<TotalByCinemaView> getTotalOfMonthByCinema() {
-		return repository.getTotalOfMonthByCinema();
+	public List<TotalByCinemaView> getTotalOfMonthByCinema(Integer cinemaId) {
+		return repository.getTotalOfMonthByCinema(cinemaId);
 	}
 
 	@Override
@@ -93,6 +106,16 @@ public class ViewServiceImpl implements ViewService {
 		long msOfNow = dateNow.getTime();
 		Date date = new Date(msOfNow - 2629800000L);
 		return repository.getTopMovie(dateNow, date);
+	}
+
+	@Override
+	public TotalMemberFeedbackMovieTicket getTotalMemberFeedbackMovieTicket() {
+		TotalMemberFeedbackMovieTicket total = new TotalMemberFeedbackMovieTicket();
+		total.setMember(memberRepository.totalMember());
+		total.setFeedback(feedbackRepository.totalFeedback());
+		total.setMovie(movieRepository.totalMovie());
+		total.setTicket(ticketRepository.totalTicket());
+		return total;
 	}
 
 

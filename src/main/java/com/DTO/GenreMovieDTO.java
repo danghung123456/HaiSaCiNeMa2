@@ -54,4 +54,8 @@ public class GenreMovieDTO {
 		return genreId;
 	}
 
+	@Override
+	public String toString() {
+		return "GenreMovieDTO [genreId=" + genreId + ", name=" + name + "]";
+	}
 }
