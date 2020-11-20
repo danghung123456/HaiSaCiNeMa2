@@ -23,13 +23,15 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests()
-        .antMatchers("/member").hasRole("admin")
-        .antMatchers("/ticket").hasAnyRole("admin", "user")
-        .antMatchers("/seat").hasRole("staff")
-        .antMatchers("/").permitAll()
-        .and().exceptionHandling().accessDeniedPage("/403")
-        .and().formLogin();
+		http.cors();
+		http.csrf().disable()
+        .authorizeRequests()
+        .antMatchers("/member/**").hasRole("admin")
+        .antMatchers("/ticket/**").hasAnyRole("admin", "user")
+        .antMatchers("/movie/**").hasAnyRole("admin", "user")
+        .antMatchers("/seat/**").hasAnyRole("staff","admin")
+        .antMatchers("/**").permitAll()
+        .and().httpBasic();
 	}
 	
 	@Bean
