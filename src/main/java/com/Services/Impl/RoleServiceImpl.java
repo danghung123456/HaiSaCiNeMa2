@@ -1,5 +1,6 @@
 package com.Services.Impl;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,11 @@ public class RoleServiceImpl implements RoleService {
 	@Override
 	public Role findById(Integer id) {
 		return repository.findRoleById(id);
+	}
+
+	@Override
+	public List<Role> getAll() {
+		return repository.findAll();
 	}
 
 	

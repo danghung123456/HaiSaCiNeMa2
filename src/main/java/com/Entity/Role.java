@@ -55,11 +55,11 @@ public class Role {
 		this.name = name;
 	}
 
-	public List<UserRole> getEmpRole() {
+	public List<UserRole> getUserRole() {
 		return userRole;
 	}
 
-	public void setEmpRole(List<UserRole> userRole) {
+	public void setUserRole(List<UserRole> userRole) {
 		this.userRole = userRole;
 	}
 
