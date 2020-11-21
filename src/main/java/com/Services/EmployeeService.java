@@ -22,7 +22,7 @@ public interface EmployeeService {
 
 	List<Employee> findByName(String name);
 	
-	List<Employee> findByRole(Integer role);
+//	List<Employee> findByRole(Integer role);
 
 	Employee save(Employee employee);
 	
