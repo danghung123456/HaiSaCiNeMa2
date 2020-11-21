@@ -1,5 +1,6 @@
 package com.Services;
 
+import com.DTO.MemberDTO;
 import com.Entity.Member;
 import org.springframework.stereotype.Service;
 import java.util.List;
@@ -22,5 +23,7 @@ public interface MemberService {
 
 	Member save(Member member);
 	
-	String findEmailById(Integer id);
+//	String findEmailById(Integer id);
+	
+	Member convertToMember(MemberDTO memberDTO);
 }

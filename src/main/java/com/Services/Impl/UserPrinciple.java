@@ -8,9 +8,10 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import com.Entity.EmpRole;
+import com.Entity.UserRole;
 import com.Entity.Employee;
 import com.Entity.Role;
+import com.Entity.User;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 public class UserPrinciple implements UserDetails {
@@ -30,13 +31,13 @@ public class UserPrinciple implements UserDetails {
 		this.authorities = authorities;
 	}
 
-	public static UserPrinciple build(Employee employee) {
-		List<EmpRole> empRoles = employee.getEmpRole();
-		List<Role> roles = empRoles.stream().map((empRole) -> empRole.getRole()).collect(Collectors.toList());
+	public static UserPrinciple build(User user) {
+		List<UserRole> userRoles = user.getUserRole();
+		List<Role> roles = userRoles.stream().map((userRole) -> userRole.getRole() ).collect(Collectors.toList());
 		List<GrantedAuthority> authorities = roles.stream().map(role -> new SimpleGrantedAuthority(role.getName()))
 				.collect(Collectors.toList());
-		UserPrinciple userPrinciple = new UserPrinciple(employee.getEmployeeId(), employee.getEmail(), employee.getPassword(), authorities);
-		return new UserPrinciple(employee.getEmployeeId(), employee.getEmail(), employee.getPassword(), authorities);
+		UserPrinciple userPrinciple = new UserPrinciple(user.getUserId(), user.getEmail(), user.getPassword(), authorities);
+		return userPrinciple;
 	}
 
 	@Override

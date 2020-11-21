@@ -7,14 +7,21 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.DTO.MemberDTO;
 import com.Entity.Member;
+import com.Entity.User;
 import com.Repository.MemberRepository;
+import com.Repository.UserRepository;
 import com.Services.MemberService;
+import com.Services.UserService;
 
 @Service
 public class MemberServiceImpl implements MemberService {
 	@Autowired
 	MemberRepository repository;
+	
+	@Autowired
+	UserService userService;
 
 	public List<Member> getAll() {
 		return repository.findAll();
@@ -44,14 +51,25 @@ public class MemberServiceImpl implements MemberService {
 		return repository.findByMemberName(name);
 	}
 
-	public Member save(Member member){
-        return repository.saveAndFlush(member);
-    }
+	public Member save(Member member) {
+		return repository.saveAndFlush(member);
+	}
+
+//	@Override
+//	public String findEmailById(Integer id) {
+//		return repository.findEmailById(id);
+//	}
 
 	@Override
-	public String findEmailById(Integer id) {
-		return repository.findEmailById(id);
+	public Member convertToMember(MemberDTO memberDTO) {
+		Member member = new Member();
+		member.setMemberId(memberDTO.getMemberId());
+		member.setMemberName(memberDTO.getMemberName());
+		member.setAddress(memberDTO.getAddress());
+		member.setBirthday(memberDTO.getBirthday());
+		member.setIdCard(memberDTO.getIdCard());
+		member.setPhone(memberDTO.getPhone());
+		member.setTotalMoney(memberDTO.getTotalMoney());
+		return member;
 	}
-
-	}
-
+}

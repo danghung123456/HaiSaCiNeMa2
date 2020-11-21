@@ -26,17 +26,17 @@ public class Role {
 
 	@JsonIgnore
 	@OneToMany(mappedBy = "role")
-	private List<EmpRole> empRole;
+	private List<UserRole> userRole;
 
 	public Role() {
 		super();
 	}
 
-	public Role(Integer roleId, String name, List<EmpRole> empRole) {
+	public Role(Integer roleId, String name, List<UserRole> userRole) {
 		super();
 		this.roleId = roleId;
 		this.name = name;
-		this.empRole = empRole;
+		this.userRole = userRole;
 	}
 
 	public Integer getRoleId() {
@@ -55,12 +55,12 @@ public class Role {
 		this.name = name;
 	}
 
-	public List<EmpRole> getEmpRole() {
-		return empRole;
+	public List<UserRole> getEmpRole() {
+		return userRole;
 	}
 
-	public void setEmpRole(List<EmpRole> empRole) {
-		this.empRole = empRole;
+	public void setEmpRole(List<UserRole> userRole) {
+		this.userRole = userRole;
 	}
 
 }

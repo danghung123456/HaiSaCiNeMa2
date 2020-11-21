@@ -3,6 +3,7 @@ package com.Controller;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -14,7 +15,9 @@ import org.springframework.web.bind.annotation.RestController;
 import com.DTO.EmployeeDTO;
 import com.Entity.Employee;
 import com.Entity.Movie;
+import com.Entity.User;
 import com.Services.EmployeeService;
+import com.Services.UserService;
 import com.Constant.*;
 import com.DTO.Base.ResponseEntity;
 
@@ -24,7 +27,11 @@ import com.DTO.Base.ResponseEntity;
 public class EmployeeController {
 
 	@Autowired
+	private PasswordEncoder passwordEncoder;
+	@Autowired
 	private EmployeeService employeeService;
+	@Autowired
+	private UserService userService;
 
 	@GetMapping
 	public ResponseEntity<List<Employee>> getAllEmployee() {
@@ -54,8 +61,14 @@ public class EmployeeController {
 			return ResponseEntity.body(Constant.BAD_REQUEST);
 		} else {
 //	            Make sure id is NULL to insert Entity
+			User user = new User();
+			user.setEmail(employeeDTO.getEmail());
+			String password = passwordEncoder.encode(employeeDTO.getPassword());
+			user.setPassword(password);
+			user = userService.add(user);
 			employeeDTO.setEmployeeId(null);
-			Employee employee = employeeDTO.convertToEmployee();
+			Employee employee = employeeService.convertToEmployee(employeeDTO);
+			employee.setUser(user);
 			return ResponseEntity.body(employeeService.add(employee));
 		}
 	}
@@ -67,8 +80,14 @@ public class EmployeeController {
 		} else {
 			Optional<Employee> checkEmployee = employeeService.findById(employeeDTO.getEmployeeId());
 			if (checkEmployee.isPresent()) {
-				Employee employee = employeeDTO.convertToEmployee();
-				return ResponseEntity.body(employeeService.save(employee));
+				User user = checkEmployee.orElse(null).getUser();
+				String password = passwordEncoder.encode(employeeDTO.getPassword());
+				user.setPassword(password);
+				user = userService.update(user);
+				Employee employee = employeeService.convertToEmployee(employeeDTO);
+				employee.setUser(user);
+				employee = employeeService.save(employee);
+				return ResponseEntity.body(employee);
 			} else {
 				return ResponseEntity.body(Constant.NOT_FOUND);
 			}

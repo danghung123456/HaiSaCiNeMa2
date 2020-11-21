@@ -4,6 +4,7 @@ import java.sql.Date;
 
 import com.Entity.Cinema;
 import com.Entity.Employee;
+import com.Entity.User;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class EmployeeDTO {
@@ -51,25 +52,7 @@ public class EmployeeDTO {
 		return input == null;
 	}
 
-	public Employee convertToEmployee() {
-		Employee employee = new Employee();
-		Cinema cinema = new Cinema();
-		cinema.setCinemaId(this.getCinemaId());
-		employee.setCinema(cinema);
-		employee.setEmployeeId(this.getEmployeeId());
-		employee.setName(this.getName());
-		employee.setEmail(this.getEmail());
-		employee.setPassword(this.getPassword());
-		employee.setBirthday(this.getBirthday());
-		employee.setPhone(this.getPhone());
-		employee.setIdCard(this.getIdCard());
-		employee.setAddress(this.getAddress());
-		employee.setStatus(1);
-		if (isNull(status)) {
-			employee.setStatus(1);
-		}
-		return employee;
-	}
+
 
 	public Integer getEmployeeId() {
 		return employeeId;

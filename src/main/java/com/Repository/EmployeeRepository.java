@@ -22,7 +22,6 @@ public interface EmployeeRepository extends JpaRepository<Employee, Integer> {
 	
 //	@Query(value = "SELECT e FROM Employee e WHERE e.role = :role ")
 //	List<Employee> findByRole(Integer role);
-	
-	Optional<Employee> findByEmail(String email);
+//	Optional<Employee> findByEmail(String email);
 	
 }

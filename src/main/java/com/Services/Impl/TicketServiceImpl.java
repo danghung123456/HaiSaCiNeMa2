@@ -1,6 +1,7 @@
 package com.Services.Impl;
 
 import java.util.Base64;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -45,7 +46,9 @@ public class TicketServiceImpl implements TicketService {
 	public Ticket converToTicket(TicketDTO ticketDTO) {
 		Showtimes showtimes = showtimesRepository.findById(ticketDTO.getShowtimeId()).orElse(null);
 		Member member = memberRepository.findById(ticketDTO.getMemberId()).orElse(null);
+		Date date = new Date();
 		Ticket ticket = new Ticket();
+		ticket.setDate(date);
 		ticket.setShowtimes(showtimes);
 		ticket.setMember(member);
 		ticket.setTicketQuantity(ticketDTO.getTicketQuantity());

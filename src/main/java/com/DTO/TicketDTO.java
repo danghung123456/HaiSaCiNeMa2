@@ -1,5 +1,6 @@
 package com.DTO;
 
+import java.util.Date;
 import java.util.List;
 
 import com.Entity.Cinema;
@@ -121,11 +122,12 @@ public class TicketDTO {
 		this.listSeatStatus = listSeatStatus;
 	}
 
+
 	@Override
 	public String toString() {
 		return "TicketDTO [ticketId=" + ticketId + ", ticketQuantity=" + ticketQuantity + ", memberId=" + memberId
 				+ ", showtimeId=" + showtimeId + ", ticketPriceAmount=" + ticketPriceAmount + ", code=" + code
-				+ ", total=" + total + ", listSeat=" + listSeat + ", listFoodBillDetail=" + listFoodBillDetail + "]";
+				+ ", total=" + total + ", listSeat=" + listSeat + ", listFoodBillDetail=" + listFoodBillDetail +"]";
 	}
 
 }
