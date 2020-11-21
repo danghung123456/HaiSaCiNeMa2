@@ -12,7 +12,7 @@ import java.nio.file.FileSystems;
 import java.nio.file.Path;
 
 @Service
-public class QRCodeServieImpl implements QRCodeService {
+public class QRCodeServiceImpl implements QRCodeService {
 
 	@Override
 	public byte[] getQRCodeImage(String text) throws Exception {
