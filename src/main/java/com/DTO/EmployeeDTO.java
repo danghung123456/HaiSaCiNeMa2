@@ -1,9 +1,11 @@
 package com.DTO;
 
 import java.sql.Date;
+import java.util.List;
 
 import com.Entity.Cinema;
 import com.Entity.Employee;
+import com.Entity.Role;
 import com.Entity.User;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -17,6 +19,7 @@ public class EmployeeDTO {
 	private Date birthday;
 	private String idCard;
 	private Integer cinemaId;
+	private List<Role> listRole;
 	private Integer status;
 
 	public EmployeeDTO() {
@@ -132,6 +135,14 @@ public class EmployeeDTO {
 
 	public void setStatus(Integer status) {
 		this.status = status;
+	}
+
+	public List<Role> getListRole() {
+		return listRole;
+	}
+
+	public void setListRole(List<Role> listRole) {
+		this.listRole = listRole;
 	}
 
 }

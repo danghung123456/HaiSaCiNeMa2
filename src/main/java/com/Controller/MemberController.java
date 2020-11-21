@@ -15,8 +15,12 @@ import org.springframework.web.bind.annotation.RestController;
 import com.DTO.MemberDTO;
 import com.Entity.Member;
 import com.Entity.Movie;
+import com.Entity.Role;
 import com.Entity.User;
+import com.Entity.UserRole;
 import com.Services.MemberService;
+import com.Services.RoleService;
+import com.Services.UserRoleService;
 import com.Services.UserService;
 import com.Constant.*;
 import com.DTO.Base.ResponseEntity;
@@ -26,6 +30,10 @@ import com.DTO.Base.ResponseEntity;
 
 public class MemberController {
 	
+	@Autowired
+	private RoleService roleService;
+	@Autowired
+	private UserRoleService userRoleService;
 	@Autowired
 	private PasswordEncoder passwordEncoder;
 	@Autowired
@@ -49,8 +57,14 @@ public class MemberController {
 			String password = passwordEncoder.encode(memberDTO.getPassword());
 			user.setPassword(password);
 			user = userService.add(user);
+			System.out.println(user);
+			UserRole userRole = new UserRole();
+			userRole.setRole(roleService.findById(2));
+			userRole.setUser(user);
+			userRoleService.add(userRole);
 			memberDTO.setMemberId(null);
 			Member member = memberService.convertToMember(memberDTO);
+			member.setUser(user);
 			return ResponseEntity.body(memberService.add(member));
 		}
 	}

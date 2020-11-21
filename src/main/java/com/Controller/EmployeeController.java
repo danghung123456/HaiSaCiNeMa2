@@ -15,8 +15,11 @@ import org.springframework.web.bind.annotation.RestController;
 import com.DTO.EmployeeDTO;
 import com.Entity.Employee;
 import com.Entity.Movie;
+import com.Entity.Role;
 import com.Entity.User;
+import com.Entity.UserRole;
 import com.Services.EmployeeService;
+import com.Services.UserRoleService;
 import com.Services.UserService;
 import com.Constant.*;
 import com.DTO.Base.ResponseEntity;
@@ -26,6 +29,8 @@ import com.DTO.Base.ResponseEntity;
 
 public class EmployeeController {
 
+	@Autowired
+	private UserRoleService userRoleService;
 	@Autowired
 	private PasswordEncoder passwordEncoder;
 	@Autowired
@@ -66,6 +71,13 @@ public class EmployeeController {
 			String password = passwordEncoder.encode(employeeDTO.getPassword());
 			user.setPassword(password);
 			user = userService.add(user);
+			List<Role> listRole = employeeDTO.getListRole();
+			for (Role role : listRole) {
+				UserRole userRole = new UserRole();
+				userRole.setUser(user);
+				userRole.setRole(role);
+				userRoleService.add(userRole);
+			}
 			employeeDTO.setEmployeeId(null);
 			Employee employee = employeeService.convertToEmployee(employeeDTO);
 			employee.setUser(user);

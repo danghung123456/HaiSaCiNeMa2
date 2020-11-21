@@ -1,8 +1,10 @@
 package com.DTO;
 
 import java.sql.Date;
+import java.util.List;
 
 import com.Entity.Member;
+import com.Entity.Role;
 import com.Entity.Ticket;
 import com.Entity.User;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -121,7 +123,6 @@ public class MemberDTO {
 	public void setTotalMoney(Double totalMoney) {
 		this.totalMoney = totalMoney;
 	}
-	
 
 
 	@Override
