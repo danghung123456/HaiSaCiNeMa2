@@ -10,7 +10,6 @@ public class EmployeeDTO {
 	private Integer employeeId;
 	private String name;
 	private String password;
-	private Integer role;
 	private String email;
 	private String phone;
 	private String address;
@@ -23,20 +22,12 @@ public class EmployeeDTO {
 		super();
 	}
 
-	@Override
-	public String toString() {
-		return "EmployeeDTO [employeeId=" + employeeId + ", name=" + name + ", password=" + password + ", role=" + role
-				+ ", email=" + email + ",phone=" + phone + ",address=" + address + ",birthday=" + birthday + ",idCard="
-				+ idCard + ",cinemaId=" + cinemaId + ",status=" + status + "]";
-	}
-
-	public EmployeeDTO(Integer employeeId, String name, String password, Integer role, String email, String phone,
-			String address, Date birthday, String idCard, Integer cinemaId, Integer status) {
+	public EmployeeDTO(Integer employeeId, String name, String password, String email, String phone, String address,
+			Date birthday, String idCard, Integer cinemaId, Integer status) {
 		super();
 		this.employeeId = employeeId;
 		this.name = name;
 		this.password = password;
-		this.role = role;
 		this.email = email;
 		this.phone = phone;
 		this.address = address;
@@ -47,8 +38,8 @@ public class EmployeeDTO {
 	}
 
 	public boolean isNull(boolean includeId) {
-		boolean res = isNull(name) || isNull(password) || isNull(role) || isNull(email) || isNull(phone)
-				|| isNull(address) || isNull(cinemaId) || isNull(idCard);
+		boolean res = isNull(name) || isNull(password) || isNull(email) || isNull(phone) || isNull(address)
+				|| isNull(cinemaId) || isNull(idCard);
 		return includeId ? res || isNull(employeeId) : res;
 	}
 
@@ -73,7 +64,6 @@ public class EmployeeDTO {
 		employee.setPhone(this.getPhone());
 		employee.setIdCard(this.getIdCard());
 		employee.setAddress(this.getAddress());
-		employee.setRole(this.getRole());
 		employee.setStatus(1);
 		if (isNull(status)) {
 			employee.setStatus(1);
@@ -103,14 +93,6 @@ public class EmployeeDTO {
 
 	public void setPassword(String password) {
 		this.password = password;
-	}
-
-	public int getRole() {
-		return role;
-	}
-
-	public void setRole(int role) {
-		this.role = role;
 	}
 
 	public String getEmail() {
@@ -159,10 +141,6 @@ public class EmployeeDTO {
 
 	public void setCinemaId(Integer cinemaId) {
 		this.cinemaId = cinemaId;
-	}
-
-	public void setRole(Integer role) {
-		this.role = role;
 	}
 
 	public Integer getStatus() {

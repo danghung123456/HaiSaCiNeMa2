@@ -29,9 +29,6 @@ public class Employee {
 	@Column(name = "password")
 	private String password;
 
-	@Column(name = "role")
-	private Integer role;
-
 	@Column(name = "email", unique = true)
 	private String email;
 
@@ -57,6 +54,10 @@ public class Employee {
 	@JsonIgnore
 	@OneToMany(mappedBy = "employee")
 	private List<Showtimes> showtimes;
+
+	@JsonIgnore
+	@OneToMany(mappedBy = "employee")
+	private List<EmpRole> empRole;
 
 	public Employee() {
 		super();
@@ -92,14 +93,6 @@ public class Employee {
 
 	public void setPassword(String password) {
 		this.password = password;
-	}
-
-	public int getRole() {
-		return role;
-	}
-
-	public void setRole(int role) {
-		this.role = role;
 	}
 
 	public String getEmail() {
@@ -156,6 +149,14 @@ public class Employee {
 
 	public void setShowtimes(List<Showtimes> showtimes) {
 		this.showtimes = showtimes;
+	}
+
+	public List<EmpRole> getEmpRole() {
+		return empRole;
+	}
+
+	public void setEmpRole(List<EmpRole> empRole) {
+		this.empRole = empRole;
 	}
 
 }
