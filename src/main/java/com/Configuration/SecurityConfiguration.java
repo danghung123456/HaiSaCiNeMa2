@@ -13,17 +13,18 @@ import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import com.Services.Impl.EmployeeServiceImpl;
+import com.Services.Impl.UserServiceImpl;
 
 @Configuration
 @EnableWebSecurity
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
 	@Autowired
-	EmployeeServiceImpl employeeServiceImpl;
+	UserServiceImpl userServiceImpl;
 
 	@Override
 	public void configure(AuthenticationManagerBuilder auth) throws Exception {
-		auth.userDetailsService(employeeServiceImpl).passwordEncoder(passwordEncoder());
+		auth.userDetailsService(userServiceImpl).passwordEncoder(passwordEncoder());
 	}
 
 	@Bean

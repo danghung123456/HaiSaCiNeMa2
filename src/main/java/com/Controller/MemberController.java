@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -14,7 +15,13 @@ import org.springframework.web.bind.annotation.RestController;
 import com.DTO.MemberDTO;
 import com.Entity.Member;
 import com.Entity.Movie;
+import com.Entity.Role;
+import com.Entity.User;
+import com.Entity.UserRole;
 import com.Services.MemberService;
+import com.Services.RoleService;
+import com.Services.UserRoleService;
+import com.Services.UserService;
 import com.Constant.*;
 import com.DTO.Base.ResponseEntity;
 
@@ -22,10 +29,17 @@ import com.DTO.Base.ResponseEntity;
 @RequestMapping(value = "member")
 
 public class MemberController {
-
+	
+	@Autowired
+	private RoleService roleService;
+	@Autowired
+	private UserRoleService userRoleService;
+	@Autowired
+	private PasswordEncoder passwordEncoder;
 	@Autowired
 	private MemberService memberService;
-
+	@Autowired
+	private UserService userService;
 	@GetMapping
 
 	public ResponseEntity<List<Member>> index() {
@@ -38,8 +52,19 @@ public class MemberController {
 			return ResponseEntity.body(Constant.BAD_REQUEST);
 		} else {
 			// Make sure id is NULL to insert Entity
+			User user = new User();
+			user.setEmail(memberDTO.getEmail());
+			String password = passwordEncoder.encode(memberDTO.getPassword());
+			user.setPassword(password);
+			user = userService.add(user);
+			System.out.println(user);
+			UserRole userRole = new UserRole();
+			userRole.setRole(roleService.findById(2));
+			userRole.setUser(user);
+			userRoleService.add(userRole);
 			memberDTO.setMemberId(null);
-			Member member = memberDTO.convertToMember();
+			Member member = memberService.convertToMember(memberDTO);
+			member.setUser(user);
 			return ResponseEntity.body(memberService.add(member));
 		}
 	}
@@ -51,7 +76,13 @@ public class MemberController {
 		} else {
 			Optional<Member> checkMember = memberService.findById(memberDTO.getMemberId());
 			if (checkMember.isPresent()) {
-				Member member = memberDTO.convertToMember();
+				User user = checkMember.orElse(null).getUser();
+				String password = passwordEncoder.encode(memberDTO.getPassword());
+				user.setPassword(password);
+				user = userService.update(user);
+				Member member = memberService.convertToMember(memberDTO);
+				member.setUser(user);
+				member = memberService.save(member);
 				return ResponseEntity.body(memberService.save(member));
 			} else {
 				return ResponseEntity.body(Constant.NOT_FOUND);

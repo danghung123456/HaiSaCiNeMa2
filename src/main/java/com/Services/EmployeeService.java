@@ -1,5 +1,7 @@
 package com.Services;
 
+import com.DTO.EmployeeDTO;
+import com.Entity.Cinema;
 import com.Entity.Employee;
 import org.springframework.stereotype.Service;
 import java.util.List;
@@ -21,10 +23,8 @@ public interface EmployeeService {
 	Optional<Employee> findById(Integer id);
 
 	List<Employee> findByName(String name);
-	
-//	List<Employee> findByRole(Integer role);
 
 	Employee save(Employee employee);
 	
-	
+	Employee convertToEmployee(EmployeeDTO employeeDTO);
 }

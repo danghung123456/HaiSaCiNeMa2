@@ -1,8 +1,12 @@
 package com.DTO;
 
 import java.sql.Date;
+import java.util.List;
 
 import com.Entity.Member;
+import com.Entity.Role;
+import com.Entity.Ticket;
+import com.Entity.User;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class MemberDTO {
@@ -21,7 +25,7 @@ public class MemberDTO {
 	}
 
 	public MemberDTO(Integer memberId, String memberName, String email, String password, String phone, String address,
-			Date birthday, String idCard, Double totalMoney) {
+			Date birthday, String idCard, Double totalMoney ) {
 		super();
 		this.memberId = memberId;
 		this.memberName = memberName;
@@ -47,11 +51,6 @@ public class MemberDTO {
 		return input == null;
 	}
 
-	public Member convertToMember() {
-		ObjectMapper mapper = new ObjectMapper();
-		Member member = mapper.convertValue(this, Member.class);
-		return member;
-	}
 
 	public Integer getMemberId() {
 		return memberId;
@@ -125,10 +124,11 @@ public class MemberDTO {
 		this.totalMoney = totalMoney;
 	}
 
+
 	@Override
 	public String toString() {
 		return "MemberDTO [memberId=" + memberId + ", memberName=" + memberName + ", email=" + email + ", password="
 				+ password + ", phone=" + phone + ", address=" + address + ", birthday=" + birthday + ", idCard="
-				+ idCard + ", totalMoney=" + totalMoney + "]";
+				+ idCard + ", totalMoney=" + totalMoney +"]";
 	}
 }

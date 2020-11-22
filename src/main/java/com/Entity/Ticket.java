@@ -1,13 +1,7 @@
 package com.Entity;
-
-
 import static javax.persistence.GenerationType.IDENTITY;
-
+import java.util.Date;
 import java.util.List;
-
-
-import java.util.List;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -43,6 +37,9 @@ public class Ticket {
 
 	@Column(name = "total")
 	private Double total;
+	
+	@Column(name="date")
+	private Date date;
 
 	@OneToMany(mappedBy = "ticket")
 	@JsonIgnore
@@ -131,5 +128,14 @@ public class Ticket {
 	public void setShowtimes(Showtimes showtimes) {
 		this.showtimes = showtimes;
 	}
+
+	public Date getDate() {
+		return date;
+	}
+
+	public void setDate(Date date) {
+		this.date = date;
+	}
+	
 
 }

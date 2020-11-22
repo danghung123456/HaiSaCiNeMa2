@@ -9,6 +9,8 @@ import com.Entity.Room;
 @Service
 public interface RoomService {
 
+	List<Room> getAll();
+
 	Room add(Room room);
 
 	Optional<Room> findById(Integer id);

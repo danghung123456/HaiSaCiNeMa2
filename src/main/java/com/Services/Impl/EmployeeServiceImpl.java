@@ -5,21 +5,23 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
+import com.DTO.EmployeeDTO;
+import com.Entity.Cinema;
 import com.Entity.Employee;
-
+import com.Entity.User;
 import com.Repository.EmployeeRepository;
 import com.Services.EmployeeService;
+import com.Services.UserService;
 
 @Service
-public class EmployeeServiceImpl implements EmployeeService, UserDetailsService {
+public class EmployeeServiceImpl implements EmployeeService {
 	@Autowired
 	EmployeeRepository repository;
+	
+	@Autowired
+	UserService userService;
 
 	public List<Employee> getAllByStatus(Integer st) {
 		return repository.findEmployeeByStatus(st);
@@ -59,11 +61,18 @@ public class EmployeeServiceImpl implements EmployeeService, UserDetailsService 
 	}
 
 	@Override
-	@Transactional
-	public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-		Employee employee = repository.findByEmail(email).orElseThrow(
-				() -> new UsernameNotFoundException("User Not Found with email : " + email));
-		return UserPrinciple.build(employee);
+	public Employee convertToEmployee(EmployeeDTO employeeDTO) {
+		Employee employee = new Employee();
+		Cinema cinema = new Cinema();
+		cinema.setCinemaId(employeeDTO.getCinemaId());
+		employee.setCinema(cinema);
+		employee.setEmployeeId(employeeDTO.getEmployeeId());
+		employee.setName(employeeDTO.getName());
+		employee.setBirthday(employeeDTO.getBirthday());
+		employee.setPhone(employeeDTO.getPhone());
+		employee.setIdCard(employeeDTO.getIdCard());
+		employee.setAddress(employeeDTO.getAddress());
+		employee.setStatus(1);
+		return employee;
 	}
-
 }

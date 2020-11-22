@@ -11,6 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -26,12 +27,6 @@ public class Employee {
 
 	@Column(name = "name")
 	private String name;
-
-	@Column(name = "password")
-	private String password;
-
-	@Column(name = "email", unique = true)
-	private String email;
 
 	@Column(name = "phone")
 	private String phone;
@@ -56,9 +51,17 @@ public class Employee {
 	@OneToMany(mappedBy = "employee")
 	private List<Showtimes> showtimes;
 
-	@JsonIgnore
-	@OneToMany(mappedBy = "employee")
-	private List<EmpRole> empRole;
+	@OneToOne
+	@JoinColumn(name = "userid")
+	private User user;
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
 
 	public Employee() {
 		super();
@@ -86,22 +89,6 @@ public class Employee {
 
 	public void setName(String name) {
 		this.name = name;
-	}
-
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
-	}
-
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
 	}
 
 	public String getPhone() {
@@ -150,14 +137,6 @@ public class Employee {
 
 	public void setShowtimes(List<Showtimes> showtimes) {
 		this.showtimes = showtimes;
-	}
-
-	public List<EmpRole> getEmpRole() {
-		return empRole;
-	}
-
-	public void setEmpRole(List<EmpRole> empRole) {
-		this.empRole = empRole;
 	}
 
 }
