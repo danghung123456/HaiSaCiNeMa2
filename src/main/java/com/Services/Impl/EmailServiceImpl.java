@@ -34,26 +34,6 @@ public class EmailServiceImpl implements EmailService {
 	private TicketDetailRepository ticketDetailRepository;
 	@Autowired
 	private FoodBillDetailRepository foodBillDetailRepository;
-<<<<<<< HEAD
-	@Override
-	public void sendMail(String to, String subject, String text, Multipart mp) {
-		try {
-			List<String> listSeat = new ArrayList<>();
-			System.out.println(ticket.getTicketId());
-			List<TicketDetail> lisTicketDetails = ticketDetailRepository.findAllByTicketTicketId(ticket.getTicketId());
-			for (TicketDetail ticketDetail : lisTicketDetails) {
-				listSeat.add(ticketDetail.getSeat().getSeatName());
-			}
-			String listFood = "";
-			List<FoodBillDetail> listFoodBillDetails = foodBillDetailRepository
-					.findAllByTicketTicketId(ticket.getTicketId());
-			
-			for (FoodBillDetail foodBillDetail : listFoodBillDetails) {
-				String foodText = "&emsp;&emsp;&emsp;&emsp;&emsp;Tên: " + foodBillDetail.getFood().getName() + ", Số lượng: " + foodBillDetail.getQuantity() + "<br>";
-				listFood += foodText;
-			}
-=======
->>>>>>> c663371e62c400b0b231c3987c4c9835e3e5b565
 
 	public void sendMail(String to, String subject, String text, Multipart mp) {
 		try {
@@ -81,8 +61,7 @@ public class EmailServiceImpl implements EmailService {
 			mesg.addRecipient(Message.RecipientType.TO, toAdd);
 			if (text == null) {
 				mesg.setContent(mp);
-			}
-			else {
+			} else {
 				mesg.setText(text);
 			}
 			Transport.send(mesg);
@@ -90,7 +69,7 @@ public class EmailServiceImpl implements EmailService {
 			System.out.println(e);
 		}
 	}
-	
+
 	public Multipart setTextTicket(Ticket ticket, String filePath) throws IOException, MessagingException {
 		List<String> listSeat = new ArrayList<>();
 		System.out.println(ticket.getTicketId());
@@ -101,9 +80,10 @@ public class EmailServiceImpl implements EmailService {
 		String listFood = "";
 		List<FoodBillDetail> listFoodBillDetails = foodBillDetailRepository
 				.findAllByTicketTicketId(ticket.getTicketId());
-		
+
 		for (FoodBillDetail foodBillDetail : listFoodBillDetails) {
-			String foodText = "&emsp;&emsp;&emsp;&emsp;&emsp;Tên: " + foodBillDetail.getFood().getName() + ", Số lượng: " + foodBillDetail.getQuantity() + "<br>";
+			String foodText = "&emsp;&emsp;&emsp;&emsp;&emsp;Tên: " + foodBillDetail.getFood().getName()
+					+ ", Số lượng: " + foodBillDetail.getQuantity() + "<br>";
 			listFood += foodText;
 		}
 		Multipart mp = new MimeMultipart("related");

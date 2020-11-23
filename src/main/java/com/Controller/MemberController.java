@@ -32,7 +32,7 @@ import com.DTO.Base.ResponseEntity;
 @RequestMapping(value = "member")
 
 public class MemberController {
-	
+
 	@Autowired
 	private RoleService roleService;
 	@Autowired
@@ -45,7 +45,7 @@ public class MemberController {
 	private UserService userService;
 	@Autowired
 	private EmailService emailService;
-	
+
 	@GetMapping
 	public ResponseEntity<List<Member>> index() {
 		return ResponseEntity.body(memberService.getAll());
@@ -54,13 +54,12 @@ public class MemberController {
 	@PostMapping(value = "/add")
 	public ResponseEntity<Object> addMember(@RequestBody MemberDTO memberDTO) {
 		Optional<User> checkUser = userService.findByEmail(memberDTO.getEmail());
-		if(checkUser.isPresent()) {
+		if (checkUser.isPresent()) {
 			return ResponseEntity.body(Constant.Exception.MESSAGE);
 		}
 		if (memberDTO.isNull(false)) {
 			return ResponseEntity.body(Constant.BAD_REQUEST);
 		} else {
-			// Make sure id is NULL to insert Entity
 			User user = new User();
 			user.setEmail(memberDTO.getEmail());
 			UUID uuid = UUID.randomUUID();
@@ -74,9 +73,8 @@ public class MemberController {
 			memberDTO.setMemberId(null);
 			Member member = memberService.convertToMember(memberDTO);
 			member.setUser(user);
-			
-			emailService.sendMail(member.getUser().getEmail(),"Đăng kí thành công",null,null);
-			
+			emailService.sendMail(member.getUser().getEmail(), "Đăng kí thành công",
+					"Mật khẩu của quý khách là :" + uuid, null);
 			return ResponseEntity.body(memberService.add(member));
 		}
 	}
