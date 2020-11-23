@@ -93,9 +93,14 @@ public class EmployeeController {
 			Optional<Employee> checkEmployee = employeeService.findById(employeeDTO.getEmployeeId());
 			if (checkEmployee.isPresent()) {
 				User user = checkEmployee.orElse(null).getUser();
-				String password = passwordEncoder.encode(employeeDTO.getPassword());
-				user.setPassword(password);
-				user = userService.update(user);
+				userRoleService.deleteByUserId(user.getUserId());
+				List<Role> listRole = employeeDTO.getListRole();
+				for (Role role : listRole) {
+					UserRole userRole = new UserRole();
+					userRole.setUser(user);
+					userRole.setRole(role);
+					userRoleService.add(userRole);
+				}
 				Employee employee = employeeService.convertToEmployee(employeeDTO);
 				employee.setUser(user);
 				employee = employeeService.save(employee);
