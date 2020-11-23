@@ -1,10 +1,6 @@
 package com.DTO;
 
-import com.Entity.Cinema;
-import com.Entity.Movie;
 import com.Entity.Seat;
-import com.Entity.SeatStatus;
-import com.Entity.Showtimes;
 import com.Entity.Ticket;
 import com.Entity.TicketDetail;
 import com.fasterxml.jackson.databind.ObjectMapper;

@@ -8,9 +8,12 @@ public class CinemaDTO {
 	private String name;
 	private String address;
 
+
 	@Override
 	public String toString() {
-		return "CinemaDTO [cinemaId="+ cinemaId +", name="+ name +", address="+ address+"]";
+		return "CinemaDTO [cinemaId=" + cinemaId + ", name=" + name + ", address=" + address + "]";
+
+
 	}
 
 	public boolean isNull(boolean includeId) {

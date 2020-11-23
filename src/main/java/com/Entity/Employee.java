@@ -1,11 +1,12 @@
 package com.Entity;
 
+
+import static javax.persistence.GenerationType.IDENTITY;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
-import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -51,6 +52,7 @@ public class Employee {
 	private List<Showtimes> showtimes;
 
 	@OneToOne
+	@JsonIgnore
 	@JoinColumn(name = "userid")
 	private User user;
 

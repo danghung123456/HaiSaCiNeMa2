@@ -9,6 +9,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import com.Services.Impl.EmployeeServiceImpl;
@@ -35,9 +36,14 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.cors();
-		http.csrf().disable().authorizeRequests().antMatchers("/member/**").hasRole("ADMIN").antMatchers("/ticket/**")
-				.hasAnyRole("ADMIN", "USER").antMatchers("/movie/**").hasAnyRole("ADMIN", "USER")
-				.antMatchers("/seat/**").hasAnyRole("STAFF", "ADMIN").antMatchers("/**").permitAll().and().httpBasic();
+		http.csrf().disable().authorizeRequests()
+				.antMatchers("/member/**").hasRole("ADMIN") 
+				.antMatchers("/ticket/**").hasAnyRole("ADMIN", "USER")
+				.antMatchers("/movie/**").hasAnyRole("ADMIN", "USER")
+				.antMatchers("/seat/**").hasAnyRole("STAFF", "ADMIN")
+				.antMatchers("/login").authenticated() 
+				.antMatchers("/**").permitAll()
+				.and().httpBasic();
 	}
 
 	@Bean
