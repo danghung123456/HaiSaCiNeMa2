@@ -86,8 +86,8 @@ public class EmployeeController {
 		}
 	}
 	@GetMapping("/getrole")
-	public ResponseEntity<Object> getRoleByEmployee(@RequestBody EmployeeDTO employeeDTO){
-		Optional<Employee> checkEmployee = employeeService.findById(employeeDTO.getEmployeeId());
+	public ResponseEntity<Object> getRoleByEmployee(Integer employeeId){
+		Optional<Employee> checkEmployee = employeeService.findById(employeeId);
 		List<UserRole> listUserRole = checkEmployee.orElse(null).getUser().getUserRole();
 		List<Role> listRole = new ArrayList<Role>();
 		for (UserRole userRole : listUserRole) {
