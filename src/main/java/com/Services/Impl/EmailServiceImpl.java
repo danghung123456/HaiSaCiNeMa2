@@ -38,7 +38,7 @@ public class EmailServiceImpl implements EmailService {
 	@Autowired
 	private FoodBillDetailRepository foodBillDetailRepository;
 	@Override
-	public void sendMail(String to, String subject, Ticket ticket, String filePath) {
+	public void sendMail(String to, String subject, String text, Multipart mp) {
 		try {
 			List<String> listSeat = new ArrayList<>();
 			System.out.println(ticket.getTicketId());

@@ -1,7 +1,9 @@
 package com.Controller;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -18,6 +20,7 @@ import com.Entity.Movie;
 import com.Entity.Role;
 import com.Entity.User;
 import com.Entity.UserRole;
+import com.Services.EmailService;
 import com.Services.MemberService;
 import com.Services.RoleService;
 import com.Services.UserRoleService;
@@ -40,24 +43,30 @@ public class MemberController {
 	private MemberService memberService;
 	@Autowired
 	private UserService userService;
+	@Autowired
+	private EmailService emailService;
+	
 	@GetMapping
-
 	public ResponseEntity<List<Member>> index() {
 		return ResponseEntity.body(memberService.getAll());
 	}
 
 	@PostMapping(value = "/add")
 	public ResponseEntity<Object> addMember(@RequestBody MemberDTO memberDTO) {
+		Optional<User> checkUser = userService.findByEmail(memberDTO.getEmail());
+		if(checkUser.isPresent()) {
+			return ResponseEntity.body(Constant.Exception.MESSAGE);
+		}
 		if (memberDTO.isNull(false)) {
 			return ResponseEntity.body(Constant.BAD_REQUEST);
 		} else {
 			// Make sure id is NULL to insert Entity
 			User user = new User();
 			user.setEmail(memberDTO.getEmail());
-			String password = passwordEncoder.encode(memberDTO.getPassword());
+			UUID uuid = UUID.randomUUID();
+			String password = passwordEncoder.encode(uuid.toString());
 			user.setPassword(password);
 			user = userService.add(user);
-			System.out.println(user);
 			UserRole userRole = new UserRole();
 			userRole.setRole(roleService.findById(2));
 			userRole.setUser(user);
@@ -65,6 +74,9 @@ public class MemberController {
 			memberDTO.setMemberId(null);
 			Member member = memberService.convertToMember(memberDTO);
 			member.setUser(user);
+			
+			emailService.sendMail(member.getUser().getEmail(),"Đăng kí thành công",null,null);
+			
 			return ResponseEntity.body(memberService.add(member));
 		}
 	}
