@@ -1,7 +1,9 @@
 package com.Controller;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -18,6 +20,7 @@ import com.Entity.Movie;
 import com.Entity.Role;
 import com.Entity.User;
 import com.Entity.UserRole;
+import com.Services.EmailService;
 import com.Services.MemberService;
 import com.Services.RoleService;
 import com.Services.UserRoleService;
@@ -29,7 +32,7 @@ import com.DTO.Base.ResponseEntity;
 @RequestMapping(value = "member")
 
 public class MemberController {
-	
+
 	@Autowired
 	private RoleService roleService;
 	@Autowired
@@ -40,24 +43,31 @@ public class MemberController {
 	private MemberService memberService;
 	@Autowired
 	private UserService userService;
-	@GetMapping
+	@Autowired
+	private EmailService emailService;
 
+	@GetMapping
 	public ResponseEntity<List<Member>> index() {
 		return ResponseEntity.body(memberService.getAll());
 	}
 
 	@PostMapping(value = "/add")
 	public ResponseEntity<Object> addMember(@RequestBody MemberDTO memberDTO) {
+		Optional<User> checkUser = userService.findByEmail(memberDTO.getEmail());
+		if (checkUser.isPresent()) {
+			return ResponseEntity.body(Constant.Exception.MESSAGE);
+		}
 		if (memberDTO.isNull(false)) {
 			return ResponseEntity.body(Constant.BAD_REQUEST);
 		} else {
-			// Make sure id is NULL to insert Entity
 			User user = new User();
 			user.setEmail(memberDTO.getEmail());
-			String password = passwordEncoder.encode(memberDTO.getPassword());
+			UUID uuid = UUID.randomUUID();
+			String password = passwordEncoder.encode(uuid.toString());
 			user.setPassword(password);
+			// chưa bắt trường hợp sai email
+			emailService.sendMail(user.getEmail(), "Đăng kí thành công", "Mật khẩu của quý khách là :" + uuid,null);
 			user = userService.add(user);
-			System.out.println(user);
 			UserRole userRole = new UserRole();
 			userRole.setRole(roleService.findById(2));
 			userRole.setUser(user);

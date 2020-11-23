@@ -10,7 +10,7 @@ public interface Constant {
     interface Exception{
         String URI = "Exception_uri";
         String STATUS_CODE = "Status_code";
-        String MESSAGE = "Exception_Message";
+        String MESSAGE = "Data already exists";
     }
     interface Method {
         String GET = "GET";
