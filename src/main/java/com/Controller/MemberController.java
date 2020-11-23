@@ -65,6 +65,8 @@ public class MemberController {
 			UUID uuid = UUID.randomUUID();
 			String password = passwordEncoder.encode(uuid.toString());
 			user.setPassword(password);
+			// chưa bắt trường hợp sai email
+			emailService.sendMail(user.getEmail(), "Đăng kí thành công", "Mật khẩu của quý khách là :" + uuid,null);
 			user = userService.add(user);
 			UserRole userRole = new UserRole();
 			userRole.setRole(roleService.findById(2));
@@ -73,8 +75,6 @@ public class MemberController {
 			memberDTO.setMemberId(null);
 			Member member = memberService.convertToMember(memberDTO);
 			member.setUser(user);
-			emailService.sendMail(member.getUser().getEmail(), "Đăng kí thành công",
-					"Mật khẩu của quý khách là :" + uuid, null);
 			return ResponseEntity.body(memberService.add(member));
 		}
 	}
