@@ -1,6 +1,8 @@
 package com.Controller;
 
 import java.util.Map;
+import java.util.Optional;
+import java.util.UUID;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.DTO.ChangePasswordDTO;
 import com.Entity.User;
+import com.Services.EmailService;
 import com.Services.UserService;
 
 @RestController
@@ -23,6 +26,9 @@ public class AuthenController {
 	private PasswordEncoder passwordEncoder;
 	@Autowired
 	private UserService userService;
+	@Autowired
+	private EmailService emailService;
+
 	private static final Logger logger = LoggerFactory.getLogger(AuthenController.class);
 
 	@PostMapping("/login")
@@ -33,17 +39,38 @@ public class AuthenController {
 
 	@PostMapping("/changepassword")
 	public ResponseEntity<?> changePass(@RequestBody ChangePasswordDTO changePassDTO) {
-		User user = userService.getUserByEmail(changePassDTO.getEmail());
-		String oldPassword = changePassDTO.getOldPassword();
-		String oldPasswordDb = user.getPassword();
-		String newPassword = passwordEncoder.encode(changePassDTO.getNewPassword());		
-		if (BCrypt.checkpw(oldPassword, oldPasswordDb)) {
-			user.setPassword(newPassword);
-			userService.update(user);
-			return ResponseEntity.ok(true);
+		Optional<User> checkEmail = userService.checkUserByEmail(changePassDTO.getEmail());
+		if (checkEmail.isPresent()) {
+			User user = userService.getUserByEmail(changePassDTO.getEmail());
+			String oldPassword = changePassDTO.getOldPassword();
+			String oldPasswordDb = user.getPassword();
+			String newPassword = passwordEncoder.encode(changePassDTO.getNewPassword());
+			if (BCrypt.checkpw(oldPassword, oldPasswordDb)) {
+				user.setPassword(newPassword);
+				userService.update(user);
+				return ResponseEntity.ok(true);
+			} else {
+				return ResponseEntity.ok(false);
+			}
 		} else {
 			return ResponseEntity.ok(false);
 		}
 	}
 
+	@PostMapping("/forgotpassword")
+	public ResponseEntity<?> forgotPass(@RequestBody ChangePasswordDTO changePassDTO) {
+		Optional<User> checkEmail = userService.checkUserByEmail(changePassDTO.getEmail());
+		if (checkEmail.isPresent()) {
+			User user = userService.getUserByEmail(changePassDTO.getEmail());
+			UUID uuid = UUID.randomUUID();
+			String newPassword = passwordEncoder.encode(uuid.toString());
+			user.setPassword(newPassword);
+			userService.update(user);
+			emailService.sendMail(user.getEmail(), "Đổi mật khẩu thành công", "Mật khẩu của quý khách là :" + uuid,
+					null);
+			return ResponseEntity.ok(true);
+		} else {
+			return ResponseEntity.ok(false);
+		}
+	}
 }

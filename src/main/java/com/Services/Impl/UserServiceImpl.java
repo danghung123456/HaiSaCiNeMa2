@@ -51,5 +51,10 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 		return repository.findByEmail(email);
 	}
 
+	@Override
+	public Optional<User> checkUserByEmail(String email) {
+		return repository.checkUserByEmail(email);
+	}
+
 	
 }

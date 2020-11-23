@@ -11,7 +11,10 @@ import com.Entity.User;
 public interface UserRepository extends JpaRepository<User, Integer> {
 
 	Optional<User> findByEmail(String email);
-	
+
 	@Query(value = "SELECT u FROM User u  WHERE u.email = :email ")
 	User getUserByEmail(String email);
+
+	@Query(value = "SELECT u FROM User u  WHERE u.email = :email ")
+	Optional<User> checkUserByEmail(String email);
 }
