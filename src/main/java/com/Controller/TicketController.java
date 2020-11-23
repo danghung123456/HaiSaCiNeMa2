@@ -115,7 +115,11 @@ public class TicketController {
 			System.out.println(ticket.getCode());
 			String filePath = QR_CODE_IMAGE_PATH + ticket.getTicketId() + ".png";
 			qRCodeService.generateQRCodeImage(ticket.getCode(), 200, 200, filePath);
+<<<<<<< HEAD
 			emailService.sendMail(member.getUser().getEmail(), "Đặt vé thành công",null, emailService.setTextTicket(ticket, filePath));
+=======
+			emailService.sendMail(member.getUser().getEmail(), "Đặt vé thành công", null, emailService.setTextTicket(ticket, filePath));
+>>>>>>> c663371e62c400b0b231c3987c4c9835e3e5b565
 
 			return ResponseEntity.body(ticket);
 		}
