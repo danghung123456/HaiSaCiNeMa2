@@ -42,8 +42,7 @@ public class EmployeeDTO {
 	}
 
 	public boolean isNull(boolean includeId) {
-		boolean res = isNull(name) || isNull(password) || isNull(email) || isNull(phone) || isNull(address)
-				|| isNull(cinemaId) || isNull(idCard);
+		boolean res = isNull(name) || isNull(password)|| isNull(phone) || isNull(address);
 		return includeId ? res || isNull(employeeId) : res;
 	}
 
