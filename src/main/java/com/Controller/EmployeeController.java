@@ -1,5 +1,6 @@
 package com.Controller;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -84,6 +85,16 @@ public class EmployeeController {
 			return ResponseEntity.body(employeeService.add(employee));
 		}
 	}
+	@GetMapping("/getrole")
+	public ResponseEntity<Object> getRoleByEmployee(@RequestBody EmployeeDTO employeeDTO){
+		Optional<Employee> checkEmployee = employeeService.findById(employeeDTO.getEmployeeId());
+		List<UserRole> listUserRole = checkEmployee.orElse(null).getUser().getUserRole();
+		List<Role> listRole = new ArrayList<Role>();
+		for (UserRole userRole : listUserRole) {
+			listRole.add(userRole.getRole());
+		}
+		return  ResponseEntity.body(listRole);
+	}
 
 	@PutMapping(value = "/update")
 	public ResponseEntity<Object> updateEmployee(@RequestBody EmployeeDTO employeeDTO) {
@@ -109,6 +120,7 @@ public class EmployeeController {
 				return ResponseEntity.body(Constant.NOT_FOUND);
 			}
 		}
+
 	}
 
 	@PutMapping(value = "/delete")
