@@ -53,6 +53,7 @@ public class Member {
 	private List<Ticket> ticket;
 	
 	@OneToOne
+	@JsonIgnore
 	@JoinColumn(name = "userid")
 	private User user;
 

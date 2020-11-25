@@ -38,6 +38,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 		http.cors();
 		http.csrf().disable().authorizeRequests()
 				.antMatchers("/member/**").hasRole("ADMIN") 
+				.antMatchers("/employee/**").hasRole("ADMIN")
 				.antMatchers("/ticket/**").hasAnyRole("ADMIN", "USER")
 				.antMatchers("/movie/**").hasAnyRole("ADMIN", "USER")
 				.antMatchers("/seat/**").hasAnyRole("STAFF", "ADMIN")
@@ -48,6 +49,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
 	@Bean
 	public PasswordEncoder passwordEncoder() {
-		return NoOpPasswordEncoder.getInstance();
+		return new BCryptPasswordEncoder();
 	}
 }

@@ -52,6 +52,7 @@ public class Employee {
 	private List<Showtimes> showtimes;
 
 	@OneToOne
+	@JsonIgnore
 	@JoinColumn(name = "userid")
 	private User user;
 

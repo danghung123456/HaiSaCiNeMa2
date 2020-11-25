@@ -17,6 +17,11 @@ public class UserRoleServiceImpl implements UserRoleService {
 	public UserRole add(UserRole userRole) {
 		return userRoleRepository.save(userRole);
 	}
+
+	@Override
+	public void deleteByUserId(Integer id) {
+		userRoleRepository.deleteByUserId(id);	
+	}
 	
 	
 	

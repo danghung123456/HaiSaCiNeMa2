@@ -10,5 +10,7 @@ public interface UserRoleService {
 	
 	UserRole add(UserRole userRole);
 	
+	void deleteByUserId(Integer id);
+	
 
 }
