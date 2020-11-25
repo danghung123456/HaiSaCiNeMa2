@@ -68,8 +68,8 @@ public class ViewController {
 
 	@GetMapping("/totalbycinema")
 	// tổng tiền của rạp
-	public ResponseEntity<Object> getTotalByCinema() {
-		return ResponseEntity.body(viewService.getTotalByCinema());
+	public List<TotalByCinemaView> getTotalByCinema() {
+		return viewService.getTotalByCinema();
 	}
 
 	@GetMapping("/findgenre")

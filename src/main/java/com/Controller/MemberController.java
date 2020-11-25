@@ -128,7 +128,7 @@ public class MemberController {
 		}
 	}
 	
-	@GetMapping("getcodeverify")
+	@GetMapping("/getcodeverify")
 	public ResponseEntity<Object> getCodeVerify(String email) throws Exception {
 		UUID uuid = UUID.randomUUID();
 		String code = uuid.toString().substring(0, 8);
