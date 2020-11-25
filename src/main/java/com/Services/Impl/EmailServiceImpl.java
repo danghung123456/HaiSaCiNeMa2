@@ -12,6 +12,7 @@ import javax.mail.Multipart;
 import javax.mail.PasswordAuthentication;
 import javax.mail.Session;
 import javax.mail.Transport;
+import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
@@ -35,8 +36,7 @@ public class EmailServiceImpl implements EmailService {
 	@Autowired
 	private FoodBillDetailRepository foodBillDetailRepository;
 
-	public void sendMail(String to, String subject, String text, Multipart mp) {
-		try {
+	public void sendMail(String to, String subject, String text, Multipart mp) throws MessagingException {
 			final String from = "HaiSaCinema@gmail.com";
 			final String password = "songlong123";
 			String toAddress = to;
@@ -65,9 +65,6 @@ public class EmailServiceImpl implements EmailService {
 				mesg.setText(text);
 			}
 			Transport.send(mesg);
-		} catch (Exception e) {
-			System.out.println(e);
-		}
 	}
 
 	public Multipart setTextTicket(Ticket ticket, String filePath) throws IOException, MessagingException {

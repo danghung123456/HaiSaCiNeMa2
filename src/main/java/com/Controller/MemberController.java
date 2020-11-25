@@ -62,19 +62,18 @@ public class MemberController {
 		} else {
 			User user = new User();
 			user.setEmail(memberDTO.getEmail());
-			UUID uuid = UUID.randomUUID();
-			String password = passwordEncoder.encode(uuid.toString());
-			user.setPassword(password);
-			// chưa bắt trường hợp sai email
-			emailService.sendMail(user.getEmail(), "Đăng kí thành công", "Mật khẩu của quý khách là :" + uuid,null);
+			user.setPassword(memberDTO.getPassword());
 			user = userService.add(user);
+
 			UserRole userRole = new UserRole();
 			userRole.setRole(roleService.findById(2));
 			userRole.setUser(user);
 			userRoleService.add(userRole);
+
 			memberDTO.setMemberId(null);
 			Member member = memberService.convertToMember(memberDTO);
 			member.setUser(user);
+
 			return ResponseEntity.body(memberService.add(member));
 		}
 	}
@@ -127,6 +126,14 @@ public class MemberController {
 				return ResponseEntity.body(listMember);
 			}
 		}
+	}
+	
+	@GetMapping("getcodeverify")
+	public ResponseEntity<Object> getCodeVerify(String email) throws Exception {
+		UUID uuid = UUID.randomUUID();
+		String code = uuid.toString().substring(0, 8);
+		emailService.sendMail(email, "Xác nhận tài khoản", "Mã xác nhận tài khoản của quý khách là :" + code, null);
+		return ResponseEntity.body(code);
 	}
 
 }

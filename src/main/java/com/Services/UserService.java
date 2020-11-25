@@ -2,6 +2,7 @@ package com.Services;
 
 import com.Entity.User;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.stereotype.Service;
@@ -18,4 +19,6 @@ public interface UserService {
 	Optional<User> checkUserByEmail(String email);
 	
 	Optional<User> findByEmail(String email);
+	
+	List<String> getAllEmail();
 }

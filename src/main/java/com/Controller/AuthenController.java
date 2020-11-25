@@ -4,6 +4,8 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
 
+import javax.mail.MessagingException;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -63,11 +65,15 @@ public class AuthenController {
 		if (checkEmail.isPresent()) {
 			User user = userService.getUserByEmail(changePassDTO.getEmail());
 			UUID uuid = UUID.randomUUID();
-			String newPassword = passwordEncoder.encode(uuid.toString());
+			String code = uuid.toString().substring(0, 8);
+			String newPassword = passwordEncoder.encode(code);
 			user.setPassword(newPassword);
 			userService.update(user);
-			emailService.sendMail(user.getEmail(), "Đổi mật khẩu thành công", "Mật khẩu của quý khách là :" + uuid,
-					null);
+			try {
+				emailService.sendMail(user.getEmail(), "Đổi mật khẩu thành công", "Mật khẩu của quý khách là :" + code, null);
+			} catch (Exception e) {
+				return ResponseEntity.ok(false);
+			}
 			return ResponseEntity.ok(true);
 		} else {
 			return ResponseEntity.ok(false);
