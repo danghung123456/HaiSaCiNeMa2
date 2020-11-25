@@ -36,10 +36,13 @@ public interface ViewRepository extends JpaRepository<View, Integer> {
 			+ "GROUP BY t.showtimes.period.periodId, t.showtimes.room.cinema.cinemaId, t.showtimes.room.cinema.name, t.showtimes.period.startTime")
 	List<TicketByShowtimeView> getTicketByShowtime(Integer id);
 	
-	@Query(value = "SELECT f.ticket.showtimes.room.cinema.name as cinemaName, MONTH(f.ticket.showtimes.date) as month, SUM(f.ticket.ticketPriceAmount) as totalTicket, SUM(f.total) as totalFood, SUM(f.ticket.total) as total "
+	@Query(value = "SELECT f.ticket.showtimes.room.cinema.name as cinemaName, MONTH(f.ticket.showtimes.date) as month, "
+			+ "(SELECT SUM(t.ticketPriceAmount) FROM Ticket t WHERE t.showtimes.room.cinema.cinemaId = :id) as totalTicket, "
+			+ "SUM(f.total) as totalFood, "
+			+ "(SELECT SUM(t.total) FROM Ticket t WHERE t.showtimes.room.cinema.cinemaId = :id) as total "
 			+ "FROM FoodBillDetail f "
 			+ "WHERE f.ticket.showtimes.room.cinema.cinemaId = :id "
-			+ "GROUP BY f.ticket.showtimes.room.cinema.name, f.ticket.showtimes.room.cinema.cinemaId, MONTH(f.ticket.showtimes.date) ")
+			+ "GROUP BY f.ticket.showtimes.room.cinema.cinemaId, f.ticket.showtimes.room.cinema.name, MONTH(f.ticket.showtimes.date)")
 	List<TotalByCinemaView> getTotalOfMonthByCinema(Integer id);
 	
 	@Query(value= "SELECT t.showtimes.room.cinema.name as cinemaName, SUM(t.total) as total "

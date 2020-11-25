@@ -31,7 +31,7 @@ public class ViewServiceImpl implements ViewService {
 	MemberRepository memberRepository;
 	@Autowired
 	MovieRepository movieRepository;
-	@Autowired 
+	@Autowired
 	FeedbackRepository feedbackRepository;
 	@Autowired
 	TicketRepository ticketRepository;
@@ -47,11 +47,10 @@ public class ViewServiceImpl implements ViewService {
 		Integer year = date.getYear() + 1900;
 		return repository.getTicketOfMonthByMovie(month, year);
 	}
-		
+
 	public List<TicketByMovieView> getTicketByMovie(Integer status) {
 		return repository.getTicketByMovie(status);
 	}
-	
 
 	@Override
 	public List<TotalByCinemaView> getTotalOfMonthByCinema(Integer cinemaId) {
@@ -117,7 +116,5 @@ public class ViewServiceImpl implements ViewService {
 		total.setTicket(ticketRepository.totalTicket());
 		return total;
 	}
-
-
 
 }
