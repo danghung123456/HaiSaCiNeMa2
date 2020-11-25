@@ -2,12 +2,9 @@ package com.Services.Impl;
 
 import java.util.ArrayList;
 import java.util.Date;
-import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.DTO.DatePeriodDTO;
@@ -138,5 +135,17 @@ public class ShowtimesServiceImpl implements ShowtimesService {
 			list.add(dto);
 		}
 		return list;
+	}
+	
+	@Override
+	public void updateShowtimeByPreviousDate() {
+		Date now = new Date();
+		long previousSevenDateLong = now.getTime() - 604800000;
+		Date previousSevenDate = new Date(previousSevenDateLong);
+		List<Showtimes> list = repository.findShowtimeByNextDate(now, previousSevenDate);
+		list.forEach(showtime -> {
+			showtime.setStatus(2);
+			repository.saveAndFlush(showtime);
+		});
 	}
 }

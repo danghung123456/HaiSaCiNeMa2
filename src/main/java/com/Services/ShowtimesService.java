@@ -1,5 +1,6 @@
 package com.Services;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -30,5 +31,7 @@ public interface ShowtimesService {
 	Showtimes convert(ShowtimesDTO dto);
 
 	List<ShowtimesMovieDTO> listShowtime(Integer movieId);
+	
+	void updateShowtimeByPreviousDate();
 
 }

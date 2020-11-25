@@ -8,6 +8,8 @@ import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -64,9 +66,11 @@ public class MovieController {
 			}
 		}
 	}
+
 	@GetMapping(value = "/{status}")
 	public ResponseEntity<Object> findByStatus(@PathVariable("status") Integer status) {
-		// Tìm danh sách phim theo status(status: 3: ngừng chiếu, 1: đang chiếu, 2: sắp chiếu)
+		// Tìm danh sách phim theo status(status: 3: ngừng chiếu, 1: đang chiếu, 2: sắp
+		// chiếu)
 		if (status == null) {
 			return ResponseEntity.body(Constant.BAD_REQUEST);
 		} else {
@@ -87,8 +91,8 @@ public class MovieController {
 			// Make sure id is NULL to insert Entity
 			movieDTO.setMovieId(null);
 			Movie movie = movieDTO.convertToMovie(movieDTO);
-			// mặc định thêm vào là phim sắp chiếu
-			movie.setStatus(2);
+			// mặc định thêm vào là phim không chiếu
+			movie.setStatus(3);
 			movie = movieService.save(movie);
 			List<GenreMovieDTO> listGenre = movieDTO.getListGenre();
 			for (GenreMovieDTO genreDTO : listGenre) {
@@ -225,6 +229,11 @@ public class MovieController {
 				return ResponseEntity.body(list);
 			}
 		}
+	}
+
+	@Scheduled(cron = "0 0 1 ? * *")
+	public void updateMovieStatus() {
+		movieService.updateMovieStatus();
 	}
 
 }

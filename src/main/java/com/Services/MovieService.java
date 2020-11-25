@@ -1,9 +1,8 @@
 package com.Services;
 
 import com.Entity.Movie;
-import com.Entity.MovieGenreDetail;
-
 import org.springframework.stereotype.Service;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -25,5 +24,7 @@ public interface MovieService {
 	Optional<Movie> findById(Integer id);
 
 	List<Movie> findByName(String name);
+	
+	void updateMovieStatus();
 
 }

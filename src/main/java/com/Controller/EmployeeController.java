@@ -158,18 +158,4 @@ public class EmployeeController {
 		}
 	}
 
-//	@GetMapping("/findbyrole/{role}")
-//	public ResponseEntity<Object> findByRole(@PathVariable("role") Integer role) {
-//		// role 1 :quản lý ,role 0 : nhân viên;
-//		if (role == null) {
-//			return ResponseEntity.body(Constant.BAD_REQUEST);
-//		} else {
-//			List<Employee> listEmployee = employeeService.findByRole(role);
-//			if (listEmployee.isEmpty()) {
-//				return ResponseEntity.body(Constant.NOT_FOUND);
-//			} else {
-//				return ResponseEntity.body(listEmployee);
-//			}
-//		}
-//	}
 }

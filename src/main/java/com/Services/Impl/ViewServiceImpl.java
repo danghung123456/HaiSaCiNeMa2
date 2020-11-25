@@ -96,7 +96,7 @@ public class ViewServiceImpl implements ViewService {
 	public List<TopMovieView> getMovieOfWeek() {
 		Date dateNow = new Date();
 		long msOfNow = dateNow.getTime();
-		Date date = new Date(msOfNow - 604800016);
+		Date date = new Date(msOfNow - 604800000);
 		return repository.getTopMovie(dateNow, date);
 	}
 

@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -25,8 +26,6 @@ import com.Services.ShowtimesService;
 @RequestMapping(value = "showtimes")
 
 public class ShowtimesController {
-	private static final Logger logger = LoggerFactory.getLogger(ShowtimesController.class);
-
 	@Autowired
 	private ShowtimesService showtimesService;
 	@Autowired
@@ -125,5 +124,10 @@ public class ShowtimesController {
 			} else
 				return ResponseEntity.body(listShowtimes);
 		}
+	}
+	
+	@Scheduled(cron = "0 0 1 ? * *")
+	public void updateShowtimeStatus() {
+		showtimesService.updateShowtimeByPreviousDate();
 	}
 }
