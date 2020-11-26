@@ -30,6 +30,6 @@ public interface MovieRepository extends JpaRepository<Movie, Integer> {
 	List<Integer> findMovieByNextDay(Date startDate, Date endDate);
 	
 	@Query(value = "SELECT s FROM Showtimes s "
-			+ "WHERE s.movie.movieId = s.movie and s.period.periodId = :id ")
-	List<Showtimes> getMovieByShowtime(Integer id);
+			+ "WHERE s.period.periodId = :id1 AND s.room.cinema.cinemaId = :id2 ")
+	List<Showtimes> getMovieByShowtime(Integer id1,Integer id2);
 }

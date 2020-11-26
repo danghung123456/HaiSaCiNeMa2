@@ -29,6 +29,6 @@ public interface MovieService {
 	
 	void updateMovieStatus();
 	
-	List<Showtimes> getMovieByShowtime(Integer id);
+	List<Showtimes> getMovieByShowtime(Integer id1,Integer id2);
 
 }

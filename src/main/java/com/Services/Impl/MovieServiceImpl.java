@@ -96,8 +96,8 @@ public class MovieServiceImpl implements MovieService {
 	}
 
 	@Override
-	public List<Showtimes> getMovieByShowtime(Integer id) {
-		return repository.getMovieByShowtime(id);
+	public List<Showtimes> getMovieByShowtime(Integer id1,Integer id2) {
+		return repository.getMovieByShowtime(id1,id2);
 	}
 
 }
