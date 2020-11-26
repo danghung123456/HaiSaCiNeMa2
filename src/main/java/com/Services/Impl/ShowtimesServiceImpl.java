@@ -148,4 +148,11 @@ public class ShowtimesServiceImpl implements ShowtimesService {
 			repository.saveAndFlush(showtime);
 		});
 	}
+
+	@Override
+	public List<Showtimes> getShowtimesByCinema(Integer id) {
+		return repository.getShowtimesByCinema(id);
+	}
+
+
 }

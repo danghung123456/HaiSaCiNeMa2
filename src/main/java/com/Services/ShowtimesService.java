@@ -7,8 +7,11 @@ import java.util.Optional;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+
+import com.DTO.ShowtimePeriodDTO;
 import com.DTO.ShowtimesDTO;
 import com.DTO.ShowtimesMovieDTO;
+import com.Entity.Period;
 import com.Entity.Showtimes;
 
 @Service
@@ -33,5 +36,9 @@ public interface ShowtimesService {
 	List<ShowtimesMovieDTO> listShowtime(Integer movieId);
 	
 	void updateShowtimeByPreviousDate();
+	
+	List<Showtimes> getShowtimesByCinema(Integer id);
+	
+	
 
 }
