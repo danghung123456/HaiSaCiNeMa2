@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.Entity.Movie;
+import com.Entity.Showtimes;
 import com.Repository.GenreMovieRepository;
 import com.Repository.MovieGenreDetailRepository;
 import com.Repository.MovieRepository;
@@ -92,6 +93,11 @@ public class MovieServiceImpl implements MovieService {
 			movie.setStatus(1);
 			repository.saveAndFlush(movie);
 		});
+	}
+
+	@Override
+	public List<Showtimes> getMovieByShowtime(Integer id) {
+		return repository.getMovieByShowtime(id);
 	}
 
 }

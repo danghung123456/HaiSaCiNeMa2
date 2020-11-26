@@ -1,6 +1,8 @@
 package com.Services;
 
 import com.Entity.Movie;
+import com.Entity.Showtimes;
+
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -26,5 +28,7 @@ public interface MovieService {
 	List<Movie> findByName(String name);
 	
 	void updateMovieStatus();
+	
+	List<Showtimes> getMovieByShowtime(Integer id);
 
 }
