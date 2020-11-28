@@ -141,7 +141,13 @@ public class ShowtimesController {
 				return ResponseEntity.body(listShowtimes);
 		}
 	}
-	
+
+	@GetMapping("/getemployeeid")
+	public ResponseEntity<String> getEmployeeIdByEmail(String email) {
+		String employeeId = showtimesService.getEmployeeIdByEmail(email);
+		return ResponseEntity.body(employeeId);
+	}
+
 	@Scheduled(cron = "0 0 1 ? * *")
 	public void updateShowtimeStatus() {
 		showtimesService.updateShowtimeByPreviousDate();

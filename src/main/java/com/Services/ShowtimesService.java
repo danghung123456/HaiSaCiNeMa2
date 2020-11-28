@@ -39,6 +39,8 @@ public interface ShowtimesService {
 	
 	List<Showtimes> getShowtimesByCinema(Integer id);
 	
+	String getEmployeeIdByEmail(String email);
+	
 	
 
 }

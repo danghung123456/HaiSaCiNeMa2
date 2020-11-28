@@ -127,13 +127,17 @@ public class MemberController {
 			}
 		}
 	}
-	
-	@GetMapping("/getcodeverify")
+
+	@GetMapping(value = "/getcodeverify")
 	public ResponseEntity<Object> getCodeVerify(String email) throws Exception {
-		UUID uuid = UUID.randomUUID();
-		String code = uuid.toString().substring(0, 8);
-		emailService.sendMail(email, "Xác nhận tài khoản", "Mã xác nhận tài khoản của quý khách là :" + code, null);
-		return ResponseEntity.body(code);
+		if (email == null) {
+			return ResponseEntity.body(Constant.BAD_REQUEST);
+		} else {
+			UUID uuid = UUID.randomUUID();
+			String code = uuid.toString().substring(0, 8);
+			emailService.sendMail(email, "Xác nhận tài khoản", "Mã xác nhận tài khoản của quý khách là :" + code, null);
+			return ResponseEntity.body(code);
+		}
 	}
 
 }

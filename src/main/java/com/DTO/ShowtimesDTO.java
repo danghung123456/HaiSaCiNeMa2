@@ -22,7 +22,6 @@ public class ShowtimesDTO {
 	private Date date;
 	private Integer periodId;
 	private Integer employeeId;
-//	private Integer cinemaId;
 	private Integer status;
 
 	public ShowtimesDTO(){

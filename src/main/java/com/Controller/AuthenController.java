@@ -33,13 +33,13 @@ public class AuthenController {
 
 	private static final Logger logger = LoggerFactory.getLogger(AuthenController.class);
 
-	@PostMapping("/login")
+	@PostMapping(value ="/login")
 	public ResponseEntity<?> login(@RequestBody Map<String, Object> payload) {
 		logger.info("payload={}", payload);
 		return ResponseEntity.ok(true);
 	}
 
-	@PostMapping("/changepassword")
+	@PostMapping(value = "/changepassword")
 	public ResponseEntity<?> changePass(@RequestBody ChangePasswordDTO changePassDTO) {
 		Optional<User> checkEmail = userService.checkUserByEmail(changePassDTO.getEmail());
 		if (checkEmail.isPresent()) {
@@ -59,7 +59,7 @@ public class AuthenController {
 		}
 	}
 
-	@PostMapping("/forgotpassword")
+	@PostMapping(value ="/forgotpassword")
 	public ResponseEntity<?> forgotPass(@RequestBody ChangePasswordDTO changePassDTO) {
 		Optional<User> checkEmail = userService.checkUserByEmail(changePassDTO.getEmail());
 		if (checkEmail.isPresent()) {

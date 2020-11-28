@@ -53,7 +53,7 @@ public class MovieController {
 		return ResponseEntity.body(movieService.getAll());
 	}
 
-	@GetMapping("/getgenre")
+	@GetMapping(value = "/getgenre")
 	public ResponseEntity<Object> getGenreByMovieId(Integer id) {
 		if (id == null) {
 			return ResponseEntity.body(Constant.BAD_REQUEST);
@@ -148,7 +148,7 @@ public class MovieController {
 		}
 	}
 
-	@GetMapping("/findbyid")
+	@GetMapping(value = "/findbyid")
 	public ResponseEntity<Object> findById(Integer id) {
 		if (id == null) {
 			return ResponseEntity.body(Constant.BAD_REQUEST);
@@ -163,7 +163,7 @@ public class MovieController {
 		}
 	}
 
-	@GetMapping("/findbyname")
+	@GetMapping(value ="/findbyname")
 	public ResponseEntity<Object> findByName(String name) {
 		if (name == null) {
 			return ResponseEntity.body(Constant.BAD_REQUEST);
@@ -177,7 +177,7 @@ public class MovieController {
 		}
 	}
 
-	@GetMapping("/movieofweek")
+	@GetMapping(value= "/movieofweek")
 	public ResponseEntity<Object> findMovieOfWeek() {
 		List<TopMovieView> listTopMovie = viewService.getMovieOfWeek();
 		List<Movie> listMovie = new ArrayList<>();
@@ -197,7 +197,7 @@ public class MovieController {
 		return ResponseEntity.body(listMovieTop5);
 	}
 
-	@GetMapping("/movieofmonth")
+	@GetMapping(value ="/movieofmonth")
 	public ResponseEntity<Object> findMovieOfMonth() {
 		List<TopMovieView> listTopMovie = viewService.getMovieOfMonth();
 		List<Movie> listMovie = new ArrayList<>();
@@ -217,8 +217,8 @@ public class MovieController {
 		return ResponseEntity.body(listMovieTop5);
 	}
 
-	@GetMapping("/findbygenre")
-	public ResponseEntity<Object> findAllByMovie(Integer id) {
+	@GetMapping(value ="/findbygenre")
+	public ResponseEntity<Object> findAllByGenre(Integer id) {
 		if (id == null) {
 			return ResponseEntity.body(Constant.BAD_REQUEST);
 		} else {
@@ -230,7 +230,7 @@ public class MovieController {
 			}
 		}
 	}
-	@GetMapping("/getmoviebyshowtime")
+	@GetMapping(value ="/getmoviebyshowtime")
 	public ResponseEntity<Object> getMovieByShowtime(Integer id1,Integer id2){
 		if(id1 == null || id2 == null) {
 			return ResponseEntity.body(Constant.BAD_REQUEST);
