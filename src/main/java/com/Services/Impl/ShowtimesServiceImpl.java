@@ -155,7 +155,7 @@ public class ShowtimesServiceImpl implements ShowtimesService {
 	}
 
 	@Override
-	public String getEmployeeIdByEmail(String email) {
+	public Employee getEmployeeIdByEmail(String email) {
 		return repository.getEmployeeIdByEmail(email);
 	}
 

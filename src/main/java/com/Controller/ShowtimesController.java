@@ -19,6 +19,7 @@ import com.DTO.ShowtimePeriodDTO;
 import com.DTO.ShowtimesDTO;
 import com.DTO.ShowtimesMovieDTO;
 import com.DTO.Base.ResponseEntity;
+import com.Entity.Employee;
 import com.Entity.Period;
 import com.Entity.Showtimes;
 import com.Services.SeatStatusService;
@@ -143,8 +144,8 @@ public class ShowtimesController {
 	}
 
 	@GetMapping("/getemployeeid")
-	public ResponseEntity<String> getEmployeeIdByEmail(String email) {
-		String employeeId = showtimesService.getEmployeeIdByEmail(email);
+	public ResponseEntity<Employee> getEmployeeIdByEmail(String email) {
+		Employee employeeId = showtimesService.getEmployeeIdByEmail(email);
 		return ResponseEntity.body(employeeId);
 	}
 

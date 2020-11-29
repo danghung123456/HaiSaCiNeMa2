@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import com.DTO.ShowtimePeriodDTO;
 import com.DTO.ShowtimesDTO;
 import com.DTO.ShowtimesMovieDTO;
+import com.Entity.Employee;
 import com.Entity.Period;
 import com.Entity.Showtimes;
 
@@ -39,7 +40,7 @@ public interface ShowtimesService {
 	
 	List<Showtimes> getShowtimesByCinema(Integer id);
 	
-	String getEmployeeIdByEmail(String email);
+	Employee getEmployeeIdByEmail(String email);
 	
 	
 

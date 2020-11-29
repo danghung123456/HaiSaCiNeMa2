@@ -9,6 +9,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import com.DTO.ShowtimePeriodDTO;
+import com.Entity.Employee;
 import com.Entity.Movie;
 import com.Entity.Period;
 import com.Entity.Showtimes;
@@ -41,9 +42,9 @@ public interface ShowtimesRepository extends JpaRepository<Showtimes, Integer> {
 			+ "WHERE s.room.cinema.cinemaId = :id ")
 	List<Showtimes> getShowtimesByCinema(Integer id);
 	
-	@Query(value ="SELECT s.employee.employeeId "
+	@Query(value ="SELECT s.employee "
 			+ "FROM Showtimes s "
 			+ "WHERE s.employee.user.email = :email ")
-	String getEmployeeIdByEmail(String email);
+	Employee getEmployeeIdByEmail(String email);
 	
 }
