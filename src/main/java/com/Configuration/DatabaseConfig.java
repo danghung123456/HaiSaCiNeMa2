@@ -1,20 +1,26 @@
 package com.Configuration;
 
+import com.sun.istack.NotNull;
 import com.zaxxer.hikari.*;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.*;
 import javax.sql.DataSource;
 
-@Configuration
+@EnableConfigurationProperties
+@ConfigurationProperties(prefix = "app")
 public class DatabaseConfig {
+@NotNull
+	private String url;
 
-	@Value("${spring.datasource.url}")
-	private String dbUrl;
+public String getUrl() {
+	return url;
+}
 
-	@Bean
-	public DataSource dataSource() {
-		HikariConfig config = new HikariConfig();
-		config.setJdbcUrl(dbUrl);
-		return new HikariDataSource(config);
-	}
+public void setUrl(String url) {
+	this.url = url;
+}
+
+
 }
