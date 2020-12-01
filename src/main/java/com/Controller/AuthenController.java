@@ -1,5 +1,7 @@
 package com.Controller;
 
+import java.util.Collection;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
@@ -9,6 +11,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -43,14 +47,17 @@ public class AuthenController {
 	private static final Logger logger = LoggerFactory.getLogger(AuthenController.class);
 
 	@PostMapping("/login")
-	public ResponseEntity<?> login(@RequestBody Map<String, Object> payload) {
-		logger.info("payload={}", payload.values());
-		Set<String> set = payload.keySet();
-		String getRoleName = null;
-		for(String key:set) {
-			getRoleName = (String) payload.get(key);
-		}
-		return ResponseEntity.ok(viewrepo.getRole(getRoleName));
+	public ResponseEntity<?> login(@RequestBody(required = false) Map<String, Object> payload) {
+//		logger.info("payload={}", payload.values());
+//		Set<String> set = payload.keySet();
+//		Object getRoleName = null;
+//		for(String key:set) {
+//			getRoleName = payload.get(key);
+//		}
+//		Object userName = payload.get("userName").toString();
+		logger.info("Authen: {}", SecurityContextHolder.getContext().getAuthentication());
+		Collection<?> authories = SecurityContextHolder.getContext().getAuthentication().getAuthorities();
+		return ResponseEntity.ok(authories);
 
 	}
 
