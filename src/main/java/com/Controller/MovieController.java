@@ -164,11 +164,11 @@ public class MovieController {
 	}
 
 	@GetMapping(value ="/findbyname")
-	public ResponseEntity<Object> findByName(String name) {
+	public ResponseEntity<Object> findByName(String name, Integer status) {
 		if (name == null) {
 			return ResponseEntity.body(Constant.BAD_REQUEST);
 		} else {
-			List<Movie> listMovie = movieService.findByName(name);
+			List<Movie> listMovie = movieService.findByName(name,status);
 			if (listMovie.isEmpty()) {
 				return ResponseEntity.body(Constant.NOT_FOUND);
 			} else {

@@ -44,8 +44,8 @@ public class MovieServiceImpl implements MovieService {
 		return repository.findById(id);
 	}
 
-	public List<Movie> findByName(String name) {
-		return repository.findByMovieName(name);
+	public List<Movie> findByName(String name, Integer status) {
+		return repository.findByMovieName(name, status);
 	}
 
 	public Movie save(Movie movie) {

@@ -23,7 +23,7 @@ public interface MemberService {
 
 	Member save(Member member);
 	
-//	String findEmailById(Integer id);
-	
 	Member convertToMember(MemberDTO memberDTO);
+	
+	Member getMemberByEmail(String email);
 }

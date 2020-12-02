@@ -127,6 +127,15 @@ public class MemberController {
 			}
 		}
 	}
+	@GetMapping("/getmemberbyemail")
+	public ResponseEntity<Object> getMemberByEmail(String email){
+		if(email==null) {
+			return ResponseEntity.body(Constant.BAD_REQUEST);
+		} else {
+			Member member = memberService.getMemberByEmail(email);
+			return ResponseEntity.body(member);
+		}
+	}
 
 	@GetMapping(value = "/getcodeverify")
 	public ResponseEntity<Object> getCodeVerify(String email) throws Exception {

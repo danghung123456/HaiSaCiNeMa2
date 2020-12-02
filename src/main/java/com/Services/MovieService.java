@@ -25,7 +25,7 @@ public interface MovieService {
 
 	Optional<Movie> findById(Integer id);
 
-	List<Movie> findByName(String name);
+	List<Movie> findByName(String name, Integer status);
 	
 	void updateMovieStatus();
 	

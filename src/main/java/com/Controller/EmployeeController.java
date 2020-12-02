@@ -63,10 +63,12 @@ public class EmployeeController {
 
 	@PostMapping(value = "/add")
 	public ResponseEntity<Object> addEmployee(@RequestBody EmployeeDTO employeeDTO) {
+		Optional<User> checkUser = userService.findByEmail(employeeDTO.getEmail());
 		if (employeeDTO.isNull(false)) {
 			return ResponseEntity.body(Constant.BAD_REQUEST);
+		}if (checkUser.isPresent()) {
+			return ResponseEntity.body(Constant.Exception.MESSAGE);
 		} else {
-//	            Make sure id is NULL to insert Entity
 			User user = new User();
 			user.setEmail(employeeDTO.getEmail());
 			String password = passwordEncoder.encode(employeeDTO.getPassword());
