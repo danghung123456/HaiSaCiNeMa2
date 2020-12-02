@@ -43,6 +43,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 				.antMatchers("/member/**").hasRole("ADMIN")
 				
 				.antMatchers("/employee").hasAnyRole("ADMIN","STAFF")
+				.antMatchers("/employee/getrole").hasAnyRole("ADMIN","STAFF")
+				.antMatchers("/employee/{status}").hasAnyRole("ADMIN","STAFF")
 				.antMatchers("/employee/**").hasRole("ADMIN")
 				
 				.antMatchers("/movie").hasAnyRole("ADMIN","STAFF")
@@ -68,6 +70,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 				
 				.antMatchers("/period/**").hasRole("ADMIN")
 				
+				.antMatchers("/genre").hasAnyRole("ADMIN","STAFF")
 				.antMatchers("/genre/**").hasRole("ADMIN")
 				
 				.antMatchers("/food").hasAnyRole("ADMIN","STAFF")
