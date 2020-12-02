@@ -2,6 +2,7 @@ package com.Controller;
 
 import java.util.Map;
 import java.util.Optional;
+import java.util.Set;
 import java.util.UUID;
 
 import javax.mail.MessagingException;
@@ -10,6 +11,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -18,8 +20,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.DTO.ChangePasswordDTO;
 import com.Entity.User;
+import com.Repository.UserRepository;
+import com.Repository.ViewRepository;
 import com.Services.EmailService;
 import com.Services.UserService;
+import com.Services.Impl.UserPrinciple;
+import com.Services.Impl.UserServiceImpl;
 
 @RestController
 public class AuthenController {
@@ -30,16 +36,34 @@ public class AuthenController {
 	private UserService userService;
 	@Autowired
 	private EmailService emailService;
-
+	@Autowired
+	UserRepository repository;
+	@Autowired
+	UserServiceImpl userServie;
+	@Autowired
+	ViewRepository viewrepo;
 	private static final Logger logger = LoggerFactory.getLogger(AuthenController.class);
 
 	@PostMapping(value ="/login")
 	public ResponseEntity<?> login(@RequestBody Map<String, Object> payload) {
-		logger.info("payload={}", payload);
-		return ResponseEntity.ok(true);
+		logger.info("payload={}", payload.values());
+		Set<String> set = payload.keySet();
+		String getRoleName = null;
+		for(String key:set) {
+			getRoleName = (String) payload.get(key);
+		}
+		return ResponseEntity.ok(viewrepo.getRole(getRoleName));
+
 	}
 
+<<<<<<< HEAD
 	@PostMapping(value = "/changepassword")
+=======
+	
+	
+	
+	@PostMapping("/changepassword")
+>>>>>>> 27e3c801baaa4e855ace8406abf31a8c868ebf6d
 	public ResponseEntity<?> changePass(@RequestBody ChangePasswordDTO changePassDTO) {
 		Optional<User> checkEmail = userService.checkUserByEmail(changePassDTO.getEmail());
 		if (checkEmail.isPresent()) {
