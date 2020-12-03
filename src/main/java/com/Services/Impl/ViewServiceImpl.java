@@ -130,29 +130,30 @@ public class ViewServiceImpl implements ViewService {
 	}
 
 	@Override
-<<<<<<< HEAD
 	public List<String> getRole(String email) {
 		return repository.getRole(email);
-=======
+	}
+
+	@Override
 	public List<CinemaShowtimeViewDTO> getCinemaShowtimeView() {
 		List<CinemaShowtimeViewDTO> listCinemaShowtimeView = new ArrayList<>();
-		
+
 		Date date = new Date();
 		Long nextDateTime = date.getTime() + 604800000;
 		Date nextDate = new Date(nextDateTime);
-		
+
 		List<Integer> listCinemaId = repository.findCinemaByDateOfShowtime(date, nextDate);
 		for (Integer cinemaId : listCinemaId) {
 			CinemaShowtimeViewDTO cinemaShowtimeViewDTO = new CinemaShowtimeViewDTO();
 			cinemaShowtimeViewDTO.setCinema(cinemaRepository.findById(cinemaId).orElse(null));
 			List<DatePeriodDTO> listDatePeriodDTO = new ArrayList<>();
-			
+
 			List<Date> listDate = repository.findDateByCinemaShowtime(date, nextDate, cinemaId);
 			for (Date dateShowtime : listDate) {
 				DatePeriodDTO datePeriodDTO = new DatePeriodDTO();
 				datePeriodDTO.setDate(dateShowtime);
 				List<ShowtimePeriodDTO> listShowtimePeriodDTO = new ArrayList<>();
-				
+
 				List<Integer> listPeriodId = repository.findPeriodShowtimeByCinemaDate(cinemaId, dateShowtime);
 				for (Integer periodId : listPeriodId) {
 					ShowtimePeriodDTO showtimePeriodDTO = new ShowtimePeriodDTO();
@@ -161,14 +162,15 @@ public class ViewServiceImpl implements ViewService {
 					showtimePeriodDTO.setStartTime(period.getStartTime());
 					showtimePeriodDTO.setStatusDay(period.getStatusDay());
 					showtimePeriodDTO.setPrice(period.getPrice());
-					
-					List<Integer> listMovieId = repository.findMovieByShowtimePeriodCinemaDate(cinemaId, dateShowtime, periodId);
+
+					List<Integer> listMovieId = repository.findMovieByShowtimePeriodCinemaDate(cinemaId, dateShowtime,
+							periodId);
 					List<Movie> listMovie = new ArrayList<>();
 					for (Integer movieId : listMovieId) {
 						Movie movie = movieRepository.findById(movieId).orElse(null);
 						listMovie.add(movie);
 					}
-					
+
 					showtimePeriodDTO.setMovies(listMovie);
 					listShowtimePeriodDTO.add(showtimePeriodDTO);
 				}
@@ -179,7 +181,6 @@ public class ViewServiceImpl implements ViewService {
 			listCinemaShowtimeView.add(cinemaShowtimeViewDTO);
 		}
 		return listCinemaShowtimeView;
->>>>>>> bdcd4ea57cfee0eff01478f49a4a2f4c424c62a7
 	}
 
 }

@@ -51,16 +51,13 @@ public interface EmployeeService {
 	 */
 	Optional<Employee> findById(Integer id);
 
-<<<<<<< HEAD
+
 	/**
-	 * Search list Employee with the same name(employeeName) entered
+	 * Search list Employee with the same name(employeeName) and status of Employee entered
 	 * 
 	 * @return List<Employee>
 	 */
-	List<Employee> findByName(String name);
-=======
 	List<Employee> findByName(String name, Integer status);
->>>>>>> bdcd4ea57cfee0eff01478f49a4a2f4c424c62a7
 
 	/**
 	 * Saves an entity and flushes changes instantly.

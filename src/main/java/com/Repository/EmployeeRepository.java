@@ -16,12 +16,7 @@ public interface EmployeeRepository extends JpaRepository<Employee, Integer> {
 	@Query("FROM Employee e WHERE e.status = :status")
 	List<Employee> findEmployeeByStatus(Integer status);
 
-<<<<<<< HEAD
-	@Query(value = "SELECT e FROM Employee e WHERE e.name LIKE %:name% AND e.status = 1")
-	List<Employee> findByName(String name);
-=======
 	@Query(value = "SELECT e FROM Employee e WHERE e.name LIKE %:name% AND e.status = :status")
 	List<Employee> findByName(String name, Integer status);
->>>>>>> bdcd4ea57cfee0eff01478f49a4a2f4c424c62a7
 
 }
