@@ -37,16 +37,15 @@ public class AuthenController {
 	@Autowired
 	private EmailService emailService;
 	@Autowired
-	UserRepository repository;
+	private UserRepository repository;
 	@Autowired
 	UserServiceImpl userServie;
 	@Autowired
 	ViewRepository viewrepo;
-	private static final Logger logger = LoggerFactory.getLogger(AuthenController.class);
+	
 
 	@PostMapping(value ="/login")
 	public ResponseEntity<?> login(@RequestBody Map<String, Object> payload) {
-		logger.info("payload={}", payload.values());
 		Set<String> set = payload.keySet();
 		String getRoleName = null;
 		for(String key:set) {
@@ -56,14 +55,7 @@ public class AuthenController {
 
 	}
 
-<<<<<<< HEAD
 	@PostMapping(value = "/changepassword")
-=======
-	
-	
-	
-	@PostMapping("/changepassword")
->>>>>>> 27e3c801baaa4e855ace8406abf31a8c868ebf6d
 	public ResponseEntity<?> changePass(@RequestBody ChangePasswordDTO changePassDTO) {
 		Optional<User> checkEmail = userService.checkUserByEmail(changePassDTO.getEmail());
 		if (checkEmail.isPresent()) {

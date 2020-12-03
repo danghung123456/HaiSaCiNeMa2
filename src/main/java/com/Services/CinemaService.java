@@ -21,4 +21,5 @@ public interface CinemaService {
 	List<Cinema> findByName(String name);
 
 	Cinema save(Cinema cinema);
+
 }

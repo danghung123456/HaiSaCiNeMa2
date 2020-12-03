@@ -35,7 +35,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception {
 		http.cors();
 		http.csrf().disable().authorizeRequests()
-<<<<<<< HEAD
 				.antMatchers("/member").hasAnyRole("ADMIN","STAFF")
 				.antMatchers("/member/add").permitAll()
 				.antMatchers("/member/update").permitAll()
@@ -90,12 +89,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 				.antMatchers("/view/historytrans").permitAll()
 				.antMatchers("/view/**").hasAnyRole("ADMIN","STAFF")
 				
-=======
-				.antMatchers("/member/**").hasRole("ADMIN") 
-				.antMatchers("/employee/**").hasRole("ADMIN")
-				.antMatchers("/ticket/**").hasAnyRole("ADMIN", "USER")
-				.antMatchers("/seat/**").hasAnyRole("STAFF", "USER")
->>>>>>> 27e3c801baaa4e855ace8406abf31a8c868ebf6d
 				.antMatchers("/login").authenticated() 
 				.antMatchers("/**").permitAll()
 				.and().httpBasic();
