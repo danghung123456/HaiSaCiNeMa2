@@ -14,14 +14,12 @@ import com.Entity.Food;
 import com.Repository.FoodRepository;
 import com.Services.FoodService;
 
-
-
 @Service
 public class FoodServiceImpl implements FoodService {
 
 	@Autowired
 	FoodRepository repository;
-	
+
 	@Override
 	public List<Food> getAllByStatus(Integer st) {
 		return repository.findFoodByStatus(st);
@@ -30,19 +28,19 @@ public class FoodServiceImpl implements FoodService {
 	@Override
 	public void deleteAll() {
 		repository.deleteAll();
-		
+
 	}
 
 	@Override
 	public Food add(Food food) {
-	
+
 		return repository.save(food);
 	}
 
 	@Override
 	public List<Food> addAll(List<Food> list) {
 		List<Food> res = new ArrayList<>();
-		for(Food food: list) {
+		for (Food food : list) {
 			res.add(add(food));
 		}
 		return res;
@@ -54,8 +52,8 @@ public class FoodServiceImpl implements FoodService {
 	}
 
 	@Override
-	public List<Food> findByName(String name) {
-		return repository.findFoodByName(name);
+	public List<Food> findByName(String name, Integer status) {
+		return repository.findFoodByName(name, status);
 	}
 
 	@Override
@@ -68,9 +66,4 @@ public class FoodServiceImpl implements FoodService {
 		return repository.findAll();
 	}
 
-
-	
-	
 }
-
-

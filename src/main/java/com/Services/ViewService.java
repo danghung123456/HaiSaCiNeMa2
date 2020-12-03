@@ -2,14 +2,15 @@ package com.Services;
 
 import java.util.List;
 
-import com.DTO.HistoryTransViewDTO;
-import com.DTO.TotalMemberFeedbackMovieTicket;
+import com.DTO.view.CinemaShowtimeViewDTO;
 import com.DTO.view.GenreMovieView;
 import com.DTO.view.HistoryTransView;
+import com.DTO.view.HistoryTransViewDTO;
 import com.DTO.view.TopMovieView;
 import com.DTO.view.TicketByMovieView;
 import com.DTO.view.TicketByShowtimeView;
 import com.DTO.view.TotalByCinemaView;
+import com.DTO.view.TotalMemberFeedbackMovieTicket;
 
 public interface ViewService {
 	/**
@@ -89,6 +90,8 @@ public interface ViewService {
 	 * @return TotalMemberFeedbackMovieTicket
 	 */
 	TotalMemberFeedbackMovieTicket getTotalMemberFeedbackMovieTicket();
+	
+	List<CinemaShowtimeViewDTO> getCinemaShowtimeView();
 
 	/**
 	 * The function that return ROLE_NAME, search by email of User

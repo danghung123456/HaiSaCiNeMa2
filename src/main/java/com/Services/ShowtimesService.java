@@ -8,9 +8,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import com.DTO.ShowtimePeriodDTO;
 import com.DTO.ShowtimesDTO;
-import com.DTO.ShowtimesMovieDTO;
+import com.DTO.view.ShowtimePeriodDTO;
+import com.DTO.view.ShowtimesMovieDTO;
 import com.Entity.Employee;
 import com.Entity.Period;
 import com.Entity.Showtimes;

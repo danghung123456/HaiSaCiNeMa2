@@ -5,8 +5,8 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
-import com.DTO.ShowtimesMovieDTO;
 import com.DTO.TicketDTO;
+import com.DTO.view.ShowtimesMovieDTO;
 import com.DTO.view.TicketByMovieView;
 import com.DTO.view.TicketByShowtimeView;
 import com.Entity.Ticket;

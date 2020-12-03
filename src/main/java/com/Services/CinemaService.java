@@ -7,11 +7,18 @@ import com.Entity.Cinema;
 
 @Service
 public interface CinemaService {
+<<<<<<< HEAD
 	/**
 	 * The function that get all of the Cinema already exist
 	 * 
 	 * @return List<Cinema>
 	 */
+=======
+
+	/**
+	 * @return list all Movie
+	*/
+>>>>>>> bdcd4ea57cfee0eff01478f49a4a2f4c424c62a7
 	List<Cinema> getAll();
 
 	/**
@@ -29,6 +36,7 @@ public interface CinemaService {
 	void deleteAll();
 
 	/**
+<<<<<<< HEAD
 	 * Saves a Cinema entity.
 	 * 
 	 * @return entity Cinema
@@ -55,6 +63,21 @@ public interface CinemaService {
 	 * @return the entity with the CineamId entered or Optional#empty() if none
 	 *         found.
 	 */
+=======
+	 * This is function add new Cinema
+	 * @param
+	 * @return entity Cinema
+	*/
+	Cinema add(Cinema cinema);
+
+	
+	List<Cinema> addAll(List<Cinema> list);
+
+	/**
+	 * This is function find Cinema by CinemaId
+	 * @return Optional Cinema
+	*/
+>>>>>>> bdcd4ea57cfee0eff01478f49a4a2f4c424c62a7
 	Optional<Cinema> findById(Integer id);
 
 	/**

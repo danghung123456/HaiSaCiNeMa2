@@ -8,7 +8,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
-import com.DTO.ShowtimePeriodDTO;
+import com.DTO.view.ShowtimePeriodDTO;
 import com.Entity.Employee;
 import com.Entity.Movie;
 import com.Entity.Period;
