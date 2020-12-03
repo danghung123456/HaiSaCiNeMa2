@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import com.Entity.Cinema;
 import com.Repository.CinemaRepository;
 import com.Services.CinemaService;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Service
 public class CinemaServiceImpl implements CinemaService {
@@ -51,13 +52,20 @@ public class CinemaServiceImpl implements CinemaService {
 
 	@Override
 	public List<Cinema> findByName(String name) {
-		
-		return repository.findByNames(name);
+		return repository.findByCinemaName(name);
 	}
 
 	@Override
 	public Cinema save(Cinema cinema) {
 		return repository.saveAndFlush(cinema);
 	}
+
+	@Override
+	public Cinema convertToCinema() {
+		ObjectMapper mapper = new ObjectMapper();
+		Cinema cinema = mapper.convertValue(this, Cinema.class);
+		return cinema;
+	}	
+	
 
 }

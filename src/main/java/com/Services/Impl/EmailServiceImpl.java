@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
-
 import javax.mail.Authenticator;
 import javax.mail.Message;
 import javax.mail.MessagingException;
@@ -12,7 +11,6 @@ import javax.mail.Multipart;
 import javax.mail.PasswordAuthentication;
 import javax.mail.Session;
 import javax.mail.Transport;
-import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
@@ -37,34 +35,34 @@ public class EmailServiceImpl implements EmailService {
 	private FoodBillDetailRepository foodBillDetailRepository;
 
 	public void sendMail(String to, String subject, String text, Multipart mp) throws MessagingException {
-			final String from = "HaiSaCinema@gmail.com";
-			final String password = "songlong123";
-			String toAddress = to;
-			Session session;
-			Message mesg;
-			Properties properties = new Properties();
-			properties.put("mail.smtp.host", "smtp.gmail.com");
-			properties.put("mail.smtp.port", 587);
-			properties.put("mail.smtp.auth", "true");
-			properties.put("mail.smtp.starttls.enable", "true");
-			Authenticator auth = new Authenticator() {
-				public PasswordAuthentication getPasswordAuthentication() {
-					return new PasswordAuthentication(from, password);
-				}
-			};
-			session = Session.getInstance(properties, auth);
-			session.setDebug(false);
-			mesg = new MimeMessage(session);
-			mesg.setFrom(new InternetAddress(from));
-			mesg.setSubject(subject);
-			InternetAddress toAdd = new InternetAddress(toAddress);
-			mesg.addRecipient(Message.RecipientType.TO, toAdd);
-			if (text == null) {
-				mesg.setContent(mp);
-			} else {
-				mesg.setText(text);
+		final String from = "HaiSaCinema@gmail.com";
+		final String password = "songlong123";
+		String toAddress = to;
+		Session session;
+		Message mesg;
+		Properties properties = new Properties();
+		properties.put("mail.smtp.host", "smtp.gmail.com");
+		properties.put("mail.smtp.port", 587);
+		properties.put("mail.smtp.auth", "true");
+		properties.put("mail.smtp.starttls.enable", "true");
+		Authenticator auth = new Authenticator() {
+			public PasswordAuthentication getPasswordAuthentication() {
+				return new PasswordAuthentication(from, password);
 			}
-			Transport.send(mesg);
+		};
+		session = Session.getInstance(properties, auth);
+		session.setDebug(false);
+		mesg = new MimeMessage(session);
+		mesg.setFrom(new InternetAddress(from));
+		mesg.setSubject(subject);
+		InternetAddress toAdd = new InternetAddress(toAddress);
+		mesg.addRecipient(Message.RecipientType.TO, toAdd);
+		if (text == null) {
+			mesg.setContent(mp);
+		} else {
+			mesg.setText(text);
+		}
+		Transport.send(mesg);
 	}
 
 	public Multipart setTextTicket(Ticket ticket, String filePath) throws IOException, MessagingException {

@@ -1,8 +1,5 @@
 package com.DTO;
 
-import com.Entity.Cinema;
-import com.fasterxml.jackson.databind.ObjectMapper;
-
 public class CinemaDTO {
 	private Integer cinemaId;
 	private String name;
@@ -12,7 +9,6 @@ public class CinemaDTO {
 	@Override
 	public String toString() {
 		return "CinemaDTO [cinemaId=" + cinemaId + ", name=" + name + ", address=" + address + "]";
-
 
 	}
 
@@ -27,12 +23,6 @@ public class CinemaDTO {
 
 	private boolean isNull(Integer input) {
 		return input == null;
-	}
-
-	public Cinema convertToCinema() {
-		ObjectMapper mapper = new ObjectMapper();
-		Cinema cinema = mapper.convertValue(this, Cinema.class);
-		return cinema;
 	}
 
 	public CinemaDTO(Integer cinemaId, String name, String address) {

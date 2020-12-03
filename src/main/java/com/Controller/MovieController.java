@@ -230,19 +230,6 @@ public class MovieController {
 			}
 		}
 	}
-	@GetMapping(value ="/getmoviebyshowtime")
-	public ResponseEntity<Object> getMovieByShowtime(Integer id1,Integer id2){
-		if(id1 == null || id2 == null) {
-			return ResponseEntity.body(Constant.BAD_REQUEST);
-		} else {
-			List<Showtimes> list = movieService.getMovieByShowtime(id1,id2);
-			if(list.isEmpty()) {
-				return ResponseEntity.body(Constant.NOT_FOUND);
-			} else {
-				return ResponseEntity.body(list);
-			}
-		}
-	}
 
 	@Scheduled(cron = "0 0 1 ? * *")
 	public void updateMovieStatus() {

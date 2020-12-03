@@ -36,7 +36,7 @@ public class FeedbackController {
 	        } else {
 	            //Make sure id is NULL to insert Entity
 	            feedbackDTO.setResponseId(null);
-	            Feedback feedback = feedbackDTO.convertToFeedback();
+	            Feedback feedback = feedbackService.convertToFeedback();
 	            return ResponseEntity.body(feedbackService.add(feedback));
 	        }
 	} 

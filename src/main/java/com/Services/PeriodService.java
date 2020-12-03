@@ -23,6 +23,4 @@ public interface PeriodService {
 	Period save(Period period);
 
 	List<Period> findPeriodByStatus(Integer status);
-
-
 }

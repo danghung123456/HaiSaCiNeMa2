@@ -34,12 +34,6 @@ public class FeedbackDTO {
 		return input == null;
 	}
 
-	public Feedback convertToFeedback() {
-		ObjectMapper mapper = new ObjectMapper();
-		Feedback feedback = mapper.convertValue(this, Feedback.class);
-		return feedback;
-	}
-
 	public Integer getResponseId() {
 		return responseId;
 	}

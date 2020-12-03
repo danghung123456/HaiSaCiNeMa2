@@ -23,7 +23,6 @@ public class SeatStatusServiceImpl implements SeatStatusService {
 
 	@Override
 	public Showtimes add(Showtimes showtimes) {
-		System.out.println("123");
 		List<Seat> seatList = showtimes.getRoom().getSeat();
 		for(Seat seat : seatList) {
 			SeatStatus seatStatus = new SeatStatus();

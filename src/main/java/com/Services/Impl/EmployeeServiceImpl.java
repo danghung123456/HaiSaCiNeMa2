@@ -3,14 +3,11 @@ package com.Services.Impl;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import com.DTO.EmployeeDTO;
 import com.Entity.Cinema;
 import com.Entity.Employee;
-import com.Entity.User;
 import com.Repository.EmployeeRepository;
 import com.Services.EmployeeService;
 import com.Services.UserService;

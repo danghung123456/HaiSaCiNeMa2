@@ -117,4 +117,9 @@ public class ViewServiceImpl implements ViewService {
 		return total;
 	}
 
+	@Override
+	public List<String> getRole(String email) {
+		return repository.getRole(email);
+	}
+
 }
