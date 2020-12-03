@@ -47,8 +47,8 @@ public class EmployeeServiceImpl implements EmployeeService {
 		return repository.findEmployeeById(id);
 	}
 
-	public List<Employee> findByName(String name) {
-		return repository.findByName(name);
+	public List<Employee> findByName(String name, Integer status) {
+		return repository.findByName(name, status);
 	}
 
 	public Employee save(Employee employee) {

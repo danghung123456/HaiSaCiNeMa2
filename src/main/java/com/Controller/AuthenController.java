@@ -56,14 +56,8 @@ public class AuthenController {
 
 	}
 
-<<<<<<< HEAD
+
 	@PostMapping(value = "/changepassword")
-=======
-	
-	
-	
-	@PostMapping("/changepassword")
->>>>>>> 27e3c801baaa4e855ace8406abf31a8c868ebf6d
 	public ResponseEntity<?> changePass(@RequestBody ChangePasswordDTO changePassDTO) {
 		Optional<User> checkEmail = userService.checkUserByEmail(changePassDTO.getEmail());
 		if (checkEmail.isPresent()) {

@@ -20,7 +20,7 @@ public interface FoodService {
 
 	Optional<Food> findById(Integer id);
 
-	List<Food> findByName(String name);
+	List<Food> findByName(String name, Integer status);
 
 	Food save(Food food);
 

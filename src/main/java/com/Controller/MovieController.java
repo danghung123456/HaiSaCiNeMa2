@@ -168,11 +168,15 @@ public class MovieController {
 		if (name == null) {
 			return ResponseEntity.body(Constant.BAD_REQUEST);
 		} else {
-			List<Movie> listMovie = movieService.findByName(name,status);
-			if (listMovie.isEmpty()) {
-				return ResponseEntity.body(Constant.NOT_FOUND);
+			if (status == null) {
+				return ResponseEntity.body(Constant.BAD_REQUEST);
 			} else {
-				return ResponseEntity.body(listMovie);
+				List<Movie> listMovie = movieService.findByName(name,status);
+				if (listMovie.isEmpty()) {
+					return ResponseEntity.body(Constant.NOT_FOUND);
+				} else {
+					return ResponseEntity.body(listMovie);
+				}
 			}
 		}
 	}

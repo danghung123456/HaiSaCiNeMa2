@@ -7,10 +7,10 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.DTO.DatePeriodDTO;
-import com.DTO.ShowtimePeriodDTO;
 import com.DTO.ShowtimesDTO;
-import com.DTO.ShowtimesMovieDTO;
+import com.DTO.view.DatePeriodDTO;
+import com.DTO.view.ShowtimePeriodDTO;
+import com.DTO.view.ShowtimesMovieDTO;
 import com.Entity.Cinema;
 import com.Entity.Employee;
 import com.Entity.Movie;

@@ -1,4 +1,4 @@
-package com.DTO;
+package com.DTO.view;
 
 import java.util.Date;
 import java.util.List;
