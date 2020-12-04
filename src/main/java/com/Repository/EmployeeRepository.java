@@ -19,4 +19,6 @@ public interface EmployeeRepository extends JpaRepository<Employee, Integer> {
 	@Query(value = "SELECT e FROM Employee e WHERE e.name LIKE %:name% AND e.status = :status")
 	List<Employee> findByName(String name, Integer status);
 
+	@Query(value = "SELECT s.employee FROM Showtimes s WHERE s.employee.user.email = :email ")
+	Employee getEmployeeByEmail(String email);
 }

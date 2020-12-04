@@ -143,12 +143,6 @@ public class ShowtimesController {
 		}
 	}
 
-	@GetMapping("/getemployee")
-	public ResponseEntity<Employee> getEmployeeByEmail(String email) {
-		Employee employee = showtimesService.getEmployeeByEmail(email);
-		return ResponseEntity.body(employee);
-	}
-
 	@Scheduled(cron = "0 0 1 ? * *")
 	public void updateShowtimeStatus() {
 		showtimesService.updateShowtimeByPreviousDate();

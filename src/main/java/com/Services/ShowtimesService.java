@@ -91,12 +91,5 @@ public interface ShowtimesService {
 	 */
 	List<Showtimes> getShowtimesByCinema(Integer id);
 
-	/**
-	 * Find all entity Employee by user's email entered. Use this function for 
-	 * get employeeId that add Showtimes
-	 * 
-	 * @return entity Employee
-	 */
-	Employee getEmployeeByEmail(String email);
 
 }

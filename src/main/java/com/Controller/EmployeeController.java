@@ -177,5 +177,10 @@ public class EmployeeController {
 			}
 		}
 	}
+	@GetMapping("/getemployee")
+	public ResponseEntity<Employee> getEmployeeByEmail(String email) {
+		Employee employee = employeeService.getEmployeeByEmail(email);
+		return ResponseEntity.body(employee);
+	}
 
 }

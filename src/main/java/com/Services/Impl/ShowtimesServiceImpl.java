@@ -154,10 +154,5 @@ public class ShowtimesServiceImpl implements ShowtimesService {
 		return repository.getShowtimesByCinema(id);
 	}
 
-	@Override
-	public Employee getEmployeeByEmail(String email) {
-		return repository.getEmployeeByEmail(email);
-	}
-
 
 }

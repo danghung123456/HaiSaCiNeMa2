@@ -16,7 +16,7 @@ import com.Services.UserService;
 public class EmployeeServiceImpl implements EmployeeService {
 	@Autowired
 	EmployeeRepository repository;
-	
+
 	@Autowired
 	UserService userService;
 
@@ -71,5 +71,10 @@ public class EmployeeServiceImpl implements EmployeeService {
 		employee.setAddress(employeeDTO.getAddress());
 		employee.setStatus(1);
 		return employee;
+	}
+
+	@Override
+	public Employee getEmployeeByEmail(String email) {
+		return repository.getEmployeeByEmail(email);
 	}
 }

@@ -51,9 +51,9 @@ public interface EmployeeService {
 	 */
 	Optional<Employee> findById(Integer id);
 
-
 	/**
-	 * Search list Employee with the same name(employeeName) and status of Employee entered
+	 * Search list Employee with the same name(employeeName) and status of Employee
+	 * entered
 	 * 
 	 * @return List<Employee>
 	 */
@@ -72,4 +72,12 @@ public interface EmployeeService {
 	 * @return entity Employee
 	 */
 	Employee convertToEmployee(EmployeeDTO employeeDTO);
+
+	/**
+	 * Find all entity Employee by user's email entered. Use this function for get
+	 * employeeId that add Showtimes
+	 * 
+	 * @return entity Employee
+	 */
+	Employee getEmployeeByEmail(String email);
 }
