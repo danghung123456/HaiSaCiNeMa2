@@ -62,7 +62,8 @@ public class MemberController {
 		} else {
 			User user = new User();
 			user.setEmail(memberDTO.getEmail());
-			user.setPassword(memberDTO.getPassword());
+			String encodePassword = passwordEncoder.encode(memberDTO.getPassword());
+			user.setPassword(encodePassword);
 			user = userService.add(user);
 
 			UserRole userRole = new UserRole();

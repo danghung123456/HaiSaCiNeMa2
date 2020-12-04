@@ -45,6 +45,6 @@ public interface ShowtimesRepository extends JpaRepository<Showtimes, Integer> {
 	@Query(value ="SELECT s.employee "
 			+ "FROM Showtimes s "
 			+ "WHERE s.employee.user.email = :email ")
-	Employee getEmployeeIdByEmail(String email);
+	Employee getEmployeeByEmail(String email);
 	
 }

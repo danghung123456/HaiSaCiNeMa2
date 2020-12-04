@@ -143,10 +143,10 @@ public class ShowtimesController {
 		}
 	}
 
-	@GetMapping("/getemployeeid")
-	public ResponseEntity<Employee> getEmployeeIdByEmail(String email) {
-		Employee employeeId = showtimesService.getEmployeeIdByEmail(email);
-		return ResponseEntity.body(employeeId);
+	@GetMapping("/getemployee")
+	public ResponseEntity<Employee> getEmployeeByEmail(String email) {
+		Employee employee = showtimesService.getEmployeeByEmail(email);
+		return ResponseEntity.body(employee);
 	}
 
 	@Scheduled(cron = "0 0 1 ? * *")

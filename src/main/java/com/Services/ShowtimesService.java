@@ -97,6 +97,6 @@ public interface ShowtimesService {
 	 * 
 	 * @return entity Employee
 	 */
-	Employee getEmployeeIdByEmail(String email);
+	Employee getEmployeeByEmail(String email);
 
 }
