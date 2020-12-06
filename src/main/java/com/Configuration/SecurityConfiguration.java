@@ -59,6 +59,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 				.antMatchers("/movie/**").hasRole("ADMIN")
 				
 				.antMatchers("/ticket").hasAnyRole("ADMIN","STAFF")
+				.antMatchers("/ticket/getticketbycinemaa").hasAnyRole("ADMIN","STAFF")
 				.antMatchers("/ticket/**").hasAnyRole("ADMIN", "USER")
 				
 				.antMatchers("/seat").hasAnyRole("ADMIN","STAFF")

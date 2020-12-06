@@ -42,4 +42,12 @@ public interface RoomService {
 	 * @return entity Room
 	 */
 	Room save(Room room);
+	
+	/**
+	 * The function that search all the entity Room by entity Cinema's id.
+	 * 
+	 * @return entity Room
+	 */
+	List<Room> getRoomByCinema(Integer cinemaId);
+	
 }

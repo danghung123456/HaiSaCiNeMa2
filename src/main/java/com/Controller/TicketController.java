@@ -115,10 +115,20 @@ public class TicketController {
 			System.out.println(ticket.getCode());
 			String filePath = QR_CODE_IMAGE_PATH + ticket.getTicketId() + ".png";
 			qRCodeService.generateQRCodeImage(ticket.getCode(), 200, 200, filePath);
-			emailService.sendMail(member.getUser().getEmail(), "Đặt vé thành công",null, emailService.setTextTicket(ticket, filePath));
-
+			emailService.sendMail(member.getUser().getEmail(), "Đặt vé thành công", null,
+					emailService.setTextTicket(ticket, filePath));
 
 			return ResponseEntity.body(ticket);
+		}
+	}
+
+	@GetMapping("/getticketbycinema")
+	public ResponseEntity<Object> getTicketByCinema(Integer id) {
+		if (id == null) {
+			return ResponseEntity.body(Constant.BAD_REQUEST);
+		} else {
+			List<Ticket> listTicket = ticketService.getTicketByCinema(id);
+			return ResponseEntity.body(listTicket);
 		}
 	}
 

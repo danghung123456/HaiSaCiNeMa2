@@ -63,5 +63,13 @@ public interface TicketService {
 	 * @return String
 	 */
 	String createCode(Integer ticketId, Integer showtimeId);
+	/**
+	 * The function that get entity Ticket by id of entity Cinema
+	 *
+	 * @return List<Ticket>
+	 */
+	List<Ticket> getTicketByCinema(Integer cinemaId);
+	
+	
 
 }

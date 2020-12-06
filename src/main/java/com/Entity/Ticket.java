@@ -22,7 +22,6 @@ public class Ticket {
 	private Integer ticketId;
 
 	@ManyToOne
-	@JsonIgnore
 	@JoinColumn(name = "memberid")
 	private Member member;
 

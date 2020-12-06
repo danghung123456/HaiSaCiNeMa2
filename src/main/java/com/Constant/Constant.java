@@ -1,7 +1,7 @@
 package com.Constant;
 
 public interface Constant {
-	
+
 	String SUCCESS = "Success";
     String ERR = "error";
     String NOT_FOUND = "DATA NOT FOUND!";
