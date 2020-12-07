@@ -17,7 +17,7 @@ public class WebCorsConfig implements WebMvcConfigurer {
 			@Override
 			public void addCorsMappings(CorsRegistry registry) {
 				registry.addMapping("/**")
-				.allowedOrigins("http://localhost:4200")
+				.allowedOrigins("http://haisa-cinema.tk")
 				.allowedHeaders("*")
 				.allowedMethods("PUT", "GET", "DELETE", "POST");
 				
