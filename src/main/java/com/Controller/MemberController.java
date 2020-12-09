@@ -62,8 +62,7 @@ public class MemberController {
 		} else {
 			User user = new User();
 			user.setEmail(memberDTO.getEmail());
-			String encodePassword = passwordEncoder.encode(memberDTO.getPassword());
-			user.setPassword(encodePassword);
+			user.setPassword(memberDTO.getPassword());
 			user = userService.add(user);
 
 			UserRole userRole = new UserRole();
@@ -84,10 +83,17 @@ public class MemberController {
 		if (memberDTO.isNull(true)) {
 			return ResponseEntity.body(Constant.BAD_REQUEST);
 		} else {
+			Optional<Member> checkMember = memberService.findById(memberDTO.getMemberId());
+			if (checkMember.isPresent()) {
+				User user = checkMember.orElse(null).getUser();
 				Member member = memberService.convertToMember(memberDTO);
+				member.setUser(user);
 				member = memberService.save(member);
 				return ResponseEntity.body(memberService.save(member));
+			} else {
+				return ResponseEntity.body(Constant.NOT_FOUND);
 			}
+		}
 	}
 
 	@GetMapping("/findbyid")
