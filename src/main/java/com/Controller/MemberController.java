@@ -84,20 +84,10 @@ public class MemberController {
 		if (memberDTO.isNull(true)) {
 			return ResponseEntity.body(Constant.BAD_REQUEST);
 		} else {
-			Optional<Member> checkMember = memberService.findById(memberDTO.getMemberId());
-			if (checkMember.isPresent()) {
-				User user = checkMember.orElse(null).getUser();
-				String password = passwordEncoder.encode(memberDTO.getPassword());
-				user.setPassword(password);
-				user = userService.update(user);
 				Member member = memberService.convertToMember(memberDTO);
-				member.setUser(user);
 				member = memberService.save(member);
 				return ResponseEntity.body(memberService.save(member));
-			} else {
-				return ResponseEntity.body(Constant.NOT_FOUND);
 			}
-		}
 	}
 
 	@GetMapping("/findbyid")
