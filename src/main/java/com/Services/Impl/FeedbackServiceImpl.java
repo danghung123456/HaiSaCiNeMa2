@@ -12,6 +12,7 @@ import com.Entity.Feedback;
 
 import com.Repository.FeedbackRepository;
 import com.Services.FeedbackService;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Service
 public class FeedbackServiceImpl implements FeedbackService {
@@ -26,32 +27,35 @@ public class FeedbackServiceImpl implements FeedbackService {
 
 	@Override
 	public Feedback add(Feedback feedback) {
-		// TODO Auto-generated method stub
 		return repository.save(feedback);
 	}
 
 	@Override
 	public Feedback save(Feedback feedback) {
-		// TODO Auto-generated method stub
 		return repository.saveAndFlush(feedback);
 	}
 
 	@Override
 	public void deleteAll() {
 		repository.deleteAll();
-		
+
 	}
 
 	@Override
 	public List<Feedback> addAll(List<Feedback> list) {
-		 List<Feedback> res = new ArrayList<>();
-	        for (Feedback feedback : list){
-	            res.add(add(feedback));
-	        }
-	        return res;
-		
-	}
-	
+		List<Feedback> res = new ArrayList<>();
+		for (Feedback feedback : list) {
+			res.add(add(feedback));
+		}
+		return res;
 
+	}
+
+	@Override
+	public Feedback convertToFeedback() {
+		ObjectMapper mapper = new ObjectMapper();
+		Feedback feedback = mapper.convertValue(this, Feedback.class);
+		return feedback;
+	}
 
 }

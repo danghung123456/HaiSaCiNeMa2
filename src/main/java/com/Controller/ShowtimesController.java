@@ -16,8 +16,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.Constant.Constant;
 import com.DTO.ShowtimesDTO;
-import com.DTO.ShowtimesMovieDTO;
 import com.DTO.Base.ResponseEntity;
+import com.DTO.view.ShowtimePeriodDTO;
+import com.DTO.view.ShowtimesMovieDTO;
+import com.Entity.Employee;
+import com.Entity.Period;
 import com.Entity.Showtimes;
 import com.Services.SeatStatusService;
 import com.Services.ShowtimesService;
@@ -112,6 +115,20 @@ public class ShowtimesController {
 			}
 		}
 	}
+	@GetMapping("/getshowtimesbycinema")
+	public ResponseEntity<Object> getPeriodByCinema(Integer id) {
+		if (id==null) {
+			return ResponseEntity.body(Constant.BAD_REQUEST);
+		} else {
+			List<Showtimes> listShowtimes = showtimesService.getShowtimesByCinema(id);
+			if(listShowtimes.isEmpty()) {
+				return ResponseEntity.body(Constant.NOT_FOUND);
+			} else {
+				return ResponseEntity.body(listShowtimes);
+			}
+		}
+	}
+
 
 	@GetMapping("/getshowtimesbymovieid")
 	public ResponseEntity<Object> getShowtimes(Integer id) {
@@ -125,7 +142,7 @@ public class ShowtimesController {
 				return ResponseEntity.body(listShowtimes);
 		}
 	}
-	
+
 	@Scheduled(cron = "0 0 1 ? * *")
 	public void updateShowtimeStatus() {
 		showtimesService.updateShowtimeByPreviousDate();

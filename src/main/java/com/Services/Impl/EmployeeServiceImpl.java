@@ -3,14 +3,11 @@ package com.Services.Impl;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import com.DTO.EmployeeDTO;
 import com.Entity.Cinema;
 import com.Entity.Employee;
-import com.Entity.User;
 import com.Repository.EmployeeRepository;
 import com.Services.EmployeeService;
 import com.Services.UserService;
@@ -19,7 +16,7 @@ import com.Services.UserService;
 public class EmployeeServiceImpl implements EmployeeService {
 	@Autowired
 	EmployeeRepository repository;
-	
+
 	@Autowired
 	UserService userService;
 
@@ -47,8 +44,8 @@ public class EmployeeServiceImpl implements EmployeeService {
 		return repository.findEmployeeById(id);
 	}
 
-	public List<Employee> findByName(String name) {
-		return repository.findByName(name);
+	public List<Employee> findByName(String name, Integer status) {
+		return repository.findByName(name, status);
 	}
 
 	public Employee save(Employee employee) {
@@ -74,5 +71,10 @@ public class EmployeeServiceImpl implements EmployeeService {
 		employee.setAddress(employeeDTO.getAddress());
 		employee.setStatus(1);
 		return employee;
+	}
+
+	@Override
+	public Employee getEmployeeByEmail(String email) {
+		return repository.getEmployeeByEmail(email);
 	}
 }

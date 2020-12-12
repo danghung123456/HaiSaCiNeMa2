@@ -16,7 +16,7 @@ public interface FoodRepository extends JpaRepository<Food, Integer> {
 	@Query("FROM Food f WHERE f.foodId = :id AND f.status = 1")
 	Optional<Food> findFoodById(Integer id);
 
-	@Query(value = "SELECT f FROM Food f WHERE f.name LIKE %:name% AND f.status = 1")
-	List<Food> findFoodByName(String name);
+	@Query(value = "SELECT f FROM Food f WHERE f.name LIKE %:name% AND f.status = :status")
+	List<Food> findFoodByName(String name, Integer status);
 	
 }

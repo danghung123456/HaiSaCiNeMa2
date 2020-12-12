@@ -8,11 +8,12 @@ import org.springframework.stereotype.Repository;
 
 import com.DTO.view.GenreMovieView;
 import com.DTO.view.HistoryTransView;
+import com.DTO.view.ShowtimePeriodDTO;
 import com.DTO.view.TopMovieView;
-import com.DTO.view.StartTimeView;
 import com.DTO.view.TicketByMovieView;
 import com.DTO.view.TicketByShowtimeView;
 import com.DTO.view.TotalByCinemaView;
+import com.Entity.Showtimes;
 import com.Entity.View;
 
 @Repository
@@ -62,5 +63,26 @@ public interface ViewRepository extends JpaRepository<View, Integer> {
 
 	@Query(value = "SELECT ur.role.name from UserRole ur where ur.user.email = :email")
 	List<String> getRole(String email);
+
+//	Tim danh sach CinemaId theo khoang thoi gian cua showtime
+	@Query(value = "SELECT s.room.cinema.cinemaId " + "FROM Showtimes s WHERE s.date BETWEEN :startDate AND :endDate "
+			+ "GROUP BY s.room.cinema.cinemaId")
+	List<Integer> findCinemaByDateOfShowtime(Date startDate, Date endDate);
+
+//	Tim danh sach ngay cua Showtime theo cinemaId va khoang thoi gian
+	@Query(value = "SELECT s.date "
+			+ "FROM Showtimes s WHERE s.date BETWEEN :startDate AND :endDate AND s.room.cinema.cinemaId = :cinemaId "
+			+ "GROUP BY s.date")
+	List<Date> findDateByCinemaShowtime(Date startDate, Date endDate, Integer cinemaId);
+
+//	Tim danh sach periodId theo cinemaId va ngay
+	@Query(value = "SELECT s.period.periodId " + "FROM Showtimes s "
+			+ "WHERE s.date = :date AND s.room.cinema.cinemaId = :cinemaId " + "GROUP BY s.period.periodId")
+	List<Integer> findPeriodShowtimeByCinemaDate(Integer cinemaId, Date date);
+	
+//	Tim danh sach movieId theo ngay, rap, khung gio
+	@Query(value = "SELECT s.movie.movieId " + "FROM Showtimes s "
+			+ "WHERE s.date = :date AND s.room.cinema.cinemaId = :cinemaId AND s.period.periodId = :periodId " + "GROUP BY s.movie.movieId")
+	List<Integer> findMovieByShowtimePeriodCinemaDate(Integer cinemaId, Date date, Integer periodId);
 
 }

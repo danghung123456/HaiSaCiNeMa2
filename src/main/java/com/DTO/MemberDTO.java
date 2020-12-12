@@ -39,7 +39,7 @@ public class MemberDTO {
 	}
 
 	public boolean isNull(boolean includeId) {
-		boolean res = isNull(memberName) || isNull(email) || isNull(phone);
+		boolean res = isNull(memberName) || isNull(phone) || isNull(idCard) || isNull(address);
 		return includeId ? res || isNull(memberId) : res;
 	}
 

@@ -62,19 +62,18 @@ public class MemberController {
 		} else {
 			User user = new User();
 			user.setEmail(memberDTO.getEmail());
-			UUID uuid = UUID.randomUUID();
-			String password = passwordEncoder.encode(uuid.toString());
-			user.setPassword(password);
-			// chưa bắt trường hợp sai email
-			emailService.sendMail(user.getEmail(), "Đăng kí thành công", "Mật khẩu của quý khách là :" + uuid,null);
+			user.setPassword(memberDTO.getPassword());
 			user = userService.add(user);
+
 			UserRole userRole = new UserRole();
 			userRole.setRole(roleService.findById(2));
 			userRole.setUser(user);
 			userRoleService.add(userRole);
+
 			memberDTO.setMemberId(null);
 			Member member = memberService.convertToMember(memberDTO);
 			member.setUser(user);
+
 			return ResponseEntity.body(memberService.add(member));
 		}
 	}
@@ -87,9 +86,6 @@ public class MemberController {
 			Optional<Member> checkMember = memberService.findById(memberDTO.getMemberId());
 			if (checkMember.isPresent()) {
 				User user = checkMember.orElse(null).getUser();
-				String password = passwordEncoder.encode(memberDTO.getPassword());
-				user.setPassword(password);
-				user = userService.update(user);
 				Member member = memberService.convertToMember(memberDTO);
 				member.setUser(user);
 				member = memberService.save(member);
@@ -126,6 +122,27 @@ public class MemberController {
 			} else {
 				return ResponseEntity.body(listMember);
 			}
+		}
+	}
+	@GetMapping("/getmemberbyemail")
+	public ResponseEntity<Object> getMemberByEmail(String email){
+		if(email==null) {
+			return ResponseEntity.body(Constant.BAD_REQUEST);
+		} else {
+			Member member = memberService.getMemberByEmail(email);
+			return ResponseEntity.body(member);
+		}
+	}
+
+	@GetMapping(value = "/getcodeverify")
+	public ResponseEntity<Object> getCodeVerify(String email) throws Exception {
+		if (email == null) {
+			return ResponseEntity.body(Constant.BAD_REQUEST);
+		} else {
+			UUID uuid = UUID.randomUUID();
+			String code = uuid.toString().substring(0, 8);
+			emailService.sendMail(email, "Xác nhận tài khoản", "Mã xác nhận tài khoản của quý khách là :" + code, null);
+			return ResponseEntity.body(code);
 		}
 	}
 

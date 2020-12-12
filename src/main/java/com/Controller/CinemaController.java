@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
 import com.Constant.Constant;
 import com.DTO.CinemaDTO;
 import com.DTO.Base.ResponseEntity;
@@ -19,12 +18,12 @@ import com.Services.CinemaService;
 
 @RestController
 @RequestMapping(value = "cinema")
-
 public class CinemaController {
 
 	@Autowired
 	private CinemaService cinemaService;
 
+	
 	@GetMapping
 	public ResponseEntity<List<Cinema>> index() {
 		return ResponseEntity.body(cinemaService.getAll());
@@ -35,9 +34,8 @@ public class CinemaController {
 		if (cinemaDTO.isNull(false)) {
 			return ResponseEntity.body(Constant.BAD_REQUEST);
 		} else {
-			// Make sure id is NULL to insert Entity
 			cinemaDTO.setCinemaId(null);
-			Cinema cinema = cinemaDTO.convertToCinema();
+			Cinema cinema = cinemaService.convertToCinema();
 			return ResponseEntity.body(cinemaService.add(cinema));
 		}
 	}
@@ -49,7 +47,7 @@ public class CinemaController {
 		} else {
 			Optional<Cinema> checkCinema = cinemaService.findById(cinemaDTO.getCinemaId());
 			if (checkCinema.isPresent()) {
-				Cinema cinema = cinemaDTO.convertToCinema();
+				Cinema cinema = cinemaService.convertToCinema();
 				return ResponseEntity.body(cinemaService.save(cinema));
 			} else {
 				return ResponseEntity.body(Constant.NOT_FOUND);

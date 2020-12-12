@@ -10,9 +10,18 @@ import com.Entity.TicketDetail;
 
 @Service
 public interface TicketDetailService {
-	
-	     TicketDetail add(TicketDetail ticketDetail);
+	/**
+	 * Saves a entity TicketDetail
+	 * 
+	 * @return TicketDetail
+	 */
+	TicketDetail add(TicketDetail ticketDetail);
 
-	     TicketDetail save(TicketDetail ticketDetail);
+	/**
+	 * Saves an entity and flushes changes instantly.
+	 * 
+	 * @return entity TicketDetail
+	 */
+	TicketDetail save(TicketDetail ticketDetail);
 
 }

@@ -1,4 +1,8 @@
-package com.DTO;
+package com.DTO.view;
+
+import java.util.List;
+
+import com.Entity.Movie;
 
 public class ShowtimePeriodDTO {
 	private Integer showtimeId;
@@ -6,18 +10,21 @@ public class ShowtimePeriodDTO {
 	private String startTime;
 	private Integer statusDay;
 	private Float price;
+	private List<Movie> movies;
 
 	public ShowtimePeriodDTO() {
 		super();
 	}
 
-	public ShowtimePeriodDTO(Integer showtimeId, Integer periodId, String startTime, Integer statusDay, Float price) {
+	public ShowtimePeriodDTO(Integer showtimeId, Integer periodId, String startTime, Integer statusDay, Float price,
+			List<Movie> movies) {
 		super();
 		this.showtimeId = showtimeId;
 		this.periodId = periodId;
 		this.startTime = startTime;
 		this.statusDay = statusDay;
 		this.price = price;
+		this.movies = movies;
 	}
 
 	public Integer getShowtimeId() {
@@ -58,6 +65,14 @@ public class ShowtimePeriodDTO {
 
 	public void setPrice(Float price) {
 		this.price = price;
+	}
+
+	public List<Movie> getMovies() {
+		return movies;
+	}
+
+	public void setMovies(List<Movie> movies) {
+		this.movies = movies;
 	}
 
 }

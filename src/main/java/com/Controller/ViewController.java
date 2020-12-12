@@ -10,16 +10,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.Constant.Constant;
-import com.DTO.HistoryTransViewDTO;
-import com.DTO.TotalMemberFeedbackMovieTicket;
 import com.DTO.Base.ResponseEntity;
+import com.DTO.view.CinemaShowtimeViewDTO;
 import com.DTO.view.GenreMovieView;
 import com.DTO.view.HistoryTransView;
+import com.DTO.view.HistoryTransViewDTO;
 import com.DTO.view.TopMovieView;
 import com.DTO.view.StartTimeView;
 import com.DTO.view.TicketByMovieView;
 import com.DTO.view.TicketByShowtimeView;
 import com.DTO.view.TotalByCinemaView;
+import com.DTO.view.TotalMemberFeedbackMovieTicket;
 import com.Entity.TicketDetail;
 import com.Services.FoodBillDetailService;
 import com.Services.PeriodService;
@@ -68,8 +69,8 @@ public class ViewController {
 
 	@GetMapping("/totalbycinema")
 	// tổng tiền của rạp
-	public ResponseEntity<Object> getTotalByCinema() {
-		return ResponseEntity.body(viewService.getTotalByCinema());
+	public List<TotalByCinemaView> getTotalByCinema() {
+		return viewService.getTotalByCinema();
 	}
 
 	@GetMapping("/findgenre")
@@ -102,6 +103,12 @@ public class ViewController {
 	@GetMapping("/findcount")
 	public ResponseEntity<TotalMemberFeedbackMovieTicket> getTotalMemberFeedbackMovieTicket() {
 		return ResponseEntity.body(viewService.getTotalMemberFeedbackMovieTicket());
+	}
+
+	// Lấy số lượng member, feedback, movie, ticket
+	@GetMapping("/cinemaShowtimeView")
+	public ResponseEntity<List<CinemaShowtimeViewDTO>> getCinemaShowtimeView() {
+		return ResponseEntity.body(viewService.getCinemaShowtimeView());
 	}
 
 }
