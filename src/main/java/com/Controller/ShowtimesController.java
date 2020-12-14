@@ -115,19 +115,6 @@ public class ShowtimesController {
 			}
 		}
 	}
-	@GetMapping("/getshowtimesbycinema")
-	public ResponseEntity<Object> getPeriodByCinema(Integer id) {
-		if (id==null) {
-			return ResponseEntity.body(Constant.BAD_REQUEST);
-		} else {
-			List<Showtimes> listShowtimes = showtimesService.getShowtimesByCinema(id);
-			if(listShowtimes.isEmpty()) {
-				return ResponseEntity.body(Constant.NOT_FOUND);
-			} else {
-				return ResponseEntity.body(listShowtimes);
-			}
-		}
-	}
 
 
 	@GetMapping("/getshowtimesbymovieid")

@@ -1,8 +1,5 @@
 package com.DTO;
 
-import com.Entity.Feedback;
-import com.fasterxml.jackson.databind.ObjectMapper;
-
 public class FeedbackDTO {
 	private Integer responseId;
 	private String email;
