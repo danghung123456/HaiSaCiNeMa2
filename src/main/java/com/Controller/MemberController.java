@@ -144,7 +144,11 @@ public class MemberController {
 		} else {
 			UUID uuid = UUID.randomUUID();
 			String code = uuid.toString().substring(0, 8);
-			emailService.sendMail(email, "Xác nhận tài khoản", "Mã xác nhận tài khoản của quý khách là :" + code, null);
+			try {
+				emailService.sendMail(email, "Xác nhận tài khoản", "Mã xác nhận tài khoản của quý khách là :" + code, null);
+			} catch (Exception e) {
+				return ResponseEntity.body(Constant.SENDING_ERR);
+			}	
 			return ResponseEntity.body(code);
 		}
 	}
