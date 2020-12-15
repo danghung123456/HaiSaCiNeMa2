@@ -14,16 +14,6 @@ import java.nio.file.Path;
 @Service
 public class QRCodeServiceImpl implements QRCodeService {
 
-	@Override
-	public byte[] getQRCodeImage(String text) throws Exception {
-		QRCodeWriter qrCodeWriter = new QRCodeWriter();
-		BitMatrix bitMatrix = qrCodeWriter.encode(text, BarcodeFormat.QR_CODE, 200, 200);
-		ByteArrayOutputStream pngOutputStream = new ByteArrayOutputStream();
-		MatrixToImageWriter.writeToStream(bitMatrix, "PNG", pngOutputStream);
-		byte[] pngData = pngOutputStream.toByteArray();
-		return pngData;
-	}
-
 	public void generateQRCodeImage(String text, int width, int height, String filePath) throws Exception {
 		QRCodeWriter qrCodeWriter = new QRCodeWriter();
 		BitMatrix bitMatrix = qrCodeWriter.encode(text, BarcodeFormat.QR_CODE, 200, 200);

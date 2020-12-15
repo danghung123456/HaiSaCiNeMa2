@@ -132,6 +132,16 @@ public class TicketController {
 		}
 	}
 
+	@GetMapping("/findbyname")
+	public ResponseEntity<Object> getTicketByMemberName(Integer id, String name) {
+		if (id == null || name == null) {
+			return ResponseEntity.body(Constant.BAD_REQUEST);
+		} else {
+			List<Ticket> listTicket = ticketService.getTicketByName(id, name);
+			return ResponseEntity.body(listTicket);
+		}
+	}
+
 	@GetMapping("/findbyid")
 	public ResponseEntity<Object> findById(Integer id) {
 		if (id == null) {
