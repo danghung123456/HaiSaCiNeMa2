@@ -1,8 +1,5 @@
 package com.DTO;
 
-import com.Entity.Feedback;
-import com.fasterxml.jackson.databind.ObjectMapper;
-
 public class FeedbackDTO {
 	private Integer responseId;
 	private String email;
@@ -32,12 +29,6 @@ public class FeedbackDTO {
 
 	private boolean isNull(Integer input) {
 		return input == null;
-	}
-
-	public Feedback convertToFeedback() {
-		ObjectMapper mapper = new ObjectMapper();
-		Feedback feedback = mapper.convertValue(this, Feedback.class);
-		return feedback;
 	}
 
 	public Integer getResponseId() {

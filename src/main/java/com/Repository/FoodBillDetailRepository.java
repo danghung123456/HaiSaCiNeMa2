@@ -14,4 +14,7 @@ public interface FoodBillDetailRepository extends JpaRepository<FoodBillDetail, 
 	Double getTotalFood(Integer id);
 	
 	List<FoodBillDetail> findAllByTicketTicketId(Integer id);
+	
+	List<FoodBillDetail> findByTicketTicketId(Integer ticketId);
+	
 }

@@ -1,4 +1,4 @@
-package com.DTO;
+package com.DTO.view;
 
 public class TotalMemberFeedbackMovieTicket {
 	

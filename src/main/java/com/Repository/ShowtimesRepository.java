@@ -8,6 +8,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import com.DTO.view.ShowtimePeriodDTO;
+import com.Entity.Employee;
 import com.Entity.Movie;
 import com.Entity.Period;
 import com.Entity.Showtimes;
@@ -34,4 +36,11 @@ public interface ShowtimesRepository extends JpaRepository<Showtimes, Integer> {
 			+ "FROM Showtimes s "
 			+ "WHERE s.date BETWEEN :startDate AND :endDate ")
 	List<Showtimes> findShowtimeByNextDate(Date startDate, Date endDate);
+	
+	@Query(value = "SELECT s "
+			+ "FROM Showtimes s "
+			+ "WHERE s.room.cinema.cinemaId = :id ")
+	List<Showtimes> getShowtimesByCinema(Integer id);
+	
+	
 }

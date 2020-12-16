@@ -13,6 +13,9 @@ public interface RoomRepository extends JpaRepository<Room, Integer> {
 	@Query(value = "FROM Room r WHERE r.roomName LIKE %:name% ")
 	List<Room> findByRoomName(String name);
 	
+	@Query(value ="FROM Room r WHERE r.cinema.cinemaId = :cinemaId ")
+	List<Room> getRoomByCinema(Integer cinemaId);
+	
 }
 
 

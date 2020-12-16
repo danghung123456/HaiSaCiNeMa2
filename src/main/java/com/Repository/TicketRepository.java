@@ -18,5 +18,12 @@ public interface TicketRepository extends JpaRepository<Ticket, Integer> {
 
 	@Query(value = "SELECT COUNT(t.ticketQuantity) FROM Ticket t")
 	Integer totalTicket();
+
+	@Query(value = "SELECT t FROM Ticket t WHERE t.showtimes.room.cinema.cinemaId = :cinemaId ")
+	List<Ticket> getTicketByCinema(Integer cinemaId);
 	
+	@Query(value = "SELECT t FROM Ticket t WHERE t.showtimes.room.cinema.cinemaId = :id  AND t.member.memberName LIKE %:name% ")
+	List<Ticket> getTicketByName(Integer id,String name);
+
+
 }

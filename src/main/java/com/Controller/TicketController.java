@@ -71,6 +71,21 @@ public class TicketController {
 		} else {
 			ticketDTO.setTicketId(null);
 			Ticket ticket = ticketService.converToTicket(ticketDTO);
+			
+			double totalTicket = ticket.getShowtimes().getPeriod().getPrice() * ticket.getTicketQuantity();
+			double totalFood = 0;
+			List<FoodBillDetailDTO> listFoodBillDTO = ticketDTO.getListFoodBillDetail();
+			if (listFoodBillDTO != null) {
+				for (FoodBillDetailDTO foodBillDetail : listFoodBillDTO) {
+					Food food = foodService.findById(foodBillDetail.getFoodId()).orElse(null);
+					totalFood += food.getPrice() * foodBillDetail.getQuantity();
+				}
+			}
+			double total = totalTicket + totalFood;
+			ticket.setTicketPriceAmount(totalTicket);
+			ticket.setTotal(total);
+			System.out.println(totalTicket + " - " + totalFood + " - " + total);
+			
 			ticket = ticketService.save(ticket);
 			String code = ticketService.createCode(ticket.getTicketId(), ticket.getShowtimes().getShowtimeId());
 			ticket.setCode(code);
@@ -106,8 +121,8 @@ public class TicketController {
 
 			Member member = new Member();
 			member = memberService.findById(ticket.getMember().getMemberId()).orElse(null);
-			Double total = ticket.getTotal() + member.getTotalMoney();
-			member.setTotalMoney(total);
+			Double totalMoney = ticket.getTotal() + member.getTotalMoney();
+			member.setTotalMoney(totalMoney);
 			member = memberService.save(member);
 
 			ticket = ticketService.findById(ticket.getTicketId()).orElse(null);
@@ -115,10 +130,30 @@ public class TicketController {
 			System.out.println(ticket.getCode());
 			String filePath = QR_CODE_IMAGE_PATH + ticket.getTicketId() + ".png";
 			qRCodeService.generateQRCodeImage(ticket.getCode(), 200, 200, filePath);
-			emailService.sendMail(member.getUser().getEmail(), "Đặt vé thành công",null, emailService.setTextTicket(ticket, filePath));
-
+			emailService.sendMail(member.getUser().getEmail(), "Đặt vé thành công", null,
+					emailService.setTextTicket(ticket, filePath));
 
 			return ResponseEntity.body(ticket);
+		}
+	}
+
+	@GetMapping("/getticketbycinema")
+	public ResponseEntity<Object> getTicketByCinema(Integer id) {
+		if (id == null) {
+			return ResponseEntity.body(Constant.BAD_REQUEST);
+		} else {
+			List<Ticket> listTicket = ticketService.getTicketByCinema(id);
+			return ResponseEntity.body(listTicket);
+		}
+	}
+
+	@GetMapping("/findbyname")
+	public ResponseEntity<Object> getTicketByMemberName(Integer id, String name) {
+		if (id == null || name == null) {
+			return ResponseEntity.body(Constant.BAD_REQUEST);
+		} else {
+			List<Ticket> listTicket = ticketService.getTicketByName(id, name);
+			return ResponseEntity.body(listTicket);
 		}
 	}
 
@@ -131,6 +166,20 @@ public class TicketController {
 			if (optionalTicket.isPresent()) {
 				Ticket ticket = optionalTicket.orElse(null);
 				return ResponseEntity.body(ticket);
+			} else {
+				return ResponseEntity.body(Constant.NOT_FOUND);
+			}
+		}
+	}
+	
+	@GetMapping("/findfoodbyid")
+	public ResponseEntity<Object> findFoodById(Integer ticketId) {
+		if (ticketId == null) {
+			return ResponseEntity.body(Constant.BAD_REQUEST);
+		} else {
+			List<FoodBillDetail> list = foodBillDetailService.getFoodBillDetailByTicketId(ticketId);
+			if (!list.isEmpty()) {
+				return ResponseEntity.body(list);
 			} else {
 				return ResponseEntity.body(Constant.NOT_FOUND);
 			}

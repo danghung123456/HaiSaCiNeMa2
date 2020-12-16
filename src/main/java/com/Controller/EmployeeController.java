@@ -63,10 +63,13 @@ public class EmployeeController {
 
 	@PostMapping(value = "/add")
 	public ResponseEntity<Object> addEmployee(@RequestBody EmployeeDTO employeeDTO) {
+		Optional<User> checkUser = userService.findByEmail(employeeDTO.getEmail());
 		if (employeeDTO.isNull(false)) {
 			return ResponseEntity.body(Constant.BAD_REQUEST);
+		}
+		if (checkUser.isPresent()) {
+			return ResponseEntity.body(Constant.Exception.MESSAGE);
 		} else {
-//	            Make sure id is NULL to insert Entity
 			User user = new User();
 			user.setEmail(employeeDTO.getEmail());
 			String password = passwordEncoder.encode(employeeDTO.getPassword());
@@ -85,15 +88,16 @@ public class EmployeeController {
 			return ResponseEntity.body(employeeService.add(employee));
 		}
 	}
+
 	@GetMapping("/getrole")
-	public ResponseEntity<Object> getRoleByEmployee(Integer employeeId){
+	public ResponseEntity<Object> getRoleByEmployee(Integer employeeId) {
 		Optional<Employee> checkEmployee = employeeService.findById(employeeId);
 		List<UserRole> listUserRole = checkEmployee.orElse(null).getUser().getUserRole();
 		List<Role> listRole = new ArrayList<Role>();
 		for (UserRole userRole : listUserRole) {
 			listRole.add(userRole.getRole());
 		}
-		return  ResponseEntity.body(listRole);
+		return ResponseEntity.body(listRole);
 	}
 
 	@PutMapping(value = "/update")
@@ -157,17 +161,26 @@ public class EmployeeController {
 	}
 
 	@GetMapping("/findbyname")
-	public ResponseEntity<Object> findByName(String name) {
+	public ResponseEntity<Object> findByName(String name, Integer status) {
 		if (name == null) {
 			return ResponseEntity.body(Constant.BAD_REQUEST);
 		} else {
-			List<Employee> listEmployee = employeeService.findByName(name);
-			if (listEmployee.isEmpty()) {
-				return ResponseEntity.body(Constant.NOT_FOUND);
+			if (status == null) {
+				return ResponseEntity.body(Constant.BAD_REQUEST);
 			} else {
-				return ResponseEntity.body(listEmployee);
+				List<Employee> listEmployee = employeeService.findByName(name, status);
+				if (listEmployee.isEmpty()) {
+					return ResponseEntity.body(Constant.NOT_FOUND);
+				} else {
+					return ResponseEntity.body(listEmployee);
+				}
 			}
 		}
+	}
+	@GetMapping("/getemployee")
+	public ResponseEntity<Employee> getEmployeeByEmail(String email) {
+		Employee employee = employeeService.getEmployeeByEmail(email);
+		return ResponseEntity.body(employee);
 	}
 
 }

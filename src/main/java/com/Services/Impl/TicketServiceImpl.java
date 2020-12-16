@@ -94,6 +94,17 @@ public class TicketServiceImpl implements TicketService {
 		return encodedString;
 	}
 
+	@Override
+	public List<Ticket> getTicketByCinema(Integer cinemaId) {
+		return repository.getTicketByCinema(cinemaId);
+	}
+
+	@Override
+	public List<Ticket> getTicketByName(Integer id, String name) {
+		return repository.getTicketByName(id,name);
+	}
+	
+
 	
 
 }
