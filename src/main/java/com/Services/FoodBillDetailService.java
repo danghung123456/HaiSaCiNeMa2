@@ -1,5 +1,8 @@
 package com.Services;
 
+import java.util.List;
+import java.util.Optional;
+
 import org.springframework.stereotype.Service;
 import com.Entity.FoodBillDetail;
 
@@ -25,4 +28,12 @@ public interface FoodBillDetailService {
 	 * @return entity FoodBillDetail
 	 */
 	Double getTotalFood(Integer ticketId);
+	
+	/**
+	 * Get list foodBillDetail  by Ticket's id
+	 * 
+	 * @return list entity FoodBillDetail
+	 */
+	List<FoodBillDetail> getFoodBillDetailByTicketId(Integer ticketId);
+	
 }
