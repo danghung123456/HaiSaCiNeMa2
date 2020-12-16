@@ -8,14 +8,14 @@ import java.util.Set;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
-<<<<<<< HEAD
-import org.springframework.http.ResponseEntity;
+
+
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-=======
+
 import org.springframework.http.HttpStatus;
->>>>>>> HaiDang
+
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -42,21 +42,7 @@ public class AuthenController {
 	@Autowired
 	private ViewService viewService;
 
-<<<<<<< HEAD
-	@PostMapping("/login")
-	public ResponseEntity<?> login(@RequestBody(required = false) Map<String, Object> payload) {
-//		logger.info("payload={}", payload.values());
-//		Set<String> set = payload.keySet();
-//		Object getRoleName = null;
-//		for(String key:set) {
-//			getRoleName = payload.get(key);
-//		}
-//		Object userName = payload.get("userName").toString();
-		logger.info("Authen: {}", SecurityContextHolder.getContext().getAuthentication());
-		Collection<?> authories = SecurityContextHolder.getContext().getAuthentication().getAuthorities();
-		return ResponseEntity.ok(authories);
 
-=======
 	@PostMapping(value = "/login")
 	public ResponseEntity<?> login(@RequestBody Map<String, Object> payload) {
 		Set<String> set = payload.keySet();
@@ -65,7 +51,7 @@ public class AuthenController {
 			email = (String) payload.get(key);
 		}
 		return ResponseEntity.bodyStatus(viewService.getRole(email), HttpStatus.OK);
->>>>>>> HaiDang
+
 	}
 
 	@PostMapping(value = "/changepassword")
