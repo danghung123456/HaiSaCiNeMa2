@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.DTO.ShowtimesDTO;
 import com.DTO.view.DatePeriodDTO;
+import com.DTO.view.RoomPeriordDTO;
 import com.DTO.view.ShowtimePeriodDTO;
 import com.DTO.view.ShowtimesMovieDTO;
 import com.Entity.Cinema;
@@ -117,18 +118,28 @@ public class ShowtimesServiceImpl implements ShowtimesService {
 			for (Date dateIndex : listDate) {
 				DatePeriodDTO periodDTO = new DatePeriodDTO();
 				periodDTO.setDate(dateIndex);
-				List<Showtimes> listShowtimes = repository.findPeriod(cinema.getCinemaId(), movieId, dateIndex);
-				List<ShowtimePeriodDTO> listPeriod = new ArrayList<>();
-				for (Showtimes showtime : listShowtimes) {
-					ShowtimePeriodDTO dtoSP = new ShowtimePeriodDTO();
-					dtoSP.setShowtimeId(showtime.getShowtimeId());
-					dtoSP.setPeriodId(showtime.getPeriod().getPeriodId());
-					dtoSP.setStatusDay(showtime.getPeriod().getStatusDay());
-					dtoSP.setPrice(showtime.getPeriod().getPrice());
-					dtoSP.setStartTime(showtime.getPeriod().getStartTime());
-					listPeriod.add(dtoSP);
+				
+				List<Integer> listRoom = repository.findRoomByCinemaMovieDate(cinema.getCinemaId(), movieId, dateIndex);
+				List<RoomPeriordDTO> listRoomPeriod = new ArrayList<>();
+				for (Integer roomId : listRoom) {
+					
+					RoomPeriordDTO roomPeriordDTO = new RoomPeriordDTO();
+					roomPeriordDTO.setRoom(roomRepository.findById(roomId).orElse(null));
+					List<Showtimes> listShowtimes = repository.findPeriod(cinema.getCinemaId(), movieId, dateIndex, roomId);
+					List<ShowtimePeriodDTO> listPeriod = new ArrayList<>();
+					for (Showtimes showtime : listShowtimes) {
+						ShowtimePeriodDTO dtoSP = new ShowtimePeriodDTO();
+						dtoSP.setShowtimeId(showtime.getShowtimeId());
+						dtoSP.setPeriodId(showtime.getPeriod().getPeriodId());
+						dtoSP.setStatusDay(showtime.getPeriod().getStatusDay());
+						dtoSP.setPrice(showtime.getPeriod().getPrice());
+						dtoSP.setStartTime(showtime.getPeriod().getStartTime());
+						listPeriod.add(dtoSP);
+					}
+					roomPeriordDTO.setPeriods(listPeriod);
+					listRoomPeriod.add(roomPeriordDTO);
 				}
-				periodDTO.setPeriods(listPeriod);
+				periodDTO.setRooms(listRoomPeriod);
 				listPeriodDTO.add(periodDTO);
 			}
 			dto.setPeriods(listPeriodDTO);
