@@ -203,8 +203,8 @@ public class MovieController {
 			Movie movie = movieService.findById(top.getmovieId()).orElse(null);
 			listMovie.add(movie);
 		}
-		int count = 5;
-		if (listMovie.size() < 5) {
+		int count = 4;
+		if (listMovie.size() < 4) {
 			count = listMovie.size();
 		}
 		for (int i = 0; i < count; i++) {
@@ -223,8 +223,8 @@ public class MovieController {
 			Movie movie = movieService.findById(top.getmovieId()).orElse(null);
 			listMovie.add(movie);
 		}
-		int count = 5;
-		if (listMovie.size() < 5) {
+		int count = 4;
+		if (listMovie.size() < 4) {
 			count = listMovie.size();
 		}
 		for (int i = 0; i < count; i++) {
