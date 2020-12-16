@@ -1,12 +1,21 @@
 package com.Controller;
 
+import java.util.Collection;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
+
+
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+
 import org.springframework.http.HttpStatus;
+
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -33,6 +42,7 @@ public class AuthenController {
 	@Autowired
 	private ViewService viewService;
 
+
 	@PostMapping(value = "/login")
 	public ResponseEntity<?> login(@RequestBody Map<String, Object> payload) {
 		Set<String> set = payload.keySet();
@@ -41,6 +51,7 @@ public class AuthenController {
 			email = (String) payload.get(key);
 		}
 		return ResponseEntity.bodyStatus(viewService.getRole(email), HttpStatus.OK);
+
 	}
 
 	@PostMapping(value = "/changepassword")
