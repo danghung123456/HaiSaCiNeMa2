@@ -29,4 +29,7 @@ public interface MovieRepository extends JpaRepository<Movie, Integer> {
 			+ "GROUP BY s.movie.movieId")
 	List<Integer> findMovieByNextDay(Date startDate, Date endDate);
 	
+	@Query(value = "SELECT m FROM Movie m WHERE m.movieName LIKE %:name% ")
+	List<Movie> findByMovieName(String name);
+	
 }

@@ -73,5 +73,10 @@ public interface MovieService {
 	 * @return void
 	 */
 	void updateMovieStatus();
-
+	/**
+	 * Find all entity Movie with the same name(movieName)
+	 * 
+	 * @return List<Movie>
+	 */
+	List<Movie> findByMovieName(String name);
 }

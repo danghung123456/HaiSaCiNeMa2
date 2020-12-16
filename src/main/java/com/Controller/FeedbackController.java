@@ -44,7 +44,7 @@ public class FeedbackController {
 	            try {
 	            	emailService.sendMail(feedback.getEmail(), "noreply", "Cảm ơn quý khách đã phản hồi ",null);
 	            } catch (Exception e) {
-	            	return ResponseEntity.body(Constant.ERR);
+	            	return ResponseEntity.body(Constant.SENDING_ERR);
 				}
 	            return ResponseEntity.body(feedbackService.add(feedback));
 	        }

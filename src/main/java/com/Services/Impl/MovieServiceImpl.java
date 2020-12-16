@@ -95,4 +95,9 @@ public class MovieServiceImpl implements MovieService {
 		});
 	}
 
+	@Override
+	public List<Movie> findByMovieName(String name) {
+		return repository.findByMovieName(name);
+	}
+
 }

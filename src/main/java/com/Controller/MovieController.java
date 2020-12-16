@@ -180,6 +180,19 @@ public class MovieController {
 			}
 		}
 	}
+	@GetMapping(value ="/findbymoviename")
+	public ResponseEntity<Object> findByMovieName(String name){
+		if (name ==null) {
+			return ResponseEntity.body(Constant.BAD_REQUEST);
+		} else {
+			List<Movie> listMovie = movieService.findByMovieName(name);
+			if (listMovie.isEmpty()) {
+				return ResponseEntity.body(Constant.NOT_FOUND);
+			} else {
+				return ResponseEntity.body(listMovie);
+			}
+		}
+	}
 
 	@GetMapping(value= "/movieofweek")
 	public ResponseEntity<Object> findMovieOfWeek() {

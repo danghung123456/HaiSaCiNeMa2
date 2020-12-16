@@ -10,7 +10,6 @@ import com.google.zxing.WriterException;
 @Service
 public interface QRCodeService {
 
-	
 	void generateQRCodeImage(String text, int width, int height, String filePath) throws Exception;
 	
 }
