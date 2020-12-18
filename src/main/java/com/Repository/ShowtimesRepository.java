@@ -29,8 +29,11 @@ public interface ShowtimesRepository extends JpaRepository<Showtimes, Integer> {
 	@Query(value = "SELECT s.date FROM Showtimes s WHERE s.movie.movieId = :movieId AND s.room.cinema.cinemaId = :cinemaId AND s.status = 1 GROUP BY s.date ")
 	List<Date> findDateByCinemaMovie(Integer cinemaId, Integer movieId);
 
-	@Query(value = "SELECT s FROM Showtimes s WHERE s.movie.movieId = :movieId AND s.room.cinema.cinemaId = :cinemaId AND s.date = :date AND s.status = 1")
-	List<Showtimes> findPeriod(Integer cinemaId, Integer movieId, Date date);
+	@Query(value = "SELECT s.room.roomId FROM Showtimes s WHERE s.movie.movieId = :movieId AND s.room.cinema.cinemaId = :cinemaId AND s.status = 1 AND s.date = :date GROUP BY s.room.roomId")
+	List<Integer> findRoomByCinemaMovieDate(Integer cinemaId, Integer movieId, Date date);
+	
+	@Query(value = "SELECT s FROM Showtimes s WHERE s.movie.movieId = :movieId AND s.room.cinema.cinemaId = :cinemaId AND s.date = :date AND s.status = 1 AND s.room.roomId = :roomId")
+	List<Showtimes> findPeriod(Integer cinemaId, Integer movieId, Date date, Integer roomId);
 
 	@Query(value ="SELECT s "
 			+ "FROM Showtimes s "

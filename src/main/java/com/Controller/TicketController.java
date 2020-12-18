@@ -64,6 +64,22 @@ public class TicketController {
 		return ResponseEntity.body(ticketService.getAll());
 	}
 
+	@PostMapping(value = "/checkprice")
+	public ResponseEntity<Object> checkTicket(@RequestBody TicketDTO ticketDTO){
+		Ticket ticket = ticketService.converToTicket(ticketDTO);
+		double totalTicket = ticket.getShowtimes().getPeriod().getPrice() * ticket.getTicketQuantity();
+		double totalFood = 0;
+		List<FoodBillDetailDTO> listFoodBillDTO = ticketDTO.getListFoodBillDetail();
+		if (listFoodBillDTO != null) {
+			for (FoodBillDetailDTO foodBillDetail : listFoodBillDTO) {
+				Food food = foodService.findById(foodBillDetail.getFoodId()).orElse(null);
+				totalFood += food.getPrice() * foodBillDetail.getQuantity();
+			}
+		}
+		double total = totalTicket + totalFood;
+		return  ResponseEntity.body(total);
+	}
+	
 	@PostMapping(value = "/book")
 	public ResponseEntity<Object> bookTicket(@RequestBody TicketDTO ticketDTO) throws Exception {
 		if (ticketDTO.isNull(false)) {
@@ -84,7 +100,6 @@ public class TicketController {
 			double total = totalTicket + totalFood;
 			ticket.setTicketPriceAmount(totalTicket);
 			ticket.setTotal(total);
-			System.out.println(totalTicket + " - " + totalFood + " - " + total);
 			
 			ticket = ticketService.save(ticket);
 			String code = ticketService.createCode(ticket.getTicketId(), ticket.getShowtimes().getShowtimeId());
