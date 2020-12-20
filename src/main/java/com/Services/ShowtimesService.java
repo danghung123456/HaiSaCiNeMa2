@@ -37,6 +37,13 @@ public interface ShowtimesService {
 	 * @return entity Showtimes
 	 */
 	Showtimes add(Showtimes showtimes);
+	
+	/**
+	 * Find an entity Showtimes by Date and PeriodId and RoomId
+	 * 
+	 *@return the entity with the ShowtimesId entered or Optional#empty() if none found
+	 */
+	Optional<Showtimes>  findShowtimeByRoomPeriodDate(Date date, Integer periodId, Integer roomId);
 
 	/**
 	 * Saves all entity Showtimes from list showtimes

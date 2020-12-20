@@ -1,5 +1,6 @@
 package com.Controller;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.Constant.Constant;
 import com.DTO.ShowtimesDTO;
 import com.DTO.Base.ResponseEntity;
+import com.DTO.view.DatePeriodDTO;
 import com.DTO.view.ShowtimePeriodDTO;
 import com.DTO.view.ShowtimesMovieDTO;
 import com.Entity.Employee;
@@ -63,9 +65,18 @@ public class ShowtimesController {
 			// Make sure id is NULL to insert Entity
 			showtimesDTO.setShowtimeId(null);
 			Showtimes showtimes = showtimesService.convert(showtimesDTO);
-			showtimesService.add(showtimes);
-			seatStatusService.add(showtimes);
-			return ResponseEntity.body(showtimes);
+			if (showtimesService.findShowtimeByRoomPeriodDate(showtimes.getDate(), showtimes.getPeriod().getPeriodId(), showtimes.getRoom().getRoomId()).orElse(null) == null) {
+				Date date = new Date();
+				if (date.getTime() > showtimes.getDate().getTime()) {
+					return ResponseEntity.body(Constant.ERR);
+				} else {
+					showtimesService.add(showtimes);
+					seatStatusService.add(showtimes);
+				}
+				return ResponseEntity.body(showtimes);
+			} else {
+				return ResponseEntity.body(Constant.Exception.MESSAGE);
+			}
 		}
 	}
 
@@ -75,9 +86,15 @@ public class ShowtimesController {
 			return ResponseEntity.body(Constant.BAD_REQUEST);
 		} else {
 			Optional<Showtimes> checkShowtimes = showtimesService.findById(showtimesDTO.getShowtimeId());
+			Date date = new Date();
 			if (checkShowtimes.isPresent()) {
-				Showtimes showtimes = showtimesService.convert(showtimesDTO);
-				return ResponseEntity.body(showtimesService.save(showtimes));
+				if (checkShowtimes.orElse(null).getDate().getTime() < date.getTime() ||  
+						showtimesDTO.getDate().getTime() < date.getTime()) {
+					return ResponseEntity.body(Constant.ERR);
+				} else {
+					Showtimes showtimes = showtimesService.convert(showtimesDTO);
+					return ResponseEntity.body(showtimesService.save(showtimes));
+				}
 			} else {
 				return ResponseEntity.body(Constant.NOT_FOUND);
 			}
@@ -115,7 +132,6 @@ public class ShowtimesController {
 			}
 		}
 	}
-
 
 	@GetMapping("/getshowtimesbymovieid")
 	public ResponseEntity<Object> getShowtimes(Integer id) {
