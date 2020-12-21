@@ -148,11 +148,11 @@ public class ShowtimesController {
 	}
 
 	@GetMapping("/findbyname")
-	public ResponseEntity<Object> findByName(String name) {
+	public ResponseEntity<Object> findByName(String name, Integer status) {
 		if (name == null) {
 			return ResponseEntity.body(Constant.BAD_REQUEST);
 		} else {
-			List<Showtimes> listShowtimes = showtimesService.getShowtimesByMovieName(name);
+			List<Showtimes> listShowtimes = showtimesService.getShowtimesByMovieName(name, status);
 			if (listShowtimes.isEmpty()) {
 				return ResponseEntity.body(Constant.NOT_FOUND);
 			} else {
