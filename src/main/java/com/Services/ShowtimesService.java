@@ -91,12 +91,20 @@ public interface ShowtimesService {
 	void updateShowtimeByPreviousDate();
 
 	/**
-	 * Find all entity Showtimes by cinemaId of entity Cinema
+	 * Find all entity Showtimes by cinemaId of entity Showtimes
 	 * 
-	 * @param cinemaId of entity Cinema
+	 * @param cinemaId of entity Showtimes
 	 * @return List<Showtimes>
 	 */
 	List<Showtimes> getShowtimesByCinema(Integer id);
 
+
+	/**
+	 * Find all entity Showtimes by Movie name of entity Showtimes
+	 * 
+	 * @param cinemaId of entity Showtimes
+	 * @return List<Showtimes>
+	 */
+	List<Showtimes> getShowtimesByMovieName(String name);
 
 }

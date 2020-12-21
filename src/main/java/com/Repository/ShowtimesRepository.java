@@ -50,6 +50,8 @@ public interface ShowtimesRepository extends JpaRepository<Showtimes, Integer> {
 			+ "WHERE s.room.cinema.cinemaId = :id ")
 	List<Showtimes> getShowtimesByCinema(Integer id);
 	
+	@Query(value = "SELECT s FROM Showtimes s WHERE s.movie.movieName like %:name% ")
+	List<Showtimes> getShowtimesByMovieName(String name);
 	
 	
 	

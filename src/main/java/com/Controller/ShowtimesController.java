@@ -22,6 +22,7 @@ import com.DTO.view.DatePeriodDTO;
 import com.DTO.view.ShowtimePeriodDTO;
 import com.DTO.view.ShowtimesMovieDTO;
 import com.Entity.Employee;
+import com.Entity.Member;
 import com.Entity.Period;
 import com.Entity.Showtimes;
 import com.Services.SeatStatusService;
@@ -146,6 +147,20 @@ public class ShowtimesController {
 		}
 	}
 
+	@GetMapping("/findbyname")
+	public ResponseEntity<Object> findByName(String name) {
+		if (name == null) {
+			return ResponseEntity.body(Constant.BAD_REQUEST);
+		} else {
+			List<Showtimes> listShowtimes = showtimesService.getShowtimesByMovieName(name);
+			if (listShowtimes.isEmpty()) {
+				return ResponseEntity.body(Constant.NOT_FOUND);
+			} else {
+				return ResponseEntity.body(listShowtimes);
+			}
+		}
+	}
+	
 	@Scheduled(cron = "0 0 1 ? * *")
 	public void updateShowtimeStatus() {
 		showtimesService.updateShowtimeByPreviousDate();
