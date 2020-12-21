@@ -64,7 +64,7 @@ public class TicketController {
 		return ResponseEntity.body(ticketService.getAll());
 	}
 
-	@PostMapping(value = "/checkprice")
+	@PostMapping(value = "/checkticket")
 	public ResponseEntity<Object> checkTicket(@RequestBody TicketDTO ticketDTO){
 		Ticket ticket = ticketService.converToTicket(ticketDTO);
 		double totalTicket = ticket.getShowtimes().getPeriod().getPrice() * ticket.getTicketQuantity();
@@ -77,6 +77,13 @@ public class TicketController {
 			}
 		}
 		double total = totalTicket + totalFood;
+		List<SeatStatusDTO> listSeatStatusDTO = ticketDTO.getListSeatStatus();
+		for (SeatStatusDTO seatStatusDTO : listSeatStatusDTO) {
+			SeatStatus seatStatus = seatStatusService.findById(seatStatusDTO.getSeatStatusId()).orElse(null);
+			if (seatStatus.getStatus() == true) {
+				return ResponseEntity.body(Constant.Exception.MESSAGE);
+			}
+		}
 		return  ResponseEntity.body(total);
 	}
 	
@@ -88,6 +95,14 @@ public class TicketController {
 			ticketDTO.setTicketId(null);
 			Ticket ticket = ticketService.converToTicket(ticketDTO);
 			
+			List<SeatStatusDTO> listSeatStatusDTO = ticketDTO.getListSeatStatus();
+			for (SeatStatusDTO seatStatusDTO : listSeatStatusDTO) {
+				SeatStatus seatStatus = seatStatusService.findById(seatStatusDTO.getSeatStatusId()).orElse(null);
+				if (seatStatus.getStatus() == true) {
+					return ResponseEntity.body(Constant.Exception.MESSAGE);
+				}
+			}
+			
 			double totalTicket = ticket.getShowtimes().getPeriod().getPrice() * ticket.getTicketQuantity();
 			double totalFood = 0;
 			List<FoodBillDetailDTO> listFoodBillDTO = ticketDTO.getListFoodBillDetail();
@@ -97,6 +112,7 @@ public class TicketController {
 					totalFood += food.getPrice() * foodBillDetail.getQuantity();
 				}
 			}
+			
 			double total = totalTicket + totalFood;
 			ticket.setTicketPriceAmount(totalTicket);
 			ticket.setTotal(total);
@@ -108,7 +124,6 @@ public class TicketController {
 
 			List<SeatDTO> listSeat = ticketDTO.getListSeat();
 			List<FoodBillDetailDTO> listFoodBillDetailDTO = ticketDTO.getListFoodBillDetail();
-			List<SeatStatusDTO> listSeatStatusDTO = ticketDTO.getListSeatStatus();
 
 			for (SeatDTO seatDTO : listSeat) {
 				Seat seat = seatService.findById(seatDTO.getSeatId()).orElse(null);

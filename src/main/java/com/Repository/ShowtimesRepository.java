@@ -22,6 +22,11 @@ public interface ShowtimesRepository extends JpaRepository<Showtimes, Integer> {
 
 	@Query("FROM  Showtimes s WHERE s.showtimeId = :id AND s.status = 1")
 	Optional<Showtimes> findByShowtimesId(Integer id);
+	
+	@Query(value ="SELECT s "
+			+ "FROM Showtimes s "
+			+ "WHERE s.date = :date AND  s.room.roomId = :roomId AND s.period.periodId = :periodId")
+	Optional<Showtimes> findShowtimeByRoomPeriodDate(Date date, Integer periodId, Integer roomId);
 
 	@Query(value = "SELECT s.room.cinema.cinemaId FROM Showtimes s WHERE s.movie.movieId = :movieId AND s.status = 1 GROUP BY s.room.cinema.cinemaId ")
 	List<Integer> findCinemaByMovieId(Integer movieId);
@@ -44,6 +49,8 @@ public interface ShowtimesRepository extends JpaRepository<Showtimes, Integer> {
 			+ "FROM Showtimes s "
 			+ "WHERE s.room.cinema.cinemaId = :id ")
 	List<Showtimes> getShowtimesByCinema(Integer id);
+	
+	
 	
 	
 }

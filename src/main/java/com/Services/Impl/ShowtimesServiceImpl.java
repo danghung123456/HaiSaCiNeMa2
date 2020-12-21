@@ -165,5 +165,10 @@ public class ShowtimesServiceImpl implements ShowtimesService {
 		return repository.getShowtimesByCinema(id);
 	}
 
+	@Override
+	public Optional<Showtimes> findShowtimeByRoomPeriodDate(Date date, Integer periodId, Integer roomId) {
+		return repository.findShowtimeByRoomPeriodDate(date, periodId, roomId);
+	}
+
 
 }
