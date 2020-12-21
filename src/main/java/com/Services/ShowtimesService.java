@@ -105,6 +105,6 @@ public interface ShowtimesService {
 	 * @param cinemaId of entity Showtimes
 	 * @return List<Showtimes>
 	 */
-	List<Showtimes> getShowtimesByMovieName(String name);
+	List<Showtimes> getShowtimesByMovieName(String name, Integer status);
 
 }

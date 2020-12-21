@@ -171,9 +171,8 @@ public class ShowtimesServiceImpl implements ShowtimesService {
 	}
 
 	@Override
-	public List<Showtimes> getShowtimesByMovieName(String name) {
-
-		return repository.getShowtimesByMovieName(name);
+	public List<Showtimes> getShowtimesByMovieName(String name, Integer status) {
+		return repository.getShowtimesByMovieName(name, status);
 	}
 
 
