@@ -64,7 +64,7 @@ public class TicketController {
 		return ResponseEntity.body(ticketService.getAll());
 	}
 
-	@PostMapping(value = "/checkprice")
+	@PostMapping(value = "/checkticket")
 	public ResponseEntity<Object> checkTicket(@RequestBody TicketDTO ticketDTO){
 		Ticket ticket = ticketService.converToTicket(ticketDTO);
 		double totalTicket = ticket.getShowtimes().getPeriod().getPrice() * ticket.getTicketQuantity();
@@ -77,6 +77,13 @@ public class TicketController {
 			}
 		}
 		double total = totalTicket + totalFood;
+		List<SeatStatusDTO> listSeatStatusDTO = ticketDTO.getListSeatStatus();
+		for (SeatStatusDTO seatStatusDTO : listSeatStatusDTO) {
+			SeatStatus seatStatus = seatStatusService.findById(seatStatusDTO.getSeatStatusId()).orElse(null);
+			if (seatStatus.getStatus() == true) {
+				return ResponseEntity.body(Constant.Exception.MESSAGE);
+			}
+		}
 		return  ResponseEntity.body(total);
 	}
 	
