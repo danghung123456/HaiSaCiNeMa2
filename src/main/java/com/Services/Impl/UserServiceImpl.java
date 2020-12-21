@@ -1,6 +1,5 @@
 package com.Services.Impl;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -11,11 +10,8 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.Entity.Employee;
 import com.Entity.User;
-import com.Repository.EmployeeRepository;
 import com.Repository.UserRepository;
-import com.Services.EmployeeService;
 import com.Services.UserService;
 
 @Service
@@ -56,5 +52,10 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 		return repository.checkUserByEmail(email);
 	}
 
-	
+	@Override
+	public List<String> getAllEmail() {
+		return repository.findAllEmail();
+	}
+
+
 }

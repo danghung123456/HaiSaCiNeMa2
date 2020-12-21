@@ -53,7 +53,7 @@ public class MovieController {
 		return ResponseEntity.body(movieService.getAll());
 	}
 
-	@GetMapping("/getgenre")
+	@GetMapping(value = "/getgenre")
 	public ResponseEntity<Object> getGenreByMovieId(Integer id) {
 		if (id == null) {
 			return ResponseEntity.body(Constant.BAD_REQUEST);
@@ -148,7 +148,7 @@ public class MovieController {
 		}
 	}
 
-	@GetMapping("/findbyid")
+	@GetMapping(value = "/findbyid")
 	public ResponseEntity<Object> findById(Integer id) {
 		if (id == null) {
 			return ResponseEntity.body(Constant.BAD_REQUEST);
@@ -163,12 +163,36 @@ public class MovieController {
 		}
 	}
 
-	@GetMapping("/findbyname")
-	public ResponseEntity<Object> findByName(String name) {
+	@GetMapping(value = "/findbyname")
+	public ResponseEntity<Object> findByName(String name, Integer status) {
 		if (name == null) {
 			return ResponseEntity.body(Constant.BAD_REQUEST);
 		} else {
-			List<Movie> listMovie = movieService.findByName(name);
+			if (status == null) {
+				return ResponseEntity.body(Constant.BAD_REQUEST);
+			} else {
+				List<Movie> listMovie = movieService.findByName(name, status);
+				if (listMovie.isEmpty()) {
+					return ResponseEntity.body(Constant.NOT_FOUND);
+				} else {
+					return ResponseEntity.body(listMovie);
+				}
+			}
+		}
+	}
+
+	@GetMapping(value = "/getall")
+	public ResponseEntity<Object> getAll() {
+		List<Movie> listMovie = movieService.getAll();
+		return ResponseEntity.body(listMovie);
+	}
+
+	@GetMapping(value = "/findbymoviename")
+	public ResponseEntity<Object> findByMovieName(String name) {
+		if (name == null) {
+			return ResponseEntity.body(Constant.BAD_REQUEST);
+		} else {
+			List<Movie> listMovie = movieService.findByMovieName(name);
 			if (listMovie.isEmpty()) {
 				return ResponseEntity.body(Constant.NOT_FOUND);
 			} else {
@@ -177,7 +201,7 @@ public class MovieController {
 		}
 	}
 
-	@GetMapping("/movieofweek")
+	@GetMapping(value = "/movieofweek")
 	public ResponseEntity<Object> findMovieOfWeek() {
 		List<TopMovieView> listTopMovie = viewService.getMovieOfWeek();
 		List<Movie> listMovie = new ArrayList<>();
@@ -186,8 +210,8 @@ public class MovieController {
 			Movie movie = movieService.findById(top.getmovieId()).orElse(null);
 			listMovie.add(movie);
 		}
-		int count = 5;
-		if (listMovie.size() < 5) {
+		int count = 4;
+		if (listMovie.size() < 4) {
 			count = listMovie.size();
 		}
 		for (int i = 0; i < count; i++) {
@@ -197,7 +221,7 @@ public class MovieController {
 		return ResponseEntity.body(listMovieTop5);
 	}
 
-	@GetMapping("/movieofmonth")
+	@GetMapping(value = "/movieofmonth")
 	public ResponseEntity<Object> findMovieOfMonth() {
 		List<TopMovieView> listTopMovie = viewService.getMovieOfMonth();
 		List<Movie> listMovie = new ArrayList<>();
@@ -206,8 +230,8 @@ public class MovieController {
 			Movie movie = movieService.findById(top.getmovieId()).orElse(null);
 			listMovie.add(movie);
 		}
-		int count = 5;
-		if (listMovie.size() < 5) {
+		int count = 4;
+		if (listMovie.size() < 4) {
 			count = listMovie.size();
 		}
 		for (int i = 0; i < count; i++) {
@@ -217,8 +241,8 @@ public class MovieController {
 		return ResponseEntity.body(listMovieTop5);
 	}
 
-	@GetMapping("/findbygenre")
-	public ResponseEntity<Object> findAllByMovie(Integer id) {
+	@GetMapping(value = "/findbygenre")
+	public ResponseEntity<Object> findAllByGenre(Integer id) {
 		if (id == null) {
 			return ResponseEntity.body(Constant.BAD_REQUEST);
 		} else {

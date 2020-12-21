@@ -45,4 +45,9 @@ public class RoomServiceImpl implements RoomService {
 	public List<Room> getAll() {
 		return repository.findAll();
 	}
+
+	@Override
+	public List<Room> getRoomByCinema(Integer cinemaId) {
+		return repository.getRoomByCinema(cinemaId);
+	}
 }

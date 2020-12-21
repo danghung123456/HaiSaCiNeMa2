@@ -55,11 +55,6 @@ public class MemberServiceImpl implements MemberService {
 		return repository.saveAndFlush(member);
 	}
 
-//	@Override
-//	public String findEmailById(Integer id) {
-//		return repository.findEmailById(id);
-//	}
-
 	@Override
 	public Member convertToMember(MemberDTO memberDTO) {
 		Member member = new Member();
@@ -71,5 +66,10 @@ public class MemberServiceImpl implements MemberService {
 		member.setPhone(memberDTO.getPhone());
 		member.setTotalMoney(memberDTO.getTotalMoney());
 		return member;
+	}
+
+	@Override
+	public Member getMemberByEmail(String email) {
+		return repository.getMemberByEmail(email);
 	}
 }

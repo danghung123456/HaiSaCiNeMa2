@@ -35,10 +35,62 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception {
 		http.cors();
 		http.csrf().disable().authorizeRequests()
-				.antMatchers("/member/**").hasRole("ADMIN") 
+				.antMatchers("/member").hasAnyRole("ADMIN","STAFF")
+				.antMatchers("/member/add").permitAll()
+				.antMatchers("/member/update").permitAll()
+				.antMatchers("/member/getcodeverify").permitAll()
+				.antMatchers("/member/getmemberbyemail").hasAnyRole("ADMIN","USER","STAFF")
+				.antMatchers("/member/**").hasRole("ADMIN")
+				
+				.antMatchers("/employee").hasAnyRole("ADMIN","STAFF")
+				.antMatchers("/employee/getrole").hasAnyRole("ADMIN","STAFF")
+				.antMatchers("/employee/{status}").hasAnyRole("ADMIN","STAFF")
 				.antMatchers("/employee/**").hasRole("ADMIN")
+				
+				.antMatchers("/movie/getgenre").hasAnyRole("ADMIN","STAFF")
+				.antMatchers("/movie").hasAnyRole("ADMIN","STAFF")
+				.antMatchers("/movie/{status}").permitAll()
+				.antMatchers("/movie/findbyid").permitAll()
+				.antMatchers("/movie/findbyname").permitAll()
+				.antMatchers("/movie/movieofweek").permitAll()
+				.antMatchers("/movie/movieofmonth").permitAll()
+				.antMatchers("/movie/findbygenre").permitAll()
+				.antMatchers("/movie/getmoviebyshowtime").permitAll()
+				.antMatchers("/movie/getgenre").permitAll()
+				.antMatchers("/movie/**").hasRole("ADMIN")
+				
+				.antMatchers("/ticket").hasAnyRole("ADMIN","STAFF")
+				.antMatchers("/ticket/getticketbycinemaa").hasAnyRole("ADMIN","STAFF")
 				.antMatchers("/ticket/**").hasAnyRole("ADMIN", "USER")
-				.antMatchers("/seat/**").hasAnyRole("STAFF", "USER")
+				
+				.antMatchers("/seat").hasAnyRole("ADMIN","STAFF")
+				.antMatchers("/seat/**").hasAnyRole("ADMIN","STAFF")	
+				
+				.antMatchers("/room").hasAnyRole("ADMIN","STAFF")
+				.antMatchers("/room/**").hasRole("ADMIN")
+				
+				.antMatchers("/seatstatus/**").permitAll()
+				
+				.antMatchers("/period").hasAnyRole("ADMIN","STAFF")
+				.antMatchers("/period/**").hasRole("ADMIN")
+				
+				.antMatchers("/genre").hasAnyRole("ADMIN","STAFF")
+				.antMatchers("/genre/**").hasRole("ADMIN")
+				
+				.antMatchers("/food").hasAnyRole("ADMIN","STAFF")
+				.antMatchers("/food/{status}").permitAll()
+				.antMatchers("/food/findbyname").permitAll()
+				.antMatchers("/food/**").hasRole("ADMIN")
+				
+				.antMatchers("/showtimes/{status}").permitAll()
+				.antMatchers("/showtimes/findbyid").permitAll()
+				.antMatchers("/showtimes/getshowtimesbycinema").permitAll()
+				.antMatchers("/showtimes/getshowtimesbymovieid").permitAll()
+				.antMatchers("/showtimes/**").hasRole("ADMIN")
+				
+				.antMatchers("/view/historytrans").permitAll()
+				.antMatchers("/view/**").hasAnyRole("ADMIN","STAFF")
+
 				.antMatchers("/login").authenticated() 
 				.antMatchers("/**").permitAll()
 				.and().httpBasic();

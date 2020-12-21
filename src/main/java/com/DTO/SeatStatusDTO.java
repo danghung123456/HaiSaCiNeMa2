@@ -39,18 +39,6 @@ public class SeatStatusDTO {
 		return input == null;
 	}
 
-	public SeatStatus convertToCinema() {
-		Showtimes showtimes = new Showtimes();
-		showtimes.setShowtimeId(this.getShowtimeId());
-		this.setShowtimes(showtimes);
-		Seat seat = new Seat();
-		seat.setSeatId(this.getSeatId());
-		this.setSeat(seat);
-		ObjectMapper mapper = new ObjectMapper();
-		SeatStatus seatStatus = mapper.convertValue(this, SeatStatus.class);
-		return seatStatus;
-	}
-
 	public Integer getSeatStatusId() {
 		return seatStatusId;
 	}

@@ -1,5 +1,6 @@
 package com.Repository;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -17,4 +18,7 @@ public interface UserRepository extends JpaRepository<User, Integer> {
 
 	@Query(value = "SELECT u FROM User u  WHERE u.email = :email ")
 	Optional<User> checkUserByEmail(String email);
+	
+	@Query(value = "SELECT u.email FROM User u")
+	List<String> findAllEmail();
 }

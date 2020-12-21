@@ -29,7 +29,6 @@ public class FoodBillDetailDTO {
 		this.quantity = quantity;
 		this.total = total;
 	}
-
 	public FoodBillDetail convertToFood() {
 		Ticket ticket = new Ticket();
 		ticket.setTicketId(this.getTicketId());
