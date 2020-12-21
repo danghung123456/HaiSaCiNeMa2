@@ -69,7 +69,11 @@ public interface TicketService {
 	 * @return List<Ticket>
 	 */
 	List<Ticket> getTicketByCinema(Integer cinemaId);
+	/**
+	 * The function that get entity Ticket by memberName of entity Member
+	 *
+	 * @return List<Ticket>
+	 */
+	List<Ticket> getTicketByName(Integer id,String name);
 	
-	
-
 }

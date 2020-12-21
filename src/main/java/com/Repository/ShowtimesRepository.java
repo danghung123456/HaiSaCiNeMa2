@@ -22,6 +22,11 @@ public interface ShowtimesRepository extends JpaRepository<Showtimes, Integer> {
 
 	@Query("FROM  Showtimes s WHERE s.showtimeId = :id AND s.status = 1")
 	Optional<Showtimes> findByShowtimesId(Integer id);
+	
+	@Query(value ="SELECT s "
+			+ "FROM Showtimes s "
+			+ "WHERE s.date = :date AND  s.room.roomId = :roomId AND s.period.periodId = :periodId")
+	Optional<Showtimes> findShowtimeByRoomPeriodDate(Date date, Integer periodId, Integer roomId);
 
 	@Query(value = "SELECT s.room.cinema.cinemaId FROM Showtimes s WHERE s.movie.movieId = :movieId AND s.status = 1 GROUP BY s.room.cinema.cinemaId ")
 	List<Integer> findCinemaByMovieId(Integer movieId);
@@ -29,8 +34,11 @@ public interface ShowtimesRepository extends JpaRepository<Showtimes, Integer> {
 	@Query(value = "SELECT s.date FROM Showtimes s WHERE s.movie.movieId = :movieId AND s.room.cinema.cinemaId = :cinemaId AND s.status = 1 GROUP BY s.date ")
 	List<Date> findDateByCinemaMovie(Integer cinemaId, Integer movieId);
 
-	@Query(value = "SELECT s FROM Showtimes s WHERE s.movie.movieId = :movieId AND s.room.cinema.cinemaId = :cinemaId AND s.date = :date AND s.status = 1")
-	List<Showtimes> findPeriod(Integer cinemaId, Integer movieId, Date date);
+	@Query(value = "SELECT s.room.roomId FROM Showtimes s WHERE s.movie.movieId = :movieId AND s.room.cinema.cinemaId = :cinemaId AND s.status = 1 AND s.date = :date GROUP BY s.room.roomId")
+	List<Integer> findRoomByCinemaMovieDate(Integer cinemaId, Integer movieId, Date date);
+	
+	@Query(value = "SELECT s FROM Showtimes s WHERE s.movie.movieId = :movieId AND s.room.cinema.cinemaId = :cinemaId AND s.date = :date AND s.status = 1 AND s.room.roomId = :roomId")
+	List<Showtimes> findPeriod(Integer cinemaId, Integer movieId, Date date, Integer roomId);
 
 	@Query(value ="SELECT s "
 			+ "FROM Showtimes s "
@@ -41,6 +49,10 @@ public interface ShowtimesRepository extends JpaRepository<Showtimes, Integer> {
 			+ "FROM Showtimes s "
 			+ "WHERE s.room.cinema.cinemaId = :id ")
 	List<Showtimes> getShowtimesByCinema(Integer id);
+	
+	@Query(value = "SELECT s FROM Showtimes s WHERE s.movie.movieName like %:name% ")
+	List<Showtimes> getShowtimesByMovieName(String name);
+	
 	
 	
 }

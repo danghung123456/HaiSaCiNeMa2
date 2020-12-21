@@ -3,6 +3,7 @@ package com.Services;
 import java.util.List;
 import org.springframework.stereotype.Service;
 
+import com.DTO.FeedbackDTO;
 import com.Entity.Feedback;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -48,6 +49,6 @@ public interface FeedbackService {
 	 * 
 	 * @return entity Feedback
 	 */
-	Feedback convertToFeedback();
+	Feedback convertToFeedback(FeedbackDTO dto);
 
 }

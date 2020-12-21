@@ -37,6 +37,13 @@ public interface ShowtimesService {
 	 * @return entity Showtimes
 	 */
 	Showtimes add(Showtimes showtimes);
+	
+	/**
+	 * Find an entity Showtimes by Date and PeriodId and RoomId
+	 * 
+	 *@return the entity with the ShowtimesId entered or Optional#empty() if none found
+	 */
+	Optional<Showtimes>  findShowtimeByRoomPeriodDate(Date date, Integer periodId, Integer roomId);
 
 	/**
 	 * Saves all entity Showtimes from list showtimes
@@ -84,12 +91,20 @@ public interface ShowtimesService {
 	void updateShowtimeByPreviousDate();
 
 	/**
-	 * Find all entity Showtimes by cinemaId of entity Cinema
+	 * Find all entity Showtimes by cinemaId of entity Showtimes
 	 * 
-	 * @param cinemaId of entity Cinema
+	 * @param cinemaId of entity Showtimes
 	 * @return List<Showtimes>
 	 */
 	List<Showtimes> getShowtimesByCinema(Integer id);
 
+
+	/**
+	 * Find all entity Showtimes by Movie name of entity Showtimes
+	 * 
+	 * @param cinemaId of entity Showtimes
+	 * @return List<Showtimes>
+	 */
+	List<Showtimes> getShowtimesByMovieName(String name);
 
 }

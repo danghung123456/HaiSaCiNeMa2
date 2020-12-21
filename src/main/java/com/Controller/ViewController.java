@@ -105,7 +105,6 @@ public class ViewController {
 		return ResponseEntity.body(viewService.getTotalMemberFeedbackMovieTicket());
 	}
 
-	// Lấy số lượng member, feedback, movie, ticket
 	@GetMapping("/cinemaShowtimeView")
 	public ResponseEntity<List<CinemaShowtimeViewDTO>> getCinemaShowtimeView() {
 		return ResponseEntity.body(viewService.getCinemaShowtimeView());

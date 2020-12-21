@@ -8,6 +8,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import com.DTO.FeedbackDTO;
 import com.Entity.Feedback;
 
 import com.Repository.FeedbackRepository;
@@ -52,9 +53,11 @@ public class FeedbackServiceImpl implements FeedbackService {
 	}
 
 	@Override
-	public Feedback convertToFeedback() {
-		ObjectMapper mapper = new ObjectMapper();
-		Feedback feedback = mapper.convertValue(this, Feedback.class);
+	public Feedback convertToFeedback(FeedbackDTO dto) {
+		Feedback feedback = new Feedback();
+		feedback.setEmail(dto.getEmail());
+		feedback.setContent(dto.getContent());
+		feedback.setPhone(dto.getPhone());
 		return feedback;
 	}
 
