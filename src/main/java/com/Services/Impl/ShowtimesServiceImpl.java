@@ -170,5 +170,11 @@ public class ShowtimesServiceImpl implements ShowtimesService {
 		return repository.findShowtimeByRoomPeriodDate(date, periodId, roomId);
 	}
 
+	@Override
+	public List<Showtimes> getShowtimesByMovieName(String name) {
+
+		return repository.getShowtimesByMovieName(name);
+	}
+
 
 }
