@@ -64,7 +64,7 @@ public class TicketController {
 		return ResponseEntity.body(ticketService.getAll());
 	}
 
-	@PostMapping(value = "/checkticket")
+	@PostMapping(value = "/checkprice")
 	public ResponseEntity<Object> checkTicket(@RequestBody TicketDTO ticketDTO){
 		Ticket ticket = ticketService.converToTicket(ticketDTO);
 		double totalTicket = ticket.getShowtimes().getPeriod().getPrice() * ticket.getTicketQuantity();
