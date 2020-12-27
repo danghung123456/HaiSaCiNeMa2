@@ -71,6 +71,8 @@ public class MemberController {
 
 			memberDTO.setMemberId(null);
 			Member member = memberService.convertToMember(memberDTO);
+			double total = 0;
+			member.setTotalMoney(total);
 			member.setUser(user);
 
 			return ResponseEntity.body(memberService.add(member));

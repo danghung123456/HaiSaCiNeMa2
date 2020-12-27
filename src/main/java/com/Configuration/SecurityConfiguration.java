@@ -88,7 +88,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 				.antMatchers("/showtimes/getshowtimesbymovieid").permitAll()
 				.antMatchers("/showtimes/**").hasRole("ADMIN")
 				
-				.antMatchers("/view/historytrans").permitAll()
+				.antMatchers("/view/historytrans").hasRole("USER")
 				.antMatchers("/view/**").hasAnyRole("ADMIN","STAFF")
 
 				.antMatchers("/login").authenticated() 
